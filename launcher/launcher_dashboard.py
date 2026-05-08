@@ -63,9 +63,19 @@ SERIES = [
         },
     },
     {
-        "id":    "F1",
+        "id":    "F1_2026",
         "label": "FORMULA 1 · 2026",
         "deck":  "F1 hybrid laps and races on the 2026 calendar — chasing real qualifying and pole times.",
+    },
+    {
+        "id":    "F1_2008",
+        "label": "FORMULA 1 · 2008",
+        "deck":  "Hamilton's title-decider season — McLaren MP4-23 vs Ferrari F2008 vs the rest of the 11-team grid. Recreate the moments that came down to one corner on the last lap.",
+    },
+    {
+        "id":    "SCHUMACHER",
+        "label": "SCHUMACHER · ICONIC RACES",
+        "deck":  "Recreations of Michael Schumacher's defining moments — debut at Spa '91, Tifosi roar at Monza, the Imola seven-time, Suzuka title clinch, F2004 at Montreal.",
     },
     {
         "id":    "SUPERGT",
@@ -105,7 +115,7 @@ CONFIGS = [
         },
         "specs": {
             "CAR":   "MERCEDES-AMG GT3 · #3 VERSTAPPEN",
-            "TRACK": "Nordschleife · 24h 2024 layout",
+            "TRACK": "Nordschleife · Endurance Cup",
             "GRID":  "16 cars · pole start",
             "LAPS":  "2 laps · AI 86–90",
         },
@@ -145,7 +155,7 @@ CONFIGS = [
         },
         "specs": {
             "CAR":   "MERCEDES-AMG GT3 · #3 VERSTAPPEN",
-            "TRACK": "Nordschleife · 24h 2024 layout",
+            "TRACK": "Nordschleife · Endurance Cup",
             "GRID":  "Solo · ghost on",
             "LAPS":  "Open · hotlap mode",
         },
@@ -181,12 +191,12 @@ CONFIGS = [
         },
         "benchmarks": {
             "refs": [
-                {"label": "Note", "time": "1-lap drill on 24h layout"},
+                {"label": "Last result", "time": "P1 vs Haase · 8 May 2026"},
             ],
         },
         "specs": {
             "CAR":   "MERCEDES-AMG GT3 · #3 VERSTAPPEN",
-            "TRACK": "Nordschleife · 24h 2024 layout",
+            "TRACK": "Nordschleife · Endurance Cup",
             "GRID":  "2 cars · head-to-head",
             "LAPS":  "1 lap · AI calibrated to Haase",
         },
@@ -215,9 +225,43 @@ CONFIGS = [
         ],
     },
     {
+        "id": "haase_1v1",
+        "type": "DUEL",
+        "type_label": "1v1 RACE",
+        "series": "NLS",
+        "tag": "1v1 · INVERTED · YOU = HAASE",
+        "title": "HAASE VS VERSTAPPEN",
+        "subtitle": "Inverted 1v1 · you drive the Audi #16",
+        "scenario": (
+            "The mirror image of the Verstappen vs Haase duel. This time YOU are "
+            "Christopher Haase in the Scherer Sport PHX Audi R8 GT3 LMS evo II "
+            "#16, and Max Verstappen's Mercedes-AMG GT3 #3 is the AI rival. "
+            "Same Nordschleife 24h layout, same one-lap sprint — different car, "
+            "different angle. See if you can hold off Max's Mercedes."
+        ),
+        "goal": "Beat Verstappen to the line. Defend on the long straights.",
+        "specs": {
+            "CAR":   "AUDI R8 GT3 · #16 HAASE",
+            "TRACK": "Nordschleife · 24h 2024 layout",
+            "GRID":  "2 cars · head-to-head",
+            "LAPS":  "1 lap · inverted duel",
+        },
+        "color_a": "#0a1d3d",
+        "color_b": "#1f3a5e",
+        "track_label": "NORDSCHLEIFE",
+        "launcher": "launch_haase_1v1.cmd",
+        "dashboard_rel": None,
+        "ac_car_id": "rss_gtm_aero_v10_evo2",
+        "ac_car_skin": "2025_N24H_SchererPhoenix_15",
+        "ac_rival_car_id": "rss_gtm_mercer_v8",
+        "ac_rival_car_skin": "2026 NLS Verstappen Racing #3",
+        "ac_track_id": "ks_nordschleife",
+        "ac_track_layout": "nordschleife_24hours_2024",
+    },
+    {
         "id": "canada_2026",
         "type": "RACE",
-        "series": "F1",
+        "series": "F1_2026",
         "tag": "F1 · CHARGE FROM THE BACK",
         "title": "CANADIAN GP 2026",
         "subtitle": "5-lap sprint · real 2026 F1 grid",
@@ -261,7 +305,7 @@ CONFIGS = [
     {
         "id": "hotlap_montreal",
         "type": "HOTLAP",
-        "series": "F1",
+        "series": "F1_2026",
         "tag": "F1 POLE-CHASE HOTLAP",
         "title": "MONTREAL HOTLAP",
         "subtitle": "Chasing Russell's 1:10.899 pole",
@@ -304,7 +348,7 @@ CONFIGS = [
     {
         "id": "canada_vrc",
         "type": "RACE",
-        "series": "F1",
+        "series": "F1_2026",
         "tag": "F1 · VRC GRID · CHARGE FROM THE BACK",
         "title": "CANADIAN GP · VRC GRID",
         "subtitle": "20-car real F1 grid · charge from P20",
@@ -340,7 +384,7 @@ CONFIGS = [
     {
         "id": "hotlap_canada_vrc",
         "type": "HOTLAP",
-        "series": "F1",
+        "series": "F1_2026",
         "tag": "F1 · VRC POLE-CHASE HOTLAP",
         "title": "CANADA POLE CHASE · VRC",
         "subtitle": "Solo · ghost on · pole-chase",
@@ -380,6 +424,344 @@ CONFIGS = [
         "ac_car_id": "vrc_formula_alpha_2025_csp",
         "ac_track_id": "montreal",
         "ac_track_layout": "montreal_f1_2025",
+    },
+    # ============================================================
+    # F1 2008 — Hamilton's title-decider season at Interlagos.
+    # 11 teams installed, full grid available.
+    # ============================================================
+    {
+        "id": "f1_2008_brazil_grid",
+        "type": "RACE",
+        "series": "F1_2008",
+        "tag": "TITLE DECIDER · 11-TEAM GRID",
+        "title": "INTERLAGOS 2008",
+        "subtitle": "Real 2008 grid · 5-lap sprint",
+        "scenario": (
+            "2 November 2008, the season finale. Massa needed to win and have "
+            "Hamilton finish lower than P5. Hamilton was on track to fifth — "
+            "until rain hit. He overtook Glock at turn 12 on the very last lap "
+            "to clinch the title by one point. You drive Hamilton's #22 "
+            "MP4-23 against the actual 11-team 2008 field: Ferrari, McLaren, "
+            "BMW Sauber, Renault, Toyota, Williams, Honda, Red Bull, Toro "
+            "Rosso, Force India and Super Aguri. Start at the back — climb."
+        ),
+        "goal": "Top 5 from the back. Stretch: P1, the Hamilton way.",
+        "setup": {
+            "trim":     "Race · low-DF Brazil trim",
+            "priority": "Top speed for the long uphill drag; Senna S commitment",
+            "key":      "Wing 5/5 · 30 L fuel · soft springs for the bumps",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Massa pole 2008",       "time": "1:12.368"},
+                {"label": "Hamilton race fastest", "time": "1:13.736"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4-23 · Hamilton #22",
+            "TRACK": "Interlagos · GP",
+            "GRID":  "20 cars · You start P20",
+            "LAPS":  "5 laps · AI 80–99",
+        },
+        "color_a": "#1c0c12",
+        "color_b": "#c8102e",
+        "track_label": "INTERLAGOS",
+        "launcher": "launch_f1_2008_brazil.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":      "cim_2008_mclaren",
+        "ac_car_skin":    "22_Hamilton",
+        "ac_track_id":    "vhe_interlagos",
+        "ac_track_layout": "gp",
+    },
+    {
+        "id": "hotlap_montreal_f2004",
+        "type": "HOTLAP",
+        "series": "SCHUMACHER",
+        "tag": "CANADIAN GP · F2004 V10",
+        "title": "MONTREAL · F2004",
+        "subtitle": "Ferrari F2004 · 2004 championship V10",
+        "scenario": (
+            "Solo against the clock at Circuit Gilles Villeneuve in the "
+            "Ferrari F2004 — Michael Schumacher's 2004 championship-winning "
+            "V10. Pure analog F1: no hybrid, no DRS, just 19,000 RPM and "
+            "you. First session 2026-05-09 set a 1:18.810 (theoretical "
+            "1:18.531) over 4 laps, default setup."
+        ),
+        "goal": "Crack 1:18. Then 1:17. The V10 still has more in it.",
+        "benchmarks": {
+            "you_section": "KS_FERRARI_F2004@MONTREAL-MONTREAL_F1_2025",
+            "you_label":   "Your PB",
+            "refs": [
+                {"label": "Theoretical (you)",  "time": "1:18.531"},
+            ],
+        },
+        "specs": {
+            "CAR":   "FERRARI F2004 · 2004 V10",
+            "TRACK": "Montreal · F1 2025 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#3a0608",
+        "color_b": "#c8102e",
+        "track_label": "MONTREAL",
+        "launcher": "launch_hotlap_montreal_f2004.cmd",
+        "dashboard_rel": "dashboard/montreal/dashboard.html",
+        "ac_car_id": "ks_ferrari_f2004",
+        "ac_track_id": "montreal",
+        "ac_track_layout": "montreal_f1_2025",
+    },
+    {
+        "id": "hotlap_spa_1991_debut",
+        "type": "HOTLAP",
+        "series": "SCHUMACHER",
+        "tag": "1991 BELGIAN GP · DEBUT",
+        "title": "SPA · 1991 DEBUT",
+        "subtitle": "Jordan 191 #32 · Schumacher's F1 debut",
+        "scenario": (
+            "Spa-Francorchamps in the Jordan 191 #32 livery — Schumacher's "
+            "actual F1 debut car at the 1991 Belgian GP. He qualified P7 on "
+            "his very first F1 weekend, then retired lap 1 with a clutch "
+            "failure. Benetton signed him before the next race. This is "
+            "where the legend started."
+        ),
+        "goal": "Lap clean. Crack 2:00. Then 1:55. Honour the Eau Rouge.",
+        "benchmarks": {
+            "you_section": "VRC_1991_JORDAN_191@SPA-LAYOUT_F1_2020",
+            "you_label":   "Your PB",
+            "refs": [],
+        },
+        "specs": {
+            "CAR":   "JORDAN 191 · #32 SCHUMACHER",
+            "TRACK": "Spa-Francorchamps · F1 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a2014",
+        "color_b": "#f4d300",
+        "track_label": "SPA",
+        "launcher": "launch_hotlap_spa_1991_debut.cmd",
+        "ac_car_id": "vrc_1991_jordan_191",
+        "ac_track_id": "spa",
+        "ac_track_layout": "layout_f1_2025",
+    },
+    {
+        "id": "hotlap_monza_schumacher",
+        "type": "HOTLAP",
+        "series": "SCHUMACHER",
+        "tag": "ITALIAN GP · TIFOSI MOMENT",
+        "title": "MONZA · TIFOSI",
+        "subtitle": "Ferrari F2001 · the Tifosi's roar",
+        "scenario": (
+            "Monza in the Ferrari F2001 with the special #3 Schumacher Monza "
+            "livery — the V10 era at full song. The Italian GP was Schumacher's "
+            "home race for the Tifosi, and Monza's long straights and Parabolica "
+            "reward the F2001's engine and brakes equally. No traction control "
+            "switching, no DRS. Just commitment."
+        ),
+        "goal": "Crack 1:25 in the F2001. Then 1:23. Then unleash the V10.",
+        "benchmarks": {
+            "you_section": "FERRARI_F2001@MONZA-MONZA_F1_2025",
+            "you_label":   "Your PB",
+            "refs": [],
+        },
+        "specs": {
+            "CAR":   "FERRARI F2001 · #3 SCHUMACHER MONZA",
+            "TRACK": "Monza · F1 2025 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#3a0608",
+        "color_b": "#c8102e",
+        "track_label": "MONZA",
+        "launcher": "launch_hotlap_monza_schumacher.cmd",
+        "ac_car_id": "ferrari_f2001",
+        "ac_track_id": "monza",
+        "ac_track_layout": "monza_f1_2025",
+    },
+    {
+        "id": "hotlap_imola_schumacher",
+        "type": "HOTLAP",
+        "series": "SCHUMACHER",
+        "tag": "SAN MARINO GP · 7 WINS",
+        "title": "IMOLA · 7-TIME KING",
+        "subtitle": "Ferrari F2001 · Schumacher's most-won track",
+        "scenario": (
+            "Imola in the Ferrari F2001. Schumacher won at Imola SEVEN times "
+            "in his career, more than at any other circuit. Tamburello, "
+            "Villeneuve, the Variante Alta — every corner carries Senna's "
+            "ghost and Schumacher's victories. The F2001 V10 is the soundtrack."
+        ),
+        "goal": "Crack 1:23 in the F2001. Then 1:21. Honour the seven wins.",
+        "benchmarks": {
+            "you_section": "FERRARI_F2001@IMOLA-IMOLA_F1_2022",
+            "you_label":   "Your PB",
+            "refs": [],
+        },
+        "specs": {
+            "CAR":   "FERRARI F2001 · #1 SCHUMACHER",
+            "TRACK": "Imola · F1 2022 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#3a0608",
+        "color_b": "#c8102e",
+        "track_label": "IMOLA",
+        "launcher": "launch_hotlap_imola_schumacher.cmd",
+        "ac_car_id": "ferrari_f2001",
+        "ac_track_id": "imola",
+        "ac_track_layout": "imola_f1_2022",
+    },
+    {
+        "id": "hotlap_suzuka_schumacher",
+        "type": "HOTLAP",
+        "series": "SCHUMACHER",
+        "tag": "JAPANESE GP · TITLE CLINCH",
+        "title": "SUZUKA · 2001 TITLE",
+        "subtitle": "Ferrari F2001 · 4th championship clinched",
+        "scenario": (
+            "Suzuka in the Ferrari F2001. The 2001 Japanese GP was where "
+            "Schumacher mathematically clinched his 4th World Championship "
+            "in dominant style — Ferrari's run was starting to feel "
+            "inevitable. The figure-eight layout rewards precision through "
+            "130R and the Esses; the F2001 V10 makes it sing."
+        ),
+        "goal": "Crack 1:35 in the F2001. Then 1:32. Then chase Senna.",
+        "benchmarks": {
+            "you_section": "FERRARI_F2001@RT_SUZUKA-SUZUKAGP",
+            "you_label":   "Your PB",
+            "refs": [],
+        },
+        "specs": {
+            "CAR":   "FERRARI F2001 · #1 SCHUMACHER",
+            "TRACK": "Suzuka · GP layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#3a0608",
+        "color_b": "#c8102e",
+        "track_label": "SUZUKA",
+        "launcher": "launch_hotlap_suzuka_schumacher.cmd",
+        "ac_car_id": "ferrari_f2001",
+        "ac_track_id": "rt_suzuka",
+        "ac_track_layout": "suzukagp",
+    },
+    {
+        "id": "duel_spa_1993_schumacher_berger",
+        "type": "DUEL",
+        "type_label": "1v1 RACE",
+        "series": "SCHUMACHER",
+        "tag": "1v1 · 1993 SEASON",
+        "title": "BENETTON vs FERRARI · '93",
+        "subtitle": "Schumacher's Benetton B193 vs Berger's Ferrari",
+        "scenario": (
+            "Schumacher's first full F1 season at Benetton. Spa's Eau Rouge "
+            "and Pouhon decide who carries momentum — the Benetton B193 "
+            "(Ford V8) against Berger's Ferrari F93A (V12). One lap to "
+            "settle who owns Belgium."
+        ),
+        "goal": "Beat Berger's Ferrari to La Source. Don't lose it at Eau Rouge.",
+        "specs": {
+            "CAR":   "BENETTON B193 · #5 SCHUMACHER",
+            "TRACK": "Spa · F1 2025 layout",
+            "GRID":  "2 cars · head-to-head",
+            "LAPS":  "1 lap · cross-team duel",
+        },
+        "color_a": "#0a2014",
+        "color_b": "#f4d300",
+        "track_label": "SPA",
+        "launcher": "launch_duel_spa_1993.cmd",
+        "ac_car_id": "f1_1993_benetton",
+        "ac_track_id": "spa",
+        "ac_track_layout": "layout_f1_2025",
+    },
+    {
+        "id": "duel_imola_f2001_teammates",
+        "type": "DUEL",
+        "type_label": "1v1 RACE",
+        "series": "SCHUMACHER",
+        "tag": "1v1 · INTRA-FERRARI 2001",
+        "title": "IMOLA · TEAMMATE DUEL",
+        "subtitle": "Schumacher F2001 #1 vs Barichello F2001 #2",
+        "scenario": (
+            "The 2002 San Marino GP famously ended with the Ferrari one-two "
+            "and a scripted finish that earned the team a fine. This is the "
+            "inverse: no team orders, no codes — Schumacher #1 against "
+            "Barichello #2 in matched F2001s, one lap, fastest car wins."
+        ),
+        "goal": "Beat Barichello to the line. Imola decides at Tamburello.",
+        "specs": {
+            "CAR":   "FERRARI F2001 · #1 SCHUMACHER",
+            "TRACK": "Imola · F1 2022 layout",
+            "GRID":  "2 cars · head-to-head",
+            "LAPS":  "1 lap · teammate duel",
+        },
+        "color_a": "#3a0608",
+        "color_b": "#c8102e",
+        "track_label": "IMOLA",
+        "launcher": "launch_duel_imola_f2001.cmd",
+        "ac_car_id": "ferrari_f2001",
+        "ac_track_id": "imola",
+        "ac_track_layout": "imola_f1_2022",
+    },
+    {
+        "id": "race_1993_spa_grid",
+        "type": "RACE",
+        "series": "SCHUMACHER",
+        "tag": "5-LAP · 1993 SEASON GRID",
+        "title": "1993 GRID · SPA",
+        "subtitle": "6-car 1993 F1 field · Schumacher's first full season",
+        "scenario": (
+            "The full 1993 F1 grid as installed: Schumacher / Patrese "
+            "(Benetton), Berger / Alesi (Ferrari), Barrichello / Boutsen "
+            "(Jordan). Six cars, five laps at Spa-Francorchamps — "
+            "Schumacher's first full F1 season compressed into a Sunday "
+            "afternoon. No qualifying, you start P6 and carve through the "
+            "period grid."
+        ),
+        "goal": "Top 3 from P6. Stretch: P1 by the flag. Eau Rouge in 4th gear.",
+        "specs": {
+            "CAR":   "BENETTON B193 · #5 SCHUMACHER",
+            "TRACK": "Spa · F1 2025 layout",
+            "GRID":  "6 cars · cross-team 1993 grid",
+            "LAPS":  "5 laps · charge from P6",
+        },
+        "color_a": "#0a2014",
+        "color_b": "#f4d300",
+        "track_label": "SPA",
+        "launcher": "launch_race_1993_spa.cmd",
+        "ac_car_id": "f1_1993_benetton",
+        "ac_track_id": "spa",
+        "ac_track_layout": "layout_f1_2025",
+    },
+    {
+        "id": "race_monza_f2001",
+        "type": "RACE",
+        "series": "SCHUMACHER",
+        "tag": "5-LAP · TIFOSI MOMENT",
+        "title": "MONZA · F2001 TIFOSI",
+        "subtitle": "Ferrari F2001 4-car battle at Monza",
+        "scenario": (
+            "Monza in matched Ferrari F2001s — the 2001 Italian GP weekend "
+            "framed as a sprint. Schumacher and Barrichello in their Monza-"
+            "special liveries plus two more F2001s for chaos in Lesmo. "
+            "Five laps, no qualifying, starting from the back. The Tifosi "
+            "don't care if you're Schumacher — beat the field or hear about it."
+        ),
+        "goal": "Top 2 from P4. The Tifosi expect a #1 finish.",
+        "specs": {
+            "CAR":   "FERRARI F2001 · #3 SCHUMACHER MONZA",
+            "TRACK": "Monza · F1 2025 layout",
+            "GRID":  "4 cars · all F2001",
+            "LAPS":  "5 laps · charge from P4",
+        },
+        "color_a": "#3a0608",
+        "color_b": "#c8102e",
+        "track_label": "MONZA",
+        "launcher": "launch_race_monza_f2001.cmd",
+        "ac_car_id": "ferrari_f2001",
+        "ac_track_id": "monza",
+        "ac_track_layout": "monza_f1_2025",
     },
     {
         "id": "hotlap_supergt_fuji",
@@ -429,6 +811,324 @@ CONFIGS = [
         "videos": [
             {"label": "WATCH", "url": "https://www.youtube.com/watch?v=h8hG4_B-ACY"},
         ],
+    },
+    # ============================================================
+    # SENNA TRIBUTE — four hotlap chases at Senna's iconic venues,
+    # using the exact Senna-named skins Pablo has installed.
+    # Lap times sourced from FIA / official records.
+    # ============================================================
+    {
+        "id": "senna_donington_1993",
+        "type": "HOTLAP",
+        "series": "SENNA TRIBUTE",
+        "tag": "THE LAP OF GOD",
+        "title": "DONINGTON 1993",
+        "subtitle": "MP4/8 · the wet-weather masterclass",
+        "scenario": (
+            "11 April 1993, European GP. Senna's McLaren MP4/8 in soaking-wet "
+            "Donington. On the opening lap alone he passed Schumacher, Wendlinger, "
+            "Hill, and Prost — fifth on the grid to first by Redgate. He set "
+            "fastest race lap 1:18.029 in mixed conditions. The lap that defines "
+            "wet-weather mastery."
+        ),
+        "goal": "Crack 1:20 in the wet. Then chase Senna's 1:18.029.",
+        "setup": {
+            "trim":     "Wet · race-car defaults",
+            "priority": "Throttle and brake patience over outright pace",
+            "key":      "Wets selected · 30 L fuel · soft springs to ride the kerbs",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Senna race fastest", "time": "1:18.029"},
+                {"label": "Prost pole (dry)",   "time": "1:10.458"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4/8 · Senna #8",
+            "TRACK": "Donington Park · GP layout",
+            "GRID":  "Solo · ghost on · wet",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#2c0a14",
+        "color_b": "#a40000",
+        "track_label": "DONINGTON",
+        "launcher": "launch_hotlap_senna_donington.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":    "asr_1993_mclaren_mp4-8",
+        "ac_car_skin":  "8_senna_r1_r2_r4_r5_r6_r7",
+        "ac_track_id":  "doningtonpark2018",
+        "ac_track_layout": "gp",
+    },
+    {
+        "id": "senna_suzuka_1988",
+        "type": "HOTLAP",
+        "series": "SENNA TRIBUTE",
+        "tag": "TITLE-CLINCHER POLE",
+        "title": "SUZUKA 1988",
+        "subtitle": "MP4/4 · the championship lap",
+        "scenario": (
+            "30 October 1988, Japanese GP. Senna took pole at 1:41.853 in the "
+            "all-conquering McLaren MP4/4. He stalled at the lights, dropped to "
+            "P14, then drove through the field to win — clinching his first "
+            "World Championship in the country he'd come to call a second home."
+        ),
+        "goal": "Beat 1:43. Then build to Senna's 1:41.853.",
+        "setup": {
+            "trim":     "Hot-lap · qualifying trim",
+            "priority": "Mechanical grip through 130R and Spoon; brake stability into the chicane",
+            "key":      "Low fuel · soft tyres · 1.5-bar boost · max-attack engine map",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Senna pole",         "time": "1:41.853"},
+                {"label": "Prost (sister car)", "time": "1:42.177"},
+                {"label": "Race fastest",       "time": "1:46.326"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4/8 · Senna #8",
+            "TRACK": "Suzuka · GP",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#1c0c0c",
+        "color_b": "#c8102e",
+        "track_label": "SUZUKA",
+        "launcher": "launch_hotlap_senna_suzuka.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":    "asr_1993_mclaren_mp4-8",
+        "ac_car_skin":  "12_Senna_R08",
+        "ac_track_id":  "rt_suzuka",
+        "ac_track_layout": "suzukagp",
+    },
+    {
+        "id": "senna_monaco_1988",
+        "type": "HOTLAP",
+        "series": "SENNA TRIBUTE",
+        "tag": "1.4 SECONDS OVER PROST",
+        "title": "MONACO 1988",
+        "subtitle": "MP4/4 · the qualifying lap nobody understood",
+        "scenario": (
+            "14 May 1988, Monaco qualifying. Same car, same tyres, same fuel — "
+            "Senna 1:23.998, Prost 1:25.425. A 1.427-second margin between "
+            "teammates that Senna himself later described as drifting outside "
+            "his conscious mind. Pole, but the race ended in the wall on lap 67."
+        ),
+        "goal": "Crack 1:30 around the houses. Senna's 1:23.998 is the line.",
+        "setup": {
+            "trim":     "Monaco · max downforce",
+            "priority": "Confidence through Casino, Tabac, swimming pool",
+            "key":      "Wing 11/11 · soft tyres · short gear · fuel for 5 laps only",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Senna pole",  "time": "1:23.998"},
+                {"label": "Prost (P2)",  "time": "1:25.425"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4/8 · Senna #8",
+            "TRACK": "Monaco · F1 2025 layout (closest to '88 circuit)",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a1530",
+        "color_b": "#c8102e",
+        "track_label": "MONACO",
+        "launcher": "launch_hotlap_senna_monaco.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":    "asr_1993_mclaren_mp4-8",
+        "ac_car_skin":  "12_Senna_R02",
+        "ac_track_id":  "monaco_2020",
+        "ac_track_layout": "monaco_f1_2025",
+    },
+    {
+        "id": "senna_estoril_1985",
+        "type": "HOTLAP",
+        "series": "SENNA TRIBUTE",
+        "tag": "FIRST WIN · MONSOON",
+        "title": "ESTORIL 1985",
+        "subtitle": "Lotus turbo · the breakthrough",
+        "scenario": (
+            "21 April 1985, Portuguese GP. Senna's first F1 win, and one of the "
+            "most dominant wet drives in F1 history — 1m02.978s ahead of "
+            "Alboreto in monsoon conditions. He drove the Lotus-Renault 97T that "
+            "weekend; you'll be in its '86 sister, the 98T (same Renault turbo "
+            "formula, near-identical cockpit and feel)."
+        ),
+        "goal": "Land a clean lap in the rain. Then chase Senna's race pace.",
+        "setup": {
+            "trim":     "Wet · turbo era",
+            "priority": "Throttle modulation; turbos punish lift-and-coast",
+            "key":      "Wets · 40 L fuel · medium boost (the 1985 turbos ran 4-5 bar in qualy)",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Senna pole (dry)",       "time": "1:21.007"},
+                {"label": "Senna fastest race lap", "time": "1:23.226"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4/8 · Senna #8",
+            "TRACK": "Estoril",
+            "GRID":  "Solo · ghost on · wet",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a2a14",
+        "color_b": "#1d6e3f",
+        "track_label": "ESTORIL",
+        "launcher": "launch_hotlap_senna_estoril.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":    "asr_1993_mclaren_mp4-8",
+        "ac_track_id":  "estoril",
+    },
+    # ============================================================
+    # SENNA TRIBUTE — 1 VS 1 duels.
+    # Player drives Senna; AI rival drives the historical opponent
+    # in their actual livery (both skins installed).
+    # ============================================================
+    {
+        "id": "senna_vs_prost_monaco_1988",
+        "type": "DUEL",
+        "type_label": "1 vs 1",
+        "series": "SENNA TRIBUTE",
+        "tag": "TEAMMATES · POLE GAP",
+        "title": "SENNA VS PROST · MONACO '88",
+        "subtitle": "Same car. 1.4 seconds apart.",
+        "scenario": (
+            "Monaco qualifying, 1988. McLaren-Honda MP4/4 — same chassis, same "
+            "Honda turbo, same Goodyears, same fuel load. Senna 1:23.998. Prost "
+            "1:25.425. Senna later said he was 'driving outside himself, like in "
+            "a different dimension.' Run a head-to-head qualifying drill against "
+            "your teammate, on the streets where he found that other place."
+        ),
+        "goal": "Out-qualify Prost. The 1.4 s reference is just a milestone.",
+        "setup": {
+            "trim":     "Monaco · max downforce · qualifying trim",
+            "priority": "Confidence through Casino, Tabac, swimming pool",
+            "key":      "Wing 11/11 · low fuel · soft tyres · max-attack engine map",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Senna pole",  "time": "1:23.998"},
+                {"label": "Prost (P2)",  "time": "1:25.425"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4/8 · Senna #8",
+            "TRACK": "Monaco · F1 2025 layout",
+            "GRID":  "2 cars · head-to-head",
+            "LAPS":  "1 lap · Prost AI calibrated",
+        },
+        "color_a": "#0a1530",
+        "color_b": "#c8102e",
+        "track_label": "MONACO",
+        "launcher": "launch_duel_senna_vs_prost_monaco.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":         "asr_1993_mclaren_mp4-8",
+        "ac_car_skin":       "12_Senna_R02",
+        "ac_rival_car_id":   "asr_1993_mclaren_mp4-8",
+        "ac_rival_car_skin": "11_Prost_R02",
+        "ac_track_id":       "monaco_2020",
+        "ac_track_layout":   "monaco_f1_2025",
+    },
+    {
+        "id": "senna_vs_prost_suzuka_1988",
+        "type": "DUEL",
+        "type_label": "1 vs 1",
+        "series": "SENNA TRIBUTE",
+        "tag": "CHAMPIONSHIP DECIDER",
+        "title": "SENNA VS PROST · SUZUKA '88",
+        "subtitle": "Title race. 1 lap. Same MP4/4.",
+        "scenario": (
+            "Round 15 of 16, Japanese GP. Prost leads the championship by 6 "
+            "points; Senna needs the win. He took pole 1:41.853. Real race: "
+            "Senna stalled at lights, dropped to P14, drove through 13 cars, "
+            "won, took the title. Re-create the 1-on-1 fight for that title "
+            "in a single Suzuka lap — same car as Prost, no team orders."
+        ),
+        "goal": "Beat Prost on track. Take the imaginary title.",
+        "setup": {
+            "trim":     "Hot-lap · qualifying trim",
+            "priority": "Mechanical grip through 130R + Spoon; brake stability into the chicane",
+            "key":      "Low fuel · soft tyres · 1.5-bar boost · max-attack engine map",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Senna pole",         "time": "1:41.853"},
+                {"label": "Prost (sister car)", "time": "1:42.177"},
+                {"label": "Race fastest",       "time": "1:46.326"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4/8 · Senna #8",
+            "TRACK": "Suzuka · GP",
+            "GRID":  "2 cars · head-to-head",
+            "LAPS":  "1 lap · Prost AI calibrated",
+        },
+        "color_a": "#1c0c0c",
+        "color_b": "#c8102e",
+        "track_label": "SUZUKA",
+        "launcher": "launch_duel_senna_vs_prost_suzuka.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":         "asr_1993_mclaren_mp4-8",
+        "ac_car_skin":       "12_Senna_R08",
+        "ac_rival_car_id":   "asr_1993_mclaren_mp4-8",
+        "ac_rival_car_skin": "11_Prost_R08",
+        "ac_track_id":       "rt_suzuka",
+        "ac_track_layout":   "suzukagp",
+    },
+    {
+        "id": "senna_vs_schumacher_donington_1993",
+        "type": "DUEL",
+        "type_label": "1 vs 1",
+        "series": "SENNA TRIBUTE",
+        "tag": "WET · LAP-1 ATTACK",
+        "title": "SENNA VS SCHUMI · DONINGTON '93",
+        "subtitle": "MP4/8 vs Benetton B193. Soaking wet.",
+        "scenario": (
+            "11 April 1993, European GP, Donington. Schumacher started P3, Senna "
+            "P4 — both behind the Williams pair. On lap 1 in pouring rain, Senna "
+            "passed Schumacher into Redgate, then Wendlinger, Hill, and Prost — "
+            "P5 to P1 in one lap. Recreate the duel: your MP4/8 against "
+            "Schumacher's Benetton B193, lap 1 only, full wet."
+        ),
+        "goal": "Pass Schumacher into Redgate. Hold him off through Craner Curves.",
+        "setup": {
+            "trim":     "Wet · race-car defaults",
+            "priority": "Throttle and brake patience; the MP4/8 active suspension is your edge",
+            "key":      "Wets · 30 L fuel · soft springs to ride the kerbs",
+        },
+        "benchmarks": {
+            "you_label": "Your PB",
+            "refs": [
+                {"label": "Senna race fastest (wet)", "time": "1:18.029"},
+                {"label": "Prost pole (dry)",         "time": "1:10.458"},
+            ],
+        },
+        "specs": {
+            "CAR":   "McLaren MP4/8 · Senna #8",
+            "TRACK": "Donington Park · GP layout",
+            "GRID":  "2 cars · head-to-head · wet",
+            "LAPS":  "1 lap · Schumacher AI calibrated",
+        },
+        "color_a": "#2c0a14",
+        "color_b": "#a40000",
+        "track_label": "DONINGTON",
+        "launcher": "launch_duel_senna_vs_schumacher_donington.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":         "asr_1993_mclaren_mp4-8",
+        "ac_car_skin":       "8_senna_r1_r2_r4_r5_r6_r7",
+        "ac_rival_car_id":   "f1_1993_benetton",
+        "ac_rival_car_skin": "Schumacher",
+        "ac_track_id":       "doningtonpark2018",
+        "ac_track_layout":   "gp",
     },
 ]
 
@@ -1358,6 +2058,9 @@ def _common_head(title):
         '<meta charset="utf-8">'
         f'<title>{escape(title)}</title>'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'
+        '<link rel="alternate icon" href="/favicon.ico">'
+        '<meta name="theme-color" content="#D40E10">'
         '<link rel="preconnect" href="https://fonts.googleapis.com">'
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
         '<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">'
@@ -3340,6 +4043,13 @@ class Handler(BaseHTTPRequestHandler):
         u = urlparse(self.path)
         if u.path in ("/", "/index.html"):
             self._html(render_html())
+            return
+        if u.path in ("/favicon.svg", "/favicon.ico"):
+            target = LAUNCHER_DIR / "favicon.svg"
+            if target.exists():
+                self._file(target, "image/svg+xml")
+                return
+            self.send_error(404)
             return
         if u.path == "/cars":
             self._html(render_cars_page())

@@ -1,11 +1,8 @@
 @echo off
 REM ===============================================================
-REM  ONE-CLICK: Canadian GP 2026 Race (VRC Formula Alpha 2025)
-REM  - 20-car real F1 2026 grid (Verstappen + 19 AI rivals)
-REM  - 5-lap sprint, no qualy => player starts P20 (back of grid)
-REM  - Setup: Montreal_Race_v1 (DF 5/5 · 30L · soft tyres · F-bias 58)
-REM  Steam must be running.
-REM  After: run restore_race_ini.cmd to put back your old config
+REM  ONE-CLICK: CANADIAN GP · VRC GRID
+REM  - Backs up cfg/race.ini, installs the preset, fires Crew Chief,
+REM    runs acs.exe, and kills CC when AC exits.
 REM ===============================================================
 setlocal enableextensions
 
@@ -19,9 +16,7 @@ echo.
 echo  =============================================================
 echo   S I M R A C I N G   P I T   S T O P
 echo  =============================================================
-echo  [CANADIAN GP 2026 - VRC FORMULA ALPHA 2025 GRID]
-echo  20-car real F1 grid - Verstappen vs Norris/Russell/Leclerc/...
-echo  5 laps, charge from P20
+echo  [CANADIAN GP · VRC GRID]
 echo.
 
 if not exist "%PRESET%" (
@@ -43,10 +38,10 @@ if exist "%TARGET%" (
     copy /Y "%TARGET%" "%BACKUP%" >nul
 )
 
-echo Installing Canada VRC race preset...
+echo Installing preset...
 copy /Y "%PRESET%" "%TARGET%" >nul
 
-REM --- Crew Chief auto-launch + auto-press Start (see launcher\start_crew_chief.cmd)
+REM --- Crew Chief auto-launch + auto-press Start
 call "%~dp0launcher\start_crew_chief.cmd"
 
 echo Launching Assetto Corsa...

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <!-- Slate ink base -->
+  <rect width="64" height="64" rx="10" fill="#0f172a"/>
+  <!-- Chequered-flag pattern (4×4 white tiles on the slate ground) -->
+  <g fill="#ffffff">
+    <rect x="0"  y="0"  width="16" height="16"/>
+    <rect x="32" y="0"  width="16" height="16"/>
+    <rect x="16" y="16" width="16" height="16"/>
+    <rect x="48" y="16" width="16" height="16"/>
+    <rect x="0"  y="32" width="16" height="16"/>
+    <rect x="32" y="32" width="16" height="16"/>
+    <rect x="16" y="48" width="16" height="16"/>
+    <rect x="48" y="48" width="16" height="16"/>
+  </g>
+  <!-- Verstappen-red diagonal slash across the face -->
+  <g transform="rotate(-22 32 32)">
+    <rect x="-12" y="27" width="88" height="10" fill="#D40E10"/>
+    <rect x="-12" y="25" width="88" height="2"  fill="#0f172a" opacity="0.55"/>
+    <rect x="-12" y="37" width="88" height="2"  fill="#0f172a" opacity="0.55"/>
+  </g>
+</svg>

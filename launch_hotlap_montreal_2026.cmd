@@ -1,15 +1,8 @@
 @echo off
 REM ===============================================================
-REM  ONE-CLICK: Montreal Hotlap 2026 — chase Canadian GP qualy time
-REM  - Backs up current cfg\race.ini -> race.ini.bak
-REM  - Installs the Montreal Hotlap preset
-REM  - Player = Max Verstappen #1 in RSS Formula Hybrid Alpine 2025
-REM  - Setup: Montreal_Hotlap_v1 (low-DF, fwd brake bias, open ducts)
-REM  - Hotlap mode (single car, no AI, no fuel use, no tyre wear)
-REM  - Ghost car of your PB enabled
-REM  - F1 HUD overlays active via cfg/python.ini
-REM  Steam must be running.
-REM  After: run restore_race_ini.cmd to put back your old config
+REM  ONE-CLICK: MONTREAL HOTLAP
+REM  - Backs up cfg/race.ini, installs the preset, fires Crew Chief,
+REM    runs acs.exe, and kills CC when AC exits.
 REM ===============================================================
 setlocal enableextensions
 
@@ -23,9 +16,7 @@ echo.
 echo  =============================================================
 echo   S I M R A C I N G   P I T   S T O P
 echo  =============================================================
-echo  [MONTREAL HOTLAP 2026 — CHASE THE QUALY TIME]
-echo  RB21 + Montreal F1 2025 + Montreal_Hotlap_v1 setup
-echo  Hotlap mode, ghost ON, F1 HUD active
+echo  [MONTREAL HOTLAP]
 echo.
 
 if not exist "%PRESET%" (
@@ -38,7 +29,6 @@ if not exist "%PRESET%" (
 if not exist "%ACINSTALL%\acs.exe" (
     echo ERROR: AC install not found at:
     echo   %ACINSTALL%
-    echo Edit ACINSTALL at the top of this script.
     pause
     exit /b 1
 )
@@ -48,10 +38,10 @@ if exist "%TARGET%" (
     copy /Y "%TARGET%" "%BACKUP%" >nul
 )
 
-echo Installing Montreal Hotlap preset...
+echo Installing preset...
 copy /Y "%PRESET%" "%TARGET%" >nul
 
-REM --- Crew Chief auto-launch + auto-press Start (see launcher\start_crew_chief.cmd)
+REM --- Crew Chief auto-launch + auto-press Start
 call "%~dp0launcher\start_crew_chief.cmd"
 
 echo Launching Assetto Corsa...

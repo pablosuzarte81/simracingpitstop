@@ -1,14 +1,8 @@
 @echo off
 REM ===============================================================
-REM  ONE-CLICK: Canadian GP Hotlap (VRC Formula Alpha 2025)
-REM  - Backs up current cfg\race.ini -> race.ini.bak
-REM  - Installs the Canada VRC Hotlap preset
-REM  - Player = Verstappen #1 in VRC Formula Alpha 2025 (Pro)
-REM  - Setup: Montreal_Hotlap_v1 (low DF · 14L · soft tyres · F-bias 58)
-REM  - Hotlap mode (single car, no AI, no fuel use, no tyre wear)
-REM  - Ghost car of your PB enabled
-REM  Steam must be running.
-REM  After: run restore_race_ini.cmd to put back your old config
+REM  ONE-CLICK: CANADA POLE CHASE · VRC
+REM  - Backs up cfg/race.ini, installs the preset, fires Crew Chief,
+REM    runs acs.exe, and kills CC when AC exits.
 REM ===============================================================
 setlocal enableextensions
 
@@ -22,9 +16,7 @@ echo.
 echo  =============================================================
 echo   S I M R A C I N G   P I T   S T O P
 echo  =============================================================
-echo  [CANADA HOTLAP - VRC FORMULA ALPHA 2025]
-echo  Verstappen #1 + Montreal F1 2025 + Montreal_Hotlap_v1 setup
-echo  Hotlap mode, ghost ON
+echo  [CANADA POLE CHASE · VRC]
 echo.
 
 if not exist "%PRESET%" (
@@ -46,10 +38,10 @@ if exist "%TARGET%" (
     copy /Y "%TARGET%" "%BACKUP%" >nul
 )
 
-echo Installing Canada VRC Hotlap preset...
+echo Installing preset...
 copy /Y "%PRESET%" "%TARGET%" >nul
 
-REM --- Crew Chief auto-launch + auto-press Start (see launcher\start_crew_chief.cmd)
+REM --- Crew Chief auto-launch + auto-press Start
 call "%~dp0launcher\start_crew_chief.cmd"
 
 echo Launching Assetto Corsa...
