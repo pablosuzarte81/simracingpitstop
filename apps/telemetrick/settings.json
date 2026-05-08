@@ -1,0 +1,32 @@
+{
+  "UDPsenderEnable": false,
+  "UDPsenderHost": "127.0.0.1",
+  "UDPsenderPort": "11112",
+  "acViewerEnable": true,
+  "acViewerRoot": "C:\\Users\\pablo\\Documents\\Assetto Corsa\\apps\\telemetrick\\actelemetry\\",
+  "autolaunchmotec": false,
+  "autoreduceui": false,
+  "dataRaceRate": 50,
+  "dataRate": 50,
+  "driver": "Max Verstappen",
+  "drivers": [ "Pablo Suzarte", "Max Verstappen" ],
+  "enable": true,
+  "exportAI": false,
+  "exportPath": "C:\\Users\\pablo\\Documents\\Assetto Corsa\\apps\\telemetrick\\exported",
+  "exportSetup": false,
+  "exporters": {
+    "CSV": false,
+    "Motec": true,
+    "rawCSV": false
+  },
+  "filePattern": "#dateNum#-#timeNum#-#driver#-#vehicle#-#track#",
+  "folderPattern": "#exportPath#\\#driver#\\#vehicle#\\#track#",
+  "forceRaceMode": false,
+  "obsDeleteInvalid": false,
+  "obsEnable": false,
+  "obsHost": "127.0.0.1",
+  "obsPort": "11111",
+  "pauseTracing": false,
+  "traceCompOpacity": 0.65,
+  "trackLayoutNamed": true
+}

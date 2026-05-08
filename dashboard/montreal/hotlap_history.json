@@ -1,0 +1,27 @@
+[
+  {
+    "ts": "2026-05-06T18:00:00",
+    "pb_ms": 80298,
+    "s1_ms": null,
+    "s2_ms": null,
+    "s3_ms": null,
+    "lap_count": 1,
+    "note": "Session 1 \u2014 default setup, first warmup lap (seeded from project memory 2026-05-07)"
+  },
+  {
+    "ts": "2026-05-07T22:21:20",
+    "pb_ms": 76997,
+    "s1_ms": 30418,
+    "s2_ms": 36144,
+    "s3_ms": 10435,
+    "lap_count": 2
+  },
+  {
+    "ts": "2026-05-08T08:41:33",
+    "pb_ms": 76665,
+    "s1_ms": 29765,
+    "s2_ms": 36298,
+    "s3_ms": 10517,
+    "lap_count": 5
+  }
+]

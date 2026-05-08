@@ -1,0 +1,56 @@
+# SimRacingPitStop — track project-authored files only.
+# Everything Assetto Corsa manages/regenerates per machine is excluded.
+
+# === AC runtime / regenerable ===
+replay/
+telemetry_archive/
+out/
+screens/
+logs/
+ctelemetry/
+GhostCar/
+*.acreplay
+*.lap
+race_out.json
+
+# === AC content shipped by Steam / Kunos / mods ===
+content/
+dblocales/
+lic/
+launcherdata/
+plugins/
+savedData/
+champs/
+aim/
+
+# === Backups (timestamped + race.ini snapshots) ===
+*.bak
+*.bak.*
+cfg.backup-*/
+cfg/race.ini.bak
+cfg/race.ini
+
+# === Generated / cache ===
+__pycache__/
+*.pyc
+*.pyo
+launcher/vercel_build/
+launcher/__pycache__/
+
+# === IDE / OS / agent ===
+.DS_Store
+Thumbs.db
+*.swp
+.claude/
+
+# === CMRT runtime ===
+CMRT-Essential-HUD/temp/
+CMRT-Essential-HUD/*.lap
+
+# === Telemetrick app cache (per-session, regenerable) ===
+apps/telemetrick/exported/
+apps/telemetrick/actelemetry/
+
+# === Plain dump files ===
+*.ld
+*.act
