@@ -1,0 +1,32 @@
+{
+  "ts": "20260509-014443",
+  "tile": {
+    "id": "senna_suzuka_1988",
+    "type": "HOTLAP",
+    "title": "SUZUKA 1988",
+    "ac_car_id": "asr_1993_mclaren_mp4-8",
+    "ac_car_skin": "12_Senna_R08",
+    "ac_track_id": "rt_suzuka",
+    "ac_track_layout": "suzukagp"
+  },
+  "summary": {
+    "track": "rt_suzuka-suzukagp",
+    "car": "asr_1993_mclaren_mp4-8",
+    "skin": "8_senna_r8",
+    "player": "Ayrton Senna",
+    "session": {
+      "name": "Race",
+      "type": 3
+    },
+    "best_lap": "1:48.260",
+    "sectors": [
+      "0:41.859",
+      "0:44.145",
+      "0:22.256"
+    ],
+    "finish": 2,
+    "field": 2,
+    "tyre": "S"
+  },
+  "snapshot_file": "20260509-014443.json"
+}

@@ -17,7 +17,7 @@ import subprocess
 import sys
 import threading
 import time
-from datetime import date
+from datetime import date, datetime
 from html import escape
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -76,6 +76,11 @@ SERIES = [
         "id":    "SCHUMACHER",
         "label": "SCHUMACHER · ICONIC RACES",
         "deck":  "Recreations of Michael Schumacher's defining moments — debut at Spa '91, Tifosi roar at Monza, the Imola seven-time, Suzuka title clinch, F2004 at Montreal.",
+    },
+    {
+        "id":    "SENNA TRIBUTE",
+        "label": "SENNA · TRIBUTE",
+        "deck":  "Ayrton Senna's legendary moments in the McLaren MP4/8 — Donington 1993 wet masterclass, Monaco 1988 pole, Suzuka 1988 title clincher, Estoril '85 first pole.",
     },
     {
         "id":    "SUPERGT",
@@ -1778,17 +1783,37 @@ def _resolve_your_ms(bm):
     return None
 
 
+def _load_results_index():
+    """Load dashboard/results/index.json (latest result per tile, written by
+    launcher/update_results.py after every AC session)."""
+    p = AC_DOC / "dashboard" / "results" / "index.json"
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text(encoding='utf-8'))
+    except Exception:
+        return {}
+
+
 def _render_times_block(cfg):
-    bm = cfg.get("benchmarks")
-    if not bm:
-        return ""
-    your_ms = _resolve_your_ms(bm)
+    bm = cfg.get("benchmarks") or {}
+    your_ms = _resolve_your_ms(bm) if bm else None
     your_str = _fmt_ms(your_ms) if your_ms else None
     refs = bm.get("refs") or []
 
+    # Latest auto-captured result for this tile (post-AC-exit snapshot).
+    last = _load_results_index().get(cfg.get("id"))
+    last_summary = last.get("summary") if last else None
+    last_ts = last.get("ts") if last else None
+
+    # If neither benchmarks nor a captured last-result exists, render nothing.
+    if not bm and not last_summary:
+        return ""
+
     rows_html = []
+
     # Your row first — bold, larger
-    you_lbl = bm.get("you_label", "Your PB")
+    you_lbl = bm.get("you_label", "Your PB") if bm else "Your PB"
     rows_html.append(
         '<div class="time-row is-you">'
         f'<span class="time-lbl">{escape(you_lbl)}</span>'
@@ -1796,6 +1821,40 @@ def _render_times_block(cfg):
         '<span class="time-diff"></span>'
         '</div>'
     )
+
+    # Auto-captured "Last session" / "Last result" row.
+    if last_summary:
+        # Format last_ts (yyyyMMdd-HHmmss) → "DD MMM"
+        ts_label = ""
+        if last_ts and len(last_ts) >= 8:
+            try:
+                dt = datetime.strptime(last_ts[:8], "%Y%m%d")
+                ts_label = dt.strftime("%d %b").upper()
+            except Exception:
+                pass
+
+        finish = last_summary.get("finish")
+        field = last_summary.get("field")
+        best = last_summary.get("best_lap")
+        is_solo = (cfg.get("type") == "HOTLAP") or (field and field <= 1)
+        if is_solo:
+            row_lbl = "Last session"
+            row_val = best or "—"
+            row_diff = ts_label
+        else:
+            # RACE / DUEL: show finish position prominently
+            pos_str = f"P{finish}/{field}" if finish and field else "—"
+            row_lbl = "Last result"
+            row_val = pos_str
+            row_diff = (best or "") + ((" · " + ts_label) if best and ts_label else (ts_label or ""))
+        rows_html.append(
+            '<div class="time-row is-last">'
+            f'<span class="time-lbl">{escape(row_lbl)}</span>'
+            f'<span class="time-val">{escape(row_val)}</span>'
+            f'<span class="time-diff">{escape(row_diff)}</span>'
+            '</div>'
+        )
+
     # Reference rows with diff vs you
     for r in refs:
         ref_str = r.get("time")
