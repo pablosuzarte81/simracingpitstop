@@ -21,7 +21,7 @@ from datetime import date, datetime
 from html import escape
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, quote
 
 
 AC_DOC = Path(os.environ.get(
@@ -179,16 +179,20 @@ CONFIGS = [
         "type": "DUEL",
         "series": "NLS",
         "type_label": "1v1 RACE",
-        "tag": "1v1 RACE-CRAFT DRILL",
+        "tag": "NLS · 1v1 · NÜRBURGRING SHOWDOWN",
         "title": "VERSTAPPEN VS HAASE",
-        "subtitle": "Max #33 vs Haase #16 · 1 lap",
+        "subtitle": "Mercedes-AMG #3 vs Audi R8 LMS #16 · 1 lap of the Green Hell",
         "scenario": (
-            "The 2026 NLS season's defining rivalry distilled to a single lap. You "
-            "(Mercedes-AMG GT3, the Verstappen #33) versus Christopher Haase (Audi R8 "
-            "GT3 Evo II, Scherer Sport PHX #16). No traffic, no strategy, no excuses "
-            "— just race-craft under pressure on the Nord."
+            "The 2026 NLS season's defining rivalry distilled to a single lap. "
+            "Mercedes-AMG Team Verstappen Racing #3 against Scherer Sport PHX Audi #16. "
+            "Same Nordschleife. Two factory liveries. No traffic, no strategy, no excuses."
         ),
-        "goal": "Beat Haase to the line. Make every overtake count.",
+        "hero_blurb": (
+            "NLS 2026's defining grudge match. The four-time F1 world champion against "
+            "the man who has owned the Nordschleife for two decades. Same circuit. "
+            "Two factory teams. One lap to settle it."
+        ),
+        "goal": "Beat the rival to the line. Make every overtake count.",
         "setup": {
             "trim":     "Sprint · one shot",
             "priority": "Straight-line speed, minimum fuel weight",
@@ -200,10 +204,10 @@ CONFIGS = [
             ],
         },
         "specs": {
-            "CAR":   "MERCEDES-AMG GT3 · #3 VERSTAPPEN",
+            "CAR":   "MERCEDES-AMG GT3 #3 · vs · AUDI R8 LMS #16",
             "TRACK": "Nordschleife · Endurance Cup",
             "GRID":  "2 cars · head-to-head",
-            "LAPS":  "1 lap · AI calibrated to Haase",
+            "LAPS":  "1 lap · AI 100 / aggression 85",
         },
         "color_a": "#3a0608",
         "color_b": "#7a0c0e",
@@ -211,7 +215,7 @@ CONFIGS = [
         "launcher": "launch_verstappen_1v1.cmd",
         "dashboard_rel": None,
         "ac_car_id": "rss_gtm_mercer_v8",
-        "ac_car_skin": "M17_Verstappen_Test_33",
+        "ac_car_skin": "2026 NLS Verstappen Racing #3",
         "ac_rival_car_id": "rss_gtm_aero_v10_evo2",
         "ac_rival_car_skin": "2025_N24H_SchererPhoenix_15",
         "ac_track_id": "ks_nordschleife",
@@ -228,40 +232,36 @@ CONFIGS = [
             {"label": "VIDEO 2", "url": "https://www.youtube.com/watch?v=4_SguHHLSzk"},
             {"label": "VIDEO 3", "url": "https://www.youtube.com/watch?v=7z2SPcK540I"},
         ],
-    },
-    {
-        "id": "haase_1v1",
-        "type": "DUEL",
-        "type_label": "1v1 RACE",
-        "series": "NLS",
-        "tag": "1v1 · INVERTED · YOU = HAASE",
-        "title": "HAASE VS VERSTAPPEN",
-        "subtitle": "Inverted 1v1 · you drive the Audi #16",
-        "scenario": (
-            "The mirror image of the Verstappen vs Haase duel. This time YOU are "
-            "Christopher Haase in the Scherer Sport PHX Audi R8 GT3 LMS evo II "
-            "#16, and Max Verstappen's Mercedes-AMG GT3 #3 is the AI rival. "
-            "Same Nordschleife 24h layout, same one-lap sprint — different car, "
-            "different angle. See if you can hold off Max's Mercedes."
-        ),
-        "goal": "Beat Verstappen to the line. Defend on the long straights.",
-        "specs": {
-            "CAR":   "AUDI R8 GT3 · #16 HAASE",
-            "TRACK": "Nordschleife · 24h 2024 layout",
-            "GRID":  "2 cars · head-to-head",
-            "LAPS":  "1 lap · inverted duel",
-        },
-        "color_a": "#0a1d3d",
-        "color_b": "#1f3a5e",
-        "track_label": "NORDSCHLEIFE",
-        "launcher": "launch_haase_1v1.cmd",
-        "dashboard_rel": None,
-        "ac_car_id": "rss_gtm_aero_v10_evo2",
-        "ac_car_skin": "2025_N24H_SchererPhoenix_15",
-        "ac_rival_car_id": "rss_gtm_mercer_v8",
-        "ac_rival_car_skin": "2026 NLS Verstappen Racing #3",
-        "ac_track_id": "ks_nordschleife",
-        "ac_track_layout": "nordschleife_24hours_2024",
+        "launchers": [
+            {
+                "label":    "BE VERSTAPPEN",
+                "logo":     "verstappenracing",
+                "cmd":      "launch_verstappen_1v1.cmd",
+                "ac_car_id": "rss_gtm_mercer_v8",
+                "skin":     "2026 NLS Verstappen Racing #3",
+                "color":    "#D40E10",
+                "driver":   "MAX VERSTAPPEN",
+                "number":   "3",
+                "team":     "Mercedes-AMG · Verstappen Racing · Red Bull",
+                "tagline":  "F1 KING · GT3 ROOKIE",
+                "quote":    "Four titles, six pole records, one Nordschleife. The Eifel takes none of that into account.",
+                "portrait": "verstappen_nls_portrait.png",
+            },
+            {
+                "label":    "BE HAASE",
+                "logo":     "audi",
+                "cmd":      "launch_haase_1v1.cmd",
+                "ac_car_id": "rss_gtm_aero_v10_evo2",
+                "skin":     "2025_N24H_SchererPhoenix_15",
+                "color":    "#cc0000",
+                "driver":   "CHRISTOPHER HAASE",
+                "number":   "16",
+                "team":     "Scherer Sport PHX",
+                "tagline":  "THE NORDMEISTER",
+                "quote":    "He's won everything. I've won this place. Defend the Karussell. Defend the Pflanzgarten. Defend.",
+                "portrait": "haase_portrait.png",
+            },
+        ],
     },
     {
         "id": "canada_2026",
@@ -430,6 +430,91 @@ CONFIGS = [
         "ac_track_id": "montreal",
         "ac_track_layout": "montreal_f1_2025",
     },
+    {
+        "id": "antonelli_vs_verstappen_nord",
+        "type": "DUEL",
+        "series": "F1_2026",
+        "type_label": "1v1 RACE",
+        "tag": "F1 · 1v1 · FANTASY NORD",
+        "title": "ANTONELLI vs VERSTAPPEN",
+        "subtitle": "Mercedes W16 #12 vs Red Bull RB21 #1 · 1 lap of the Nord 24h",
+        "scenario": (
+            "F1 cars where they were never meant to run. You are Kimi Antonelli "
+            "in the Mercedes W16 #12; the AI is Max Verstappen in the Red Bull "
+            "RB21 #1. Same VRC Formula Alpha 2025 (Pro) chassis under both "
+            "liveries — pure fantasy match-up, identical hardware, no excuses. "
+            "One green-flag lap of the Nordschleife 24h 2024 layout: GP loop, "
+            "Mercedes-Arena, Adenauer Forst, Karussell, Döttinger Höhe, the lot. "
+            "F1 downforce on Nord camber — beat Max to the line."
+        ),
+        "goal": "Beat Verstappen to the line. Stay on the grey stuff.",
+        "setup": {
+            "trim":     "Sprint · one shot",
+            "priority": "Mechanical grip on the camber + commitment on Döttinger",
+            "key":      "Default Pro setup · 30L fuel · soft tyres · no ballast",
+        },
+        "benchmarks": {
+            "refs": [
+                {"label": "F1 fantasy",  "time": "no historic ref"},
+            ],
+        },
+        "specs": {
+            "CAR":   "VRC Formula Alpha 2025 (Pro) · W16 vs RB21",
+            "TRACK": "Nordschleife · 24h 2024 layout",
+            "GRID":  "2 cars · head-to-head",
+            "LAPS":  "1 lap · AI 100 / aggression 80",
+        },
+        "color_a": "#0a1d3d",
+        "color_b": "#c8102e",
+        "track_label": "NORDSCHLEIFE",
+        "launcher": "launch_duel_antonelli_vs_verstappen_nord.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":         "vrc_formula_alpha_2025_csp",
+        "ac_car_skin":       "d_Mercedes_W16_12_Antonelli",
+        "ac_rival_car_id":   "vrc_formula_alpha_2025_csp",
+        "ac_rival_car_skin": "e_Red_Bull_RB21_1_Verstappen",
+        "ac_track_id":       "ks_nordschleife",
+        "ac_track_layout":   "nordschleife_24hours_2024",
+        "hero_blurb": (
+            "The fastest F1 cars on the planet, in the hands of the era's two "
+            "best drivers, turned loose on the Green Hell. One lap. No excuses."
+        ),
+        "images": [
+            "antonelli_vs_verstappen_nord_1.png",
+            "antonelli_vs_verstappen_nord_2.png",
+            "antonelli_vs_verstappen_nord_3.png",
+            "antonelli_vs_verstappen_nord_4.png",
+            "antonelli_vs_verstappen_nord_5.png",
+        ],
+        "launchers": [
+            {
+                "label":   "BE ANTONELLI",
+                "logo":    "mercedes",
+                "cmd":     "launch_duel_antonelli_vs_verstappen_nord.cmd",
+                "driver":  "ANDREA KIMI ANTONELLI",
+                "number":  "12",
+                "team":    "Mercedes-AMG Petronas F1",
+                "tagline":  "THE ROOKIE",
+                "quote":    "Hold the four-time champion for one lap. The headline writes itself.",
+                "portrait": "antonelli_portrait.png",
+                "skin":     "d_Mercedes_W16_12_Antonelli",
+                "color":    "#00D2BE",
+            },
+            {
+                "label":   "BE VERSTAPPEN",
+                "logo":    "redbull",
+                "cmd":     "launch_duel_verstappen_vs_antonelli_nord.cmd",
+                "driver":  "MAX VERSTAPPEN",
+                "number":  "1",
+                "team":    "Oracle Red Bull Racing",
+                "tagline":  "THE CHAMPION",
+                "quote":    "Anything less than P1 needs explaining. The Karussell doesn't care who you are.",
+                "portrait": "verstappen_portrait.png",
+                "skin":     "e_Red_Bull_RB21_1_Verstappen",
+                "color":    "#FFD700",
+            },
+        ],
+    },
     # ============================================================
     # F1 2008 — Hamilton's title-decider season at Interlagos.
     # 11 teams installed, full grid available.
@@ -548,7 +633,7 @@ CONFIGS = [
         "launcher": "launch_hotlap_spa_1991_debut.cmd",
         "ac_car_id": "vrc_1991_jordan_191",
         "ac_track_id": "spa",
-        "ac_track_layout": "layout_f1_2025",
+        "ac_track_layout": "layout_f1_2020",
     },
     {
         "id": "hotlap_monza_schumacher",
@@ -678,7 +763,7 @@ CONFIGS = [
         "launcher": "launch_duel_spa_1993.cmd",
         "ac_car_id": "f1_1993_benetton",
         "ac_track_id": "spa",
-        "ac_track_layout": "layout_f1_2025",
+        "ac_track_layout": "layout_f1_2020",
     },
     {
         "id": "duel_imola_f2001_teammates",
@@ -737,7 +822,7 @@ CONFIGS = [
         "launcher": "launch_race_1993_spa.cmd",
         "ac_car_id": "f1_1993_benetton",
         "ac_track_id": "spa",
-        "ac_track_layout": "layout_f1_2025",
+        "ac_track_layout": "layout_f1_2020",
     },
     {
         "id": "race_monza_f2001",
@@ -1199,6 +1284,73 @@ body{margin:0;background:var(--paper);color:var(--ink-2);font:15px/1.55 var(--bo
 .hero-count-meta{font:500 11px/1.4 var(--body);letter-spacing:0.4px;color:var(--ink-3);margin-top:10px;border-top:1px solid var(--rule-hair);padding-top:8px}
 .hero-count-meta strong{color:var(--ink);font-weight:700}
 
+/* ====== HOME HERO V2 — full-bleed cinematic pit-wall ====== */
+.bighero{position:relative;width:100%;min-height:600px;background:#000;color:#fff;overflow:hidden;border-bottom:3px solid var(--max);isolation:isolate}
+.bh-bg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.bh-bg .carousel-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 1.1s ease-in-out;transform:scale(1.06);animation:bh-kenburns 18s ease-in-out infinite alternate}
+.bh-bg .carousel-slide.is-active{opacity:1}
+@keyframes bh-kenburns{0%{transform:scale(1.04) translate3d(0,0,0)}100%{transform:scale(1.12) translate3d(-1.5%,-1%,0)}}
+.bh-overlay{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  radial-gradient(ellipse at 18% 38%,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.78) 70%),
+  linear-gradient(180deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.22) 28%,rgba(0,0,0,0.55) 72%,rgba(0,0,0,0.96) 100%),
+  linear-gradient(90deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0) 60%)}
+.bh-overlay::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.05) 1px,transparent 0);background-size:22px 22px;opacity:0.55;mix-blend-mode:overlay}
+.bh-grain{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0.16;mix-blend-mode:overlay;background:
+  repeating-linear-gradient(0deg,rgba(255,255,255,0.06) 0,rgba(255,255,255,0.06) 1px,transparent 1px,transparent 3px)}
+.bh-stripe{position:absolute;left:0;right:0;bottom:0;z-index:4;height:6px;background:repeating-linear-gradient(90deg,var(--max) 0,var(--max) 22px,#0f172a 22px,#0f172a 44px,#fff 44px,#fff 48px,#0f172a 48px,#0f172a 70px)}
+
+.bh-wrap{position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:48px 28px 28px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:48px;align-items:end;min-height:600px}
+@media (max-width:980px){ .bh-wrap{grid-template-columns:1fr;padding:40px 22px 26px;min-height:auto;row-gap:30px} }
+
+/* LEFT — pitch */
+.bh-l{display:flex;flex-direction:column;gap:20px;min-width:0}
+.bh-tag{align-self:flex-start;display:inline-flex;align-items:center;gap:9px;font:900 11px/1 var(--body);letter-spacing:3.6px;text-transform:uppercase;color:#fff;background:var(--max);padding:9px 13px 8px;border:1px solid #fff;box-shadow:0 4px 14px rgba(212,14,16,0.45);border-radius:2px}
+.bh-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,0.18);animation:bh-blink 1.4s ease-in-out infinite}
+@keyframes bh-blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.55;transform:scale(0.85)}}
+.bh-bib{display:inline-flex;gap:10px;align-items:center;font:700 10.5px/1 var(--body);letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-bottom:-2px}
+.bh-bib .bh-num{font:900 12px/1 var(--display);color:#fff;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.30);padding:5px 8px 4px;letter-spacing:1.4px;border-radius:2px}
+.bh-bib .bh-rule{flex:0 0 36px;height:1px;background:rgba(255,255,255,0.30)}
+.bh-title{margin:0;font:900 92px/0.86 var(--display);letter-spacing:-1.5px;text-transform:uppercase;color:#fff;text-shadow:0 6px 28px rgba(0,0,0,0.55);font-stretch:condensed}
+.bh-title .ln{display:block}
+.bh-title .accent{color:var(--max);text-shadow:0 6px 18px rgba(212,14,16,0.45),0 0 1px rgba(255,255,255,0.25)}
+.bh-title .underline{position:relative;display:inline-block}
+.bh-title .underline::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:5px;background:var(--max)}
+@media (max-width:1180px){ .bh-title{font-size:72px} }
+@media (max-width:760px){ .bh-title{font-size:46px;letter-spacing:-0.8px} }
+
+.bh-blurb{margin:0;max-width:58ch;font:500 italic 16.5px/1.55 var(--body);color:rgba(255,255,255,0.93);border-left:3px solid var(--max);padding:4px 0 4px 16px;text-shadow:0 2px 10px rgba(0,0,0,0.55)}
+.bh-blurb b{font-weight:700;font-style:normal;color:#fff}
+
+.bh-loop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid rgba(255,255,255,0.30);background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);border-radius:2px;overflow:hidden;max-width:640px;box-shadow:0 6px 22px rgba(0,0,0,0.4)}
+.bh-step{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:11px;padding:13px 14px;border-right:1px solid rgba(255,255,255,0.18);position:relative;min-width:0}
+.bh-step:last-child{border-right:0}
+.bh-step-n{font:900 22px/1 var(--display);font-variant-numeric:tabular-nums;color:var(--max);background:#fff;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,0.20)}
+.bh-step-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.bh-step-k{font:900 11.5px/1 var(--body);letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bh-step-d{font:500 11px/1.3 var(--body);color:rgba(255,255,255,0.65);white-space:normal;overflow:hidden}
+.bh-step::after{content:"›";position:absolute;right:-10px;top:50%;transform:translateY(-50%);font:900 22px/1 var(--display);color:var(--max);background:#0f172a;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:2px solid rgba(255,255,255,0.85);z-index:2}
+.bh-step:last-child::after{display:none}
+@media (max-width:640px){ .bh-loop{grid-template-columns:1fr;max-width:none}
+  .bh-step{border-right:0;border-bottom:1px solid rgba(255,255,255,0.18)}
+  .bh-step:last-child{border-bottom:0}
+  .bh-step::after{display:none} }
+
+/* RIGHT — stat slab + CTA */
+.bh-r{display:flex;flex-direction:column;align-items:stretch;gap:14px;min-width:0;align-self:end}
+.bh-slab{position:relative;background:rgba(15,23,42,0.78);border:1px solid rgba(255,255,255,0.28);border-left:4px solid var(--max);padding:20px 22px 18px;backdrop-filter:blur(8px);border-radius:2px;box-shadow:0 8px 28px rgba(0,0,0,0.45)}
+.bh-slab::before{content:"CATALOG";position:absolute;left:18px;top:-10px;font:800 9.5px/1 var(--body);letter-spacing:2.4px;color:#fff;background:var(--ink);padding:5px 9px 4px;border:1px solid var(--max)}
+.bh-slab-lbl{font:700 10px/1 var(--body);letter-spacing:2.4px;text-transform:uppercase;color:rgba(255,255,255,0.62);margin:6px 0 4px}
+.bh-slab-num{font:800 92px/0.85 var(--mono);font-variant-numeric:tabular-nums;color:#fff;letter-spacing:-4px;margin:0;text-shadow:0 4px 24px rgba(0,0,0,0.4)}
+.bh-slab-num .small{font-size:36px;color:var(--max);letter-spacing:-1px;margin-left:4px;vertical-align:5px}
+.bh-slab-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(255,255,255,0.22);border:1px solid rgba(255,255,255,0.22);margin-top:14px;border-radius:2px;overflow:hidden}
+.bh-slab-cell{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;background:rgba(15,23,42,0.85);min-width:0}
+.bh-slab-cell-v{font:800 18px/1 var(--mono);font-variant-numeric:tabular-nums;color:#fff;letter-spacing:-0.5px}
+.bh-slab-cell-l{font:800 9px/1 var(--body);letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,0.55)}
+.bh-slab-cell.is-race .bh-slab-cell-v{color:#fca5a5}
+.bh-slab-cell.is-hot  .bh-slab-cell-v{color:#fde68a}
+.bh-slab-cell.is-duel .bh-slab-cell-v{color:#bef264}
+.bh-slab-cell.is-ser  .bh-slab-cell-v{color:#a5f3fc}
+
 /* Section header above grid */
 .section-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1.5px solid var(--ink);padding:28px 24px 10px;margin:0 auto;gap:14px;max-width:1280px}
 .section-head-l{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
@@ -1279,6 +1431,354 @@ body{margin:0;background:var(--paper);color:var(--ink-2);font:15px/1.55 var(--bo
 .btn-dash:hover{background:var(--paper)}
 .btn-watch{background:var(--ink);color:#fff;font:600 10.5px/1 var(--body);letter-spacing:1px;text-transform:uppercase;padding:10px 10px;border:1px solid var(--ink);border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap;transition:background 0.12s;overflow:hidden;text-overflow:ellipsis;gap:5px}
 .btn-watch:hover{background:var(--accent)}
+
+/* ====== CARD V2 — UI/UX Pro Max ====== */
+.cv2{background:var(--surface);border:1px solid var(--ink);position:relative;display:flex;flex-direction:column;overflow:hidden;box-shadow:3px 3px 0 var(--ink);transition:transform 0.18s ease,box-shadow 0.18s ease}
+.cv2:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink)}
+.cv2:hover .cv2-img > img,
+.cv2:hover .cv2-img .carousel-slide.is-active{transform:scale(1.05)}
+.cv2:hover .cv2-title::after{width:64px}
+
+.cv2-img{aspect-ratio:16/9;position:relative;overflow:hidden;border-bottom:2px solid var(--ink);background:#0a0a0a}
+.cv2-img > img,.cv2-img .carousel-slide{transition:transform 0.5s ease}
+.cv2-shade{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  linear-gradient(180deg,rgba(0,0,0,0.10) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.55) 65%,rgba(0,0,0,0.92) 100%)}
+.cv2-title{position:absolute;left:14px;right:60px;bottom:12px;margin:0;z-index:3;font:900 24px/0.95 var(--display);letter-spacing:-0.4px;text-transform:uppercase;color:#fff;text-shadow:0 3px 14px rgba(0,0,0,0.85),0 1px 2px rgba(0,0,0,0.9);font-stretch:condensed;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cv2-title::after{content:"";display:block;margin-top:8px;width:34px;height:3px;background:var(--max);transition:width 0.25s ease}
+
+/* Body — info table → CTAs → details → stats */
+.cv2-body{padding:14px 16px 14px;display:flex;flex-direction:column;gap:11px;flex:1}
+.cv2-meta{margin:0;display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:0}
+.cv2-meta dt{margin:0;align-self:center;padding:9px 0;font:800 9px/1.2 var(--body);letter-spacing:1.8px;text-transform:uppercase;color:var(--ink-4);border-bottom:1px solid var(--rule-hair);min-width:48px}
+.cv2-meta dd{margin:0;align-self:center;padding:9px 0;font:600 12.5px/1.35 var(--body);color:var(--ink);border-bottom:1px solid var(--rule-hair);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cv2-meta dt:first-of-type,.cv2-meta dd:first-of-type{border-top:1px solid var(--rule-hair)}
+.cv2-meta dd b{font-weight:700;color:var(--ink)}
+.cv2-meta dd .sep{color:var(--ink-4);margin:0 5px;font-weight:400}
+
+/* Actions stack — primary CTAs first, then secondary details link */
+.cv2-actions{display:flex;flex-direction:column;gap:7px;margin-top:2px}
+.cv2-more{align-self:flex-start;font:700 10.5px/1 var(--body);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);text-decoration:none;padding:6px 0 5px;border-bottom:1px solid var(--ink-4);transition:color 0.12s,border-color 0.12s}
+.cv2-more:hover{color:var(--max);border-color:var(--max)}
+.cv2-more::after{content:" →"}
+
+/* Stats — slim, dark, gold-on-ink, no chrome */
+.cv2-stats{margin-top:auto;background:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:9px 12px;display:grid;grid-template-columns:auto 1fr auto;column-gap:12px;row-gap:5px;align-items:baseline;font-family:var(--mono);position:relative;overflow:hidden}
+.cv2-stats::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold)}
+.cv2-stats .row{display:contents}
+.cv2-stats .you-k{font:800 9.5px/1 var(--body);letter-spacing:1.6px;text-transform:uppercase;color:var(--gold)}
+.cv2-stats .you-v{font:700 18px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--gold);text-align:right;letter-spacing:-0.5px}
+.cv2-stats .you-d{font:700 10px/1 var(--mono);font-variant-numeric:tabular-nums;color:rgba(255,255,255,0.45);text-align:right}
+.cv2-stats .ref-k{font:700 9px/1.2 var(--body);letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,0.55);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cv2-stats .ref-v{font:600 12.5px/1 var(--mono);font-variant-numeric:tabular-nums;color:rgba(255,255,255,0.85);text-align:right;letter-spacing:-0.2px}
+.cv2-stats .ref-d{font:700 10.5px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--max);text-align:right;min-width:48px}
+.cv2-stats .empty{grid-column:1/-1;font:600 italic 11px/1.4 var(--body);color:rgba(255,255,255,0.55);text-align:center;padding:2px 0}
+
+/* Mini accent bar between sections */
+.cv2-divider{height:0;border:0;border-top:1px solid var(--rule-hair);margin:0}
+
+/* Team-branded LAUNCH CTAs (dual-driver duels: Be Antonelli / Be Verstappen) */
+.card-launchers{display:flex;flex-direction:column;gap:6px;width:100%}
+.btn-launch-team{width:100%;color:#fff;font:800 12.5px/1 var(--body);letter-spacing:1.6px;text-transform:uppercase;padding:11px 12px;border:1px solid var(--ink);border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:filter 0.12s,transform 0.05s;box-shadow:0 1px 2px rgba(0,0,0,0.18);position:relative;overflow:hidden}
+.btn-launch-team:hover{filter:brightness(1.18)}
+.btn-launch-team:active{transform:translateY(1px)}
+.btn-launch-team .team-logo{width:18px;height:18px;flex:0 0 auto}
+.btn-launch-team .team-go{font-size:9.5px;letter-spacing:2px;opacity:0.7;font-weight:700}
+.btn-launch-team.mercedes{background:linear-gradient(115deg,#00D2BE 0%,#0a2a2c 55%,#000 100%);border-color:#00D2BE}
+.btn-launch-team.mercedes .team-logo{color:#fff}
+.btn-launch-team.redbull{background:linear-gradient(115deg,#1E1E5C 0%,#0a0a3a 55%,#000 100%);border-color:#FFD700}
+.btn-launch-team.redbull .team-logo{color:#FFD700}
+.btn-launch-team.redbull::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,#D40E10 0%,#FFD700 100%)}
+.btn-launch-team.verstappenracing{background:linear-gradient(115deg,#D40E10 0%,#0a1d2c 50%,#00D2BE 100%);border-color:#fff;border-image:linear-gradient(90deg,#D40E10 0%,#fff 50%,#00D2BE 100%) 1}
+.btn-launch-team.verstappenracing .team-logo{color:#fff}
+.btn-launch-team.verstappenracing::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,#D40E10 0%,#fff 50%,#00D2BE 100%)}
+.btn-launch-team.audi{background:linear-gradient(115deg,#1a1a1a 0%,#0a0a0a 70%,#000 100%);border-color:#cc0000}
+.btn-launch-team.audi .team-logo{color:#fff}
+.btn-launch-team.audi::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,#cc0000 0%,#ffffff 50%,#cc0000 100%)}
+
+/* Dual hero launchers on /challenge/<id> — side-by-side, larger than the card variant */
+.cd-launchers{display:flex;gap:10px;flex-wrap:wrap;width:100%}
+.cd-btn-launch-team{flex:1 1 0;min-width:220px;padding:15px 22px;font-size:14px;letter-spacing:2px}
+.cd-btn-launch-team .team-logo{width:22px;height:22px}
+
+/* Hero carousel takes the full hero media area on /challenge/<id> */
+.cd-hero-carousel{position:absolute;inset:0;width:100%;height:100%;min-height:340px}
+.cd-hero-carousel .carousel-slide{object-fit:cover}
+.cd-hero-carousel .carousel-dots{bottom:14px}
+
+/* === FULL-BLEED HERO V2 (duels with launchers) === */
+.cd-hero-v2{position:relative;width:100%;min-height:560px;margin:0 0 28px;overflow:hidden;background:#000;border-bottom:1px solid var(--ink)}
+@media (min-width: 1100px){ .cd-hero-v2{min-height:640px} }
+.cd-hero-bg{position:absolute;inset:0;width:100%;height:100%}
+.cd-hero-bg .carousel,.cd-hero-bg .cd-hero-carousel{position:absolute;inset:0;width:100%;height:100%}
+.cd-hero-bg .carousel-slide,.cd-hero-bg img.cd-hero-img{width:100%;height:100%;object-fit:cover;display:block}
+.cd-hero-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.15) 32%,rgba(0,0,0,0.55) 68%,rgba(0,0,0,0.95) 100%)}
+.cd-back-floating{position:absolute;top:18px;left:24px;z-index:3;color:rgba(255,255,255,0.92);font:700 11px/1 var(--body);letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:8px 14px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.22);border-radius:2px;backdrop-filter:blur(4px)}
+.cd-back-floating:hover{background:rgba(0,0,0,0.7);border-color:#fff}
+.cd-hero-content{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;max-width:1180px;margin:0 auto;padding:90px 28px 44px;color:#fff}
+@media (min-width: 1100px){ .cd-hero-content{padding:140px 28px 56px} }
+@media (max-width: 800px){ .cd-hero-content{grid-template-columns:1fr} }
+.cd-hero-text{display:flex;flex-direction:column;gap:14px;align-items:flex-start;min-width:0}
+.cd-tag-chip{font:800 11px/1 var(--body);letter-spacing:3px;text-transform:uppercase;padding:8px 12px;background:var(--max);color:#fff;border:1px solid #fff;border-radius:2px;box-shadow:0 2px 8px rgba(212,14,16,0.4)}
+.cd-title-xl{margin:0;font:900 72px/0.92 var(--display);letter-spacing:-1px;text-transform:uppercase;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,0.6);max-width:100%}
+@media (min-width: 1100px){ .cd-title-xl{font-size:96px} }
+@media (max-width: 700px){ .cd-title-xl{font-size:42px} }
+.cd-blurb{margin:6px 0 0;font:500 italic 17px/1.5 var(--body);color:rgba(255,255,255,0.94);max-width:640px;text-shadow:0 2px 10px rgba(0,0,0,0.7);border-left:3px solid var(--max);padding-left:14px}
+@media (min-width: 1100px){ .cd-blurb{font-size:19px} }
+.cd-hero-track{display:flex;flex-direction:column;align-items:flex-end;gap:6px;padding:14px 16px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.22);border-radius:2px;backdrop-filter:blur(6px);min-width:240px;max-width:300px}
+.cd-hero-track-lbl{font:800 10px/1 var(--body);letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.65)}
+.cd-hero-track-name{font:900 22px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:#fff}
+.cd-hero-track-outline{width:100%;display:flex;justify-content:center;padding-top:6px}
+.cd-hero-track-outline img{width:100%;height:auto;max-height:140px;object-fit:contain;filter:invert(1) brightness(1.05) drop-shadow(0 0 6px rgba(255,255,255,0.18))}
+@media (max-width: 800px){ .cd-hero-track{align-self:flex-start;align-items:flex-start;max-width:100%;width:100%} }
+
+/* === Enriched perspective panel internals === */
+.dp-panel{padding:0}  /* override: portrait fills top, body has padding */
+.dp-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.18);border-radius:2px;margin:6px 0 2px;overflow:hidden}
+.dp-stat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:11px 6px;background:rgba(0,0,0,0.32);min-width:0}
+.dp-stat-val{font:700 18px/1 var(--mono);color:#fff;letter-spacing:-0.5px}
+.dp-stat-lbl{font:700 9.5px/1 var(--body);letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.6)}
+.dp-chart-wrap{margin:8px 0 4px;padding:10px 12px;background:rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.12);border-radius:2px}
+.dp-chart-lbl{font:700 9.5px/1.2 var(--body);letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:6px}
+.dp-chart{display:block;width:100%;height:auto}
+.dp-chart-empty{font:500 italic 12.5px/1.4 var(--body);color:rgba(255,255,255,0.55);padding:22px 8px;text-align:center}
+.dp-chart-empty-em{color:rgba(255,255,255,0.85);font-weight:700;font-style:normal;letter-spacing:0.5px}
+
+/* === Head-to-head section === */
+.h2h-section{padding-top:8px}
+.h2h-bar{display:flex;width:100%;height:14px;border:1.5px solid var(--ink);border-radius:2px;overflow:hidden;background:var(--ink-4);margin-bottom:14px}
+.h2h-bar-seg{height:100%;transition:flex-basis 0.4s ease}
+.h2h-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.h2h-card{position:relative;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--ink);border-left:4px solid var(--accent);border-radius:2px}
+.h2h-team-logo{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid var(--ink);border-radius:50%;background:#000;color:var(--accent);grid-row:span 2}
+.h2h-team-logo .team-logo{width:24px;height:24px}
+.h2h-tally{display:flex;align-items:baseline;gap:4px;color:var(--ink)}
+.h2h-wins{font:900 38px/1 var(--mono);color:var(--accent)}
+.h2h-of{font:700 14px/1 var(--mono);color:var(--ink-3)}
+.h2h-label{font:800 10px/1 var(--body);letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+@media (max-width: 700px){ .h2h-cards{grid-template-columns:1fr} }
+
+/* === Drivers section (bios only — no CTA) === */
+.dr-section{padding-top:6px}
+.dr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dr-panel{position:relative;display:grid;grid-template-columns:130px 1fr;gap:0;border:1px solid var(--ink);border-radius:3px;overflow:hidden;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.18)}
+.dr-mercedes{background:linear-gradient(155deg,#00D2BE 0%,#0e2d31 30%,#0a1416 100%);border-color:#00D2BE}
+.dr-redbull{background:linear-gradient(155deg,#1E1E5C 0%,#0c0c2e 50%,#000 100%);border-color:#FFD700}
+.dr-redbull::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#D40E10 0%,#FFD700 100%);z-index:2}
+.dr-verstappenracing{background:linear-gradient(155deg,#D40E10 0%,#1a0608 28%,#0a1d2c 60%,#00D2BE 100%);border-color:#fff}
+.dr-verstappenracing::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#D40E10 0%,#fff 50%,#00D2BE 100%);z-index:2}
+.dr-verstappenracing .dr-portrait-fallback .dr-num-big{color:#D40E10;text-shadow:0 0 16px rgba(212,14,16,0.55)}
+.dr-verstappenracing .dr-num-inline{color:#fff}
+.dr-verstappenracing .dr-team-logo{color:#fff}
+.dr-verstappenracing .dr-team-logo .team-logo-combo{width:38px;height:auto}
+.dr-verstappenracing .dr-quote{border-left-color:#fff}
+.dr-audi{background:linear-gradient(155deg,#1a1a1a 0%,#0a0a0a 35%,#000 100%);border-color:#cc0000}
+.dr-audi::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#cc0000 0%,#ffffff 50%,#cc0000 100%);z-index:2}
+.dr-audi .dr-portrait-fallback .dr-num-big{color:#cc0000}
+.dr-audi .dr-num-inline{color:#cc0000}
+.dr-audi .dr-team-logo{color:#fff}
+.dr-audi .dr-quote{border-left-color:#cc0000}
+.dr-portrait{position:relative;background:#000;overflow:hidden}
+.dr-portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.dr-portrait-fallback{display:flex;align-items:center;justify-content:center;height:100%}
+.dr-portrait-fallback .dr-num-big{font:900 90px/1 var(--display);letter-spacing:-3px;color:rgba(255,255,255,0.92)}
+.dr-mercedes .dr-portrait-fallback .dr-num-big{color:#00D2BE}
+.dr-redbull .dr-portrait-fallback .dr-num-big{color:#FFD700}
+.dr-body{padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.dr-tag{align-self:flex-start;font:800 9.5px/1 var(--body);letter-spacing:2.4px;text-transform:uppercase;padding:5px 8px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.18);border-radius:2px}
+.dr-name{margin:2px 0 0;font:900 18px/1.05 var(--display);letter-spacing:1px;text-transform:uppercase;color:#fff;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.dr-num-inline{font:900 18px/1 var(--display);letter-spacing:0.5px}
+.dr-mercedes .dr-num-inline{color:#00D2BE}
+.dr-redbull .dr-num-inline{color:#FFD700}
+.dr-team{display:flex;align-items:center;gap:8px;font:600 10.5px/1.25 var(--body);letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8)}
+.dr-team-logo{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;color:currentColor}
+.dr-mercedes .dr-team-logo{color:#fff}
+.dr-redbull .dr-team-logo{color:#FFD700}
+.dr-team-logo .team-logo{width:18px;height:18px}
+.dr-quote{margin:4px 0 0;font:500 italic 12.5px/1.45 var(--body);color:#fff;border-left:2px solid currentColor;padding-left:9px}
+.dr-mercedes .dr-quote{border-left-color:#00D2BE}
+.dr-redbull .dr-quote{border-left-color:#FFD700}
+@media (max-width: 900px){
+  .dr-grid{grid-template-columns:1fr}
+  .dr-panel{grid-template-columns:100px 1fr}
+}
+
+/* === Cars section (chassis + two liveries) === */
+.cs-section{padding-top:6px}
+.cs-chassis{background:var(--surface);border:1px solid var(--ink);border-radius:2px;padding:14px 18px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.cs-chassis-lbl{grid-column:1;font:800 10px/1 var(--body);letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+.cs-chassis-name{grid-column:1;font:900 22px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--ink)}
+.cs-chassis-brand{grid-column:1;font:600 11px/1.2 var(--body);letter-spacing:1px;text-transform:uppercase;color:var(--ink-3)}
+.cs-chassis-specs{grid-column:2;grid-row:1/-1;display:grid;grid-template-columns:repeat(4,minmax(70px,auto));gap:1px;background:var(--ink);border:1px solid var(--ink);align-self:center}
+.cs-spec{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;background:var(--paper)}
+.cs-spec-lbl{font:800 8.5px/1 var(--body);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3)}
+.cs-spec-val{font:700 14px/1 var(--mono);color:var(--ink)}
+@media (max-width: 800px){ .cs-chassis{grid-template-columns:1fr} .cs-chassis-specs{grid-row:auto;grid-column:1;grid-template-columns:repeat(2,1fr)} }
+.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cs-card{position:relative;border:1px solid var(--ink);border-left:3px solid var(--accent);border-radius:2px;background:#000;overflow:hidden;display:flex;flex-direction:column;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+.cs-livery-wrap{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.cs-livery-img{width:100%;height:100%;object-fit:cover;display:block}
+.cs-livery-fallback{background:linear-gradient(135deg,#1a1a1a,#000)}
+.cs-meta{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;padding:12px 14px;align-items:center}
+.cs-meta-num{font:900 32px/1 var(--display);letter-spacing:-1px;color:var(--accent);grid-row:span 2}
+.cs-meta-team{font:800 11px/1.2 var(--body);letter-spacing:1.2px;text-transform:uppercase;color:#fff}
+.cs-meta-driver{font:600 11px/1.2 var(--body);letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65)}
+@media (max-width: 700px){ .cs-grid{grid-template-columns:1fr} }
+/* Different-chassis variant: each card carries its own chassis info above the meta */
+.cs-chassis-versus{padding:10px 14px}
+.cs-chassis-inline{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.18);background:rgba(0,0,0,0.4);color:#fff}
+.cs-chassis-inline-name{font:900 16px/1.05 var(--display);letter-spacing:1px;text-transform:uppercase;color:#fff}
+.cs-chassis-inline-brand{font:600 9.5px/1.2 var(--body);letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-top:2px}
+.cs-chassis-inline-specs{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.cs-chassis-inline-specs .cs-spec{flex:1 1 auto;background:rgba(255,255,255,0.06);border:none;padding:4px 8px}
+.cs-chassis-inline-specs .cs-spec-lbl{color:rgba(255,255,255,0.55)}
+.cs-chassis-inline-specs .cs-spec-val{color:#fff;font-size:12px}
+
+/* === Choose your seat (final CTA section) === */
+.ch-section{padding-top:6px}
+.ch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ch-card{position:relative;border:1.5px solid var(--accent);border-radius:3px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,0.3)}
+.ch-mercedes{background:linear-gradient(140deg,#00D2BE 0%,#0a2628 35%,#000 100%)}
+.ch-redbull{background:linear-gradient(140deg,#1E1E5C 0%,#080826 45%,#000 100%)}
+.ch-redbull::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#D40E10 0%,#FFD700 100%)}
+.ch-verstappenracing{background:linear-gradient(140deg,#D40E10 0%,#1a0608 35%,#0a1d2c 65%,#00D2BE 100%)}
+.ch-verstappenracing::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#D40E10 0%,#fff 50%,#00D2BE 100%)}
+.ch-audi{background:linear-gradient(140deg,#262626 0%,#0a0a0a 50%,#000 100%)}
+.ch-audi::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#cc0000 0%,#ffffff 50%,#cc0000 100%)}
+.ch-card-head{display:flex;align-items:center;gap:12px}
+.ch-team-mark{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border:1.5px solid currentColor;border-radius:50%;background:rgba(0,0,0,0.5);color:var(--accent);flex:0 0 auto}
+.ch-team-mark .team-logo{width:24px;height:24px}
+.ch-card-tagline{font:800 9.5px/1 var(--body);letter-spacing:2.5px;text-transform:uppercase;color:var(--accent)}
+.ch-card-driver{font:900 18px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:#fff;margin-top:3px}
+.ch-cta{margin-top:6px;padding:13px 16px;font-size:13px;letter-spacing:2px;border-width:2px}
+@media (max-width: 700px){ .ch-grid{grid-template-columns:1fr} }
+
+/* Real-logo image fallback (replaces stylized SVG when PNG file exists) */
+.team-logo-img{display:block;object-fit:contain;width:100%;height:100%;max-width:100%;max-height:100%}
+/* Combo logo (Mercedes × Red Bull) is wider — give it room to breathe */
+.team-logo-combo{width:auto;height:18px;max-width:46px}
+.dp-logo .team-logo-combo,.ch-team-mark .team-logo-combo{height:20px;max-width:52px}
+.btn-launch-team .team-logo-combo{height:20px;max-width:50px}
+
+/* === Ongoing challenges featured row (top of home page) === */
+.ongoing-section{background:linear-gradient(180deg,#0f172a 0%,#1f2937 100%);color:#fff;border-bottom:3px solid var(--max);padding:28px 28px 36px;margin:0 0 8px}
+.ongoing-head{max-width:1180px;margin:0 auto 18px;display:flex;flex-direction:column;gap:6px}
+.ongoing-tag{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;font:900 11px/1 var(--body);letter-spacing:3px;text-transform:uppercase;background:var(--max);color:#fff;padding:7px 11px;border-radius:2px;box-shadow:0 2px 8px rgba(212,14,16,0.4)}
+.ongoing-title{margin:0;font:900 38px/1 var(--display);letter-spacing:1.2px;text-transform:uppercase;color:#fff}
+.ongoing-deck{margin:0;font:500 13px/1.5 var(--body);color:rgba(255,255,255,0.7);max-width:680px}
+.ongoing-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width: 1000px){ .ongoing-grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width: 700px){ .ongoing-grid{grid-template-columns:1fr} .ongoing-section{padding:22px 16px 28px} .ongoing-title{font-size:28px} }
+/* Force ongoing cards onto a dark surface — invert the body palette so they pop */
+.ongoing-grid .card{background:var(--surface);border-color:var(--max)}
+
+/* === Track section (carousel + facts) === */
+.tk-section{padding-top:6px}
+.tk-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:14px;align-items:stretch}
+.tk-photos{position:relative;border:1px solid var(--ink);border-radius:2px;overflow:hidden;background:#000;aspect-ratio:16/9;min-height:240px}
+.tk-carousel{position:absolute;inset:0;width:100%;height:100%}
+.tk-carousel-empty{background:linear-gradient(135deg,#1a1a1a,#000)}
+.tk-side{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--ink);border-radius:2px;padding:14px 16px}
+.tk-name{font:900 26px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--ink);padding-bottom:6px;border-bottom:1px solid var(--border)}
+.tk-outline{display:flex;align-items:center;justify-content:center;background:#0a0a0a;border:1px solid var(--ink);padding:10px;border-radius:2px;min-height:120px}
+.tk-outline img{max-width:100%;max-height:140px;width:auto;height:auto;filter:invert(1) brightness(0.95);object-fit:contain}
+.tk-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink);align-self:stretch}
+.tk-fact{display:flex;flex-direction:column;gap:3px;padding:10px 12px;background:var(--paper)}
+.tk-fact-lbl{font:800 9px/1 var(--body);letter-spacing:1.8px;text-transform:uppercase;color:var(--ink-3)}
+.tk-fact-val{font:700 16px/1 var(--mono);color:var(--ink)}
+.tk-desc{margin:14px 0 0;font:500 italic 13.5px/1.55 var(--body);color:var(--ink-2);max-width:880px;border-left:3px solid var(--ink-4);padding-left:14px}
+@media (max-width: 800px){ .tk-grid{grid-template-columns:1fr} }
+
+/* === Setup "1" section === */
+.su-section{padding-top:6px}
+.su-deck{margin:-4px 0 14px;font:500 13px/1.5 var(--body);color:var(--ink-3);max-width:780px}
+.su-deck code{background:var(--paper);border:1px solid var(--border);padding:1px 5px;border-radius:2px;font-size:0.92em}
+.su-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:10px}
+.su-group{background:var(--surface);border:1px solid var(--ink);border-radius:2px;overflow:hidden;display:flex;flex-direction:column}
+.su-group-head{padding:10px 14px;border-bottom:1.5px solid var(--ink);background:var(--ink);color:#fff}
+.su-group-name{font:900 13px/1 var(--display);letter-spacing:2px;text-transform:uppercase}
+.su-group-deck{font:500 10.5px/1.3 var(--body);color:rgba(255,255,255,0.65);margin-top:3px}
+.su-rows{display:flex;flex-direction:column}
+.su-row{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:1px 10px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.su-row:last-child{border-bottom:0}
+.su-row-label{font:700 12px/1.2 var(--body);color:var(--ink);grid-column:1;grid-row:1}
+.su-row-value{font:700 14px/1 var(--mono);color:var(--max);grid-column:2;grid-row:1;align-self:center;background:var(--paper);padding:5px 10px;border:1px solid var(--ink);border-radius:2px}
+.su-row-blurb{font:500 11px/1.4 var(--body);color:var(--ink-3);grid-column:1/-1;grid-row:2;margin-top:2px}
+
+/* === Choose-section H2H bar (replaces standalone H2H) === */
+.ch-h2h{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.ch-h2h-lbl{font:800 9.5px/1 var(--body);letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+.ch-h2h-bar{display:flex;width:100%;height:12px;border:1.5px solid var(--ink);border-radius:2px;overflow:hidden;background:var(--ink-4)}
+.ch-h2h-seg{height:100%;transition:flex-basis 0.4s ease}
+.ch-h2h-totals{display:flex;justify-content:space-between;gap:14px}
+.ch-h2h-total{display:flex;align-items:baseline;gap:5px;color:var(--ink)}
+.ch-h2h-total-val{font:900 18px/1 var(--mono);color:var(--accent)}
+.ch-h2h-total-of{font:700 11px/1 var(--mono);color:var(--ink-3)}
+.ch-h2h-total-lbl{font:800 9.5px/1 var(--body);letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);margin-left:2px}
+
+/* Inline rival record on each Choose card */
+.ch-card-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
+.ch-record{display:flex;flex-direction:column;align-items:flex-end;line-height:1;gap:1px}
+.ch-record-mine{font:900 18px/1 var(--mono);color:var(--accent)}
+.ch-record-vs{font:700 9px/1 var(--body);letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin:1px 0}
+.ch-record-rival{font:700 13px/1 var(--mono);color:rgba(255,255,255,0.55)}
+.ch-record-lbl{font:700 8px/1 var(--body);letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:2px}
+
+/* === Track DNA === */
+.td-section{padding-top:8px}
+.td-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:stretch;background:var(--surface);border:1px solid var(--ink);border-radius:2px;padding:18px 22px}
+.td-name{grid-column:1/-1;font:900 28px/1 var(--display);letter-spacing:1px;text-transform:uppercase;color:var(--ink);padding-bottom:8px;border-bottom:1px solid var(--border)}
+.td-outline{display:flex;align-items:center;justify-content:center;background:#0a0a0a;border:1px solid var(--ink);padding:14px;border-radius:2px;min-height:160px}
+.td-outline img{max-width:100%;max-height:240px;width:auto;height:auto;filter:invert(1) brightness(0.85);object-fit:contain}
+.td-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink);align-self:start}
+.td-fact{display:flex;flex-direction:column;gap:4px;padding:14px 16px;background:var(--paper)}
+.td-fact-lbl{font:800 9.5px/1 var(--body);letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+.td-fact-val{font:700 22px/1 var(--mono);color:var(--ink)}
+@media (max-width: 800px){ .td-grid{grid-template-columns:1fr} }
+
+/* "Choose your driver" — compact panels, side-by-side portrait + content */
+.dp-section{padding-top:6px}
+.dp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dp-panel{position:relative;display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--ink);border-radius:3px;color:#fff;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+.dp-mercedes{background:linear-gradient(155deg,#00D2BE 0%,#0e2d31 30%,#0a1416 100%);border-color:#00D2BE}
+.dp-redbull{background:linear-gradient(155deg,#1E1E5C 0%,#0c0c2e 50%,#000 100%);border-color:#FFD700}
+.dp-redbull::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,#D40E10 0%,#FFD700 100%);z-index:2}
+.dp-portrait{position:relative;background:#000;overflow:hidden}
+.dp-portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.dp-portrait-fallback{display:flex;align-items:center;justify-content:center;height:100%}
+.dp-portrait-fallback .dp-num-big{font:900 80px/1 var(--display);letter-spacing:-3px;color:rgba(255,255,255,0.92)}
+.dp-mercedes .dp-portrait-fallback .dp-num-big{color:#00D2BE}
+.dp-redbull .dp-portrait-fallback .dp-num-big{color:#FFD700}
+.dp-body{padding:12px 14px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.dp-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:1px}
+.dp-logo{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid rgba(255,255,255,0.25);border-radius:50%;background:rgba(0,0,0,0.3)}
+.dp-mercedes .dp-logo{color:#fff}
+.dp-redbull .dp-logo{color:#FFD700}
+.dp-logo .team-logo{width:17px;height:17px}
+.dp-tag{font:800 9.5px/1 var(--body);letter-spacing:2.4px;text-transform:uppercase;padding:5px 8px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.18);border-radius:2px}
+.dp-driver{margin:0;font:900 16px/1.05 var(--display);letter-spacing:1px;text-transform:uppercase;color:#fff;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.dp-num-inline{font:900 16px/1 var(--display);letter-spacing:0.5px}
+.dp-mercedes .dp-num-inline{color:#00D2BE}
+.dp-redbull .dp-num-inline{color:#FFD700}
+.dp-team{font:600 9.5px/1.25 var(--body);letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:3px}
+.dp-quote{margin:2px 0;font:500 italic 12px/1.45 var(--body);color:#fff;border-left:2px solid currentColor;padding-left:8px}
+.dp-mercedes .dp-quote{border-left-color:#00D2BE}
+.dp-redbull .dp-quote{border-left-color:#FFD700}
+.dp-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.16);border-radius:2px;margin:3px 0 1px;overflow:hidden}
+.dp-stat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:6px 4px;background:rgba(0,0,0,0.32);min-width:0}
+.dp-stat-val{font:700 13px/1 var(--mono);color:#fff;letter-spacing:-0.3px}
+.dp-stat-lbl{font:700 8px/1 var(--body);letter-spacing:1.3px;text-transform:uppercase;color:rgba(255,255,255,0.55)}
+.dp-chart-wrap{margin:4px 0 2px;padding:6px 8px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:2px}
+.dp-chart-lbl{font:700 8px/1.2 var(--body);letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:3px}
+.dp-chart{display:block;width:100%;height:auto;max-height:48px}
+.dp-chart-empty{font:500 italic 10.5px/1.3 var(--body);color:rgba(255,255,255,0.55);padding:10px 4px;text-align:center}
+.dp-chart-empty-em{color:rgba(255,255,255,0.85);font-weight:700;font-style:normal;letter-spacing:0.4px}
+.dp-cta{margin-top:6px;padding:9px 12px;font-size:11px;letter-spacing:1.6px;border-width:2px}
+.dp-mercedes .dp-cta{border-color:#00D2BE;background:linear-gradient(115deg,#00D2BE 0%,#0a2a2c 70%,#000 100%)}
+.dp-redbull .dp-cta{border-color:#FFD700;background:linear-gradient(115deg,#1E1E5C 0%,#0a0a3a 65%,#000 100%)}
+@media (max-width: 900px){
+  .dp-grid{grid-template-columns:1fr}
+  .dp-panel{grid-template-columns:90px 1fr}
+}
 
 .toast{position:fixed;bottom:36px;right:36px;background:var(--ink);color:#fff;font:700 13px/1.4 var(--body);letter-spacing:1.5px;text-transform:uppercase;padding:14px 22px;border:2.5px solid var(--max);max-width:420px;opacity:0;transform:translateY(20px);transition:all 0.25s;z-index:99;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
@@ -1525,13 +2025,15 @@ body{margin:0;background:var(--paper);color:var(--ink-2);font:15px/1.55 var(--bo
 """
 
 JS = """
-async function launchConfig(id, title){
+async function launchConfig(id, title, cmd){
   const t = document.getElementById('toast');
   t.textContent = 'LAUNCHING ' + title + ' …';
   t.classList.remove('err');
   t.classList.add('show');
   try {
-    const r = await fetch('/launch?id=' + encodeURIComponent(id), {method:'POST'});
+    let url = '/launch?id=' + encodeURIComponent(id);
+    if (cmd) { url += '&cmd=' + encodeURIComponent(cmd); }
+    const r = await fetch(url, {method:'POST'});
     const j = await r.json();
     if (j.ok){
       t.textContent = 'LAUNCHED · ' + title + ' · AC STARTING';
@@ -1619,26 +2121,94 @@ def render_ticker():
     )
 
 
+_BH_BG_PHOTOS = (
+    "senna_vs_prost_suzuka_1988.jpg",
+    "race_1993_spa_grid.jpg",
+    "verstappen_1v1.jpg",
+    "hotlap_supergt_fuji.jpg",
+    "senna_donington_1993.jpg",
+)
+
 def render_hero():
     series_count = len({c.get("series") for c in CONFIGS if c.get("series")})
+    n_race  = sum(1 for c in CONFIGS if c["type"] == "RACE")
+    n_hot   = sum(1 for c in CONFIGS if c["type"] == "HOTLAP")
+    n_duel  = sum(1 for c in CONFIGS if c["type"] == "DUEL")
+    total   = len(CONFIGS)
+
+    # Cinematic background carousel — reuses the existing .carousel JS.
+    bg_slides = "".join(
+        f'<img src="/images/{escape(name)}" alt="" '
+        f'class="carousel-slide{" is-active" if i == 0 else ""}" '
+        f'loading="{"eager" if i == 0 else "lazy"}">'
+        for i, name in enumerate(_BH_BG_PHOTOS)
+    )
+
     return (
-        '<header class="hero">'
-        '<div class="hero-l">'
-        '<div class="hero-kicker"><span class="pos">#33</span>PABLO SUZARTE · MULTI-SERIES SIM RACING</div>'
-        '<h1 class="hero-title">SIM RACING<br><span class="accent">CHALLENGES</span></h1>'
-        '<div class="hero-sub">Pick a series · pick a scenario · go racing</div>'
+        '<header class="bighero">'
+        f'<div class="bh-bg carousel">{bg_slides}</div>'
+        '<div class="bh-overlay"></div>'
+        '<div class="bh-grain"></div>'
+        '<div class="bh-stripe"></div>'
+
+        '<div class="bh-wrap">'
+
+        # LEFT — pitch
+        '<div class="bh-l">'
+        '<div class="bh-bib">'
+        '<span class="bh-num">#33</span>'
+        '<span>Pablo Suzarte · Multi-series Sim Racing</span>'
+        '<span class="bh-rule"></span>'
         '</div>'
-        '<div class="hero-r">'
-        '<div class="hero-count-lbl">CHALLENGES BUILT</div>'
-        f'<div class="hero-count">{len(CONFIGS):02d}</div>'
-        '<div class="hero-count-meta">'
-        f'<strong>{sum(1 for c in CONFIGS if c["type"] == "RACE")}</strong> RACES · '
-        f'<strong>{sum(1 for c in CONFIGS if c["type"] == "HOTLAP")}</strong> HOTLAPS · '
-        f'<strong>{sum(1 for c in CONFIGS if c["type"] == "DUEL")}</strong> 1v1 · '
-        f'<strong>{series_count}</strong> SERIES'
+        '<span class="bh-tag">The catalog · live</span>'
+        '<h1 class="bh-title">'
+        '<span class="ln">Pick a challenge.</span>'
+        '<span class="ln">Go racing.</span>'
+        '<span class="ln">Leave <span class="accent">your time.</span></span>'
+        '</h1>'
+        '<p class="bh-blurb">'
+        f'A personal archive of <b>{total} recreated scenarios</b> — F1 grids, hotlap chases and 1v1 grudge matches. '
+        'One click launches Assetto Corsa with the right car, livery, weather and AI baked in. '
+        'Drive the lap, log the time, then come back and beat it.'
+        '</p>'
+        '<div class="bh-loop">'
+        '<div class="bh-step">'
+        '<div class="bh-step-n">1</div>'
+        '<div class="bh-step-txt">'
+        '<div class="bh-step-k">Pick</div>'
+        '<div class="bh-step-d">A grid, a hotlap or a 1v1 duel</div>'
+        '</div></div>'
+        '<div class="bh-step">'
+        '<div class="bh-step-n">2</div>'
+        '<div class="bh-step-txt">'
+        '<div class="bh-step-k">Race</div>'
+        '<div class="bh-step-d">AC opens with the scenario pre-loaded</div>'
+        '</div></div>'
+        '<div class="bh-step">'
+        '<div class="bh-step-n">3</div>'
+        '<div class="bh-step-txt">'
+        '<div class="bh-step-k">Beat it</div>'
+        '<div class="bh-step-d">Lap auto-logged · chase the benchmark</div>'
+        '</div></div>'
+        '</div>'
+        '</div>'
+
+        # RIGHT — stat slab + CTA
+        '<div class="bh-r">'
+        '<div class="bh-slab">'
+        '<div class="bh-slab-lbl">Challenges loaded · ready to launch</div>'
+        f'<div class="bh-slab-num">{total:02d}</div>'
+        '<div class="bh-slab-row">'
+        f'<div class="bh-slab-cell is-race"><span class="bh-slab-cell-v">{n_race}</span><span class="bh-slab-cell-l">Race</span></div>'
+        f'<div class="bh-slab-cell is-hot"><span class="bh-slab-cell-v">{n_hot}</span><span class="bh-slab-cell-l">Hotlap</span></div>'
+        f'<div class="bh-slab-cell is-duel"><span class="bh-slab-cell-v">{n_duel}</span><span class="bh-slab-cell-l">1v1</span></div>'
+        f'<div class="bh-slab-cell is-ser"><span class="bh-slab-cell-v">{series_count}</span><span class="bh-slab-cell-l">Series</span></div>'
+        '</div>'
+        '</div>'
         '</div>'
         '</div>'
         '</header>'
+        '<a id="challenges"></a>'
     )
 
 
@@ -1797,7 +2367,7 @@ def _load_results_index():
 
 def _render_times_block(cfg):
     bm = cfg.get("benchmarks") or {}
-    your_ms = _resolve_your_ms(bm) if bm else None
+    your_ms = _challenge_pb_ms(cfg) if bm else None
     your_str = _fmt_ms(your_ms) if your_ms else None
     refs = bm.get("refs") or []
 
@@ -2017,38 +2587,211 @@ def _flag_svg(code):
             '<rect width="30" height="20" fill="#1a1a1a"/></svg>')
 
 
+def _team_logo_svg(slug: str) -> str:
+    """Team mark for dual-driver duel CTAs. Prefers a real logo PNG dropped at
+    `launcher/images/<slug>_logo.png` (transparent recommended); falls back to
+    a simplified inline SVG so the UI never breaks."""
+    if slug:
+        custom = IMAGES_DIR / f"{slug}_logo.png"
+        if custom.exists():
+            return (
+                f'<img class="team-logo team-logo-img" '
+                f'src="/images/{slug}_logo.png" alt="" loading="lazy">'
+            )
+    if slug == "mercedes":
+        # 3-pointed star inscribed in a circle (Mercedes-AMG mark)
+        return (
+            '<svg class="team-logo" viewBox="0 0 24 24" '
+            'xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+            '<circle cx="12" cy="12" r="10.5" fill="none" '
+            'stroke="currentColor" stroke-width="1.4"/>'
+            '<line x1="12" y1="12" x2="12" y2="2.5" '
+            'stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>'
+            '<line x1="12" y1="12" x2="20.23" y2="16.75" '
+            'stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>'
+            '<line x1="12" y1="12" x2="3.77" y2="16.75" '
+            'stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>'
+            '</svg>'
+        )
+    if slug == "redbull":
+        # Two charging-bull horn silhouettes — abstract enough for inline SVG,
+        # recognizably Red Bull when paired with the navy/yellow CTA.
+        return (
+            '<svg class="team-logo" viewBox="0 0 32 18" '
+            'xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+            '<path d="M2,16 L8,3 Q9,1.6 10,3 L16,16 Q14,15 13,15 '
+            'Q11.5,15 10,16 Q8.5,15 7,15 Q5.5,15 4,16 Q3,15.5 2,16 Z" '
+            'fill="currentColor"/>'
+            '<path d="M16,16 L22,3 Q23,1.6 24,3 L30,16 Q28,15 27,15 '
+            'Q25.5,15 24,16 Q22.5,15 21,15 Q19.5,15 18,16 Q17,15.5 16,16 Z" '
+            'fill="currentColor"/>'
+            '</svg>'
+        )
+    if slug == "verstappenracing":
+        # Mercedes × Red Bull collab — 3-pointed star + charging-bull horns,
+        # split by a thin red divider so both team marks read on one chip.
+        return (
+            '<svg class="team-logo team-logo-combo" viewBox="0 0 60 22" '
+            'xmlns="http://www.w3.org/2000/svg" aria-hidden="true" '
+            'preserveAspectRatio="xMidYMid meet">'
+            '<g transform="translate(11,11)">'
+            '<circle cx="0" cy="0" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/>'
+            '<line x1="0" y1="0" x2="0" y2="-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
+            '<line x1="0" y1="0" x2="6.93" y2="4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
+            '<line x1="0" y1="0" x2="-6.93" y2="4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
+            '</g>'
+            '<line x1="29" y1="3" x2="29" y2="19" stroke="#D40E10" stroke-width="1.5"/>'
+            '<g transform="translate(33,5)">'
+            '<path d="M2,15 L7,3 Q8,1.6 9,3 L14,15 Q12.5,14 11.5,14 '
+            'Q10.3,14 9,15 Q7.7,14 6.5,14 Q5.3,14 4,15 Q3,14.5 2,15 Z" '
+            'fill="currentColor"/>'
+            '<path d="M14,15 L19,3 Q20,1.6 21,3 L26,15 Q24.5,14 23.5,14 '
+            'Q22.3,14 21,15 Q19.7,14 18.5,14 Q17.3,14 16,15 Q15,14.5 14,15 Z" '
+            'fill="currentColor"/>'
+            '</g>'
+            '</svg>'
+        )
+    if slug == "audi":
+        # Four interlocking rings — the iconic Audi mark.
+        return (
+            '<svg class="team-logo" viewBox="0 0 36 10" '
+            'xmlns="http://www.w3.org/2000/svg" aria-hidden="true" '
+            'preserveAspectRatio="xMidYMid meet">'
+            '<circle cx="5" cy="5" r="3.6" fill="none" '
+            'stroke="currentColor" stroke-width="1"/>'
+            '<circle cx="13" cy="5" r="3.6" fill="none" '
+            'stroke="currentColor" stroke-width="1"/>'
+            '<circle cx="21" cy="5" r="3.6" fill="none" '
+            'stroke="currentColor" stroke-width="1"/>'
+            '<circle cx="29" cy="5" r="3.6" fill="none" '
+            'stroke="currentColor" stroke-width="1"/>'
+            '</svg>'
+        )
+    return ""
+
+
+def _render_card_stats_v2(cfg):
+    """Slim 2-row stats block for v2 cards: YOUR PB on top (gold), best
+    reference below (muted, with diff). Returns empty string if no data."""
+    bm = cfg.get("benchmarks") or {}
+    your_ms = _challenge_pb_ms(cfg) if bm else None
+    your_str = _fmt_ms(your_ms) if your_ms else None
+    refs = bm.get("refs") or []
+
+    # Pick the first ref with a usable time (some refs are notes only).
+    ref = None
+    for r in refs:
+        if r.get("time") and _parse_time_str(r["time"]) is not None:
+            ref = r
+            break
+
+    if not your_str and not ref and not refs:
+        return ""
+
+    rows = []
+    if your_str:
+        rows.append(
+            '<div class="row">'
+            '<span class="you-k">Your PB</span>'
+            f'<span class="you-v">{escape(your_str)}</span>'
+            '<span class="you-d"></span>'
+            '</div>'
+        )
+    elif refs or bm:
+        rows.append('<div class="empty">No lap logged yet · go set one</div>')
+
+    if ref:
+        ref_str = ref["time"]
+        ref_ms = _parse_time_str(ref_str)
+        diff = _fmt_diff(your_ms, ref_ms) if (your_ms and ref_ms) else ""
+        rows.append(
+            '<div class="row">'
+            f'<span class="ref-k">{escape(ref.get("label", "Ref"))}</span>'
+            f'<span class="ref-v">{escape(ref_str)}</span>'
+            f'<span class="ref-d">{escape(diff)}</span>'
+            '</div>'
+        )
+    elif refs and refs[0].get("time"):
+        # Note-only ref (e.g., "no Max ref on 24h layout yet"): show as caption.
+        rows.append(
+            '<div class="empty">'
+            f'{escape(refs[0].get("label", "Ref"))} · {escape(refs[0]["time"])}'
+            '</div>'
+        )
+
+    if not rows:
+        return ""
+    return f'<div class="cv2-stats">{"".join(rows)}</div>'
+
+
+def _build_meta_row(label, value):
+    if not value:
+        return ""
+    return (
+        f'<dt>{escape(label)}</dt>'
+        f'<dd title="{escape(value)}">{escape(value)}</dd>'
+    )
+
+
 def render_card(cfg):
     type_cls = cfg["type"].lower()
     type_label = cfg.get("type_label", cfg["type"])
-    # CAR is rendered as a prominent line above the spec strip, so the strip
-    # only needs TRACK/GRID/LAPS.
-    pill_keys = [k for k in ("TRACK", "GRID", "LAPS") if k in cfg["specs"]]
-    pills = "".join(
-        f'<div class="spec-pill" title="{escape(k)}: {escape(cfg["specs"][k])}">'
-        f'<span class="lbl">{escape(k)}</span>{escape(cfg["specs"][k])}'
-        f'</div>'
-        for k in pill_keys
+    specs = cfg.get("specs", {})
+
+    # WHERE → TRACK · CAR → CAR · AI → GRID + LAPS combined into one tight line.
+    grid = specs.get("GRID", "").strip()
+    laps = specs.get("LAPS", "").strip()
+    if grid and laps:
+        ai_value = f"{grid} · {laps}"
+    else:
+        ai_value = grid or laps
+
+    meta_html = (
+        _build_meta_row("Where", specs.get("TRACK", ""))
+        + _build_meta_row("Car",  specs.get("CAR", ""))
+        + _build_meta_row("AI",   ai_value)
     )
-    secondary = ""
-    # DASH button now points at the unified internal /challenge/<id> view
-    # rather than each preset's separate external HTML dashboard.
-    secondary += (
-        f'<a class="btn-dash" title="Open the unified challenge dashboard" '
-        f'href="/challenge/{escape(cfg["id"])}">DASH ↗</a>'
-    )
+
+    # Launch CTA(s): if the cfg defines `launchers: [{label, logo, cmd}, ...]`,
+    # render one team-branded CTA per entry. Otherwise fall back to a single
+    # red LAUNCH button that fires the primary `launcher` field.
+    launchers = cfg.get("launchers")
+    if launchers:
+        launch_block = '<div class="card-launchers">'
+        for lc in launchers:
+            label = lc.get("label", "LAUNCH")
+            logo = lc.get("logo", "")
+            cmd = lc.get("cmd", "")
+            launch_block += (
+                f'<button class="btn-launch-team {escape(logo)}" '
+                f'onclick="launchConfig({escape(json.dumps(cfg["id"]))},'
+                f'{escape(json.dumps(cfg["title"] + " · " + label))},'
+                f'{escape(json.dumps(cmd))})">'
+                f'{_team_logo_svg(logo)}'
+                f'<span>{escape(label)}</span>'
+                f'<span class="team-go">GO ▶</span>'
+                f'</button>'
+            )
+        launch_block += '</div>'
+    else:
+        launch_block = (
+            f'<button class="btn-launch" onclick="launchConfig('
+            f'{escape(json.dumps(cfg["id"]))},'
+            f'{escape(json.dumps(cfg["title"]))})">LAUNCH</button>'
+        )
+
+    # Optional WATCH video links — kept as small text-only links beside MORE DETAILS.
+    video_links = ""
     for v in cfg.get("videos") or []:
         if isinstance(v, str):
             label, url = "WATCH", v
         else:
             label, url = v.get("label", "WATCH"), v["url"]
-        secondary += (
-            f'<a class="btn-watch" target="_blank" rel="noopener noreferrer" '
-            f'href="{escape(url)}" title="Watch context video">'
-            f'{escape(label)} ▶</a>'
+        video_links += (
+            f'<a class="cv2-more" target="_blank" rel="noopener noreferrer" '
+            f'href="{escape(url)}" title="Watch context video"'
+            f' style="margin-left:14px">{escape(label)} ▶</a>'
         )
-    secondary_block = (
-        f'<div class="card-secondary">{secondary}</div>' if secondary else ""
-    )
 
     cc = _country_for(cfg)
     if cc:
@@ -2062,25 +2805,26 @@ def render_card(cfg):
     else:
         country_chip = ""
 
-    # Title attribute on the article so Pablo can hover for the long scenario
     return (
-        '<article class="card">'
-        '<div class="card-img">'
+        f'<article class="card cv2 cv2-{type_cls}">'
+        '<div class="card-img cv2-img">'
         f'<span class="card-type-chip {type_cls}">{escape(type_label)}</span>'
         f'{country_chip}'
         f'{_img_block(cfg)}'
+        '<div class="cv2-shade"></div>'
+        f'<h3 class="cv2-title">{escape(cfg["title"])}</h3>'
         '</div>'
-        '<div class="card-body">'
-        f'<h3 class="card-title">{escape(cfg["title"])}</h3>'
-        f'<div class="card-car">{escape(cfg["specs"].get("CAR", ""))}</div>'
-        f'<div class="card-sub">{escape(cfg["subtitle"])}</div>'
-        + _render_times_block(cfg) +
-        f'<div class="spec-strip">{pills}</div>'
-        '<div class="card-actions">'
-        f'{secondary_block}'
-        f'<button class="btn-launch" onclick="launchConfig({escape(json.dumps(cfg["id"]))},'
-        f'{escape(json.dumps(cfg["title"]))})">LAUNCH</button>'
+        '<div class="cv2-body">'
+        f'<dl class="cv2-meta">{meta_html}</dl>'
+        '<div class="cv2-actions">'
+        f'{launch_block}'
         '</div>'
+        '<div>'
+        f'<a class="cv2-more" href="/challenge/{escape(cfg["id"])}" '
+        f'title="Open the unified challenge dashboard">More details</a>'
+        f'{video_links}'
+        '</div>'
+        + _render_card_stats_v2(cfg) +
         '</div>'
         '</article>'
     )
@@ -3079,12 +3823,43 @@ def _render_series_sections():
     return "".join(parts)
 
 
+# Pinned-ongoing-challenge tile IDs — these render in a featured row above
+# the regular series sections on the home page.
+ONGOING_TILE_IDS = [
+    "antonelli_vs_verstappen_nord",
+    "verstappen_1v1",
+    "hotlap_montreal",
+]
+
+
+def _render_ongoing_section():
+    tiles = []
+    for tid in ONGOING_TILE_IDS:
+        cfg = next((c for c in CONFIGS if c["id"] == tid), None)
+        if cfg:
+            tiles.append(cfg)
+    if not tiles:
+        return ""
+    cards_html = "".join(render_card(c) for c in tiles)
+    return (
+        '<section class="ongoing-section">'
+        '<header class="ongoing-head">'
+        '<div class="ongoing-tag">▶ ONGOING</div>'
+        '<h2 class="ongoing-title">Active challenges</h2>'
+        '<p class="ongoing-deck">What you\'re actively chasing right now. Pinned to the top until you swap them out.</p>'
+        '</header>'
+        f'<div class="ongoing-grid">{cards_html}</div>'
+        '</section>'
+    )
+
+
 def render_html():
     return (
         f'{_common_head("Pablo Suzarte\'s Sim Racing Challenges")}'
         f'{render_nav("challenges")}'
         f'{render_ticker()}'
         f'{render_hero()}'
+        f'{_render_ongoing_section()}'
         f'{_render_series_sections()}'
         f'{render_foot()}'
         '<div id="toast" class="toast"></div>'
@@ -3524,23 +4299,44 @@ def _read_personalbest():
 
 
 def _challenge_pb_ms(cfg):
-    """Resolve the player's PB for this challenge: explicit > history > personalbest.ini."""
+    """Resolve the player's PB for this challenge.
+
+    `current_pb_ms` is an explicit override and wins outright. Otherwise return
+    the best (lowest) ms across every known source: hand-curated `you_history`
+    file, AC's `personalbest.ini` section, and the auto-results index written
+    by `launcher/update_results.py` after each AC session. The index path means
+    a fresh hotlap shows up on the detail page even when AC didn't write a
+    matching `personalbest.ini` section (different naming, hotlap-mode quirks).
+    """
     bm = cfg.get("benchmarks") or {}
     if cfg.get("current_pb_ms"):
         return int(cfg["current_pb_ms"])
+
+    candidates = []
+
     history = bm.get("you_history")
     if history:
         try:
             data = json.loads((AC_DOC / history).read_text(encoding="utf-8"))
             mss = [d.get("pb_ms") for d in data if d.get("pb_ms")]
             if mss:
-                return min(mss)
+                candidates.append(min(mss))
         except Exception:
             pass
+
     sect = bm.get("you_section")
     if sect:
-        return _read_personalbest().get(sect)
-    return None
+        pb_ini = _read_personalbest().get(sect)
+        if pb_ini:
+            candidates.append(pb_ini)
+
+    last = _load_results_index().get(cfg.get("id"))
+    if last:
+        last_ms = _parse_time_ms((last.get("summary") or {}).get("best_lap"))
+        if last_ms:
+            candidates.append(last_ms)
+
+    return min(candidates) if candidates else None
 
 
 def _load_history(cfg):
@@ -3566,6 +4362,830 @@ def _load_history(cfg):
     return None, []
 
 
+def _load_duel_history(cfg):
+    """Scan dashboard/results/snapshots/ and return per-skin history for a duel.
+    Matches by skin (since duels with different chassis per launcher would be
+    missed if we filtered by ac_car_id). Track filter still applies — we don't
+    want a different track's snapshot to leak in. Returns:
+    {skin: [{ts, finish, win, best_ms, field}], ...}, sorted oldest→newest."""
+    snaps_dir = AC_DOC / "dashboard" / "results" / "snapshots"
+    if not snaps_dir.exists():
+        return {}
+    # Build allowed (car, skin, track) tuples from the launchers; fall back to
+    # cfg-level fields when launchers list is missing.
+    allowed_tracks = set()
+    track_main = f"{cfg.get('ac_track_id','')}-{cfg.get('ac_track_layout','')}"
+    if track_main and track_main != "-":
+        allowed_tracks.add(track_main)
+    skin_set = set()
+    car_set = set()
+    for lc in cfg.get("launchers") or []:
+        if lc.get("skin"):
+            skin_set.add(lc["skin"])
+        if lc.get("ac_car_id"):
+            car_set.add(lc["ac_car_id"])
+    if not skin_set:
+        skin_set.add(cfg.get("ac_car_skin", ""))
+    if not car_set:
+        car_set.add(cfg.get("ac_car_id", ""))
+    skin_set.discard("")
+    car_set.discard("")
+    history = {}
+    for f in sorted(snaps_dir.glob("*.json")):
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        players = d.get("players") or []
+        if not players: continue
+        p0 = players[0]
+        if d.get("track") not in allowed_tracks: continue
+        if p0.get("car") not in car_set: continue
+        skin = p0.get("skin", "")
+        if skin not in skin_set: continue
+        sessions = d.get("sessions") or []
+        s = sessions[0] if sessions else {}
+        if s.get("type") != 3: continue  # race only
+        if len(players) != 2: continue   # duel only
+        laps = s.get("laps") or []
+        valid = [l for l in laps if l.get("car") == 0 and not l.get("cuts") and l.get("time")]
+        best = min((l["time"] for l in valid), default=None)
+        rr = s.get("raceResult") or []
+        finish = (rr.index(0) + 1) if (rr and 0 in rr) else None
+        history.setdefault(skin, []).append({
+            "ts":      f.stem,
+            "finish":  finish,
+            "win":     finish == 1,
+            "best_ms": best,
+            "field":   len(players),
+        })
+    return history
+
+
+def _render_lap_sparkline(runs, accent_color, width=320, height=72):
+    """Inline SVG mini chart of best-lap-ms across sessions.
+    runs: list of {ts, best_ms, finish, win} oldest→newest. Empty/None lap times
+    are rendered as 'no data' baseline ticks. Always renders something —
+    never empty, so the panel layout stays balanced."""
+    n = len(runs)
+    if n == 0:
+        return (
+            f'<div class="dp-chart-empty">No sessions yet · '
+            f'<span class="dp-chart-empty-em">launch to start your record</span></div>'
+        )
+    pad_l, pad_r, pad_t, pad_b = 6, 6, 8, 18
+    plot_w = width - pad_l - pad_r
+    plot_h = height - pad_t - pad_b
+    times = [r.get("best_ms") for r in runs if r.get("best_ms")]
+    has_times = len(times) > 0
+    if has_times:
+        tmin, tmax = min(times), max(times)
+        if tmin == tmax:
+            tmin -= 1000; tmax += 1000  # avoid zero range
+        def y_for(ms):
+            return pad_t + plot_h * (1 - (tmax - ms) / (tmax - tmin))
+    points = []
+    dots = ""
+    finishes = ""
+    for i, r in enumerate(runs):
+        x = pad_l + (plot_w * i / max(n - 1, 1))
+        if has_times and r.get("best_ms"):
+            y = y_for(r["best_ms"])
+            points.append(f"{x:.1f},{y:.1f}")
+            dots += (
+                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.2" '
+                f'fill="{accent_color}" stroke="#000" stroke-width="1.2"/>'
+            )
+        # finish-position dots along the bottom edge
+        fy = height - 6
+        fcolor = accent_color if r.get("win") else "rgba(255,255,255,0.32)"
+        finishes += (
+            f'<circle cx="{x:.1f}" cy="{fy:.1f}" r="2.6" fill="{fcolor}"/>'
+        )
+    line = ""
+    if len(points) >= 2:
+        line = (
+            f'<polyline points="{" ".join(points)}" fill="none" '
+            f'stroke="{accent_color}" stroke-width="1.7" stroke-linejoin="round"/>'
+        )
+    elif len(points) == 1:
+        # single point: show as standalone dot only (already in `dots`)
+        pass
+    if not has_times:
+        # baseline placeholder line
+        ymid = pad_t + plot_h / 2
+        line = (
+            f'<line x1="{pad_l}" y1="{ymid}" x2="{pad_l + plot_w}" y2="{ymid}" '
+            f'stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-dasharray="3 3"/>'
+        )
+    return (
+        f'<svg class="dp-chart" viewBox="0 0 {width} {height}" '
+        f'xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">'
+        f'{line}{dots}{finishes}'
+        f'</svg>'
+    )
+
+
+def _render_driver_stats(runs):
+    """Compact stats strip: sessions · wins · best lap."""
+    n = len(runs)
+    wins = sum(1 for r in runs if r.get("win"))
+    times = [r["best_ms"] for r in runs if r.get("best_ms")]
+    best = min(times) if times else None
+    best_str = _fmt_ms(best) if best else "—"
+    return (
+        f'<div class="dp-stats">'
+        f'<div class="dp-stat"><span class="dp-stat-val mono">{n}</span>'
+        f'<span class="dp-stat-lbl">Sessions</span></div>'
+        f'<div class="dp-stat"><span class="dp-stat-val mono">{wins}</span>'
+        f'<span class="dp-stat-lbl">Wins</span></div>'
+        f'<div class="dp-stat"><span class="dp-stat-val mono">{best_str}</span>'
+        f'<span class="dp-stat-lbl">Best lap</span></div>'
+        f'</div>'
+    )
+
+
+def _render_h2h(cfg, history):
+    """Head-to-head tally + last-5 timeline for dual-driver duels."""
+    launchers = cfg.get("launchers") or []
+    if len(launchers) < 2:
+        return ""
+    rows = []
+    for lc in launchers:
+        skin = lc.get("skin", "")
+        runs = history.get(skin, [])
+        wins = sum(1 for r in runs if r.get("win"))
+        rows.append({
+            "label":  lc.get("label", ""),
+            "color":  lc.get("color", "#fff"),
+            "logo":   lc.get("logo", ""),
+            "wins":   wins,
+            "runs":   len(runs),
+            "skin":   skin,
+        })
+    if all(r["runs"] == 0 for r in rows):
+        return ""
+    total_wins = sum(r["wins"] for r in rows) or 1
+    bar_segments = ""
+    for r in rows:
+        pct = (r["wins"] / total_wins) * 100 if total_wins else 50
+        bar_segments += (
+            f'<div class="h2h-bar-seg" '
+            f'style="flex-basis:{pct:.1f}%;background:{r["color"]}" '
+            f'title="{escape(r["label"])}: {r["wins"]} wins"></div>'
+        )
+    cards = ""
+    for r in rows:
+        cards += (
+            f'<div class="h2h-card" style="--accent:{r["color"]}">'
+            f'<div class="h2h-team-logo">{_team_logo_svg(r["logo"])}</div>'
+            f'<div class="h2h-tally">'
+            f'<span class="h2h-wins mono">{r["wins"]}</span>'
+            f'<span class="h2h-of mono">/ {r["runs"]}</span>'
+            f'</div>'
+            f'<div class="h2h-label">{escape(r["label"])} WINS</div>'
+            f'</div>'
+        )
+    return (
+        '<section class="cd-section h2h-section">'
+        '<h2 class="cd-h2">Head-to-head</h2>'
+        f'<div class="h2h-bar">{bar_segments}</div>'
+        f'<div class="h2h-cards">{cards}</div>'
+        '</section>'
+    )
+
+
+def _render_track_section(cfg):
+    """Track section: photo carousel + facts + outline. Pulls bcr*.jpg from the
+    track ui folder + extension/backgrounds for the carousel."""
+    ac_root = Path("/mnt/d/SteamLibrary/steamapps/common/assettocorsa")
+    if not ac_root.exists(): return ""
+    track_id = cfg.get("ac_track_id", "")
+    layout = cfg.get("ac_track_layout", "")
+    if not track_id: return ""
+    ui_dir = ac_root / "content" / "tracks" / track_id / "ui" / layout
+    j = ui_dir / "ui_track.json"
+    if not j.exists(): return ""
+    try:
+        ui = json.loads(_escape_ctrl_in_strings(j.read_text(encoding="utf-8", errors="ignore")))
+    except Exception:
+        return ""
+    name = ui.get("name") or layout
+    length = ui.get("length") or "—"
+    width = ui.get("width") or "—"
+    pitboxes = ui.get("pitboxes") or "—"
+    country = ui.get("country") or ""
+    description = (ui.get("description") or "").strip()
+
+    # Collect photos: (1) bcr0..N.jpg in the layout ui folder (highest priority);
+    # (2) <track_id>_*.jpg from extension/backgrounds; (3) preview.png as fallback
+    photos = []
+    for n in range(10):
+        p = ui_dir / f"bcr{n}.jpg"
+        if p.exists():
+            photos.append(("track-asset", f"track={track_id}&layout={layout}&file=bcr{n}.jpg"))
+    bg_dir = ac_root / "extension" / "backgrounds"
+    if bg_dir.exists():
+        for p in sorted(bg_dir.glob(f"{track_id}_*.jpg")):
+            photos.append(("ext-asset", f"file={p.name}"))
+    if not photos:
+        preview = ui_dir / "preview.png"
+        if preview.exists():
+            photos.append(("track-asset", f"track={track_id}&layout={layout}&file=preview.png"))
+    slides_html = ""
+    dots_html = ""
+    if photos:
+        slides_html = "".join(
+            f'<img src="/{kind}?{q}" alt="{escape(name)}" loading="lazy" '
+            f'class="carousel-slide{" is-active" if i == 0 else ""}">'
+            for i, (kind, q) in enumerate(photos)
+        )
+        dots_html = "".join(
+            f'<span class="carousel-dot{" is-active" if i == 0 else ""}"></span>'
+            for i in range(len(photos))
+        )
+    carousel_html = (
+        f'<div class="carousel tk-carousel">{slides_html}'
+        f'<div class="carousel-dots">{dots_html}</div></div>'
+    ) if photos else (
+        f'<div class="tk-carousel tk-carousel-empty"></div>'
+    )
+    facts = [
+        ("LENGTH",    str(length) + (" m" if str(length).replace('.','',1).isdigit() else "")),
+        ("WIDTH",     str(width) + (" m" if str(width).replace('.','',1).isdigit() else "")),
+        ("PIT BOXES", str(pitboxes)),
+        ("COUNTRY",   str(country) or "—"),
+    ]
+    facts_html = "".join(
+        f'<div class="tk-fact"><span class="tk-fact-lbl">{escape(k)}</span>'
+        f'<span class="tk-fact-val mono">{escape(v)}</span></div>'
+        for k, v in facts
+    )
+    outline_path = ui_dir / "outline.png"
+    outline_html = ""
+    if outline_path.exists():
+        outline_html = (
+            f'<div class="tk-outline">'
+            f'<img src="/track-asset?track={escape(track_id)}'
+            f'&amp;layout={escape(layout)}&amp;file=outline.png" alt="">'
+            f'</div>'
+        )
+    desc_html = ""
+    if description:
+        # Strip basic HTML tags from AC descriptions
+        plain = re.sub(r"<[^>]+>", " ", description)
+        plain = re.sub(r"\s+", " ", plain).strip()
+        if plain:
+            desc_html = f'<p class="tk-desc">{escape(plain[:280])}{"…" if len(plain) > 280 else ""}</p>'
+    return (
+        '<section class="cd-section tk-section">'
+        '<h2 class="cd-h2">The track</h2>'
+        '<div class="tk-grid">'
+        f'<div class="tk-photos">{carousel_html}</div>'
+        '<div class="tk-side">'
+        f'<div class="tk-name">{escape(name)}</div>'
+        f'{outline_html}'
+        f'<div class="tk-facts">{facts_html}</div>'
+        '</div>'
+        '</div>'
+        f'{desc_html}'
+        '</section>'
+    )
+
+
+# Curated explainer for AC setup keys. Each entry: (display label, group, blurb).
+_SETUP_KEY_INFO = {
+    "TYRES":           ("Tyre compound",     "TYRES",      "0 = Hard slick · 1 = Wet (no Soft/Medium on this car)"),
+    "FUEL":            ("Fuel load",         "TYRES",      "Litres on board at race start. Lighter = quicker but limited range."),
+    "WING_1":          ("Front wing",        "AERO",       "Higher = more front downforce + drag. Adds turn-in grip."),
+    "WING_2":          ("Rear wing",         "AERO",       "Higher = more rear downforce + drag. Cuts top speed but stabilises."),
+    "BRAKE_DUCT_F":    ("Front brake duct",  "AERO",       "Cooling. Smaller = less drag, hotter brakes."),
+    "FRONT_BIAS":      ("Brake bias",        "BRAKES",     "% of braking force on the front axle. Higher = stable, locks fronts."),
+    "DIFF_PRELOAD":    ("Diff preload",      "DIFF",       "Static lock-up. More = stable on entry, more push on exit."),
+    "MGUK_DELIVERY":   ("MGU-K delivery",    "DIFF",       "ERS hybrid deployment mode."),
+    "ARB_F":           ("Front anti-roll",   "SUSPENSION", "Stiffer = less front roll, more understeer."),
+    "ARB_R":           ("Rear anti-roll",    "SUSPENSION", "Stiffer = less rear roll, more oversteer."),
+    "SPRING_RATE_LF_C1": ("Front spring",    "SUSPENSION", "Front-axle spring rate. Stiffer = sharper response, harsher kerbs."),
+    "SPRING_RATE_LR_C1": ("Rear spring",     "SUSPENSION", "Rear-axle spring rate. Stiffer = better traction off curbs."),
+    "TORSION_RATE_LF_0": ("Front torsion",   "SUSPENSION", "Front torsion-bar stiffness."),
+    "TORSION_RATE_LR_0": ("Rear torsion",    "SUSPENSION", "Rear torsion-bar stiffness."),
+    "DAMPER_BUMP_LF_C0":     ("F bump (slow)",    "DAMPERS",    "Slow-bump damping front."),
+    "DAMPER_BUMP_LR_C0":     ("R bump (slow)",    "DAMPERS",    "Slow-bump damping rear."),
+    "DAMPER_REBOUND_LF_C0":  ("F rebound (slow)", "DAMPERS",    "Slow-rebound damping front."),
+    "DAMPER_REBOUND_LR_C0":  ("R rebound (slow)", "DAMPERS",    "Slow-rebound damping rear."),
+    "DAMPER_FAST_BUMP_LF_C0":    ("F bump (fast)",    "DAMPERS", "High-speed bump (curbs/jumps)."),
+    "DAMPER_FAST_REBOUND_LF_C0": ("F rebound (fast)", "DAMPERS", "High-speed rebound front."),
+    "CAMBER_LF":       ("Camber LF",         "ALIGNMENT",  "Negative tilts top of tyre inward — more cornering grip, less straight-line traction."),
+    "CAMBER_RF":       ("Camber RF",         "ALIGNMENT",  "Symmetrical to LF on most setups."),
+    "CAMBER_LR":       ("Camber LR",         "ALIGNMENT",  "Less negative on the rear for traction."),
+    "CAMBER_RR":       ("Camber RR",         "ALIGNMENT",  "Symmetrical to LR."),
+    "PRESSURE_LF":     ("Pressure LF",       "PRESSURES",  "Cold tyre PSI front-left. Lower = more grip, higher wear."),
+    "PRESSURE_RF":     ("Pressure RF",       "PRESSURES",  "Cold PSI front-right."),
+    "PRESSURE_LR":     ("Pressure LR",       "PRESSURES",  "Cold PSI rear-left."),
+    "PRESSURE_RR":     ("Pressure RR",       "PRESSURES",  "Cold PSI rear-right."),
+    "BUMPSTOP_LF_C0":  ("F bumpstop",        "SUSPENSION", "Length of bumpstop rubber — caps suspension travel."),
+    "BUMPSTOP_LR_C0":  ("R bumpstop",        "SUSPENSION", "Rear bumpstop length."),
+}
+
+_SETUP_GROUP_ORDER = ["TYRES", "AERO", "BRAKES", "DIFF", "SUSPENSION", "DAMPERS", "ALIGNMENT", "PRESSURES"]
+_SETUP_GROUP_META = {
+    "TYRES":      ("TYRES & FUEL",  "What the car is wearing and how heavy it starts"),
+    "AERO":       ("AERO",          "Wings, brake ducts — drag vs downforce"),
+    "BRAKES":     ("BRAKES",        "Where the stopping power lives"),
+    "DIFF":       ("DIFFERENTIAL",  "How the rear wheels share torque"),
+    "SUSPENSION": ("SUSPENSION",    "Springs, anti-roll bars, bump-stops"),
+    "DAMPERS":    ("DAMPERS",       "Slow + fast compression/rebound"),
+    "ALIGNMENT":  ("ALIGNMENT",     "Camber — wheel tilt for cornering"),
+    "PRESSURES":  ("TYRE PRESSURES","Cold PSI · 4 corners"),
+}
+
+
+def _render_ac_setup_section(cfg):
+    """Read a setup ini under setups/<car>/<track>/ and present the user-facing
+    values grouped by category with explainers. Skips CUSTOM_SCRIPT_ITEM_* keys
+    (those are mod-internal power maps / gear ratios, not user setup).
+    Lookup order: cfg["setup_file"] → 1.ini → first *.ini alphabetically."""
+    car = cfg.get("ac_car_id")
+    track = cfg.get("ac_track_id")
+    if not car or not track:
+        return ""
+    setup_dir = AC_DOC / "setups" / car / track
+    if not setup_dir.is_dir():
+        return ""
+    setup_path = None
+    if cfg.get("setup_file"):
+        cand = setup_dir / cfg["setup_file"]
+        if cand.exists():
+            setup_path = cand
+    if not setup_path:
+        cand = setup_dir / "1.ini"
+        if cand.exists():
+            setup_path = cand
+    if not setup_path:
+        inis = sorted(setup_dir.glob("*.ini"))
+        if inis:
+            setup_path = inis[0]
+    if not setup_path:
+        return ""
+    parsed = {}
+    try:
+        text = setup_path.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return ""
+    cur = None
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith(";"):
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            cur = line[1:-1]
+            continue
+        if "=" in line and cur:
+            k, v = line.split("=", 1)
+            if k.strip() == "VALUE":
+                parsed[cur] = v.strip()
+    # Build group → rows
+    groups = {g: [] for g in _SETUP_GROUP_ORDER}
+    for key, val in parsed.items():
+        info = _SETUP_KEY_INFO.get(key)
+        if not info:
+            continue
+        label, group, blurb = info
+        if group not in groups:
+            continue
+        # Format value with helpful suffixes
+        display = val
+        if key == "TYRES":
+            display = "Hard (slick)" if val == "0" else ("Wet" if val == "1" else val)
+        elif key == "FUEL":
+            display = f"{val} L"
+        elif key == "FRONT_BIAS":
+            display = f"{val}%"
+        elif key.startswith("PRESSURE_"):
+            display = f"{val} psi"
+        elif key.startswith("CAMBER_"):
+            try:
+                display = f"{float(val) / 10:.1f}°" if val.lstrip("-").isdigit() else val
+            except Exception:
+                pass
+        elif key.startswith("WING_"):
+            display = f"{val}/11" if val.isdigit() else val
+        groups[group].append({"key": key, "label": label, "value": display, "blurb": blurb})
+    # Render
+    blocks = ""
+    for g in _SETUP_GROUP_ORDER:
+        rows = groups.get(g) or []
+        if not rows:
+            continue
+        meta = _SETUP_GROUP_META.get(g, (g, ""))
+        rows_html = "".join(
+            f'<div class="su-row">'
+            f'<div class="su-row-label">{escape(r["label"])}</div>'
+            f'<div class="su-row-value mono">{escape(str(r["value"]))}</div>'
+            f'<div class="su-row-blurb">{escape(r["blurb"])}</div>'
+            f'</div>'
+            for r in rows
+        )
+        blocks += (
+            f'<article class="su-group">'
+            f'<header class="su-group-head">'
+            f'<div class="su-group-name">{escape(meta[0])}</div>'
+            f'<div class="su-group-deck">{escape(meta[1])}</div>'
+            f'</header>'
+            f'<div class="su-rows">{rows_html}</div>'
+            f'</article>'
+        )
+    if not blocks:
+        return ""
+    setup_name = setup_path.stem
+    return (
+        '<section class="cd-section su-section">'
+        f'<h2 class="cd-h2">Setup · "{escape(setup_name)}"</h2>'
+        f'<p class="su-deck">Reading the live setup saved as <code>{escape(setup_path.name)}</code> in your '
+        f'<code>setups/{escape(car)}/{escape(track)}/</code> folder. Edit it in CM and reload to see your changes here.</p>'
+        f'<div class="su-grid">{blocks}</div>'
+        '</section>'
+    )
+
+
+def _render_track_dna(cfg):
+    """Visual track-fact card. Reads ui_track.json from the AC install."""
+    ac_root = Path("/mnt/d/SteamLibrary/steamapps/common/assettocorsa")
+    if not ac_root.exists(): return ""
+    track_id = cfg.get("ac_track_id", "")
+    layout = cfg.get("ac_track_layout", "")
+    ui_dir = ac_root / "content" / "tracks" / track_id / "ui" / layout
+    j = ui_dir / "ui_track.json"
+    if not j.exists(): return ""
+    try:
+        ui = json.loads(_escape_ctrl_in_strings(j.read_text(encoding="utf-8", errors="ignore")))
+    except Exception:
+        return ""
+    name = ui.get("name") or layout
+    length = ui.get("length") or "—"
+    width = ui.get("width") or "—"
+    pitboxes = ui.get("pitboxes") or "—"
+    country = ui.get("country") or ""
+    geo = ui.get("geotags") or ""
+    outline_url = f"/content/tracks/{track_id}/preview?layout={layout}"
+    facts = [
+        ("LENGTH",     str(length) + (" m" if str(length).isdigit() else "")),
+        ("WIDTH",      str(width) + (" m" if str(width).replace('.','',1).isdigit() else "")),
+        ("PIT BOXES",  str(pitboxes)),
+        ("COUNTRY",    str(country) or "—"),
+    ]
+    facts_html = "".join(
+        f'<div class="td-fact"><span class="td-fact-lbl">{escape(k)}</span>'
+        f'<span class="td-fact-val mono">{escape(v)}</span></div>'
+        for k, v in facts
+    )
+    outline_path = ui_dir / "outline.png"
+    outline_html = ""
+    if outline_path.exists():
+        outline_html = (
+            f'<div class="td-outline">'
+            f'<img src="/track-asset?track={escape(track_id)}'
+            f'&amp;layout={escape(layout)}&amp;file=outline.png" alt="Track outline">'
+            f'</div>'
+        )
+    return (
+        '<section class="cd-section td-section">'
+        '<h2 class="cd-h2">Track DNA</h2>'
+        '<div class="td-grid">'
+        f'<div class="td-name">{escape(name)}</div>'
+        f'{outline_html}'
+        f'<div class="td-facts">{facts_html}</div>'
+        '</div>'
+        '</section>'
+    )
+
+
+def _render_drivers_section(cfg):
+    """DRIVERS — portrait + tagline + name + team + quote. No CTA, no stats."""
+    launchers = cfg.get("launchers") or []
+    rich = [lc for lc in launchers if lc.get("driver") and lc.get("quote")]
+    if len(rich) < 2:
+        return ""
+    panels = ""
+    for lc in rich:
+        logo = lc.get("logo", "")
+        portrait = lc.get("portrait")
+        if portrait and (IMAGES_DIR / portrait).exists():
+            portrait_html = (
+                f'<div class="dr-portrait">'
+                f'<img src="/images/{escape(portrait)}" alt="{escape(lc.get("driver", ""))}">'
+                f'</div>'
+            )
+        else:
+            portrait_html = (
+                f'<div class="dr-portrait dr-portrait-fallback">'
+                f'<div class="dr-num-big">#{escape(lc.get("number", ""))}</div>'
+                f'</div>'
+            )
+        panels += (
+            f'<article class="dr-panel dr-{escape(logo)}">'
+            f'{portrait_html}'
+            f'<div class="dr-body">'
+            f'<div class="dr-tag">{escape(lc.get("tagline", ""))}</div>'
+            f'<h3 class="dr-name">{escape(lc.get("driver", ""))} '
+            f'<span class="dr-num-inline">#{escape(lc.get("number", ""))}</span></h3>'
+            f'<div class="dr-team">'
+            f'<span class="dr-team-logo">{_team_logo_svg(logo)}</span>'
+            f'<span>{escape(lc.get("team", ""))}</span>'
+            f'</div>'
+            f'<p class="dr-quote">"{escape(lc.get("quote", ""))}"</p>'
+            f'</div>'
+            f'</article>'
+        )
+    return (
+        '<section class="cd-section dr-section">'
+        '<h2 class="cd-h2">The drivers</h2>'
+        f'<div class="dr-grid">{panels}</div>'
+        '</section>'
+    )
+
+
+def _render_cars_section(cfg):
+    """CARS — handles two cases:
+       (a) Same chassis, two liveries (e.g. Antonelli/Verstappen on VRC Alpha 2025)
+       (b) Different chassis per launcher (e.g. Verstappen Mercedes vs Haase Audi)
+    """
+    launchers = cfg.get("launchers") or []
+    if len(launchers) < 2:
+        return ""
+    # Resolve each launcher's car_id (fall back to cfg.ac_car_id)
+    enriched = []
+    for lc in launchers:
+        car_id = lc.get("ac_car_id") or cfg.get("ac_car_id")
+        enriched.append({**lc, "_car_id": car_id})
+    same_chassis = len({e["_car_id"] for e in enriched if e["_car_id"]}) == 1
+
+    def car_card(e):
+        car_id = e["_car_id"]
+        skin = e.get("skin", "")
+        logo = e.get("logo", "")
+        accent = e.get("color", "#fff")
+        car_meta = _ac_car_meta(car_id) if car_id else None
+        chassis_name = car_meta.get("name", car_id) if car_meta else (car_id or "")
+        brand = car_meta.get("brand", "") if car_meta else ""
+        # Specs strip for this individual car (only when chassis differs per CTA)
+        specs_html = ""
+        if car_meta:
+            year = car_meta.get("year", "")
+            bhp = car_meta.get("bhp", "")
+            weight = car_meta.get("weight", "")
+            bits = []
+            if year:    bits.append(("YEAR", str(year)))
+            if bhp:     bits.append(("POWER", str(bhp)))
+            if weight:  bits.append(("WEIGHT", str(weight)))
+            specs_html = "".join(
+                f'<div class="cs-spec"><span class="cs-spec-lbl">{escape(k)}</span>'
+                f'<span class="cs-spec-val mono">{escape(v)}</span></div>'
+                for k, v in bits
+            )
+        img_url = None
+        if car_id and skin and (CARS_DIR / car_id / "skins" / skin / "preview.jpg").exists():
+            img_url = f"/content/cars/{car_id}/preview?skin={quote(skin, safe='')}"
+        elif car_id and skin and (CARS_DIR / car_id / "skins" / skin / "livery.png").exists():
+            img_url = f"/content/cars/{car_id}/preview?skin={quote(skin, safe='')}"
+        elif car_id:
+            img_url = f"/content/cars/{car_id}/preview"
+        img_html = (
+            f'<img class="cs-livery-img" src="{img_url}" alt="" loading="lazy">'
+            if img_url else
+            '<div class="cs-livery-img cs-livery-fallback"></div>'
+        )
+        chassis_block = ""
+        if not same_chassis:
+            chassis_block = (
+                f'<div class="cs-chassis-inline">'
+                f'<div class="cs-chassis-inline-name">{escape(chassis_name)}</div>'
+                f'<div class="cs-chassis-inline-brand">{escape(brand)}</div>'
+                f'<div class="cs-chassis-inline-specs">{specs_html}</div>'
+                f'</div>'
+            )
+        return (
+            f'<article class="cs-card cs-{escape(logo)}" style="--accent:{accent}">'
+            f'<div class="cs-livery-wrap">{img_html}</div>'
+            f'{chassis_block}'
+            f'<div class="cs-meta">'
+            f'<div class="cs-meta-num mono">#{escape(e.get("number", ""))}</div>'
+            f'<div class="cs-meta-team">{escape(e.get("team", ""))}</div>'
+            f'<div class="cs-meta-driver">{escape(e.get("driver", ""))}</div>'
+            f'</div>'
+            f'</article>'
+        )
+
+    cards_html = "".join(car_card(e) for e in enriched)
+
+    if same_chassis:
+        car_id = enriched[0]["_car_id"]
+        car_meta = _ac_car_meta(car_id) if car_id else None
+        chassis_name = car_meta.get("name", car_id) if car_meta else car_id
+        brand = car_meta.get("brand", "") if car_meta else ""
+        chassis_meta_html = ""
+        if car_meta:
+            bits = []
+            for k, v in (("YEAR", car_meta.get("year", "")),
+                         ("POWER", car_meta.get("bhp", "")),
+                         ("WEIGHT", car_meta.get("weight", "")),
+                         ("TOP SPEED", car_meta.get("topspeed", ""))):
+                if v: bits.append((k, str(v)))
+            chassis_meta_html = "".join(
+                f'<div class="cs-spec"><span class="cs-spec-lbl">{escape(k)}</span>'
+                f'<span class="cs-spec-val mono">{escape(v)}</span></div>'
+                for k, v in bits
+            )
+        chassis_header = (
+            '<div class="cs-chassis">'
+            '<div class="cs-chassis-lbl">Same chassis · two liveries</div>'
+            f'<div class="cs-chassis-name">{escape(chassis_name)}</div>'
+            f'<div class="cs-chassis-brand">{escape(brand)}</div>'
+            f'<div class="cs-chassis-specs">{chassis_meta_html}</div>'
+            '</div>'
+        )
+    else:
+        chassis_header = (
+            '<div class="cs-chassis cs-chassis-versus">'
+            '<div class="cs-chassis-lbl">Two factory chassis · head-to-head</div>'
+            '</div>'
+        )
+    return (
+        '<section class="cd-section cs-section">'
+        '<h2 class="cd-h2">The cars</h2>'
+        f'{chassis_header}'
+        f'<div class="cs-grid">{cards_html}</div>'
+        '</section>'
+    )
+
+
+def _render_choose_section(cfg, history=None):
+    """CTA — compact launch buttons with per-driver stats + sparkline."""
+    launchers = cfg.get("launchers") or []
+    if len(launchers) < 2:
+        return ""
+    history = history or {}
+    # Total wins to compute the H2H bar split
+    totals = []
+    for lc in launchers:
+        runs = history.get(lc.get("skin", ""), [])
+        totals.append({
+            "lc":     lc,
+            "runs":   runs,
+            "wins":   sum(1 for r in runs if r.get("win")),
+            "color":  lc.get("color", "#fff"),
+        })
+    total_wins_sum = sum(t["wins"] for t in totals)
+    bar_segments = ""
+    if total_wins_sum > 0:
+        for t in totals:
+            pct = (t["wins"] / total_wins_sum) * 100
+            bar_segments += (
+                f'<div class="ch-h2h-seg" '
+                f'style="flex-basis:{pct:.1f}%;background:{t["color"]}" '
+                f'title="{escape(t["lc"].get("label",""))}: {t["wins"]} wins"></div>'
+            )
+    else:
+        # No wins yet — split 50/50 with muted shade so the bar isn't empty
+        for t in totals:
+            bar_segments += (
+                f'<div class="ch-h2h-seg ch-h2h-empty" '
+                f'style="flex-basis:50%;background:{t["color"]};opacity:0.25"></div>'
+            )
+    h2h_bar_html = (
+        '<div class="ch-h2h">'
+        '<div class="ch-h2h-lbl">Head-to-head record</div>'
+        f'<div class="ch-h2h-bar">{bar_segments}</div>'
+        '<div class="ch-h2h-totals">'
+        + ''.join(
+            f'<span class="ch-h2h-total" style="--accent:{t["color"]}">'
+            f'<span class="ch-h2h-total-val mono">{t["wins"]}</span>'
+            f'<span class="ch-h2h-total-of mono">/ {len(t["runs"])}</span>'
+            f'<span class="ch-h2h-total-lbl">{escape(t["lc"].get("label",""))}</span>'
+            f'</span>'
+            for t in totals
+        )
+        + '</div>'
+        '</div>'
+    )
+    cards = ""
+    for t in totals:
+        lc = t["lc"]
+        logo = lc.get("logo", "")
+        accent = t["color"]
+        runs = t["runs"]
+        wins = t["wins"]
+        rival_wins = total_wins_sum - wins
+        stats_html = _render_driver_stats(runs)
+        chart_html = _render_lap_sparkline(runs, accent, width=320, height=56)
+        # Inline rival-comparison row (replaces standalone H2H section)
+        record_html = (
+            f'<div class="ch-record">'
+            f'<span class="ch-record-mine mono">{wins}W</span>'
+            f'<span class="ch-record-vs">vs</span>'
+            f'<span class="ch-record-rival mono">{rival_wins}W</span>'
+            f'<span class="ch-record-lbl">RIVAL</span>'
+            f'</div>'
+        )
+        cards += (
+            f'<article class="ch-card ch-{escape(logo)}" style="--accent:{accent}">'
+            f'<div class="ch-card-head">'
+            f'<div class="ch-team-mark">{_team_logo_svg(logo)}</div>'
+            f'<div class="ch-card-title">'
+            f'<div class="ch-card-tagline">{escape(lc.get("tagline", ""))}</div>'
+            f'<div class="ch-card-driver">{escape(lc.get("driver", ""))}</div>'
+            f'</div>'
+            f'{record_html}'
+            f'</div>'
+            f'{stats_html}'
+            f'<div class="dp-chart-wrap">'
+            f'<div class="dp-chart-lbl">Best-lap progression · finish dots</div>'
+            f'{chart_html}'
+            f'</div>'
+            f'<button class="btn-launch-team ch-cta {escape(logo)}" '
+            f'onclick="launchConfig({escape(json.dumps(cfg["id"]))},'
+            f'{escape(json.dumps(cfg["title"] + " · " + lc.get("label", "LAUNCH")))},'
+            f'{escape(json.dumps(lc.get("cmd", "")))})">'
+            f'{_team_logo_svg(logo)}'
+            f'<span>{escape(lc.get("label", "LAUNCH"))}</span>'
+            f'<span class="team-go">GO ▶</span>'
+            f'</button>'
+            f'</article>'
+        )
+    return (
+        '<section class="cd-section ch-section">'
+        '<h2 class="cd-h2">Choose your seat</h2>'
+        f'{h2h_bar_html}'
+        f'<div class="ch-grid">{cards}</div>'
+        '</section>'
+    )
+
+
+def _render_driver_perspectives(cfg, history=None):
+    """Two side-by-side perspective panels for dual-driver duels — now with
+    per-skin stats + lap-time sparklines. Returns empty string for cfgs without
+    2+ launchers carrying driver/quote data."""
+    launchers = cfg.get("launchers") or []
+    rich = [lc for lc in launchers if lc.get("driver") and lc.get("quote")]
+    if len(rich) < 2:
+        return ""
+    history = history or {}
+    panels = ""
+    for lc in rich:
+        logo = lc.get("logo", "")
+        accent = lc.get("color", "#fff")
+        portrait = lc.get("portrait")
+        if portrait and (IMAGES_DIR / portrait).exists():
+            portrait_html = (
+                f'<div class="dp-portrait">'
+                f'<img src="/images/{escape(portrait)}" alt="{escape(lc.get("driver", ""))}">'
+                f'</div>'
+            )
+        else:
+            portrait_html = (
+                f'<div class="dp-portrait dp-portrait-fallback">'
+                f'<div class="dp-num-big">#{escape(lc.get("number", ""))}</div>'
+                f'</div>'
+            )
+        runs = history.get(lc.get("skin", ""), [])
+        stats_html = _render_driver_stats(runs)
+        chart_html = _render_lap_sparkline(runs, accent)
+        panels += (
+            f'<article class="dp-panel dp-{escape(logo)}">'
+            f'{portrait_html}'
+            f'<div class="dp-body">'
+            f'<div class="dp-head">'
+            f'<div class="dp-logo">{_team_logo_svg(logo)}</div>'
+            f'<div class="dp-tag">{escape(lc.get("tagline", ""))}</div>'
+            f'</div>'
+            f'<h3 class="dp-driver">{escape(lc.get("driver", ""))} '
+            f'<span class="dp-num-inline">#{escape(lc.get("number", ""))}</span></h3>'
+            f'<div class="dp-team">{escape(lc.get("team", ""))}</div>'
+            f'<p class="dp-quote">"{escape(lc.get("quote", ""))}"</p>'
+            f'{stats_html}'
+            f'<div class="dp-chart-wrap">'
+            f'<div class="dp-chart-lbl">Best-lap progression · finish-pos dots</div>'
+            f'{chart_html}'
+            f'</div>'
+            f'<button class="btn-launch-team dp-cta {escape(logo)}" '
+            f'onclick="launchConfig({escape(json.dumps(cfg["id"]))},'
+            f'{escape(json.dumps(cfg["title"] + " · " + lc.get("label", "LAUNCH")))},'
+            f'{escape(json.dumps(lc.get("cmd", "")))})">'
+            f'{_team_logo_svg(logo)}'
+            f'<span>{escape(lc.get("label", "LAUNCH"))}</span>'
+            f'<span class="team-go">GO ▶</span>'
+            f'</button>'
+            f'</div>'
+            f'</article>'
+        )
+    return (
+        '<section class="cd-section dp-section">'
+        '<h2 class="cd-h2">Choose your driver</h2>'
+        f'<div class="dp-grid">{panels}</div>'
+        '</section>'
+    )
+
+
 def render_challenge_page(cfg):
     title_full = f"{cfg['title']} · Challenge"
     type_cls = cfg["type"].lower()
@@ -3578,11 +5198,21 @@ def render_challenge_page(cfg):
     primary_ref_ms = _parse_time_ms(refs[0]["time"]) if refs else None
     delta_to_primary = (pb_ms - primary_ref_ms) if (pb_ms and primary_ref_ms) else None
 
-    # Hero image (first available image / single image / fallback)
+    # Hero image: full carousel of all images (auto-rotates), with fallbacks.
     images = cfg.get("images") or []
     if images:
+        slides = "".join(
+            f'<img src="/images/{escape(name)}" alt="{escape(cfg["title"])}" '
+            f'class="carousel-slide{" is-active" if i == 0 else ""}">'
+            for i, name in enumerate(images)
+        )
+        dots = "".join(
+            f'<span class="carousel-dot{" is-active" if i == 0 else ""}"></span>'
+            for i in range(len(images))
+        )
         hero_img = (
-            f'<img class="cd-hero-img" src="/images/{escape(images[0])}" alt="">'
+            f'<div class="carousel cd-hero-carousel">{slides}'
+            f'<div class="carousel-dots">{dots}</div></div>'
         )
     elif (IMAGES_DIR / f"{cfg['id']}.jpg").exists():
         hero_img = (
@@ -3643,6 +5273,40 @@ def render_challenge_page(cfg):
     # Storytelling: history-driven progression
     story_html = _render_challenge_story(cfg, pb_ms, refs)
 
+    # Per-skin history → enriched perspectives + head-to-head tally
+    duel_history = _load_duel_history(cfg) if cfg.get("launchers") else {}
+    drivers_html = _render_drivers_section(cfg) if cfg.get("launchers") else ""
+    cars_html = _render_cars_section(cfg) if cfg.get("launchers") else ""
+    choose_html = _render_choose_section(cfg, duel_history) if cfg.get("launchers") else ""
+    h2h_html = _render_h2h(cfg, duel_history) if cfg.get("launchers") else ""
+    track_dna_html = _render_track_dna(cfg) if cfg.get("launchers") else ""
+
+    # Hero launch CTA(s) — dual team CTAs if launchers list exists, else single LAUNCH
+    launchers = cfg.get("launchers")
+    if launchers:
+        hero_launch_html = '<div class="cd-launchers">'
+        for lc in launchers:
+            label = lc.get("label", "LAUNCH")
+            logo = lc.get("logo", "")
+            cmd = lc.get("cmd", "")
+            hero_launch_html += (
+                f'<button class="btn-launch-team cd-btn-launch-team {escape(logo)}" '
+                f'onclick="launchConfig({escape(json.dumps(cfg["id"]))},'
+                f'{escape(json.dumps(cfg["title"] + " · " + label))},'
+                f'{escape(json.dumps(cmd))})">'
+                f'{_team_logo_svg(logo)}'
+                f'<span>{escape(label)}</span>'
+                f'<span class="team-go">GO ▶</span>'
+                f'</button>'
+            )
+        hero_launch_html += '</div>'
+    else:
+        hero_launch_html = (
+            f'<button class="btn-launch cd-btn-launch" '
+            f'onclick="launchConfig({escape(json.dumps(cfg["id"]))},{escape(json.dumps(cfg["title"]))})">'
+            'LAUNCH</button>'
+        )
+
     # Videos
     videos_html = ""
     for v in cfg.get("videos") or []:
@@ -3653,48 +5317,98 @@ def render_challenge_page(cfg):
             f'href="{escape(url)}">{escape(label)} ▶</a>'
         )
 
+    is_duel = bool(cfg.get("launchers"))
+    if is_duel:
+        # FULL-BLEED hero for duels: photo covers the whole top, atmospheric copy
+        # + a track-outline thumbnail on the right. No CTAs, no goal pill — those
+        # live in the perspective panels below.
+        hero_blurb = cfg.get("hero_blurb") or cfg.get("subtitle", "")
+        track_id = cfg.get("ac_track_id", "")
+        track_layout = cfg.get("ac_track_layout", "")
+        track_thumb = ""
+        if track_id and track_layout:
+            track_thumb = (
+                f'<aside class="cd-hero-track">'
+                f'<div class="cd-hero-track-lbl">CIRCUIT</div>'
+                f'<div class="cd-hero-track-name">{escape(cfg.get("track_label", track_id.upper()))}</div>'
+                f'<div class="cd-hero-track-outline">'
+                f'<img src="/track-asset?track={escape(track_id)}'
+                f'&amp;layout={escape(track_layout)}&amp;file=outline.png" '
+                f'alt="Track outline" '
+                f'onerror="this.style.display=\'none\'">'
+                f'</div>'
+                f'</aside>'
+            )
+        hero_html = (
+            '<header class="cd-hero-v2">'
+            f'<div class="cd-hero-bg">{hero_img}</div>'
+            '<div class="cd-hero-overlay"></div>'
+            '<a class="cd-back cd-back-floating" href="/">← All challenges</a>'
+            '<div class="cd-hero-content">'
+            '<div class="cd-hero-text">'
+            f'<div class="cd-tag-chip">{escape(cfg["tag"])}</div>'
+            f'<h1 class="cd-title-xl">{escape(cfg["title"])}</h1>'
+            f'<p class="cd-blurb">{escape(hero_blurb)}</p>'
+            '</div>'
+            f'{track_thumb}'
+            '</div>'
+            '</header>'
+        )
+        # Track section now includes a photo carousel; setup section reads
+        # the actual AC setup file (`1.ini`) and explains the values.
+        track_section_html = _render_track_section(cfg)
+        setup_section_html = _render_ac_setup_section(cfg)
+        # New order: Drivers → Choose (with H2H inline) → Track (carousel) → Cars → Setup
+        body_html = (
+            f'{drivers_html}'
+            f'{choose_html}'
+            f'{track_section_html}'
+            f'{cars_html}'
+            f'{setup_section_html}'
+        )
+    else:
+        # Existing layout (image + side-by-side text) for non-duel tiles
+        hero_html = (
+            '<header class="cd-hero">'
+            '<div class="cd-hero-media">'
+            f'{hero_img}'
+            f'<span class="card-type-chip {type_cls}">{escape(type_label)}</span>'
+            '</div>'
+            '<div class="cd-hero-body">'
+            f'<a class="cd-back" href="/">← All challenges</a>'
+            f'<div class="cd-tag">{escape(cfg["tag"])}</div>'
+            f'<h1 class="cd-title">{escape(cfg["title"])}</h1>'
+            f'<p class="cd-sub">{escape(cfg["subtitle"])}</p>'
+            f'<p class="cd-scenario">{escape(cfg["scenario"])}</p>'
+            f'<div class="cd-goal"><span class="cd-goal-lbl">Goal</span>{escape(cfg["goal"])}</div>'
+            '<div class="cd-actions">'
+            f'{hero_launch_html}'
+            f'{videos_html}'
+            '</div>'
+            '</div>'
+            '</header>'
+        )
+        body_html = (
+            '<section class="cd-section cd-times-section">'
+            '<h2 class="cd-h2">Where you stand</h2>'
+            f'<div class="cd-times">{pb_card}{ref_cards}</div>'
+            '</section>'
+            '<section class="cd-section">'
+            '<h2 class="cd-h2">The combo</h2>'
+            f'<div class="cd-specs">{specs_html}</div>'
+            '</section>'
+            f'{_render_weapon_section(cfg)}'
+            f'{setup_html}'
+            f'{story_html}'
+        )
+
     return (
         f'{_common_head(title_full)}'
         f'{render_nav("challenges")}'
         f'{render_ticker()}'
         '<article class="cd-page">'
-        # ---- Hero
-        '<header class="cd-hero">'
-        '<div class="cd-hero-media">'
-        f'{hero_img}'
-        f'<span class="card-type-chip {type_cls}">{escape(type_label)}</span>'
-        '</div>'
-        '<div class="cd-hero-body">'
-        f'<a class="cd-back" href="/">← All challenges</a>'
-        f'<div class="cd-tag">{escape(cfg["tag"])}</div>'
-        f'<h1 class="cd-title">{escape(cfg["title"])}</h1>'
-        f'<p class="cd-sub">{escape(cfg["subtitle"])}</p>'
-        f'<p class="cd-scenario">{escape(cfg["scenario"])}</p>'
-        f'<div class="cd-goal"><span class="cd-goal-lbl">Goal</span>{escape(cfg["goal"])}</div>'
-        '<div class="cd-actions">'
-        f'<button class="btn-launch cd-btn-launch" '
-        f'onclick="launchConfig({json.dumps(cfg["id"])},{json.dumps(cfg["title"])})">'
-        'LAUNCH</button>'
-        f'{videos_html}'
-        '</div>'
-        '</div>'
-        '</header>'
-        # ---- Times row (PB + references with gaps)
-        '<section class="cd-section cd-times-section">'
-        '<h2 class="cd-h2">Where you stand</h2>'
-        f'<div class="cd-times">{pb_card}{ref_cards}</div>'
-        '</section>'
-        # ---- Specs
-        '<section class="cd-section">'
-        '<h2 class="cd-h2">The combo</h2>'
-        f'<div class="cd-specs">{specs_html}</div>'
-        '</section>'
-        # ---- Weapon (car + track from AC install)
-        f'{_render_weapon_section(cfg)}'
-        # ---- Setup
-        f'{setup_html}'
-        # ---- Story (progression / log / empty state)
-        f'{story_html}'
+        f'{hero_html}'
+        f'{body_html}'
         '</article>'
         '<div id="toast" class="toast"></div>'
         f'<script>{JS}</script>'
@@ -3775,7 +5489,7 @@ def _car_preview_url(cfg, car_id_key="ac_car_id", skin_key="ac_car_skin"):
         return None
     skin = cfg.get(skin_key)
     if skin and (CARS_DIR / car_id / "skins" / skin / "preview.jpg").exists():
-        return f"/content/cars/{car_id}/preview?skin={skin}"
+        return f"/content/cars/{car_id}/preview?skin={quote(skin, safe='')}"
     return f"/content/cars/{car_id}/preview"
 
 
@@ -4004,11 +5718,26 @@ def _to_windows_path(p: Path) -> str:
     return s.replace("/", "\\")
 
 
-def launch_cmd(cfg_id: str):
+def launch_cmd(cfg_id: str, cmd_name: str = ""):
     cfg = next((c for c in CONFIGS if c["id"] == cfg_id), None)
     if not cfg:
         return False, f"unknown config {cfg_id}"
-    cmd_path = AC_DOC / cfg["launcher"]
+    # Allowed launchers: the primary `launcher` field + every entry in `launchers`.
+    # Anything else is rejected (no path traversal via ?cmd=).
+    allowed = {cfg.get("launcher", "")}
+    for lc in cfg.get("launchers") or []:
+        if isinstance(lc, dict) and lc.get("cmd"):
+            allowed.add(lc["cmd"])
+    allowed.discard("")
+    if cmd_name:
+        if cmd_name not in allowed:
+            return False, f"cmd not allowed for {cfg_id}: {cmd_name}"
+        chosen = cmd_name
+    else:
+        chosen = cfg.get("launcher", "")
+        if not chosen:
+            return False, f"no launcher configured for {cfg_id}"
+    cmd_path = AC_DOC / chosen
     if not cmd_path.exists():
         return False, f"launcher not found: {cmd_path.name}"
     win_path = _to_windows_path(cmd_path)
@@ -4145,6 +5874,38 @@ class Handler(BaseHTTPRequestHandler):
             dash_name = unquote(rest[:-len(".zip")])
             _serve_moza_download(self, dash_name)
             return
+        if u.path == "/ext-asset":
+            q = parse_qs(u.query)
+            fn = (q.get("file") or [""])[0]
+            if not fn or any(c in fn for c in ("/", "\\", "..")):
+                self.send_error(400, "bad ext-asset path")
+                return
+            ac_root = Path("/mnt/d/SteamLibrary/steamapps/common/assettocorsa")
+            target = ac_root / "extension" / "backgrounds" / fn
+            if target.exists() and target.is_file():
+                ext = target.suffix.lower()
+                ctype = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg"}.get(ext.lstrip("."), "application/octet-stream")
+                self._file(target, ctype)
+                return
+            self.send_error(404, "ext asset not found")
+            return
+        if u.path == "/track-asset":
+            q = parse_qs(u.query)
+            t = (q.get("track") or [""])[0]
+            la = (q.get("layout") or [""])[0]
+            fn = (q.get("file") or [""])[0]
+            if not t or not fn or any(c in t + la + fn for c in ("/", "\\", "..")):
+                self.send_error(400, "bad track-asset path")
+                return
+            ac_root = Path("/mnt/d/SteamLibrary/steamapps/common/assettocorsa")
+            target = ac_root / "content" / "tracks" / t / "ui" / la / fn
+            if target.exists() and target.is_file():
+                ext = target.suffix.lower()
+                ctype = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg"}.get(ext.lstrip("."), "application/octet-stream")
+                self._file(target, ctype)
+                return
+            self.send_error(404, "track asset not found")
+            return
         if u.path.startswith("/images/"):
             name = u.path[len("/images/"):]
             if "/" in name or "\\" in name or ".." in name:
@@ -4180,7 +5941,8 @@ class Handler(BaseHTTPRequestHandler):
         q = parse_qs(u.query)
         if u.path == "/launch":
             cfg_id = (q.get("id") or [""])[0]
-            ok, msg = launch_cmd(cfg_id)
+            cmd_name = (q.get("cmd") or [""])[0]
+            ok, msg = launch_cmd(cfg_id, cmd_name)
             self._json(200, {"ok": ok, "msg": msg})
             return
         if u.path == "/open":

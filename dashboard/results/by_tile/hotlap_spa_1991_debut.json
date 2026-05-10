@@ -1,0 +1,28 @@
+{
+  "ts": "20260509-084304",
+  "tile": {
+    "id": "hotlap_spa_1991_debut",
+    "type": "HOTLAP",
+    "title": "SPA \u00b7 1991 DEBUT",
+    "ac_car_id": "vrc_1991_jordan_191",
+    "ac_car_skin": null,
+    "ac_track_id": "spa",
+    "ac_track_layout": "layout_f1_2020"
+  },
+  "summary": {
+    "track": "spa-layout_f1_2020",
+    "car": "vrc_1991_jordan_191",
+    "skin": "32_schumacher",
+    "player": "Pablo Suzarte",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": null,
+    "sectors": null,
+    "finish": null,
+    "field": 1,
+    "tyre": null
+  },
+  "snapshot_file": "20260509-084304.json"
+}

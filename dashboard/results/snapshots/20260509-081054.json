@@ -1,0 +1,59 @@
+
+{
+	"track": "rt_suzuka-suzukagp",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Ayrton Senna",
+			"car": "asr_1993_mclaren_mp4-8",
+			"skin": "8_senna_r8"
+		}, 
+		{
+			"name": "Alain Prost",
+			"car": "asr_1993_mclaren_mp4-8",
+			"skin": "7_andretti_r8"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 1,
+			"duration": 0,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [41859, 44145, 22256],
+					"time": 108260,
+					"cuts": 0,
+					"tyre": "S"
+				}, 
+				{
+					"lap": 0,
+					"car": 1,
+					"sectors": [39217, 41157, 22581],
+					"time": 102955,
+					"cuts": 0,
+					"tyre": "S"
+				}],
+			"lapstotal": [1, 1],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 108260,
+					"lap": 0
+				}, 
+				{
+					"car": 1,
+					"time": 102955,
+					"lap": 0
+				}],
+			"raceResult": [1, 0]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 108260
+		}]
+}

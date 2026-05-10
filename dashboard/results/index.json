@@ -1,6 +1,6 @@
 {
   "senna_vs_prost_suzuka_1988": {
-    "ts": "20260509-014443",
+    "ts": "20260509-081054",
     "tile": {
       "id": "senna_vs_prost_suzuka_1988",
       "type": "DUEL",
@@ -29,6 +29,150 @@
       "field": 2,
       "tyre": "S"
     },
-    "snapshot_file": "20260509-014443.json"
+    "snapshot_file": "20260509-081054.json"
+  },
+  "hotlap_monza_schumacher": {
+    "ts": "20260509-083320",
+    "tile": {
+      "id": "hotlap_monza_schumacher",
+      "type": "HOTLAP",
+      "title": "MONZA \u00b7 TIFOSI",
+      "ac_car_id": "ferrari_f2001",
+      "ac_car_skin": null,
+      "ac_track_id": "monza",
+      "ac_track_layout": "monza_f1_2025"
+    },
+    "summary": {
+      "track": "monza-monza_f1_2025",
+      "car": "ferrari_f2001",
+      "skin": "3_Schumacher_Monza",
+      "player": "Pablo Suzarte",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "1:29.600",
+      "sectors": [
+        "0:32.410",
+        "0:29.389",
+        "0:27.801"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "S"
+    },
+    "snapshot_file": "20260509-083320.json"
+  },
+  "hotlap_spa_1991_debut": {
+    "ts": "20260509-084304",
+    "tile": {
+      "id": "hotlap_spa_1991_debut",
+      "type": "HOTLAP",
+      "title": "SPA \u00b7 1991 DEBUT",
+      "ac_car_id": "vrc_1991_jordan_191",
+      "ac_car_skin": null,
+      "ac_track_id": "spa",
+      "ac_track_layout": "layout_f1_2020"
+    },
+    "summary": {
+      "track": "spa-layout_f1_2020",
+      "car": "vrc_1991_jordan_191",
+      "skin": "32_schumacher",
+      "player": "Pablo Suzarte",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": null,
+      "sectors": null,
+      "finish": null,
+      "field": 1,
+      "tyre": null
+    },
+    "snapshot_file": "20260509-084304.json"
+  },
+  "canada_2026": {
+    "ts": "20260509-084924",
+    "tile": {
+      "id": "canada_2026",
+      "type": "RACE",
+      "title": "CANADIAN GP 2026",
+      "ac_car_id": "rss_formula_hybrid_2025_alpine",
+      "ac_car_skin": "M17_RedBull_RB21_1",
+      "ac_track_id": "montreal",
+      "ac_track_layout": "montreal_f1_2025"
+    },
+    "summary": {
+      "track": "montreal-montreal_f1_2025",
+      "car": "rss_formula_hybrid_2025_alpine",
+      "skin": "M17_RedBull_RB21_1",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Race",
+        "type": 3
+      },
+      "best_lap": null,
+      "sectors": null,
+      "finish": 19,
+      "field": 19,
+      "tyre": null
+    },
+    "snapshot_file": "20260509-084924.json"
+  },
+  "hotlap_montreal": {
+    "ts": "20260509-090749",
+    "tile": {
+      "id": "hotlap_montreal",
+      "type": "HOTLAP",
+      "title": "MONTREAL HOTLAP",
+      "ac_car_id": "rss_formula_hybrid_2025_alpine",
+      "ac_car_skin": "M17_RedBull_RB21_1",
+      "ac_track_id": "montreal",
+      "ac_track_layout": "montreal_f1_2025"
+    },
+    "summary": {
+      "track": "montreal-montreal_f1_2025",
+      "car": "rss_formula_hybrid_2025_alpine",
+      "skin": "M17_RedBull_RB21_1",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": null,
+      "sectors": null,
+      "finish": null,
+      "field": 1,
+      "tyre": null
+    },
+    "snapshot_file": "20260509-090749.json"
+  },
+  "antonelli_vs_verstappen_nord": {
+    "ts": "20260510-182504",
+    "tile": {
+      "id": "antonelli_vs_verstappen_nord",
+      "type": "DUEL",
+      "title": "ANTONELLI vs VERSTAPPEN",
+      "ac_car_id": "vrc_formula_alpha_2025_csp",
+      "ac_car_skin": "d_Mercedes_W16_12_Antonelli",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "nordschleife_24hours_2024"
+    },
+    "summary": {
+      "track": "ks_nordschleife-nordschleife_24hours_2024",
+      "car": "vrc_formula_alpha_2025_csp",
+      "skin": "e_Red_Bull_RB21_1_Verstappen",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Race",
+        "type": 3
+      },
+      "best_lap": null,
+      "sectors": null,
+      "finish": 2,
+      "field": 2,
+      "tyre": null
+    },
+    "snapshot_file": "20260510-182504.json"
   }
 }

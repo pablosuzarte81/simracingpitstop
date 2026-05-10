@@ -1,0 +1,54 @@
+
+{
+	"track": "monza-monza_f1_2025",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo Suzarte",
+			"car": "ferrari_f2001",
+			"skin": "3_Schumacher_Monza"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [35510, 30920, 28845],
+					"time": 95275,
+					"cuts": 0,
+					"tyre": "S"
+				}, 
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [32410, 29389, 27801],
+					"time": 89600,
+					"cuts": 0,
+					"tyre": "S"
+				}],
+			"lapstotal": [2],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 89600,
+					"lap": 1
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 89600
+		}]
+}

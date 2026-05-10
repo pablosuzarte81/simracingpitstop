@@ -1,0 +1,28 @@
+{
+  "ts": "20260510-182504",
+  "tile": {
+    "id": "antonelli_vs_verstappen_nord",
+    "type": "DUEL",
+    "title": "ANTONELLI vs VERSTAPPEN",
+    "ac_car_id": "vrc_formula_alpha_2025_csp",
+    "ac_car_skin": "d_Mercedes_W16_12_Antonelli",
+    "ac_track_id": "ks_nordschleife",
+    "ac_track_layout": "nordschleife_24hours_2024"
+  },
+  "summary": {
+    "track": "ks_nordschleife-nordschleife_24hours_2024",
+    "car": "vrc_formula_alpha_2025_csp",
+    "skin": "e_Red_Bull_RB21_1_Verstappen",
+    "player": "Max Verstappen",
+    "session": {
+      "name": "Race",
+      "type": 3
+    },
+    "best_lap": null,
+    "sectors": null,
+    "finish": 2,
+    "field": 2,
+    "tyre": null
+  },
+  "snapshot_file": "20260510-182504.json"
+}

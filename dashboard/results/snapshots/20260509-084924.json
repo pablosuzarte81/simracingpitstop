@@ -1,0 +1,118 @@
+
+{
+	"track": "montreal-montreal_f1_2025",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Max Verstappen",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_RedBull_RB21_1"
+		}, 
+		{
+			"name": "Kimi Antonelli",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "Asi_W16_Antonelli_12"
+		}, 
+		{
+			"name": "George Russell",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "Asi_W16_Russell_63"
+		}, 
+		{
+			"name": "Lando Norris",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "FRX_McLaren_MCL39_4_Norris"
+		}, 
+		{
+			"name": "Oscar Piastri",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "FRX_McLaren_MCL39_81_Piastri"
+		}, 
+		{
+			"name": "Charles Leclerc",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_Ferrari_SF25_16"
+		}, 
+		{
+			"name": "Lewis Hamilton",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_Ferrari_SF25_44"
+		}, 
+		{
+			"name": "Franco Colapinto",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_Alpine_A525_43"
+		}, 
+		{
+			"name": "Oliver Bearman",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "A6_Haas_2025_87"
+		}, 
+		{
+			"name": "Carlos Sainz",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "FRX_Williams_FW47_55_Sainz"
+		}, 
+		{
+			"name": "Gabriel Bortoleto",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_Sauber_C45_5"
+		}, 
+		{
+			"name": "Alex Albon",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "FRX_Williams_FW47_23_Albon"
+		}, 
+		{
+			"name": "Pierre Gasly",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_Alpine_A525_10"
+		}, 
+		{
+			"name": "Esteban Ocon",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "A6_Haas_2025_31"
+		}, 
+		{
+			"name": "Liam Lawson",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "FRX_Racing_Bulls_VCARB02_30_Lawson"
+		}, 
+		{
+			"name": "Isack Hadjar",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "FRX_Racing_Bulls_VCARB02_6_Hadjar"
+		}, 
+		{
+			"name": "Fernando Alonso",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "RBC_Aston_Martin_AMR25_14"
+		}, 
+		{
+			"name": "Nico Hulkenberg",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_Sauber_C45_27"
+		}, 
+		{
+			"name": "Lance Stroll",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "RBC_Aston_Martin_AMR25_18"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 5,
+			"duration": 0,
+			"laps": [],
+			"lapstotal": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			"bestLaps": [],
+			"raceResult": [1, 2, 3, 5, 4, 6, 7, 8, 9, 11, 10, 12, 13, 14, 15, 16, 17, 18, 0]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

@@ -1,0 +1,33 @@
+
+{
+	"track": "spa-layout_f1_2020",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo Suzarte",
+			"car": "vrc_1991_jordan_191",
+			"skin": "32_schumacher"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [],
+			"lapstotal": [0],
+			"bestLaps": []
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

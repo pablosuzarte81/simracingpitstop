@@ -1,0 +1,28 @@
+{
+  "ts": "20260509-084924",
+  "tile": {
+    "id": "canada_2026",
+    "type": "RACE",
+    "title": "CANADIAN GP 2026",
+    "ac_car_id": "rss_formula_hybrid_2025_alpine",
+    "ac_car_skin": "M17_RedBull_RB21_1",
+    "ac_track_id": "montreal",
+    "ac_track_layout": "montreal_f1_2025"
+  },
+  "summary": {
+    "track": "montreal-montreal_f1_2025",
+    "car": "rss_formula_hybrid_2025_alpine",
+    "skin": "M17_RedBull_RB21_1",
+    "player": "Max Verstappen",
+    "session": {
+      "name": "Race",
+      "type": 3
+    },
+    "best_lap": null,
+    "sectors": null,
+    "finish": 19,
+    "field": 19,
+    "tyre": null
+  },
+  "snapshot_file": "20260509-084924.json"
+}

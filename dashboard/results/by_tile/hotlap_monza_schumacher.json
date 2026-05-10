@@ -1,0 +1,32 @@
+{
+  "ts": "20260509-083320",
+  "tile": {
+    "id": "hotlap_monza_schumacher",
+    "type": "HOTLAP",
+    "title": "MONZA \u00b7 TIFOSI",
+    "ac_car_id": "ferrari_f2001",
+    "ac_car_skin": null,
+    "ac_track_id": "monza",
+    "ac_track_layout": "monza_f1_2025"
+  },
+  "summary": {
+    "track": "monza-monza_f1_2025",
+    "car": "ferrari_f2001",
+    "skin": "3_Schumacher_Monza",
+    "player": "Pablo Suzarte",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "1:29.600",
+    "sectors": [
+      "0:32.410",
+      "0:29.389",
+      "0:27.801"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "S"
+  },
+  "snapshot_file": "20260509-083320.json"
+}
