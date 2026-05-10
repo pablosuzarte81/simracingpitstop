@@ -1,0 +1,963 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "CHALLENGES" [ref=e3] [cursor=pointer]:
+      - /url: /
+    - link "GARAGE · CARS" [ref=e4] [cursor=pointer]:
+      - /url: /cars
+    - link "GARAGE · TRACKS" [ref=e5] [cursor=pointer]:
+      - /url: /tracks
+    - link "WHEEL · MOZA" [ref=e6] [cursor=pointer]:
+      - /url: /moza
+  - generic [ref=e7]:
+    - generic [ref=e8]: PABLO SUZARTE · SIM RACING CHALLENGES · SUN 10 MAY 2026
+    - generic [ref=e9]: 26 CHALLENGES LOADED
+  - banner [ref=e10]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: "#33"
+          - generic [ref=e17]: Pablo Suzarte · Multi-series Sim Racing
+        - generic [ref=e19]: The catalog · live
+        - heading "Pick a challenge. Go racing. Leave your time." [level=1] [ref=e20]:
+          - generic [ref=e21]: Pick a challenge.
+          - generic [ref=e22]: Go racing.
+          - generic [ref=e23]: Leave your time.
+        - paragraph [ref=e24]: A personal archive of 26 recreated scenarios — F1 grids, hotlap chases and 1v1 grudge matches. One click launches Assetto Corsa with the right car, livery, weather and AI baked in. Drive the lap, log the time, then come back and beat it.
+        - generic [ref=e25]:
+          - generic [ref=e26]:
+            - generic [ref=e27]: "1"
+            - generic [ref=e28]:
+              - generic [ref=e29]: Pick
+              - generic [ref=e30]: A grid, a hotlap or a 1v1 duel
+            - text: ›
+          - generic [ref=e31]:
+            - generic [ref=e32]: "2"
+            - generic [ref=e33]:
+              - generic [ref=e34]: Race
+              - generic [ref=e35]: AC opens with the scenario pre-loaded
+            - text: ›
+          - generic [ref=e36]:
+            - generic [ref=e37]: "3"
+            - generic [ref=e38]:
+              - generic [ref=e39]: Beat it
+              - generic [ref=e40]: Lap auto-logged · chase the benchmark
+      - generic [ref=e42]:
+        - text: CATALOG
+        - generic [ref=e43]: Challenges loaded · ready to launch
+        - generic [ref=e44]: "26"
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - generic [ref=e47]: "6"
+            - generic [ref=e48]: Race
+          - generic [ref=e49]:
+            - generic [ref=e50]: "12"
+            - generic [ref=e51]: Hotlap
+          - generic [ref=e52]:
+            - generic [ref=e53]: "8"
+            - generic [ref=e54]: 1v1
+          - generic [ref=e55]:
+            - generic [ref=e56]: "6"
+            - generic [ref=e57]: Series
+  - generic [ref=e58]:
+    - generic [ref=e59]:
+      - generic [ref=e60]: ▶ ONGOING
+      - heading "Active challenges" [level=2] [ref=e61]
+      - paragraph [ref=e62]: What you're actively chasing right now. Pinned to the top until you swap them out.
+    - generic [ref=e63]:
+      - article [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e66]: 1v1 RACE
+          - generic "GER" [ref=e67]:
+            - img [ref=e69]
+            - generic [ref=e73]: GER
+          - generic [ref=e74]:
+            - img "ANTONELLI vs VERSTAPPEN" [ref=e75]
+            - img "ANTONELLI vs VERSTAPPEN" [ref=e76]
+            - img "ANTONELLI vs VERSTAPPEN" [ref=e77]
+            - img "ANTONELLI vs VERSTAPPEN" [ref=e78]
+            - img "ANTONELLI vs VERSTAPPEN" [ref=e79]
+        - generic [ref=e86]:
+          - heading "ANTONELLI vs VERSTAPPEN" [level=3] [ref=e87]
+          - generic [ref=e88]: CAR VRC Formula Alpha 2025 (Pro) · W16 vs RB21
+          - generic [ref=e89]: "Mercedes W16 #12 vs Red Bull RB21 #1 · 1 lap of the Nord 24h"
+          - generic [ref=e90]:
+            - generic [ref=e91]: Lap Times
+            - generic [ref=e92]:
+              - generic [ref=e93]: Your PB
+              - generic [ref=e94]: —
+            - generic [ref=e95]:
+              - generic [ref=e96]: Last result
+              - generic [ref=e97]: P2/2
+              - generic [ref=e98]: 10 MAY
+            - generic [ref=e99]:
+              - generic [ref=e100]: F1 fantasy
+              - generic [ref=e101]: no historic ref
+          - generic [ref=e102]:
+            - 'generic "TRACK: Nordschleife · 24h 2024 layout" [ref=e103]': TRACKNordschleife · 24h 2024 layout
+            - 'generic "GRID: 2 cars · head-to-head" [ref=e104]': GRID2 cars · head-to-head
+            - 'generic "LAPS: 1 lap · AI 100 / aggression 80" [ref=e105]': LAPS1 lap · AI 100 / aggression 80
+          - generic [ref=e106]:
+            - link "MORE DETAILS →" [ref=e108] [cursor=pointer]:
+              - /url: /challenge/antonelli_vs_verstappen_nord
+            - generic [ref=e109]:
+              - button "BE ANTONELLI GO ▶" [ref=e110] [cursor=pointer]:
+                - img [ref=e111]
+                - generic [ref=e115]: BE ANTONELLI
+                - generic [ref=e116]: GO ▶
+              - button "BE VERSTAPPEN GO ▶" [ref=e117] [cursor=pointer]:
+                - img [ref=e118]
+                - generic [ref=e121]: BE VERSTAPPEN
+                - generic [ref=e122]: GO ▶
+      - article [ref=e123]:
+        - generic [ref=e124]:
+          - generic [ref=e125]: 1v1 RACE
+          - generic "GER" [ref=e126]:
+            - img [ref=e128]
+            - generic [ref=e132]: GER
+          - generic [ref=e133]:
+            - img "VERSTAPPEN VS HAASE" [ref=e134]
+            - img "VERSTAPPEN VS HAASE" [ref=e135]
+            - img "VERSTAPPEN VS HAASE" [ref=e136]
+            - img "VERSTAPPEN VS HAASE" [ref=e137]
+            - img "VERSTAPPEN VS HAASE" [ref=e138]
+        - generic [ref=e145]:
+          - heading "VERSTAPPEN VS HAASE" [level=3] [ref=e146]
+          - generic [ref=e147]: "CAR MERCEDES-AMG GT3 #3 · vs · AUDI R8 LMS #16"
+          - generic [ref=e148]: "Mercedes-AMG #3 vs Audi R8 LMS #16 · 1 lap of the Green Hell"
+          - generic [ref=e149]:
+            - generic [ref=e150]: Lap Times
+            - generic [ref=e151]:
+              - generic [ref=e152]: Your PB
+              - generic [ref=e153]: —
+            - generic [ref=e154]:
+              - generic [ref=e155]: Last result
+              - generic [ref=e156]: P1 vs Haase · 8 May 2026
+          - generic [ref=e157]:
+            - 'generic "TRACK: Nordschleife · Endurance Cup" [ref=e158]': TRACKNordschleife · Endurance Cup
+            - 'generic "GRID: 2 cars · head-to-head" [ref=e159]': GRID2 cars · head-to-head
+            - 'generic "LAPS: 1 lap · AI 100 / aggression 85" [ref=e160]': LAPS1 lap · AI 100 / aggression 85
+          - generic [ref=e161]:
+            - generic [ref=e162]:
+              - link "MORE DETAILS →" [ref=e163] [cursor=pointer]:
+                - /url: /challenge/verstappen_1v1
+              - link "VIDEO 1 ▶" [ref=e164] [cursor=pointer]:
+                - /url: https://www.youtube.com/watch?v=80Ruo--4IcQ
+              - link "VIDEO 2 ▶" [ref=e165] [cursor=pointer]:
+                - /url: https://www.youtube.com/watch?v=4_SguHHLSzk
+              - link "VIDEO 3 ▶" [ref=e166] [cursor=pointer]:
+                - /url: https://www.youtube.com/watch?v=7z2SPcK540I
+            - generic [ref=e167]:
+              - button "BE VERSTAPPEN GO ▶" [ref=e168] [cursor=pointer]:
+                - generic [ref=e169]: BE VERSTAPPEN
+                - generic [ref=e170]: GO ▶
+              - button "BE HAASE GO ▶" [ref=e171] [cursor=pointer]:
+                - img [ref=e172]
+                - generic [ref=e177]: BE HAASE
+                - generic [ref=e178]: GO ▶
+      - article [ref=e179]:
+        - generic [ref=e180]:
+          - generic [ref=e181]: HOTLAP
+          - generic "CAN" [ref=e182]:
+            - img [ref=e184]
+            - generic [ref=e189]: CAN
+          - img "MONTREAL HOTLAP" [ref=e190]
+        - generic [ref=e191]:
+          - heading "MONTREAL HOTLAP" [level=3] [ref=e192]
+          - generic [ref=e193]: CAR RED BULL RB21 · F1 2025
+          - generic [ref=e194]: Chasing Russell's 1:10.899 pole
+          - generic [ref=e195]:
+            - generic [ref=e196]: Lap Times
+            - generic [ref=e197]:
+              - generic [ref=e198]: Your PB
+              - generic [ref=e199]: 1:16.665
+            - generic [ref=e200]:
+              - generic [ref=e201]: Last session
+              - generic [ref=e202]: —
+              - generic [ref=e203]: 09 MAY
+            - generic [ref=e204]:
+              - generic [ref=e205]: Russell pole
+              - generic [ref=e206]: 1:10.899
+              - generic [ref=e207]: "+5.766"
+          - generic [ref=e208]:
+            - 'generic "TRACK: Montreal · F1 2025 layout" [ref=e209]': TRACKMontreal · F1 2025 layout
+            - 'generic "GRID: Solo · ghost on" [ref=e210]': GRIDSolo · ghost on
+            - 'generic "LAPS: Open · hotlap mode" [ref=e211]': LAPSOpen · hotlap mode
+          - generic [ref=e212]:
+            - link "MORE DETAILS →" [ref=e214] [cursor=pointer]:
+              - /url: /challenge/hotlap_montreal
+            - button "▶ LAUNCH" [ref=e215] [cursor=pointer]
+  - generic [ref=e216]:
+    - generic [ref=e217]:
+      - heading "NLS · NÜRBURGRING" [level=2] [ref=e218]
+      - generic [ref=e219]:
+        - generic [ref=e220]: T-MINUS 4D
+        - generic [ref=e221]: 14–17 MAY · 24H NÜRBURGRING
+    - paragraph [ref=e222]: Dress rehearsals for the real 24H Nürburgring at the Nordschleife — the same combo, the same field.
+  - main [ref=e223]:
+    - article [ref=e224]:
+      - generic [ref=e225]:
+        - generic [ref=e226]: RACE
+        - generic "GER" [ref=e227]:
+          - img [ref=e229]
+          - generic [ref=e233]: GER
+        - img "MINI 24H NÜRBURGRING" [ref=e234]
+      - generic [ref=e235]:
+        - heading "MINI 24H NÜRBURGRING" [level=3] [ref=e236]
+        - generic [ref=e237]: "CAR MERCEDES-AMG GT3 · #3 VERSTAPPEN"
+        - generic [ref=e238]: 16-car SP9 PRO grid · pole start
+        - generic [ref=e239]:
+          - generic [ref=e240]: Lap Times
+          - generic [ref=e241]:
+            - generic [ref=e242]: Your PB
+            - generic [ref=e243]: —
+          - generic [ref=e244]:
+            - generic [ref=e245]: Note
+            - generic [ref=e246]: no Max ref on 24h layout yet
+        - generic [ref=e247]:
+          - 'generic "TRACK: Nordschleife · Endurance Cup" [ref=e248]': TRACKNordschleife · Endurance Cup
+          - 'generic "GRID: 16 cars · pole start" [ref=e249]': GRID16 cars · pole start
+          - 'generic "LAPS: 2 laps · AI 86–90" [ref=e250]': LAPS2 laps · AI 86–90
+        - generic [ref=e251]:
+          - link "MORE DETAILS →" [ref=e253] [cursor=pointer]:
+            - /url: /challenge/nls_24h_2026
+          - button "▶ LAUNCH" [ref=e254] [cursor=pointer]
+    - article [ref=e255]:
+      - generic [ref=e256]:
+        - generic [ref=e257]: HOTLAP
+        - generic "GER" [ref=e258]:
+          - img [ref=e260]
+          - generic [ref=e264]: GER
+        - img "MINI 24H POLE CHASE" [ref=e265]
+      - generic [ref=e266]:
+        - heading "MINI 24H POLE CHASE" [level=3] [ref=e267]
+        - generic [ref=e268]: "CAR MERCEDES-AMG GT3 · #3 VERSTAPPEN"
+        - generic [ref=e269]: Solo lap · beat Max's time on this layout
+        - generic [ref=e270]:
+          - generic [ref=e271]: Lap Times
+          - generic [ref=e272]:
+            - generic [ref=e273]: Your PB
+            - generic [ref=e274]: —
+          - generic [ref=e275]:
+            - generic: Reference
+            - generic [ref=e276]: Max's lap from The Rematch (24h Q dual onboard)
+        - generic [ref=e277]:
+          - 'generic "TRACK: Nordschleife · Endurance Cup" [ref=e278]': TRACKNordschleife · Endurance Cup
+          - 'generic "GRID: Solo · ghost on" [ref=e279]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e280]': LAPSOpen · hotlap mode
+        - generic [ref=e281]:
+          - link "MORE DETAILS →" [ref=e283] [cursor=pointer]:
+            - /url: /challenge/nls2_2026
+          - button "▶ LAUNCH" [ref=e284] [cursor=pointer]
+    - article [ref=e285]:
+      - generic [ref=e286]:
+        - generic [ref=e287]: 1v1 RACE
+        - generic "GER" [ref=e288]:
+          - img [ref=e290]
+          - generic [ref=e294]: GER
+        - generic [ref=e295]:
+          - img "VERSTAPPEN VS HAASE" [ref=e296]
+          - img "VERSTAPPEN VS HAASE" [ref=e297]
+          - img "VERSTAPPEN VS HAASE" [ref=e298]
+          - img "VERSTAPPEN VS HAASE" [ref=e299]
+          - img "VERSTAPPEN VS HAASE" [ref=e300]
+      - generic [ref=e307]:
+        - heading "VERSTAPPEN VS HAASE" [level=3] [ref=e308]
+        - generic [ref=e309]: "CAR MERCEDES-AMG GT3 #3 · vs · AUDI R8 LMS #16"
+        - generic [ref=e310]: "Mercedes-AMG #3 vs Audi R8 LMS #16 · 1 lap of the Green Hell"
+        - generic [ref=e311]:
+          - generic [ref=e312]: Lap Times
+          - generic [ref=e313]:
+            - generic [ref=e314]: Your PB
+            - generic [ref=e315]: —
+          - generic [ref=e316]:
+            - generic [ref=e317]: Last result
+            - generic [ref=e318]: P1 vs Haase · 8 May 2026
+        - generic [ref=e319]:
+          - 'generic "TRACK: Nordschleife · Endurance Cup" [ref=e320]': TRACKNordschleife · Endurance Cup
+          - 'generic "GRID: 2 cars · head-to-head" [ref=e321]': GRID2 cars · head-to-head
+          - 'generic "LAPS: 1 lap · AI 100 / aggression 85" [ref=e322]': LAPS1 lap · AI 100 / aggression 85
+        - generic [ref=e323]:
+          - generic [ref=e324]:
+            - link "MORE DETAILS →" [ref=e325] [cursor=pointer]:
+              - /url: /challenge/verstappen_1v1
+            - link "VIDEO 1 ▶" [ref=e326] [cursor=pointer]:
+              - /url: https://www.youtube.com/watch?v=80Ruo--4IcQ
+            - link "VIDEO 2 ▶" [ref=e327] [cursor=pointer]:
+              - /url: https://www.youtube.com/watch?v=4_SguHHLSzk
+            - link "VIDEO 3 ▶" [ref=e328] [cursor=pointer]:
+              - /url: https://www.youtube.com/watch?v=7z2SPcK540I
+          - generic [ref=e329]:
+            - button "BE VERSTAPPEN GO ▶" [ref=e330] [cursor=pointer]:
+              - generic [ref=e331]: BE VERSTAPPEN
+              - generic [ref=e332]: GO ▶
+            - button "BE HAASE GO ▶" [ref=e333] [cursor=pointer]:
+              - img [ref=e334]
+              - generic [ref=e339]: BE HAASE
+              - generic [ref=e340]: GO ▶
+  - generic [ref=e341]:
+    - heading "FORMULA 1 · 2026" [level=2] [ref=e343]
+    - paragraph [ref=e344]: F1 hybrid laps and races on the 2026 calendar — chasing real qualifying and pole times.
+  - main [ref=e345]:
+    - article [ref=e346]:
+      - generic [ref=e347]:
+        - generic [ref=e348]: RACE
+        - generic "CAN" [ref=e349]:
+          - img [ref=e351]
+          - generic [ref=e356]: CAN
+        - img "CANADIAN GP 2026" [ref=e357]
+      - generic [ref=e358]:
+        - heading "CANADIAN GP 2026" [level=3] [ref=e359]
+        - generic [ref=e360]: CAR RED BULL RB21 · F1 2025
+        - generic [ref=e361]: 5-lap sprint · real 2026 F1 grid
+        - generic [ref=e362]:
+          - generic [ref=e363]: Lap Times
+          - generic [ref=e364]:
+            - generic [ref=e365]: Your Hotlap PB
+            - generic [ref=e366]: 1:16.665
+          - generic [ref=e367]:
+            - generic [ref=e368]: Last result
+            - generic [ref=e369]: P19/19
+            - generic [ref=e370]: 09 MAY
+          - generic [ref=e371]:
+            - generic [ref=e372]: Russell pole
+            - generic [ref=e373]: 1:10.899
+            - generic [ref=e374]: "+5.766"
+        - generic [ref=e375]:
+          - 'generic "TRACK: Montreal · F1 2025 layout" [ref=e376]': TRACKMontreal · F1 2025 layout
+          - 'generic "GRID: 19 cars · You start P19" [ref=e377]': GRID19 cars · You start P19
+          - 'generic "LAPS: 5 laps · AI 80–99" [ref=e378]': LAPS5 laps · AI 80–99
+        - generic [ref=e379]:
+          - link "MORE DETAILS →" [ref=e381] [cursor=pointer]:
+            - /url: /challenge/canada_2026
+          - button "▶ LAUNCH" [ref=e382] [cursor=pointer]
+    - article [ref=e383]:
+      - generic [ref=e384]:
+        - generic [ref=e385]: HOTLAP
+        - generic "CAN" [ref=e386]:
+          - img [ref=e388]
+          - generic [ref=e393]: CAN
+        - img "MONTREAL HOTLAP" [ref=e394]
+      - generic [ref=e395]:
+        - heading "MONTREAL HOTLAP" [level=3] [ref=e396]
+        - generic [ref=e397]: CAR RED BULL RB21 · F1 2025
+        - generic [ref=e398]: Chasing Russell's 1:10.899 pole
+        - generic [ref=e399]:
+          - generic [ref=e400]: Lap Times
+          - generic [ref=e401]:
+            - generic [ref=e402]: Your PB
+            - generic [ref=e403]: 1:16.665
+          - generic [ref=e404]:
+            - generic [ref=e405]: Last session
+            - generic [ref=e406]: —
+            - generic [ref=e407]: 09 MAY
+          - generic [ref=e408]:
+            - generic [ref=e409]: Russell pole
+            - generic [ref=e410]: 1:10.899
+            - generic [ref=e411]: "+5.766"
+        - generic [ref=e412]:
+          - 'generic "TRACK: Montreal · F1 2025 layout" [ref=e413]': TRACKMontreal · F1 2025 layout
+          - 'generic "GRID: Solo · ghost on" [ref=e414]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e415]': LAPSOpen · hotlap mode
+        - generic [ref=e416]:
+          - link "MORE DETAILS →" [ref=e418] [cursor=pointer]:
+            - /url: /challenge/hotlap_montreal
+          - button "▶ LAUNCH" [ref=e419] [cursor=pointer]
+    - article [ref=e420]:
+      - generic [ref=e421]:
+        - generic [ref=e422]: RACE
+        - generic "CAN" [ref=e423]:
+          - img [ref=e425]
+          - generic [ref=e430]: CAN
+        - img "CANADIAN GP · VRC GRID" [ref=e431]
+      - generic [ref=e432]:
+        - heading "CANADIAN GP · VRC GRID" [level=3] [ref=e433]
+        - generic [ref=e434]: CAR RED BULL RB21 · F1 2025
+        - generic [ref=e435]: 20-car real F1 grid · charge from P20
+        - generic [ref=e436]:
+          - 'generic "TRACK: Montreal · F1 2025 layout" [ref=e437]': TRACKMontreal · F1 2025 layout
+          - 'generic "GRID: 20 cars · You start P20" [ref=e438]': GRID20 cars · You start P20
+          - 'generic "LAPS: 5 laps · AI 82–99" [ref=e439]': LAPS5 laps · AI 82–99
+        - generic [ref=e440]:
+          - link "MORE DETAILS →" [ref=e442] [cursor=pointer]:
+            - /url: /challenge/canada_vrc
+          - button "▶ LAUNCH" [ref=e443] [cursor=pointer]
+    - article [ref=e444]:
+      - generic [ref=e445]:
+        - generic [ref=e446]: HOTLAP
+        - generic "CAN" [ref=e447]:
+          - img [ref=e449]
+          - generic [ref=e454]: CAN
+        - img "CANADA POLE CHASE · VRC" [ref=e455]
+      - generic [ref=e456]:
+        - heading "CANADA POLE CHASE · VRC" [level=3] [ref=e457]
+        - generic [ref=e458]: CAR RED BULL RB21 · F1 2025
+        - generic [ref=e459]: Solo · ghost on · pole-chase
+        - generic [ref=e460]:
+          - generic [ref=e461]: Lap Times
+          - generic [ref=e462]:
+            - generic [ref=e463]: Your PB
+            - generic [ref=e464]: 1:19.380
+          - generic [ref=e465]:
+            - generic [ref=e466]: Theoretical (you)
+            - generic [ref=e467]: 1:18.894
+            - generic [ref=e468]: "+0.486"
+          - generic [ref=e469]:
+            - generic [ref=e470]: Russell 2025 pole
+            - generic [ref=e471]: 1:10.899
+            - generic [ref=e472]: "+8.481"
+        - generic [ref=e473]:
+          - 'generic "TRACK: Montreal · F1 2025 layout" [ref=e474]': TRACKMontreal · F1 2025 layout
+          - 'generic "GRID: Solo · ghost on" [ref=e475]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e476]': LAPSOpen · hotlap mode
+        - generic [ref=e477]:
+          - link "MORE DETAILS →" [ref=e479] [cursor=pointer]:
+            - /url: /challenge/hotlap_canada_vrc
+          - button "▶ LAUNCH" [ref=e480] [cursor=pointer]
+    - article [ref=e481]:
+      - generic [ref=e482]:
+        - generic [ref=e483]: 1v1 RACE
+        - generic "GER" [ref=e484]:
+          - img [ref=e486]
+          - generic [ref=e490]: GER
+        - generic [ref=e491]:
+          - img "ANTONELLI vs VERSTAPPEN" [ref=e492]
+          - img "ANTONELLI vs VERSTAPPEN" [ref=e493]
+          - img "ANTONELLI vs VERSTAPPEN" [ref=e494]
+          - img "ANTONELLI vs VERSTAPPEN" [ref=e495]
+          - img "ANTONELLI vs VERSTAPPEN" [ref=e496]
+      - generic [ref=e503]:
+        - heading "ANTONELLI vs VERSTAPPEN" [level=3] [ref=e504]
+        - generic [ref=e505]: CAR VRC Formula Alpha 2025 (Pro) · W16 vs RB21
+        - generic [ref=e506]: "Mercedes W16 #12 vs Red Bull RB21 #1 · 1 lap of the Nord 24h"
+        - generic [ref=e507]:
+          - generic [ref=e508]: Lap Times
+          - generic [ref=e509]:
+            - generic [ref=e510]: Your PB
+            - generic [ref=e511]: —
+          - generic [ref=e512]:
+            - generic [ref=e513]: Last result
+            - generic [ref=e514]: P2/2
+            - generic [ref=e515]: 10 MAY
+          - generic [ref=e516]:
+            - generic [ref=e517]: F1 fantasy
+            - generic [ref=e518]: no historic ref
+        - generic [ref=e519]:
+          - 'generic "TRACK: Nordschleife · 24h 2024 layout" [ref=e520]': TRACKNordschleife · 24h 2024 layout
+          - 'generic "GRID: 2 cars · head-to-head" [ref=e521]': GRID2 cars · head-to-head
+          - 'generic "LAPS: 1 lap · AI 100 / aggression 80" [ref=e522]': LAPS1 lap · AI 100 / aggression 80
+        - generic [ref=e523]:
+          - link "MORE DETAILS →" [ref=e525] [cursor=pointer]:
+            - /url: /challenge/antonelli_vs_verstappen_nord
+          - generic [ref=e526]:
+            - button "BE ANTONELLI GO ▶" [ref=e527] [cursor=pointer]:
+              - img [ref=e528]
+              - generic [ref=e532]: BE ANTONELLI
+              - generic [ref=e533]: GO ▶
+            - button "BE VERSTAPPEN GO ▶" [ref=e534] [cursor=pointer]:
+              - img [ref=e535]
+              - generic [ref=e538]: BE VERSTAPPEN
+              - generic [ref=e539]: GO ▶
+  - generic [ref=e540]:
+    - heading "FORMULA 1 · 2008" [level=2] [ref=e542]
+    - paragraph [ref=e543]: Hamilton's title-decider season — McLaren MP4-23 vs Ferrari F2008 vs the rest of the 11-team grid. Recreate the moments that came down to one corner on the last lap.
+  - main [ref=e544]:
+    - article [ref=e545]:
+      - generic [ref=e546]:
+        - generic [ref=e547]: RACE
+        - generic "BRA" [ref=e548]:
+          - img [ref=e550]
+          - generic [ref=e552]: BRA
+        - img "INTERLAGOS 2008" [ref=e553]
+      - generic [ref=e554]:
+        - heading "INTERLAGOS 2008" [level=3] [ref=e555]
+        - generic [ref=e556]: "CAR McLaren MP4-23 · Hamilton #22"
+        - generic [ref=e557]: Real 2008 grid · 5-lap sprint
+        - generic [ref=e558]:
+          - generic [ref=e559]: Lap Times
+          - generic [ref=e560]:
+            - generic [ref=e561]: Your PB
+            - generic [ref=e562]: —
+          - generic [ref=e563]:
+            - generic [ref=e564]: Massa pole 2008
+            - generic [ref=e565]: 1:12.368
+          - generic [ref=e566]:
+            - generic [ref=e567]: Hamilton race fastest
+            - generic [ref=e568]: 1:13.736
+        - generic [ref=e569]:
+          - 'generic "TRACK: Interlagos · GP" [ref=e570]': TRACKInterlagos · GP
+          - 'generic "GRID: 20 cars · You start P20" [ref=e571]': GRID20 cars · You start P20
+          - 'generic "LAPS: 5 laps · AI 80–99" [ref=e572]': LAPS5 laps · AI 80–99
+        - generic [ref=e573]:
+          - link "MORE DETAILS →" [ref=e575] [cursor=pointer]:
+            - /url: /challenge/f1_2008_brazil_grid
+          - button "▶ LAUNCH" [ref=e576] [cursor=pointer]
+  - generic [ref=e577]:
+    - heading "SCHUMACHER · ICONIC RACES" [level=2] [ref=e579]
+    - paragraph [ref=e580]: Recreations of Michael Schumacher's defining moments — debut at Spa '91, Tifosi roar at Monza, the Imola seven-time, Suzuka title clinch, F2004 at Montreal.
+  - main [ref=e581]:
+    - article [ref=e582]:
+      - generic [ref=e583]:
+        - generic [ref=e584]: HOTLAP
+        - generic "CAN" [ref=e585]:
+          - img [ref=e587]
+          - generic [ref=e592]: CAN
+        - img "MONTREAL · F2004" [ref=e593]
+      - generic [ref=e594]:
+        - heading "MONTREAL · F2004" [level=3] [ref=e595]
+        - generic [ref=e596]: CAR FERRARI F2004 · 2004 V10
+        - generic [ref=e597]: Ferrari F2004 · 2004 championship V10
+        - generic [ref=e598]:
+          - generic [ref=e599]: Lap Times
+          - generic [ref=e600]:
+            - generic [ref=e601]: Your PB
+            - generic [ref=e602]: 1:18.810
+          - generic [ref=e603]:
+            - generic [ref=e604]: Theoretical (you)
+            - generic [ref=e605]: 1:18.531
+            - generic [ref=e606]: "+0.279"
+        - generic [ref=e607]:
+          - 'generic "TRACK: Montreal · F1 2025 layout" [ref=e608]': TRACKMontreal · F1 2025 layout
+          - 'generic "GRID: Solo · ghost on" [ref=e609]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e610]': LAPSOpen · hotlap mode
+        - generic [ref=e611]:
+          - link "MORE DETAILS →" [ref=e613] [cursor=pointer]:
+            - /url: /challenge/hotlap_montreal_f2004
+          - button "▶ LAUNCH" [ref=e614] [cursor=pointer]
+    - article [ref=e615]:
+      - generic [ref=e616]:
+        - generic [ref=e617]: HOTLAP
+        - generic "BEL" [ref=e618]:
+          - img [ref=e620]
+          - generic [ref=e624]: BEL
+        - img "SPA · 1991 DEBUT" [ref=e625]
+      - generic [ref=e626]:
+        - heading "SPA · 1991 DEBUT" [level=3] [ref=e627]
+        - generic [ref=e628]: "CAR JORDAN 191 · #32 SCHUMACHER"
+        - generic [ref=e629]: "Jordan 191 #32 · Schumacher's F1 debut"
+        - generic [ref=e630]:
+          - generic [ref=e631]: Lap Times
+          - generic [ref=e632]:
+            - generic [ref=e633]: Your PB
+            - generic [ref=e634]: —
+          - generic [ref=e635]:
+            - generic [ref=e636]: Last session
+            - generic [ref=e637]: —
+            - generic [ref=e638]: 09 MAY
+        - generic [ref=e639]:
+          - 'generic "TRACK: Spa-Francorchamps · F1 layout" [ref=e640]': TRACKSpa-Francorchamps · F1 layout
+          - 'generic "GRID: Solo · ghost on" [ref=e641]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e642]': LAPSOpen · hotlap mode
+        - generic [ref=e643]:
+          - link "MORE DETAILS →" [ref=e645] [cursor=pointer]:
+            - /url: /challenge/hotlap_spa_1991_debut
+          - button "▶ LAUNCH" [ref=e646] [cursor=pointer]
+    - article [ref=e647]:
+      - generic [ref=e648]:
+        - generic [ref=e649]: HOTLAP
+        - generic "ITA" [ref=e650]:
+          - img [ref=e652]
+          - generic [ref=e656]: ITA
+        - img "MONZA · TIFOSI" [ref=e657]
+      - generic [ref=e658]:
+        - heading "MONZA · TIFOSI" [level=3] [ref=e659]
+        - generic [ref=e660]: "CAR FERRARI F2001 · #3 SCHUMACHER MONZA"
+        - generic [ref=e661]: Ferrari F2001 · the Tifosi's roar
+        - generic [ref=e662]:
+          - generic [ref=e663]: Lap Times
+          - generic [ref=e664]:
+            - generic [ref=e665]: Your PB
+            - generic [ref=e666]: 1:29.600
+          - generic [ref=e667]:
+            - generic [ref=e668]: Last session
+            - generic [ref=e669]: 1:29.600
+            - generic [ref=e670]: 09 MAY
+        - generic [ref=e671]:
+          - 'generic "TRACK: Monza · F1 2025 layout" [ref=e672]': TRACKMonza · F1 2025 layout
+          - 'generic "GRID: Solo · ghost on" [ref=e673]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e674]': LAPSOpen · hotlap mode
+        - generic [ref=e675]:
+          - link "MORE DETAILS →" [ref=e677] [cursor=pointer]:
+            - /url: /challenge/hotlap_monza_schumacher
+          - button "▶ LAUNCH" [ref=e678] [cursor=pointer]
+    - article [ref=e679]:
+      - generic [ref=e680]:
+        - generic [ref=e681]: HOTLAP
+        - generic "ITA" [ref=e682]:
+          - img [ref=e684]
+          - generic [ref=e688]: ITA
+        - img "IMOLA · 7-TIME KING" [ref=e689]
+      - generic [ref=e690]:
+        - heading "IMOLA · 7-TIME KING" [level=3] [ref=e691]
+        - generic [ref=e692]: "CAR FERRARI F2001 · #1 SCHUMACHER"
+        - generic [ref=e693]: Ferrari F2001 · Schumacher's most-won track
+        - generic [ref=e694]:
+          - generic [ref=e695]: Lap Times
+          - generic [ref=e696]:
+            - generic [ref=e697]: Your PB
+            - generic [ref=e698]: —
+        - generic [ref=e699]:
+          - 'generic "TRACK: Imola · F1 2022 layout" [ref=e700]': TRACKImola · F1 2022 layout
+          - 'generic "GRID: Solo · ghost on" [ref=e701]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e702]': LAPSOpen · hotlap mode
+        - generic [ref=e703]:
+          - link "MORE DETAILS →" [ref=e705] [cursor=pointer]:
+            - /url: /challenge/hotlap_imola_schumacher
+          - button "▶ LAUNCH" [ref=e706] [cursor=pointer]
+    - article [ref=e707]:
+      - generic [ref=e708]:
+        - generic [ref=e709]: HOTLAP
+        - generic "JPN" [ref=e710]:
+          - img [ref=e712]
+          - generic [ref=e715]: JPN
+        - img "SUZUKA · 2001 TITLE" [ref=e716]
+      - generic [ref=e717]:
+        - heading "SUZUKA · 2001 TITLE" [level=3] [ref=e718]
+        - generic [ref=e719]: "CAR FERRARI F2001 · #1 SCHUMACHER"
+        - generic [ref=e720]: Ferrari F2001 · 4th championship clinched
+        - generic [ref=e721]:
+          - generic [ref=e722]: Lap Times
+          - generic [ref=e723]:
+            - generic [ref=e724]: Your PB
+            - generic [ref=e725]: —
+        - generic [ref=e726]:
+          - 'generic "TRACK: Suzuka · GP layout" [ref=e727]': TRACKSuzuka · GP layout
+          - 'generic "GRID: Solo · ghost on" [ref=e728]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e729]': LAPSOpen · hotlap mode
+        - generic [ref=e730]:
+          - link "MORE DETAILS →" [ref=e732] [cursor=pointer]:
+            - /url: /challenge/hotlap_suzuka_schumacher
+          - button "▶ LAUNCH" [ref=e733] [cursor=pointer]
+    - article [ref=e734]:
+      - generic [ref=e735]:
+        - generic [ref=e736]: 1v1 RACE
+        - generic "BEL" [ref=e737]:
+          - img [ref=e739]
+          - generic [ref=e743]: BEL
+        - img "BENETTON vs FERRARI · '93" [ref=e744]
+      - generic [ref=e745]:
+        - heading "BENETTON vs FERRARI · '93" [level=3] [ref=e746]
+        - generic [ref=e747]: "CAR BENETTON B193 · #5 SCHUMACHER"
+        - generic [ref=e748]: Schumacher's Benetton B193 vs Berger's Ferrari
+        - generic [ref=e749]:
+          - 'generic "TRACK: Spa · F1 2025 layout" [ref=e750]': TRACKSpa · F1 2025 layout
+          - 'generic "GRID: 2 cars · head-to-head" [ref=e751]': GRID2 cars · head-to-head
+          - 'generic "LAPS: 1 lap · cross-team duel" [ref=e752]': LAPS1 lap · cross-team duel
+        - generic [ref=e753]:
+          - link "MORE DETAILS →" [ref=e755] [cursor=pointer]:
+            - /url: /challenge/duel_spa_1993_schumacher_berger
+          - button "▶ LAUNCH" [ref=e756] [cursor=pointer]
+    - article [ref=e757]:
+      - generic [ref=e758]:
+        - generic [ref=e759]: 1v1 RACE
+        - generic "ITA" [ref=e760]:
+          - img [ref=e762]
+          - generic [ref=e766]: ITA
+        - img "IMOLA · TEAMMATE DUEL" [ref=e767]
+      - generic [ref=e768]:
+        - heading "IMOLA · TEAMMATE DUEL" [level=3] [ref=e769]
+        - generic [ref=e770]: "CAR FERRARI F2001 · #1 SCHUMACHER"
+        - generic [ref=e771]: "Schumacher F2001 #1 vs Barichello F2001 #2"
+        - generic [ref=e772]:
+          - 'generic "TRACK: Imola · F1 2022 layout" [ref=e773]': TRACKImola · F1 2022 layout
+          - 'generic "GRID: 2 cars · head-to-head" [ref=e774]': GRID2 cars · head-to-head
+          - 'generic "LAPS: 1 lap · teammate duel" [ref=e775]': LAPS1 lap · teammate duel
+        - generic [ref=e776]:
+          - link "MORE DETAILS →" [ref=e778] [cursor=pointer]:
+            - /url: /challenge/duel_imola_f2001_teammates
+          - button "▶ LAUNCH" [ref=e779] [cursor=pointer]
+    - article [ref=e780]:
+      - generic [ref=e781]:
+        - generic [ref=e782]: RACE
+        - generic "BEL" [ref=e783]:
+          - img [ref=e785]
+          - generic [ref=e789]: BEL
+        - img "1993 GRID · SPA" [ref=e790]
+      - generic [ref=e791]:
+        - heading "1993 GRID · SPA" [level=3] [ref=e792]
+        - generic [ref=e793]: "CAR BENETTON B193 · #5 SCHUMACHER"
+        - generic [ref=e794]: 6-car 1993 F1 field · Schumacher's first full season
+        - generic [ref=e795]:
+          - 'generic "TRACK: Spa · F1 2025 layout" [ref=e796]': TRACKSpa · F1 2025 layout
+          - 'generic "GRID: 6 cars · cross-team 1993 grid" [ref=e797]': GRID6 cars · cross-team 1993 grid
+          - 'generic "LAPS: 5 laps · charge from P6" [ref=e798]': LAPS5 laps · charge from P6
+        - generic [ref=e799]:
+          - link "MORE DETAILS →" [ref=e801] [cursor=pointer]:
+            - /url: /challenge/race_1993_spa_grid
+          - button "▶ LAUNCH" [ref=e802] [cursor=pointer]
+    - article [ref=e803]:
+      - generic [ref=e804]:
+        - generic [ref=e805]: RACE
+        - generic "ITA" [ref=e806]:
+          - img [ref=e808]
+          - generic [ref=e812]: ITA
+        - img "MONZA · F2001 TIFOSI" [ref=e813]
+      - generic [ref=e814]:
+        - heading "MONZA · F2001 TIFOSI" [level=3] [ref=e815]
+        - generic [ref=e816]: "CAR FERRARI F2001 · #3 SCHUMACHER MONZA"
+        - generic [ref=e817]: Ferrari F2001 4-car battle at Monza
+        - generic [ref=e818]:
+          - 'generic "TRACK: Monza · F1 2025 layout" [ref=e819]': TRACKMonza · F1 2025 layout
+          - 'generic "GRID: 4 cars · all F2001" [ref=e820]': GRID4 cars · all F2001
+          - 'generic "LAPS: 5 laps · charge from P4" [ref=e821]': LAPS5 laps · charge from P4
+        - generic [ref=e822]:
+          - link "MORE DETAILS →" [ref=e824] [cursor=pointer]:
+            - /url: /challenge/race_monza_f2001
+          - button "▶ LAUNCH" [ref=e825] [cursor=pointer]
+  - generic [ref=e826]:
+    - heading "SENNA · TRIBUTE" [level=2] [ref=e828]
+    - paragraph [ref=e829]: Ayrton Senna's legendary moments in the McLaren MP4/8 — Donington 1993 wet masterclass, Monaco 1988 pole, Suzuka 1988 title clincher, Estoril '85 first pole.
+  - main [ref=e830]:
+    - article [ref=e831]:
+      - generic [ref=e832]:
+        - generic [ref=e833]: HOTLAP
+        - img "DONINGTON 1993" [ref=e834]
+      - generic [ref=e835]:
+        - heading "DONINGTON 1993" [level=3] [ref=e836]
+        - generic [ref=e837]: "CAR McLaren MP4/8 · Senna #8"
+        - generic [ref=e838]: MP4/8 · the wet-weather masterclass
+        - generic [ref=e839]:
+          - generic [ref=e840]: Lap Times
+          - generic [ref=e841]:
+            - generic [ref=e842]: Your PB
+            - generic [ref=e843]: —
+          - generic [ref=e844]:
+            - generic [ref=e845]: Senna race fastest
+            - generic [ref=e846]: 1:18.029
+          - generic [ref=e847]:
+            - generic [ref=e848]: Prost pole (dry)
+            - generic [ref=e849]: 1:10.458
+        - generic [ref=e850]:
+          - 'generic "TRACK: Donington Park · GP layout" [ref=e851]': TRACKDonington Park · GP layout
+          - 'generic "GRID: Solo · ghost on · wet" [ref=e852]': GRIDSolo · ghost on · wet
+          - 'generic "LAPS: Open · hotlap mode" [ref=e853]': LAPSOpen · hotlap mode
+        - generic [ref=e854]:
+          - link "MORE DETAILS →" [ref=e856] [cursor=pointer]:
+            - /url: /challenge/senna_donington_1993
+          - button "▶ LAUNCH" [ref=e857] [cursor=pointer]
+    - article [ref=e858]:
+      - generic [ref=e859]:
+        - generic [ref=e860]: HOTLAP
+        - generic "JPN" [ref=e861]:
+          - img [ref=e863]
+          - generic [ref=e866]: JPN
+        - img "SUZUKA 1988" [ref=e867]
+      - generic [ref=e868]:
+        - heading "SUZUKA 1988" [level=3] [ref=e869]
+        - generic [ref=e870]: "CAR McLaren MP4/8 · Senna #8"
+        - generic [ref=e871]: MP4/4 · the championship lap
+        - generic [ref=e872]:
+          - generic [ref=e873]: Lap Times
+          - generic [ref=e874]:
+            - generic [ref=e875]: Your PB
+            - generic [ref=e876]: —
+          - generic [ref=e877]:
+            - generic [ref=e878]: Senna pole
+            - generic [ref=e879]: 1:41.853
+          - generic [ref=e880]:
+            - generic [ref=e881]: Prost (sister car)
+            - generic [ref=e882]: 1:42.177
+          - generic [ref=e883]:
+            - generic [ref=e884]: Race fastest
+            - generic [ref=e885]: 1:46.326
+        - generic [ref=e886]:
+          - 'generic "TRACK: Suzuka · GP" [ref=e887]': TRACKSuzuka · GP
+          - 'generic "GRID: Solo · ghost on" [ref=e888]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e889]': LAPSOpen · hotlap mode
+        - generic [ref=e890]:
+          - link "MORE DETAILS →" [ref=e892] [cursor=pointer]:
+            - /url: /challenge/senna_suzuka_1988
+          - button "▶ LAUNCH" [ref=e893] [cursor=pointer]
+    - article [ref=e894]:
+      - generic [ref=e895]:
+        - generic [ref=e896]: HOTLAP
+        - img "MONACO 1988" [ref=e897]
+      - generic [ref=e898]:
+        - heading "MONACO 1988" [level=3] [ref=e899]
+        - generic [ref=e900]: "CAR McLaren MP4/8 · Senna #8"
+        - generic [ref=e901]: MP4/4 · the qualifying lap nobody understood
+        - generic [ref=e902]:
+          - generic [ref=e903]: Lap Times
+          - generic [ref=e904]:
+            - generic [ref=e905]: Your PB
+            - generic [ref=e906]: —
+          - generic [ref=e907]:
+            - generic [ref=e908]: Senna pole
+            - generic [ref=e909]: 1:23.998
+          - generic [ref=e910]:
+            - generic [ref=e911]: Prost (P2)
+            - generic [ref=e912]: 1:25.425
+        - generic [ref=e913]:
+          - 'generic "TRACK: Monaco · F1 2025 layout (closest to ''88 circuit)" [ref=e914]': TRACKMonaco · F1 2025 layout (closest to '88 circuit)
+          - 'generic "GRID: Solo · ghost on" [ref=e915]': GRIDSolo · ghost on
+          - 'generic "LAPS: Open · hotlap mode" [ref=e916]': LAPSOpen · hotlap mode
+        - generic [ref=e917]:
+          - link "MORE DETAILS →" [ref=e919] [cursor=pointer]:
+            - /url: /challenge/senna_monaco_1988
+          - button "▶ LAUNCH" [ref=e920] [cursor=pointer]
+    - article [ref=e921]:
+      - generic [ref=e922]:
+        - generic [ref=e923]: HOTLAP
+        - img "ESTORIL 1985" [ref=e924]
+      - generic [ref=e925]:
+        - heading "ESTORIL 1985" [level=3] [ref=e926]
+        - generic [ref=e927]: "CAR McLaren MP4/8 · Senna #8"
+        - generic [ref=e928]: Lotus turbo · the breakthrough
+        - generic [ref=e929]:
+          - generic [ref=e930]: Lap Times
+          - generic [ref=e931]:
+            - generic [ref=e932]: Your PB
+            - generic [ref=e933]: —
+          - generic [ref=e934]:
+            - generic [ref=e935]: Senna pole (dry)
+            - generic [ref=e936]: 1:21.007
+          - generic [ref=e937]:
+            - generic [ref=e938]: Senna fastest race lap
+            - generic [ref=e939]: 1:23.226
+        - generic [ref=e940]:
+          - 'generic "TRACK: Estoril" [ref=e941]': TRACKEstoril
+          - 'generic "GRID: Solo · ghost on · wet" [ref=e942]': GRIDSolo · ghost on · wet
+          - 'generic "LAPS: Open · hotlap mode" [ref=e943]': LAPSOpen · hotlap mode
+        - generic [ref=e944]:
+          - link "MORE DETAILS →" [ref=e946] [cursor=pointer]:
+            - /url: /challenge/senna_estoril_1985
+          - button "▶ LAUNCH" [ref=e947] [cursor=pointer]
+    - article [ref=e948]:
+      - generic [ref=e949]:
+        - generic [ref=e950]: 1 vs 1
+        - img "SENNA VS PROST · MONACO '88" [ref=e951]
+      - generic [ref=e952]:
+        - heading "SENNA VS PROST · MONACO '88" [level=3] [ref=e953]
+        - generic [ref=e954]: "CAR McLaren MP4/8 · Senna #8"
+        - generic [ref=e955]: Same car. 1.4 seconds apart.
+        - generic [ref=e956]:
+          - generic [ref=e957]: Lap Times
+          - generic [ref=e958]:
+            - generic [ref=e959]: Your PB
+            - generic [ref=e960]: —
+          - generic [ref=e961]:
+            - generic [ref=e962]: Senna pole
+            - generic [ref=e963]: 1:23.998
+          - generic [ref=e964]:
+            - generic [ref=e965]: Prost (P2)
+            - generic [ref=e966]: 1:25.425
+        - generic [ref=e967]:
+          - 'generic "TRACK: Monaco · F1 2025 layout" [ref=e968]': TRACKMonaco · F1 2025 layout
+          - 'generic "GRID: 2 cars · head-to-head" [ref=e969]': GRID2 cars · head-to-head
+          - 'generic "LAPS: 1 lap · Prost AI calibrated" [ref=e970]': LAPS1 lap · Prost AI calibrated
+        - generic [ref=e971]:
+          - link "MORE DETAILS →" [ref=e973] [cursor=pointer]:
+            - /url: /challenge/senna_vs_prost_monaco_1988
+          - button "▶ LAUNCH" [ref=e974] [cursor=pointer]
+    - article [ref=e975]:
+      - generic [ref=e976]:
+        - generic [ref=e977]: 1 vs 1
+        - generic "JPN" [ref=e978]:
+          - img [ref=e980]
+          - generic [ref=e983]: JPN
+        - img "SENNA VS PROST · SUZUKA '88" [ref=e984]
+      - generic [ref=e985]:
+        - heading "SENNA VS PROST · SUZUKA '88" [level=3] [ref=e986]
+        - generic [ref=e987]: "CAR McLaren MP4/8 · Senna #8"
+        - generic [ref=e988]: Title race. 1 lap. Same MP4/4.
+        - generic [ref=e989]:
+          - generic [ref=e990]: Lap Times
+          - generic [ref=e991]:
+            - generic [ref=e992]: Your PB
+            - generic [ref=e993]: 1:48.260
+          - generic [ref=e994]:
+            - generic [ref=e995]: Last result
+            - generic [ref=e996]: P2/2
+            - generic [ref=e997]: 1:48.260 · 09 MAY
+          - generic [ref=e998]:
+            - generic [ref=e999]: Senna pole
+            - generic [ref=e1000]: 1:41.853
+            - generic [ref=e1001]: "+6.407"
+          - generic [ref=e1002]:
+            - generic [ref=e1003]: Prost (sister car)
+            - generic [ref=e1004]: 1:42.177
+            - generic [ref=e1005]: "+6.083"
+          - generic [ref=e1006]:
+            - generic [ref=e1007]: Race fastest
+            - generic [ref=e1008]: 1:46.326
+            - generic [ref=e1009]: "+1.934"
+        - generic [ref=e1010]:
+          - 'generic "TRACK: Suzuka · GP" [ref=e1011]': TRACKSuzuka · GP
+          - 'generic "GRID: 2 cars · head-to-head" [ref=e1012]': GRID2 cars · head-to-head
+          - 'generic "LAPS: 1 lap · Prost AI calibrated" [ref=e1013]': LAPS1 lap · Prost AI calibrated
+        - generic [ref=e1014]:
+          - link "MORE DETAILS →" [ref=e1016] [cursor=pointer]:
+            - /url: /challenge/senna_vs_prost_suzuka_1988
+          - button "▶ LAUNCH" [ref=e1017] [cursor=pointer]
+    - article [ref=e1018]:
+      - generic [ref=e1019]:
+        - generic [ref=e1020]: 1 vs 1
+        - img "SENNA VS SCHUMI · DONINGTON '93" [ref=e1021]
+      - generic [ref=e1022]:
+        - heading "SENNA VS SCHUMI · DONINGTON '93" [level=3] [ref=e1023]
+        - generic [ref=e1024]: "CAR McLaren MP4/8 · Senna #8"
+        - generic [ref=e1025]: MP4/8 vs Benetton B193. Soaking wet.
+        - generic [ref=e1026]:
+          - generic [ref=e1027]: Lap Times
+          - generic [ref=e1028]:
+            - generic [ref=e1029]: Your PB
+            - generic [ref=e1030]: —
+          - generic [ref=e1031]:
+            - generic [ref=e1032]: Senna race fastest (wet)
+            - generic [ref=e1033]: 1:18.029
+          - generic [ref=e1034]:
+            - generic [ref=e1035]: Prost pole (dry)
+            - generic [ref=e1036]: 1:10.458
+        - generic [ref=e1037]:
+          - 'generic "TRACK: Donington Park · GP layout" [ref=e1038]': TRACKDonington Park · GP layout
+          - 'generic "GRID: 2 cars · head-to-head · wet" [ref=e1039]': GRID2 cars · head-to-head · wet
+          - 'generic "LAPS: 1 lap · Schumacher AI calibrated" [ref=e1040]': LAPS1 lap · Schumacher AI calibrated
+        - generic [ref=e1041]:
+          - link "MORE DETAILS →" [ref=e1043] [cursor=pointer]:
+            - /url: /challenge/senna_vs_schumacher_donington_1993
+          - button "▶ LAUNCH" [ref=e1044] [cursor=pointer]
+  - generic [ref=e1045]:
+    - heading "SUPER GT · GT500" [level=2] [ref=e1047]
+    - paragraph [ref=e1048]: JGTC re-creations — wet-weather discipline at Fuji.
+  - main [ref=e1049]:
+    - article [ref=e1050]:
+      - generic [ref=e1051]:
+        - generic [ref=e1052]: 1v1 RACE
+        - generic "JPN" [ref=e1053]:
+          - img [ref=e1055]
+          - generic [ref=e1058]: JPN
+        - generic [ref=e1059]:
+          - img "SUPER GT FUJI · WET" [ref=e1060]
+          - img "SUPER GT FUJI · WET" [ref=e1061]
+          - img "SUPER GT FUJI · WET" [ref=e1062]
+      - generic [ref=e1067]:
+        - heading "SUPER GT FUJI · WET" [level=3] [ref=e1068]
+        - generic [ref=e1069]: CAR NISSAN Z NISMO GT500
+        - generic [ref=e1070]: Verstappen-Miyake re-creation
+        - generic [ref=e1071]:
+          - generic [ref=e1072]: Lap Times
+          - generic [ref=e1073]:
+            - generic [ref=e1074]: Your PB
+            - generic [ref=e1075]: —
+          - generic [ref=e1076]:
+            - generic [ref=e1077]: Miyake (Pro)
+            - generic [ref=e1078]: 1:44.075
+          - generic [ref=e1079]:
+            - generic [ref=e1080]: Max
+            - generic [ref=e1081]: 1:42.290
+        - generic [ref=e1082]:
+          - 'generic "TRACK: Fuji Speedway 2017" [ref=e1083]': TRACKFuji Speedway 2017
+          - 'generic "GRID: Solo · ghost on · wet" [ref=e1084]': GRIDSolo · ghost on · wet
+          - 'generic "LAPS: Open · hotlap mode" [ref=e1085]': LAPSOpen · hotlap mode
+        - generic [ref=e1086]:
+          - generic [ref=e1087]:
+            - link "MORE DETAILS →" [ref=e1088] [cursor=pointer]:
+              - /url: /challenge/hotlap_supergt_fuji
+            - link "WATCH ▶" [ref=e1089] [cursor=pointer]:
+              - /url: https://www.youtube.com/watch?v=h8hG4_B-ACY
+          - button "▶ LAUNCH" [ref=e1090] [cursor=pointer]
+  - contentinfo [ref=e1091]:
+    - generic [ref=e1092]: PABLO SUZARTE · SIM RACING CHALLENGES · LOCALHOST:8765
+    - generic [ref=e1093]:
+      - text: DROP IMAGES INTO
+      - code [ref=e1094]: launcher/images/<ID>.JPG
+      - text: TO REPLACE FALLBACKS
