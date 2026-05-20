@@ -1,0 +1,33 @@
+{
+  "ts": "20260517-083202",
+  "tile": {
+    "id": "hotlap_dacia_logan_n24",
+    "type": "HOTLAP",
+    "title": "DACIA AT THE GREEN HELL",
+    "ac_car_id": "rlr_logan_2008cup",
+    "ac_car_skin": "Ollie_Garage_Racing_300_N\u00fcrburgring",
+    "ac_track_id": "ks_nordschleife",
+    "ac_track_layout": "nordschleife_24hours_2024"
+  },
+  "summary": {
+    "track": "ks_nordschleife-nordschleife_24hours_2024",
+    "car": "rlr_logan_2008cup",
+    "skin": "Ollie_Garage_Racing_300_N\u00fcrburgring",
+    "player": "Oliver Kriese",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "12:03.187",
+    "best_lap_ms": 723187,
+    "sectors": [
+      "4:40.926",
+      "3:23.777",
+      "3:58.484"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "SM"
+  },
+  "snapshot_file": "20260517-083202.json"
+}

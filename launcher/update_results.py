@@ -86,16 +86,17 @@ def summarize(snap):
         except ValueError:
             pass
     return {
-        "track":     track,
-        "car":       car,
-        "skin":      skin,
-        "player":    name,
-        "session":   {"name": sess.get("name"), "type": sess.get("type")},
-        "best_lap":  fmt_ms(best_lap["time"]) if best_lap else None,
-        "sectors":   [fmt_ms(s) for s in sectors] if sectors else None,
-        "finish":    finish,
-        "field":     len(players),
-        "tyre":      best_lap.get("tyre") if best_lap else None,
+        "track":       track,
+        "car":         car,
+        "skin":        skin,
+        "player":      name,
+        "session":     {"name": sess.get("name"), "type": sess.get("type")},
+        "best_lap":    fmt_ms(best_lap["time"]) if best_lap else None,
+        "best_lap_ms": best_lap["time"] if best_lap else None,
+        "sectors":     [fmt_ms(s) for s in sectors] if sectors else None,
+        "finish":      finish,
+        "field":       len(players),
+        "tyre":        best_lap.get("tyre") if best_lap else None,
     }
 
 
@@ -164,8 +165,18 @@ def main():
             continue
         ts = snap_path.stem  # yyyyMMdd-HHmmss
         cur = by_tile.get(tile["id"])
-        if not cur or ts > cur["ts"]:
-            by_tile[tile["id"]] = {"ts": ts, "tile": tile, "summary": summary, "snapshot_file": snap_path.name}
+        # HOTLAP tiles: keep the snapshot with the BEST (lowest) valid lap.
+        # RACE / DUEL tiles: keep the MOST RECENT result (current race outcome).
+        # A new snapshot can only replace an existing PB on HOTLAP — slower
+        # subsequent sessions never overwrite a faster lap.
+        if tile.get("type") == "HOTLAP":
+            new_ms = summary.get("best_lap_ms")
+            cur_ms = (cur or {}).get("summary", {}).get("best_lap_ms")
+            if new_ms is not None and (cur_ms is None or new_ms < cur_ms):
+                by_tile[tile["id"]] = {"ts": ts, "tile": tile, "summary": summary, "snapshot_file": snap_path.name}
+        else:
+            if not cur or ts > cur["ts"]:
+                by_tile[tile["id"]] = {"ts": ts, "tile": tile, "summary": summary, "snapshot_file": snap_path.name}
 
     # Write per-tile + index
     for tile_id, entry in by_tile.items():

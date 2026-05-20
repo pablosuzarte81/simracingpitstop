@@ -1,0 +1,33 @@
+{
+  "ts": "20260517-084159",
+  "tile": {
+    "id": "hotlap_vettel_rb7_nordschleife",
+    "type": "HOTLAP",
+    "title": "VETTEL \u00b7 RB7 \u00b7 NORDSCHLEIFE",
+    "ac_car_id": "cim_2011_redbull",
+    "ac_car_skin": "1",
+    "ac_track_id": "ks_nordschleife",
+    "ac_track_layout": "nordschleife_24hours_2024"
+  },
+  "summary": {
+    "track": "ks_nordschleife-nordschleife_24hours_2024",
+    "car": "cim_2011_redbull",
+    "skin": "1",
+    "player": "Sebastian Vettel",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "7:36.216",
+    "best_lap_ms": 456216,
+    "sectors": [
+      "2:59.728",
+      "2:03.602",
+      "2:32.886"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "SS"
+  },
+  "snapshot_file": "20260517-084159.json"
+}

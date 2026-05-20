@@ -1,0 +1,33 @@
+
+{
+	"track": "ks_nordschleife-nordschleife_24hours_2024",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Oliver Kriese",
+			"car": "rlr_logan_2008cup",
+			"skin": "Ollie_Garage_Racing_300_Nürburgring"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [],
+			"lapstotal": [0],
+			"bestLaps": []
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

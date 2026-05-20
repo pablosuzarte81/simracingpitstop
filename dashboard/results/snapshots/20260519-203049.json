@@ -1,0 +1,46 @@
+
+{
+	"track": "sx_lemans-24h_2025",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo Suzarte",
+			"car": "rss_formula_1986",
+			"skin": "01_formula_yellow_21"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [101990, 93156, 49923],
+					"time": 245069,
+					"cuts": 0,
+					"tyre": "M"
+				}],
+			"lapstotal": [1],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 245069,
+					"lap": 0
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 245069
+		}]
+}

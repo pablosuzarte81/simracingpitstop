@@ -1,0 +1,33 @@
+{
+  "ts": "20260517-112738",
+  "tile": {
+    "id": "hotlap_indy500",
+    "type": "HOTLAP",
+    "title": "INDY 500 POLE CHASE",
+    "ac_car_id": "vrc_formula_na_2021_oval",
+    "ac_car_skin": "2025 60 Felix Rosenqvist - Indianapolis 500",
+    "ac_track_id": "aa_ims",
+    "ac_track_layout": "indy500"
+  },
+  "summary": {
+    "track": "aa_ims-indy500",
+    "car": "vrc_formula_na_2021_oval",
+    "skin": "25_ANP",
+    "player": "Driver",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "0:40.974",
+    "best_lap_ms": 40974,
+    "sectors": [
+      "0:11.280",
+      "0:14.284",
+      "0:15.410"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "P2"
+  },
+  "snapshot_file": "20260517-112738.json"
+}

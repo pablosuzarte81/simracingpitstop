@@ -7,7 +7,7 @@ REM ===============================================================
 setlocal enableextensions
 
 set "ACDOC=%USERPROFILE%\Documents\Assetto Corsa"
-set "ACINSTALL=D:\SteamLibrary\steamapps\common\assettocorsa"
+set "ACINSTALL=F:\SteamLibrary\steamapps\common\assettocorsa"
 set "PRESET=%ACDOC%\cfg\hotlap_nls2_2026.ini"
 set "TARGET=%ACDOC%\cfg\race.ini"
 set "BACKUP=%ACDOC%\cfg\race.ini.bak"
@@ -40,6 +40,23 @@ if exist "%TARGET%" (
 
 echo Installing preset...
 copy /Y "%PRESET%" "%TARGET%" >nul
+
+REM --- Force-load nls2_2026_hotlap setup. AC hotlap mode is fussy about
+REM     where it reads setups from, so we write to every plausible path:
+REM       (1) setups\<car>\<track>\last.ini   (track-scoped last-used)
+REM       (2) setups\<car>\generic\last.ini   (car-scoped last-used)
+REM     FIXED_SETUP stays 0 (otherwise the setup tab is non-clickable);
+REM     pre-writing last.ini IS the actual auto-load mechanism.
+set "SETUP_SRC=%ACDOC%\setups\rss_gtm_mercer_v8\ks_nordschleife\nls2_2026_hotlap.ini"
+set "SETUP_DST_TRACK=%ACDOC%\setups\rss_gtm_mercer_v8\ks_nordschleife\last.ini"
+set "SETUP_DST_GEN=%ACDOC%\setups\rss_gtm_mercer_v8\generic\last.ini"
+if exist "%SETUP_SRC%" (
+    copy /Y "%SETUP_SRC%" "%SETUP_DST_TRACK%" >nul
+    copy /Y "%SETUP_SRC%" "%SETUP_DST_GEN%" >nul
+    echo Loaded setup: nls2_2026_hotlap
+) else (
+    echo WARNING: setup file not found at %SETUP_SRC%
+)
 
 REM --- Crew Chief auto-launch + auto-press Start
 call "%~dp0launcher\start_crew_chief.cmd"

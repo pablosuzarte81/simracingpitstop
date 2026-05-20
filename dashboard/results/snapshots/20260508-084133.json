@@ -1,0 +1,57 @@
+{
+  "track": "montreal-montreal_f1_2025",
+  "number_of_sessions": 1,
+  "players": [
+    {
+      "name": "Max Verstappen",
+      "car": "rss_formula_hybrid_2025_alpine",
+      "skin": "M17_RedBull_RB21_1"
+    }
+  ],
+  "sessions": [
+    {
+      "event": 0,
+      "name": "Hotlap",
+      "type": 4,
+      "lapsCount": 0,
+      "duration": 30,
+      "laps": [
+        {
+          "lap": 0,
+          "car": 0,
+          "sectors": [
+            29765,
+            36298,
+            10517
+          ],
+          "time": 76665,
+          "cuts": 0,
+          "tyre": "C4"
+        }
+      ],
+      "lapstotal": [
+        1
+      ],
+      "bestLaps": [
+        {
+          "car": 0,
+          "time": 76665,
+          "lap": 0
+        }
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "name": "special_event",
+      "guid": "",
+      "max": 0,
+      "tier": -1
+    },
+    {
+      "name": "bestlap",
+      "time": 76665
+    }
+  ],
+  "_backfill_note": "Backfilled from dashboard/montreal/hotlap_history.json entry ts=2026-05-08T08:41:33 (PB 1:16.665, lap_count=5). Sectors are the seeded values from that entry; they sum to 76580 ms which is under 76665 ms because the seeded sector splits in hotlap_history.json don't perfectly match the lap total. The 'time' field is authoritative for the dashboard PB lookup."
+}

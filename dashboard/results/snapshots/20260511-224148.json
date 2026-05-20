@@ -1,0 +1,113 @@
+
+{
+	"track": "shuto_revival_project_beta_ptb-main_layout",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo",
+			"car": "ks_toyota_supra_mkiv_tuned",
+			"skin": "09_lime_carbon"
+		}, 
+		{
+			"name": "Blackbird",
+			"car": "ks_porsche_991_turbo_s",
+			"skin": "05_carmine_red"
+		}, 
+		{
+			"name": "Tokyo Cruiser 1",
+			"car": "traffic_toyota_camry",
+			"skin": "generated-7"
+		}, 
+		{
+			"name": "Tokyo Cruiser 2",
+			"car": "traffic_toyota_prius",
+			"skin": "generated-7"
+		}, 
+		{
+			"name": "Tokyo Cruiser 3",
+			"car": "traffic_audi_a4_jp",
+			"skin": "generated-4"
+		}, 
+		{
+			"name": "Tokyo Cruiser 4",
+			"car": "traffic_toyota_rav4",
+			"skin": "00_sepang_blue_pearl_effect_br"
+		}, 
+		{
+			"name": "Tokyo Hauler 1",
+			"car": "traffic_isuzu_npr",
+			"skin": "green"
+		}, 
+		{
+			"name": "Tokyo Cruiser 5",
+			"car": "traffic_toyota_camry",
+			"skin": "generated-8"
+		}, 
+		{
+			"name": "Tokyo Hauler 2",
+			"car": "traffic_isuzu_hauler",
+			"skin": "grey"
+		}, 
+		{
+			"name": "Tokyo Cruiser 6",
+			"car": "traffic_nissan_leaf",
+			"skin": "generated-3"
+		}, 
+		{
+			"name": "Tokyo Cruiser 7",
+			"car": "traffic_toyota_priuseu",
+			"skin": "generated-2"
+		}, 
+		{
+			"name": "Tokyo Cruiser 8",
+			"car": "traffic_alfa_159",
+			"skin": "Perla_Moonlight"
+		}, 
+		{
+			"name": "Tokyo Tanker",
+			"car": "traffic_isuzu_tanker",
+			"skin": "grey"
+		}, 
+		{
+			"name": "Tokyo Cruiser 9",
+			"car": "traffic_audi_a4",
+			"skin": "06_glacier_white_metallic_br"
+		}, 
+		{
+			"name": "Tokyo Cruiser 10",
+			"car": "traffic_toyota_camry",
+			"skin": "generated-9"
+		}, 
+		{
+			"name": "Tokyo Hauler 3",
+			"car": "traffic_isuzu_flatbed",
+			"skin": "grey"
+		}, 
+		{
+			"name": "Tokyo Cruiser 11",
+			"car": "traffic_alfa_mito",
+			"skin": "Argento_Alfa"
+		}, 
+		{
+			"name": "Tokyo Cruiser 12",
+			"car": "traffic_toyota_prius",
+			"skin": "generated-8"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 0,
+			"duration": 12,
+			"laps": [],
+			"lapstotal": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			"bestLaps": [],
+			"raceResult": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 0]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

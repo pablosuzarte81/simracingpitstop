@@ -4,7 +4,7 @@ REM  ONE-CLICK: ESTORIL 1985 - SENNA
 REM ===============================================================
 setlocal enableextensions
 set "ACDOC=%USERPROFILE%\Documents\Assetto Corsa"
-set "ACINSTALL=D:\SteamLibrary\steamapps\common\assettocorsa"
+set "ACINSTALL=F:\SteamLibrary\steamapps\common\assettocorsa"
 set "PRESET=%ACDOC%\cfg\hotlap_senna_estoril.ini"
 set "TARGET=%ACDOC%\cfg\race.ini"
 set "BACKUP=%ACDOC%\cfg\race.ini.bak"

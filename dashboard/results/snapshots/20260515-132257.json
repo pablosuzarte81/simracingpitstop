@@ -1,0 +1,28 @@
+
+{
+	"track": "rt_fuji_speedway-layout_gp",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Max Verstappen",
+			"car": "urd_jt5_shiro_2022",
+			"skin": "M17_Verstappen_RedBull_Test"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 20,
+			"duration": 0,
+			"laps": [],
+			"lapstotal": [0],
+			"bestLaps": [],
+			"raceResult": [0]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

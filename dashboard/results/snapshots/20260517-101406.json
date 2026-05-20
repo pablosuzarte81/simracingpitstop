@@ -1,0 +1,54 @@
+
+{
+	"track": "ks_nordschleife-nordschleife_24hours_2024",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Max Verstappen",
+			"car": "rss_gtm_mercer_v8",
+			"skin": "2026 N24 Verstappen #3"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [204180, 140285, 169627],
+					"time": 514092,
+					"cuts": 0,
+					"tyre": "H"
+				}, 
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [204101, 140666, 169161],
+					"time": 513928,
+					"cuts": 0,
+					"tyre": "H"
+				}],
+			"lapstotal": [2],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 513928,
+					"lap": 1
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 513928
+		}]
+}

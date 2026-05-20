@@ -1,0 +1,33 @@
+{
+  "ts": "20260517-021231",
+  "tile": {
+    "id": "verstappen_vs_haase_3lap_dusk",
+    "type": "DUEL",
+    "title": "VERSTAPPEN VS HAASE \u00b7 3 LAPS \u00b7 DUSK STORM",
+    "ac_car_id": "rss_gtm_mercer_v8",
+    "ac_car_skin": "2026 NLS Verstappen Racing #3",
+    "ac_track_id": "ks_nordschleife",
+    "ac_track_layout": "nordschleife_24hours_2024"
+  },
+  "summary": {
+    "track": "ks_nordschleife-nordschleife_24hours_2024",
+    "car": "rss_gtm_mercer_v8",
+    "skin": "2026 NLS Verstappen Racing #3",
+    "player": "Max Verstappen",
+    "session": {
+      "name": "Race",
+      "type": 3
+    },
+    "best_lap": "9:36.741",
+    "best_lap_ms": 576741,
+    "sectors": [
+      "3:39.134",
+      "2:27.303",
+      "3:30.304"
+    ],
+    "finish": 2,
+    "field": 2,
+    "tyre": "H"
+  },
+  "snapshot_file": "20260517-021231.json"
+}

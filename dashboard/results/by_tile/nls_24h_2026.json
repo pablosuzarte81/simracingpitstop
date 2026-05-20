@@ -1,0 +1,29 @@
+{
+  "ts": "20260515-151022",
+  "tile": {
+    "id": "nls_24h_2026",
+    "type": "RACE",
+    "title": "MINI 24H N\u00dcRBURGRING",
+    "ac_car_id": "rss_gtm_mercer_v8",
+    "ac_car_skin": "2026 N24 Verstappen #3",
+    "ac_track_id": "ks_nordschleife",
+    "ac_track_layout": "endurance_cup"
+  },
+  "summary": {
+    "track": "ks_nordschleife-endurance_cup",
+    "car": "rss_gtm_mercer_v8",
+    "skin": "M17_Verstappen_Test_33",
+    "player": "Chris Lulham",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": null,
+    "best_lap_ms": null,
+    "sectors": null,
+    "finish": null,
+    "field": 1,
+    "tyre": null
+  },
+  "snapshot_file": "20260515-151022.json"
+}

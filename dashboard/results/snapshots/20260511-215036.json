@@ -1,0 +1,59 @@
+
+{
+	"track": "ks_nordschleife-nordschleife_24hours_2024",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Max Verstappen",
+			"car": "rss_gtm_mercer_v8",
+			"skin": "2026 NLS Verstappen Racing #3"
+		}, 
+		{
+			"name": "Christopher Haase",
+			"car": "rss_gtm_aero_v10_evo2",
+			"skin": "2025_N24H_SchererPhoenix_15"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 1,
+			"duration": 0,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [224049, 146853, 176877],
+					"time": 547779,
+					"cuts": 0,
+					"tyre": "H"
+				}, 
+				{
+					"lap": 0,
+					"car": 1,
+					"sectors": [224413, 146880, 176729],
+					"time": 548022,
+					"cuts": 0,
+					"tyre": "H"
+				}],
+			"lapstotal": [1, 1],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 547779,
+					"lap": 0
+				}, 
+				{
+					"car": 1,
+					"time": 548022,
+					"lap": 0
+				}],
+			"raceResult": [0, 1]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 547779
+		}]
+}

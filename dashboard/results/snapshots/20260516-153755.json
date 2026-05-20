@@ -1,0 +1,46 @@
+
+{
+	"track": "ks_nordschleife-nordschleife_24hours_2024",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pierre Kaffer",
+			"car": "rss_gtm_aero_v10_evo2",
+			"skin": "84_eastalent_racing_24h_nbr_2025"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [210790, 144554, 176630],
+					"time": 531974,
+					"cuts": 0,
+					"tyre": "H"
+				}],
+			"lapstotal": [1],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 531974,
+					"lap": 0
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 531974
+		}]
+}

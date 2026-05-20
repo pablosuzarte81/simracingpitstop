@@ -1,0 +1,33 @@
+{
+  "ts": "20260519-203049",
+  "tile": {
+    "id": "hotlap_lemans_rss_1986",
+    "type": "HOTLAP",
+    "title": "RSS FORMULA 1986 V6 \u00b7 LE MANS",
+    "ac_car_id": "rss_formula_1986",
+    "ac_car_skin": "01_formula_yellow_21",
+    "ac_track_id": "sx_lemans",
+    "ac_track_layout": "24h_2025"
+  },
+  "summary": {
+    "track": "sx_lemans-24h_2025",
+    "car": "rss_formula_1986",
+    "skin": "01_formula_yellow_21",
+    "player": "Pablo Suzarte",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "4:05.069",
+    "best_lap_ms": 245069,
+    "sectors": [
+      "1:41.990",
+      "1:33.156",
+      "0:49.923"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "M"
+  },
+  "snapshot_file": "20260519-203049.json"
+}

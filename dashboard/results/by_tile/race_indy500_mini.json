@@ -1,0 +1,29 @@
+{
+  "ts": "20260517-114541",
+  "tile": {
+    "id": "race_indy500_mini",
+    "type": "RACE",
+    "title": "MINI INDY 500",
+    "ac_car_id": "vrc_formula_na_2021_oval",
+    "ac_car_skin": "2025 60 Felix Rosenqvist - Indianapolis 500",
+    "ac_track_id": "aa_ims",
+    "ac_track_layout": "indy500"
+  },
+  "summary": {
+    "track": "aa_ims-indy500",
+    "car": "vrc_formula_na_2021_oval",
+    "skin": "2025 60 Felix Rosenqvist - Indianapolis 500",
+    "player": "Felix Rosenqvist",
+    "session": {
+      "name": "Race",
+      "type": 3
+    },
+    "best_lap": null,
+    "best_lap_ms": null,
+    "sectors": null,
+    "finish": 33,
+    "field": 33,
+    "tyre": null
+  },
+  "snapshot_file": "20260517-114541.json"
+}

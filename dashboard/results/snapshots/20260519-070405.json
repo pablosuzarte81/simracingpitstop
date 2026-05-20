@@ -1,0 +1,70 @@
+
+{
+	"track": "montreal-montreal_f1_2025",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Max Verstappen",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_RedBull_RB21_1"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [30695, 37394, 10945],
+					"time": 79034,
+					"cuts": 0,
+					"tyre": "C5"
+				}, 
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [30109, 37213, 11112],
+					"time": 78434,
+					"cuts": 0,
+					"tyre": "C5"
+				}, 
+				{
+					"lap": 2,
+					"car": 0,
+					"sectors": [30499, 36980, 11041],
+					"time": 78520,
+					"cuts": 0,
+					"tyre": "C5"
+				}, 
+				{
+					"lap": 3,
+					"car": 0,
+					"sectors": [29879, 36902, 11164],
+					"time": 77945,
+					"cuts": 0,
+					"tyre": "C5"
+				}],
+			"lapstotal": [4],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 77945,
+					"lap": 3
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 77945
+		}]
+}

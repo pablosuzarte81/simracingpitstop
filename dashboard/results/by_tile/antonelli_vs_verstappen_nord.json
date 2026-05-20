@@ -1,5 +1,5 @@
 {
-  "ts": "20260510-182504",
+  "ts": "20260514-104210",
   "tile": {
     "id": "antonelli_vs_verstappen_nord",
     "type": "DUEL",
@@ -12,17 +12,18 @@
   "summary": {
     "track": "ks_nordschleife-nordschleife_24hours_2024",
     "car": "vrc_formula_alpha_2025_csp",
-    "skin": "e_Red_Bull_RB21_1_Verstappen",
-    "player": "Max Verstappen",
+    "skin": "d_Mercedes_W16_12_Antonelli",
+    "player": "Kimi Antonelli",
     "session": {
       "name": "Race",
       "type": 3
     },
     "best_lap": null,
+    "best_lap_ms": null,
     "sectors": null,
     "finish": 2,
     "field": 2,
     "tyre": null
   },
-  "snapshot_file": "20260510-182504.json"
+  "snapshot_file": "20260514-104210.json"
 }

@@ -1,0 +1,46 @@
+
+{
+	"track": "ks_nordschleife-nordschleife_24hours_2024",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Sebastian Vettel",
+			"car": "cim_2011_redbull",
+			"skin": "1"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [179728, 123602, 152886],
+					"time": 456216,
+					"cuts": 0,
+					"tyre": "SS"
+				}],
+			"lapstotal": [1],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 456216,
+					"lap": 0
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 456216
+		}]
+}

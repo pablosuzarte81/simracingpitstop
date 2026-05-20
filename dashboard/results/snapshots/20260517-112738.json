@@ -1,0 +1,54 @@
+
+{
+	"track": "aa_ims-indy500",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Driver",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "25_ANP"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [13602, 15200, 16020],
+					"time": 44822,
+					"cuts": 0,
+					"tyre": "P2"
+				}, 
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [11280, 14284, 15410],
+					"time": 40974,
+					"cuts": 0,
+					"tyre": "P2"
+				}],
+			"lapstotal": [2],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 40974,
+					"lap": 1
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 40974
+		}]
+}

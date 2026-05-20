@@ -1,0 +1,59 @@
+
+{
+	"track": "ks_nordschleife-nordschleife_24hours_2024",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Kimi Antonelli",
+			"car": "vrc_formula_alpha_2025_csp",
+			"skin": "d_Mercedes_W16_12_Antonelli"
+		}, 
+		{
+			"name": "Max Verstappen",
+			"car": "vrc_formula_alpha_2025_csp",
+			"skin": "e_Red_Bull_RB21_1_Verstappen"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 1,
+			"duration": 0,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [173649, 117026, 143146],
+					"time": 433821,
+					"cuts": 0,
+					"tyre": "C6"
+				}, 
+				{
+					"lap": 0,
+					"car": 1,
+					"sectors": [174009, 117031, 142978],
+					"time": 434018,
+					"cuts": 0,
+					"tyre": "C4"
+				}],
+			"lapstotal": [1, 1],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 433821,
+					"lap": 0
+				}, 
+				{
+					"car": 1,
+					"time": 434018,
+					"lap": 0
+				}],
+			"raceResult": [0, 1]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 433821
+		}]
+}

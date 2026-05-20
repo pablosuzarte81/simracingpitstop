@@ -1,0 +1,33 @@
+{
+  "ts": "20260516-153755",
+  "tile": {
+    "id": "verstappen_1v1_night_rain",
+    "type": "DUEL",
+    "title": "HAASE VS VERSTAPPEN \u00b7 NIGHT + RAIN",
+    "ac_car_id": "rss_gtm_aero_v10_evo2",
+    "ac_car_skin": "2025_N24H_SchererPhoenix_15",
+    "ac_track_id": "ks_nordschleife",
+    "ac_track_layout": "nordschleife_24hours_2024"
+  },
+  "summary": {
+    "track": "ks_nordschleife-nordschleife_24hours_2024",
+    "car": "rss_gtm_aero_v10_evo2",
+    "skin": "84_eastalent_racing_24h_nbr_2025",
+    "player": "Pierre Kaffer",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "8:51.974",
+    "best_lap_ms": 531974,
+    "sectors": [
+      "3:30.790",
+      "2:24.554",
+      "2:56.630"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "H"
+  },
+  "snapshot_file": "20260516-153755.json"
+}

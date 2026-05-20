@@ -1,0 +1,188 @@
+
+{
+	"track": "aa_ims-indy500",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Felix Rosenqvist",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 60 Felix Rosenqvist - Indianapolis 500"
+		}, 
+		{
+			"name": "Josef Newgarden",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 2 Josef Newgarden - Indianapolis 500"
+		}, 
+		{
+			"name": "Scott McLaughlin",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 3 Scott McLaughlin - Indianapolis 500"
+		}, 
+		{
+			"name": "David Malukas",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 4 David Malukas - Indianapolis 500"
+		}, 
+		{
+			"name": "Pato O'Ward",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 5 Pato O'Ward - Indianapolis 500"
+		}, 
+		{
+			"name": "Nolan Siegel",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 6 Nolan Siegel - Indianapolis 500"
+		}, 
+		{
+			"name": "Helio Castroneves",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 06 Helio Castroneves - Indianapolis 500"
+		}, 
+		{
+			"name": "Christian Lundgaard",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 7 Christian Lundgaard - Indianapolis 500"
+		}, 
+		{
+			"name": "Kyffin Simpson",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 8 Kyffin Simpson - Indianapolis 500"
+		}, 
+		{
+			"name": "Scott Dixon",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 9 Scott Dixon - Indianapolis 500"
+		}, 
+		{
+			"name": "Alex Palou",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 10 Alex Palou - Indianapolis 500"
+		}, 
+		{
+			"name": "Will Power",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 12 Will Power - Indianapolis 500"
+		}, 
+		{
+			"name": "Santino Ferrucci",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 14 Santino Ferrucci - Indianapolis 500"
+		}, 
+		{
+			"name": "Graham Rahal",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 15 Graham Rahal - Indianapolis 500"
+		}, 
+		{
+			"name": "Kyle Larson",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 17 Kyle Larson - Indianapolis 500"
+		}, 
+		{
+			"name": "Rinus VeeKay",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 18 Rinus VeeKay - Indianapolis 500"
+		}, 
+		{
+			"name": "Alexander Rossi",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 20 Alexander Rossi - Indianapolis 500"
+		}, 
+		{
+			"name": "Christian Rasmussen",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 21 Christian Rasmussen - Indianapolis 500"
+		}, 
+		{
+			"name": "Ryan Hunter-Reay",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 23 Ryan Hunter-Reay - Indianapolis 500"
+		}, 
+		{
+			"name": "Jack Harvey",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 24 Jack Harvey - Indianapolis 500"
+		}, 
+		{
+			"name": "Colton Herta",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 26 Colton Herta - Indianapolis 500"
+		}, 
+		{
+			"name": "Kyle Kirkwood",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 27 Kyle Kirkwood - Indianapolis 500"
+		}, 
+		{
+			"name": "Marcus Ericsson",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 28 Marcus Ericsson - Indianapolis 500"
+		}, 
+		{
+			"name": "Ed Carpenter",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 33 Ed Carpenter - Indianapolis 500"
+		}, 
+		{
+			"name": "Louis Foster",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 45 Louis Foster - Indianapolis 500"
+		}, 
+		{
+			"name": "Jacob Abel",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 51 Jacob Abel - Indianapolis 500"
+		}, 
+		{
+			"name": "Marcus Armstrong",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 66 Marcus Armstrong - Indianapolis 500"
+		}, 
+		{
+			"name": "Takuma Sato",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 75 Takuma Sato - Indianapolis 500"
+		}, 
+		{
+			"name": "Conor Daly",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 76 Conor Daly - Indianapolis 500"
+		}, 
+		{
+			"name": "Sting Ray Robb",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 77 Sting Ray Robb - Indianapolis 500"
+		}, 
+		{
+			"name": "Robert Shwartzman",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 83 Robert Shwartzman - Indianapolis 500"
+		}, 
+		{
+			"name": "Callum Ilott",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 90 Callum Ilott - Indianapolis 500"
+		}, 
+		{
+			"name": "Marco Andretti",
+			"car": "vrc_formula_na_2021_oval",
+			"skin": "2025 98 Marco Andretti - Indianapolis 500"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 30,
+			"duration": 0,
+			"laps": [],
+			"lapstotal": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			"bestLaps": [],
+			"raceResult": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 0]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

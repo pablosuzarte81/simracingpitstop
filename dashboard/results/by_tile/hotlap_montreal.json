@@ -1,5 +1,5 @@
 {
-  "ts": "20260509-090749",
+  "ts": "20260520-181202",
   "tile": {
     "id": "hotlap_montreal",
     "type": "HOTLAP",
@@ -18,11 +18,16 @@
       "name": "Hotlap",
       "type": 4
     },
-    "best_lap": null,
-    "sectors": null,
+    "best_lap": "1:16.037",
+    "best_lap_ms": 76037,
+    "sectors": [
+      "0:29.137",
+      "0:36.085",
+      "0:10.815"
+    ],
     "finish": null,
     "field": 1,
-    "tyre": null
+    "tyre": "C4"
   },
-  "snapshot_file": "20260509-090749.json"
+  "snapshot_file": "20260520-181202.json"
 }

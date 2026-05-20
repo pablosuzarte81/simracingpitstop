@@ -1,6 +1,39 @@
 {
+  "hotlap_montreal": {
+    "ts": "20260520-181202",
+    "tile": {
+      "id": "hotlap_montreal",
+      "type": "HOTLAP",
+      "title": "MONTREAL HOTLAP",
+      "ac_car_id": "rss_formula_hybrid_2025_alpine",
+      "ac_car_skin": "M17_RedBull_RB21_1",
+      "ac_track_id": "montreal",
+      "ac_track_layout": "montreal_f1_2025"
+    },
+    "summary": {
+      "track": "montreal-montreal_f1_2025",
+      "car": "rss_formula_hybrid_2025_alpine",
+      "skin": "M17_RedBull_RB21_1",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "1:16.037",
+      "best_lap_ms": 76037,
+      "sectors": [
+        "0:29.137",
+        "0:36.085",
+        "0:10.815"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "C4"
+    },
+    "snapshot_file": "20260520-181202.json"
+  },
   "senna_vs_prost_suzuka_1988": {
-    "ts": "20260509-081054",
+    "ts": "20260517-133632",
     "tile": {
       "id": "senna_vs_prost_suzuka_1988",
       "type": "DUEL",
@@ -19,77 +52,47 @@
         "name": "Race",
         "type": 3
       },
-      "best_lap": "1:48.260",
+      "best_lap": null,
+      "best_lap_ms": null,
+      "sectors": null,
+      "finish": 2,
+      "field": 2,
+      "tyre": null
+    },
+    "snapshot_file": "20260517-133632.json"
+  },
+  "verstappen_vs_haase_3lap_dusk": {
+    "ts": "20260517-021231",
+    "tile": {
+      "id": "verstappen_vs_haase_3lap_dusk",
+      "type": "DUEL",
+      "title": "VERSTAPPEN VS HAASE \u00b7 3 LAPS \u00b7 DUSK STORM",
+      "ac_car_id": "rss_gtm_mercer_v8",
+      "ac_car_skin": "2026 NLS Verstappen Racing #3",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "nordschleife_24hours_2024"
+    },
+    "summary": {
+      "track": "ks_nordschleife-nordschleife_24hours_2024",
+      "car": "rss_gtm_mercer_v8",
+      "skin": "2026 NLS Verstappen Racing #3",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Race",
+        "type": 3
+      },
+      "best_lap": "9:36.741",
+      "best_lap_ms": 576741,
       "sectors": [
-        "0:41.859",
-        "0:44.145",
-        "0:22.256"
+        "3:39.134",
+        "2:27.303",
+        "3:30.304"
       ],
       "finish": 2,
       "field": 2,
-      "tyre": "S"
+      "tyre": "H"
     },
-    "snapshot_file": "20260509-081054.json"
-  },
-  "hotlap_monza_schumacher": {
-    "ts": "20260509-083320",
-    "tile": {
-      "id": "hotlap_monza_schumacher",
-      "type": "HOTLAP",
-      "title": "MONZA \u00b7 TIFOSI",
-      "ac_car_id": "ferrari_f2001",
-      "ac_car_skin": null,
-      "ac_track_id": "monza",
-      "ac_track_layout": "monza_f1_2025"
-    },
-    "summary": {
-      "track": "monza-monza_f1_2025",
-      "car": "ferrari_f2001",
-      "skin": "3_Schumacher_Monza",
-      "player": "Pablo Suzarte",
-      "session": {
-        "name": "Hotlap",
-        "type": 4
-      },
-      "best_lap": "1:29.600",
-      "sectors": [
-        "0:32.410",
-        "0:29.389",
-        "0:27.801"
-      ],
-      "finish": null,
-      "field": 1,
-      "tyre": "S"
-    },
-    "snapshot_file": "20260509-083320.json"
-  },
-  "hotlap_spa_1991_debut": {
-    "ts": "20260509-084304",
-    "tile": {
-      "id": "hotlap_spa_1991_debut",
-      "type": "HOTLAP",
-      "title": "SPA \u00b7 1991 DEBUT",
-      "ac_car_id": "vrc_1991_jordan_191",
-      "ac_car_skin": null,
-      "ac_track_id": "spa",
-      "ac_track_layout": "layout_f1_2020"
-    },
-    "summary": {
-      "track": "spa-layout_f1_2020",
-      "car": "vrc_1991_jordan_191",
-      "skin": "32_schumacher",
-      "player": "Pablo Suzarte",
-      "session": {
-        "name": "Hotlap",
-        "type": 4
-      },
-      "best_lap": null,
-      "sectors": null,
-      "finish": null,
-      "field": 1,
-      "tyre": null
-    },
-    "snapshot_file": "20260509-084304.json"
+    "snapshot_file": "20260517-021231.json"
   },
   "canada_2026": {
     "ts": "20260509-084924",
@@ -112,6 +115,7 @@
         "type": 3
       },
       "best_lap": null,
+      "best_lap_ms": null,
       "sectors": null,
       "finish": 19,
       "field": 19,
@@ -119,36 +123,8 @@
     },
     "snapshot_file": "20260509-084924.json"
   },
-  "hotlap_montreal": {
-    "ts": "20260509-090749",
-    "tile": {
-      "id": "hotlap_montreal",
-      "type": "HOTLAP",
-      "title": "MONTREAL HOTLAP",
-      "ac_car_id": "rss_formula_hybrid_2025_alpine",
-      "ac_car_skin": "M17_RedBull_RB21_1",
-      "ac_track_id": "montreal",
-      "ac_track_layout": "montreal_f1_2025"
-    },
-    "summary": {
-      "track": "montreal-montreal_f1_2025",
-      "car": "rss_formula_hybrid_2025_alpine",
-      "skin": "M17_RedBull_RB21_1",
-      "player": "Max Verstappen",
-      "session": {
-        "name": "Hotlap",
-        "type": 4
-      },
-      "best_lap": null,
-      "sectors": null,
-      "finish": null,
-      "field": 1,
-      "tyre": null
-    },
-    "snapshot_file": "20260509-090749.json"
-  },
   "antonelli_vs_verstappen_nord": {
-    "ts": "20260510-182504",
+    "ts": "20260514-104210",
     "tile": {
       "id": "antonelli_vs_verstappen_nord",
       "type": "DUEL",
@@ -161,18 +137,304 @@
     "summary": {
       "track": "ks_nordschleife-nordschleife_24hours_2024",
       "car": "vrc_formula_alpha_2025_csp",
-      "skin": "e_Red_Bull_RB21_1_Verstappen",
-      "player": "Max Verstappen",
+      "skin": "d_Mercedes_W16_12_Antonelli",
+      "player": "Kimi Antonelli",
       "session": {
         "name": "Race",
         "type": 3
       },
       "best_lap": null,
+      "best_lap_ms": null,
       "sectors": null,
       "finish": 2,
       "field": 2,
       "tyre": null
     },
-    "snapshot_file": "20260510-182504.json"
+    "snapshot_file": "20260514-104210.json"
+  },
+  "verstappen_1v1_night_rain": {
+    "ts": "20260516-153755",
+    "tile": {
+      "id": "verstappen_1v1_night_rain",
+      "type": "DUEL",
+      "title": "HAASE VS VERSTAPPEN \u00b7 NIGHT + RAIN",
+      "ac_car_id": "rss_gtm_aero_v10_evo2",
+      "ac_car_skin": "2025_N24H_SchererPhoenix_15",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "nordschleife_24hours_2024"
+    },
+    "summary": {
+      "track": "ks_nordschleife-nordschleife_24hours_2024",
+      "car": "rss_gtm_aero_v10_evo2",
+      "skin": "84_eastalent_racing_24h_nbr_2025",
+      "player": "Pierre Kaffer",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "8:51.974",
+      "best_lap_ms": 531974,
+      "sectors": [
+        "3:30.790",
+        "2:24.554",
+        "2:56.630"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "H"
+    },
+    "snapshot_file": "20260516-153755.json"
+  },
+  "dave_cam_audi_90_nordschleife": {
+    "ts": "20260515-183458",
+    "tile": {
+      "id": "dave_cam_audi_90_nordschleife",
+      "type": "RACE",
+      "title": "AUDI 90 GTO \u00b7 NORDSCHLEIFE",
+      "ac_car_id": "audi_90_quattro_IMSA_gto_1989",
+      "ac_car_skin": "01_44_audi_trans_am",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "nordschleife"
+    },
+    "summary": {
+      "track": "ks_nordschleife-nordschleife",
+      "car": "audi_90_quattro_IMSA_gto_1989",
+      "skin": "01_44_audi_trans_am",
+      "player": "Pablo Suzarte",
+      "session": {
+        "name": "Race",
+        "type": 3
+      },
+      "best_lap": null,
+      "best_lap_ms": null,
+      "sectors": null,
+      "finish": 6,
+      "field": 6,
+      "tyre": null
+    },
+    "snapshot_file": "20260515-183458.json"
+  },
+  "nls_24h_2026": {
+    "ts": "20260515-151022",
+    "tile": {
+      "id": "nls_24h_2026",
+      "type": "RACE",
+      "title": "MINI 24H N\u00dcRBURGRING",
+      "ac_car_id": "rss_gtm_mercer_v8",
+      "ac_car_skin": "2026 N24 Verstappen #3",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "endurance_cup"
+    },
+    "summary": {
+      "track": "ks_nordschleife-endurance_cup",
+      "car": "rss_gtm_mercer_v8",
+      "skin": "M17_Verstappen_Test_33",
+      "player": "Chris Lulham",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": null,
+      "best_lap_ms": null,
+      "sectors": null,
+      "finish": null,
+      "field": 1,
+      "tyre": null
+    },
+    "snapshot_file": "20260515-151022.json"
+  },
+  "nls2_2026": {
+    "ts": "20260517-104542",
+    "tile": {
+      "id": "nls2_2026",
+      "type": "HOTLAP",
+      "title": "MINI 24H POLE CHASE",
+      "ac_car_id": "rss_gtm_mercer_v8",
+      "ac_car_skin": "2026 N24 Verstappen #3",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "nordschleife_24hours_2024"
+    },
+    "summary": {
+      "track": "ks_nordschleife-nordschleife_24hours_2024",
+      "car": "rss_gtm_mercer_v8",
+      "skin": "2026 N24 Verstappen #3",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "8:30.234",
+      "best_lap_ms": 510234,
+      "sectors": [
+        "3:22.877",
+        "2:18.935",
+        "2:48.422"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "H"
+    },
+    "snapshot_file": "20260517-104542.json"
+  },
+  "hotlap_dacia_logan_n24": {
+    "ts": "20260517-083202",
+    "tile": {
+      "id": "hotlap_dacia_logan_n24",
+      "type": "HOTLAP",
+      "title": "DACIA AT THE GREEN HELL",
+      "ac_car_id": "rlr_logan_2008cup",
+      "ac_car_skin": "Ollie_Garage_Racing_300_N\u00fcrburgring",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "nordschleife_24hours_2024"
+    },
+    "summary": {
+      "track": "ks_nordschleife-nordschleife_24hours_2024",
+      "car": "rlr_logan_2008cup",
+      "skin": "Ollie_Garage_Racing_300_N\u00fcrburgring",
+      "player": "Oliver Kriese",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "12:03.187",
+      "best_lap_ms": 723187,
+      "sectors": [
+        "4:40.926",
+        "3:23.777",
+        "3:58.484"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "SM"
+    },
+    "snapshot_file": "20260517-083202.json"
+  },
+  "hotlap_vettel_rb7_nordschleife": {
+    "ts": "20260517-084159",
+    "tile": {
+      "id": "hotlap_vettel_rb7_nordschleife",
+      "type": "HOTLAP",
+      "title": "VETTEL \u00b7 RB7 \u00b7 NORDSCHLEIFE",
+      "ac_car_id": "cim_2011_redbull",
+      "ac_car_skin": "1",
+      "ac_track_id": "ks_nordschleife",
+      "ac_track_layout": "nordschleife_24hours_2024"
+    },
+    "summary": {
+      "track": "ks_nordschleife-nordschleife_24hours_2024",
+      "car": "cim_2011_redbull",
+      "skin": "1",
+      "player": "Sebastian Vettel",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "7:36.216",
+      "best_lap_ms": 456216,
+      "sectors": [
+        "2:59.728",
+        "2:03.602",
+        "2:32.886"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "SS"
+    },
+    "snapshot_file": "20260517-084159.json"
+  },
+  "hotlap_indy500": {
+    "ts": "20260517-112738",
+    "tile": {
+      "id": "hotlap_indy500",
+      "type": "HOTLAP",
+      "title": "INDY 500 POLE CHASE",
+      "ac_car_id": "vrc_formula_na_2021_oval",
+      "ac_car_skin": "2025 60 Felix Rosenqvist - Indianapolis 500",
+      "ac_track_id": "aa_ims",
+      "ac_track_layout": "indy500"
+    },
+    "summary": {
+      "track": "aa_ims-indy500",
+      "car": "vrc_formula_na_2021_oval",
+      "skin": "25_ANP",
+      "player": "Driver",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "0:40.974",
+      "best_lap_ms": 40974,
+      "sectors": [
+        "0:11.280",
+        "0:14.284",
+        "0:15.410"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "P2"
+    },
+    "snapshot_file": "20260517-112738.json"
+  },
+  "race_indy500_mini": {
+    "ts": "20260517-114541",
+    "tile": {
+      "id": "race_indy500_mini",
+      "type": "RACE",
+      "title": "MINI INDY 500",
+      "ac_car_id": "vrc_formula_na_2021_oval",
+      "ac_car_skin": "2025 60 Felix Rosenqvist - Indianapolis 500",
+      "ac_track_id": "aa_ims",
+      "ac_track_layout": "indy500"
+    },
+    "summary": {
+      "track": "aa_ims-indy500",
+      "car": "vrc_formula_na_2021_oval",
+      "skin": "2025 60 Felix Rosenqvist - Indianapolis 500",
+      "player": "Felix Rosenqvist",
+      "session": {
+        "name": "Race",
+        "type": 3
+      },
+      "best_lap": null,
+      "best_lap_ms": null,
+      "sectors": null,
+      "finish": 33,
+      "field": 33,
+      "tyre": null
+    },
+    "snapshot_file": "20260517-114541.json"
+  },
+  "hotlap_lemans_rss_1986": {
+    "ts": "20260519-203049",
+    "tile": {
+      "id": "hotlap_lemans_rss_1986",
+      "type": "HOTLAP",
+      "title": "RSS FORMULA 1986 V6 \u00b7 LE MANS",
+      "ac_car_id": "rss_formula_1986",
+      "ac_car_skin": "01_formula_yellow_21",
+      "ac_track_id": "sx_lemans",
+      "ac_track_layout": "24h_2025"
+    },
+    "summary": {
+      "track": "sx_lemans-24h_2025",
+      "car": "rss_formula_1986",
+      "skin": "01_formula_yellow_21",
+      "player": "Pablo Suzarte",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "4:05.069",
+      "best_lap_ms": 245069,
+      "sectors": [
+        "1:41.990",
+        "1:33.156",
+        "0:49.923"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "M"
+    },
+    "snapshot_file": "20260519-203049.json"
   }
 }

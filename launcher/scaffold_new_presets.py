@@ -18,7 +18,7 @@ AC_DOC = Path(os.environ.get(
     "AC_DOC",
     "/mnt/c/Users/pablo/Documents/Assetto Corsa",
 ))
-ACINSTALL_WIN = "D:\\SteamLibrary\\steamapps\\common\\assettocorsa"
+ACINSTALL_WIN = "F:\\SteamLibrary\\steamapps\\common\\assettocorsa"
 
 
 # Per-challenge ambient/weather/time-of-day overrides keyed by challenge id.
@@ -55,6 +55,10 @@ CONDITIONS = {
     "f1_2008_brazil_grid": dict(
         weather="3_clear", ambient=24, road=36, sun_angle=-12,
         geotag=(-23.701, -46.699), tz_offset=-10800,
+    ),
+    "dave_cam_audi_90_nordschleife": dict(
+        weather="3_clear", ambient=18, road=24, sun_angle=-12,
+        geotag=(50.336, 6.948), tz_offset=3600,
     ),
 }
 
@@ -100,6 +104,22 @@ RIVALS = {
          "Super Aguri F1 Team", "Japan", "JPN"),
         ("cim_2008_mclaren",      "23_Kovalainen",  "Heikki Kovalainen",
          "Vodafone McLaren Mercedes", "Finland", "FIN"),
+    ],
+    # Recreate Dave Cam's iRacing P3 start: 5 GTO rivals named after the
+    # iRacing drivers Dave mentioned in the video (Wilson on pole, Kenny P2,
+    # Guillim P3 — player slots in ahead of Kenny). All Audi 90 GTOs, varied
+    # skins from the ORS mod pack. Source: youtube.com/watch?v=DIl_vf5tdgE
+    "dave_cam_audi_90_nordschleife": [
+        ("audi_90_quattro_IMSA_gto_1989", "00_04_audi",        "Wilson",
+         "Audi Sport · IMSA GTO", "Great Britain", "GBR"),
+        ("audi_90_quattro_IMSA_gto_1989", "01_02_audi",        "Kenny",
+         "Audi Sport · IMSA GTO", "Great Britain", "GBR"),
+        ("audi_90_quattro_IMSA_gto_1989", "01_03_audi_america","Guillim",
+         "Audi Sport · IMSA GTO", "Spain", "ESP"),
+        ("audi_90_quattro_IMSA_gto_1989", "01_05_audi",        "Lucas",
+         "Audi Sport · IMSA GTO", "France", "FRA"),
+        ("audi_90_quattro_IMSA_gto_1989", "02_a6_audi_trans_am","Javier",
+         "Audi Sport · IMSA GTO", "Spain", "ESP"),
     ],
 }
 

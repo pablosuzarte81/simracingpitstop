@@ -1,0 +1,33 @@
+{
+  "ts": "20260517-104542",
+  "tile": {
+    "id": "nls2_2026",
+    "type": "HOTLAP",
+    "title": "MINI 24H POLE CHASE",
+    "ac_car_id": "rss_gtm_mercer_v8",
+    "ac_car_skin": "2026 N24 Verstappen #3",
+    "ac_track_id": "ks_nordschleife",
+    "ac_track_layout": "nordschleife_24hours_2024"
+  },
+  "summary": {
+    "track": "ks_nordschleife-nordschleife_24hours_2024",
+    "car": "rss_gtm_mercer_v8",
+    "skin": "2026 N24 Verstappen #3",
+    "player": "Max Verstappen",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "8:30.234",
+    "best_lap_ms": 510234,
+    "sectors": [
+      "3:22.877",
+      "2:18.935",
+      "2:48.422"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "H"
+  },
+  "snapshot_file": "20260517-104542.json"
+}

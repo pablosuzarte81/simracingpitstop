@@ -19,6 +19,7 @@
       "type": 3
     },
     "best_lap": null,
+    "best_lap_ms": null,
     "sectors": null,
     "finish": 19,
     "field": 19,

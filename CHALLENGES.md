@@ -2,20 +2,23 @@
 
 Full inventory of every dashboard tile, the car/track it loads, and the launcher chain. Source of truth for the dashboard `CONFIGS` list at `launcher/launcher_dashboard.py:90`.
 
-**Total: 27 tiles across 6 series · all launchers wired with the full Crew Chief auto-start chain + AC-exit watcher.**
+**Total: 33 tiles across 8 series · all launchers wired with the full Crew Chief auto-start chain + AC-exit watcher.**
 
 ---
 
-## NLS · NÜRBURGRING (4)
+## NLS · NÜRBURGRING (7)
 
 | # | Tile | Type | Car | Track | Format |
 |---|---|---|---|---|---|
 | 1 | MINI 24H NÜRBURGRING | RACE | Mercedes-AMG GT3 #3 (Mercer V8) | Nordschleife · Endurance Cup | 16-car SP9 PRO grid · 2 laps · pole start |
 | 2 | MINI 24H POLE CHASE | HOTLAP | Mercedes-AMG GT3 #3 | Nordschleife · Endurance Cup | Solo · ghost on |
+| 2b | HOT LAP THE 24H NÜRBURGRING | HOTLAP | 16 × SP9 PRO GT3 (full 2026 entry list — Mercer, Aero, Protech, Hyperion, Lanzo) | Nordschleife · 24h 2024 layout | 16 launchers · one solo hot-lap per car · same Engstler 8:11.123 target as #2 · AC default setup per car |
 | 3 | VERSTAPPEN VS HAASE | DUEL | Mercer #3 vs Audi R8 #16 | Nordschleife · 24h 2024 layout | 1-lap head-to-head |
 | 4 | HAASE VS VERSTAPPEN | DUEL | Audi R8 #16 vs Mercer #3 (inverted) | Nordschleife · 24h 2024 layout | 1-lap head-to-head |
+| 4b | HAASE VS VERSTAPPEN · NIGHT + RAIN | DUEL | Audi R8 #16 vs Mercer #3 (driver selector) | Nordschleife · 24h 2024 layout | 1-lap night wet drill · sol_36_heavy_rain |
+| 4c | VERSTAPPEN VS HAASE · 3 LAPS · DUSK STORM | DUEL | Mercer #3 vs Audi R8 #16 (driver selector) | Nordschleife · 24h 2024 layout | 3-lap wet stint, starts at CSP deep dusk (SUN_ANGLE=88) in `sol_34_light_rain`, TIME_MULT=4× advances to full dark by lap 3. Pure rest of stack lives in race.ini — no Pure Planner dependency. |
 
-## FORMULA 1 · 2026 (4)
+## FORMULA 1 (5)
 
 | # | Tile | Type | Car | Track | Format |
 |---|---|---|---|---|---|
@@ -23,6 +26,7 @@ Full inventory of every dashboard tile, the car/track it loads, and the launcher
 | 6 | MONTREAL HOTLAP | HOTLAP | Red Bull RB21 (RSS Alpine) | Montreal · F1 2025 | Solo · ghost on |
 | 7 | CANADIAN GP · VRC GRID | RACE | Red Bull RB21 (VRC Pro) | Montreal · F1 2025 | 20-car real grid · 5 laps · charge from P20 |
 | 8 | CANADA POLE CHASE · VRC | HOTLAP | Red Bull RB21 (VRC Pro) | Montreal · F1 2025 | Solo · ghost on (PB 1:19.380) |
+| 8b | VETTEL · RB7 · NORDSCHLEIFE | HOTLAP | F1 2011 Red Bull RB7 #1 (`cim_2011_redbull`) | Nordschleife · 24h 2024 layout | Solo · ghost on · V8 era tribute |
 
 ## SCHUMACHER · ICONIC RACES (9)
 
@@ -62,6 +66,18 @@ Full inventory of every dashboard tile, the car/track it loads, and the launcher
 |---|---|---|---|---|---|
 | 26 | SUPER GT FUJI · WET | DUEL | Nissan Z NISMO GT500 | Fuji Speedway 2017 | Verstappen-Miyake re-creation |
 
+## DAVE CAM TRIBUTES (1)
+
+| # | Tile | Type | Car | Track | Format |
+|---|---|---|---|---|---|
+| 28 | AUDI 90 GTO · NORDSCHLEIFE | RACE | Audi 90 Quattro IMSA GTO 1989 (ORS mod) | Nordschleife · standalone (iRacing layout) | 6-car GTO grid · 2 laps · standing start · beat Dave Cam's 6:43.683 on lap 2 ([source video](https://www.youtube.com/watch?v=DIl_vf5tdgE)) |
+
+## FAN HEROES · N24 (1)
+
+| # | Tile | Type | Car | Track | Format |
+|---|---|---|---|---|---|
+| 29 | THE SHOPPING CART AT THE GREEN HELL | HOTLAP | Dacia Logan 1.6 #300 (`rlr_logan_2008cup` · Ollis Garage Racing skin) | Nordschleife · 24h 2024 layout | Solo · ghost on · 2026 N24 SP 3T tribute · car runs ~12 min vs GT3 8:11 — finish the lap, wave the GT3s past |
+
 ---
 
 ## How a tile launches (the chain)
@@ -90,6 +106,7 @@ Every launcher follows the same template. From dashboard click → race in AC:
 | Track / config | AI files? | Notes |
 |---|---|---|
 | `ks_nordschleife/endurance_cup` | YES | NLS combo, default working layout |
+| `ks_nordschleife/nordschleife` | YES (`fast_lane.ai` + `pit_lane.ai`) | Standalone 20.8 km layout — matches iRacing's Nordschleife. Use this for benchmark-style references like Dave Cam's 6:43. |
 | `ks_nordschleife/nordschleife_24hours_2024` | YES (incl. `pit_lane_with_grid.ai`) | 24h-specific layout — works for 2-car duels |
 | `spa/layout_f1_2020` | **NO** | Pick `spa/layout_f1_2025` instead |
 | `spa/layout_f1_2025` | YES | Works for races + hotlap |

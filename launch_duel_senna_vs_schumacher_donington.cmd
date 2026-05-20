@@ -4,7 +4,7 @@ REM  ONE-CLICK: SENNA VS SCHUMI - DONINGTON '93
 REM ===============================================================
 setlocal enableextensions
 set "ACDOC=%USERPROFILE%\Documents\Assetto Corsa"
-set "ACINSTALL=D:\SteamLibrary\steamapps\common\assettocorsa"
+set "ACINSTALL=F:\SteamLibrary\steamapps\common\assettocorsa"
 set "PRESET=%ACDOC%\cfg\duel_senna_vs_schumacher_donington.ini"
 set "TARGET=%ACDOC%\cfg\race.ini"
 set "BACKUP=%ACDOC%\cfg\race.ini.bak"

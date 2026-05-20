@@ -1,0 +1,53 @@
+
+{
+	"track": "ks_nordschleife-endurance_cup",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo Suzarte",
+			"car": "audi_90_quattro_IMSA_gto_1989",
+			"skin": "01_44_audi_trans_am"
+		}, 
+		{
+			"name": "Wilson",
+			"car": "audi_90_quattro_IMSA_gto_1989",
+			"skin": "00_04_audi"
+		}, 
+		{
+			"name": "Kenny",
+			"car": "audi_90_quattro_IMSA_gto_1989",
+			"skin": "01_02_audi"
+		}, 
+		{
+			"name": "Guillim",
+			"car": "audi_90_quattro_IMSA_gto_1989",
+			"skin": "01_03_audi_america"
+		}, 
+		{
+			"name": "Lucas",
+			"car": "audi_90_quattro_IMSA_gto_1989",
+			"skin": "01_05_audi"
+		}, 
+		{
+			"name": "Javier Barber",
+			"car": "audi_90_quattro_IMSA_gto_1989",
+			"skin": "02_a6_audi_trans_am"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Race",
+			"type": 3,
+			"lapsCount": 3,
+			"duration": 0,
+			"laps": [],
+			"lapstotal": [0, 0, 0, 0, 0, 0],
+			"bestLaps": [],
+			"raceResult": [1, 2, 3, 4, 5, 0]
+		}],
+	"extras": [
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

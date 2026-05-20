@@ -7,7 +7,7 @@ REM ===============================================================
 setlocal enableextensions
 
 set "ACDOC=%USERPROFILE%\Documents\Assetto Corsa"
-set "ACINSTALL=D:\SteamLibrary\steamapps\common\assettocorsa"
+set "ACINSTALL=F:\SteamLibrary\steamapps\common\assettocorsa"
 set "PRESET=%ACDOC%\cfg\hotlap_spa_1991_debut.ini"
 set "TARGET=%ACDOC%\cfg\race.ini"
 set "BACKUP=%ACDOC%\cfg\race.ini.bak"
