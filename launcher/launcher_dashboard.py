@@ -153,7 +153,9 @@ EVENTS = [
         "tiles": [
             "nls_24h_2026", "nls2_2026", "hotlap_n24_grid_2026",
             "verstappen_1v1", "antonelli_vs_verstappen_nord",
-            "hotlap_vettel_rb7_nordschleife", "dave_cam_audi_90_nordschleife",
+            "hotlap_vettel_rb7_nordschleife", "hotlap_march701_nordschleife",
+            "hotlap_m3_touring_nordschleife",
+            "dave_cam_audi_90_nordschleife",
             "hotlap_manthey_grello_nord", "hotlap_dacia_logan_n24",
         ],
     },
@@ -166,7 +168,31 @@ EVENTS = [
         "color_b":  "#dc2626",
         "image":    "canada_2026.jpg",
         "tiles": [
-            "canada_2026", "hotlap_montreal", "hotlap_montreal_f2004",
+            "canada_2026", "hotlap_montreal", "hotlap_montreal_vrc",
+            "hotlap_montreal_f2004",
+        ],
+    },
+    {
+        "id":       "monaco_2026",
+        "label":    "FORMULA 1 · MONACO GP",
+        "kicker":   "F1 2026 · Circuit de Monaco",
+        "subtitle": "Fri 5 → Sun 7 June 2026 · Monte Carlo · 3.337 km street circuit",
+        "color_a":  "#0a0e1a",
+        "color_b":  "#223971",
+        "image":    "hotlap_monaco_2026.jpg",
+        # Spotlight the pole-chase hotlap — the headline drive of the weekend,
+        # in the exact RB21 + setup Pablo ran. Rendered as a full-width banner.
+        "spotlight": {
+            "tile_id": "hotlap_monaco_2026",
+            "kicker":  "POLE CHASE · SPOTLIGHT",
+            "lede":    (
+                "You ran the RB21 around Monaco on 25 May and set a 1:18.503 on "
+                "your fifth lap — improving every lap, still dropping time when "
+                "the session ended. Your setup is saved. Go beat it."
+            ),
+        },
+        "tiles": [
+            "hotlap_monaco_2026",
         ],
     },
     {
@@ -432,6 +458,102 @@ STORIES = [
              "url":   "https://x.com/VincentJBruins/status/1936095114658496539"},
         ],
     },
+    {
+        "id":       "m3_touring_n24_2026",
+        "tile_id":  "hotlap_m3_touring_nordschleife",
+        "kicker":   "THE GREEN HELL · 16–17 MAY 2026",
+        "title":    "The Wagon That Finished Fifth",
+        "dek":      (
+            "BMW took a station wagon to the 24h Nürburgring, handed it to "
+            "Schubert Motorsport, and watched the #81 M3 Touring 24H run inside "
+            "the top five for a full day — winning its class in front of a "
+            "record crowd."
+        ),
+        "hero_image": "m3_touring_01.png",
+        "color_a":  "#1a1205",
+        "color_b":  "#b8531a",
+        "blocks": [
+            {"kind": "lede", "text": (
+                "GT3 cars are supposed to be low, wide and purpose-built. The "
+                "BMW M3 Touring 24H is a five-door estate with a roofline tall "
+                "enough to carry luggage. At the 54th ADAC TotalEnergies 24h "
+                "Nürburgring on 16–17 May 2026, that wagon — Schubert "
+                "Motorsport's #81 — finished fifth overall and won the "
+                "experimental SP-X class, the headline story of BMW M's "
+                "weekend in front of a record crowd at the Green Hell."
+            )},
+
+            {"kind": "h2", "text": "A Wagon at the Green Hell"},
+            {"kind": "image", "src": "m3_touring_03.png",
+             "caption": "Front-end detail — DEKRA tech sticker, M-stripe, green-tinted running lights. GT3 aero under an estate-car silhouette."},
+            {"kind": "p", "text": (
+                "The M3 Touring 24H is BMW M's project car for the SP-X class, "
+                "the Nürburgring's home for experimental machinery that doesn't "
+                "fit the standard GT categories. Underneath the practical "
+                "bodywork sits GT3-derived running gear: the S58 straight-six "
+                "in a 590 hp state of tune, a sequential gearbox, full aero "
+                "and a roll cage. Bruno Spengler and Timo Glock were among the "
+                "BMW drivers who ran the development and testing programme at "
+                "the Nürburgring ahead of the race."
+            )},
+
+            {"kind": "h2", "text": "The Car"},
+            {"kind": "duo", "left": "m3_touring_05.png", "right": "m3_touring_06.png"},
+            {"kind": "stats", "items": [
+                {"k": "CAR",      "v": "BMW M3 Touring 24H"},
+                {"k": "TEAM",     "v": "Schubert Motorsport · #81"},
+                {"k": "POWER",    "v": "590 hp"},
+                {"k": "WEIGHT",   "v": "1385 kg"},
+                {"k": "CLASS",    "v": "SP-X"},
+                {"k": "LIVERY",   "v": "Shell Helix"},
+            ]},
+            {"kind": "p", "text": (
+                "The #81 was crewed by Jens Klingmann, Connor De Phillippi, "
+                "Ugo de Wilde and Neil Verhagen — a mix of BMW works and "
+                "factory-supported talent. The Shell Helix orange-and-yellow "
+                "livery carried a tribute on the rear: \"Grazie, Alex — Our "
+                "Hero, R.I.P.\""
+            )},
+
+            {"kind": "h2", "text": "Fifth Overall"},
+            {"kind": "image", "src": "m3_touring_04.png",
+             "caption": "Rear three-quarter — the battle scars of a 24-hour race on the Eifel still on the bodywork."},
+            {"kind": "p", "text": (
+                "Schubert's wagon established itself in the leading group early "
+                "and stayed there, at times running inside the overall podium "
+                "places. It crossed the line fifth overall and first in SP-X. "
+                "Around it, BMW's weekend was mixed: the #99 ROWE Racing M4 GT3 "
+                "EVO narrowly missed the podium in fourth after an early spin, "
+                "the defending champions in car #1 retired, and Schubert's own "
+                "#77 M4 GT3 EVO came home inside the top ten."
+            )},
+            {"kind": "stats", "items": [
+                {"k": "FINISH",     "v": "P5 overall"},
+                {"k": "CLASS",      "v": "SP-X · class win"},
+                {"k": "EVENT",      "v": "54th 24h Nürburgring · 2026"},
+                {"k": "CROWD",      "v": "Record attendance"},
+            ]},
+
+            {"kind": "h2", "text": "Drive the #81"},
+            {"kind": "p", "text": (
+                "The hot-lap challenge on this site loads the same car — the "
+                "Schubert #81 M3 Touring GT3 EVO, the Shell Helix livery, the "
+                "Nordschleife 24h 2024 layout. Solo, ghost on. The real car "
+                "needed four drivers and 24 hours to prove the point. You get "
+                "one clean flying lap to feel why the wagon worked."
+            )},
+        ],
+        "sources": [
+            {"label": "BMW Group PressClub · Major BMW M3 Touring 24H show in the Green Hell",
+             "url":   "https://www.press.bmwgroup.com/global/article/detail/T0457913EN/"},
+            {"label": "BMW M · 24h Nürburgring: BMW M3 Touring 24H show",
+             "url":   "https://www.bmw-m.com/en/fastlane/motorsport/discover/news-stories/24h-nuerburgring-bmw-m3-touring-24h-schubert-motorsport-rowe-racing.html"},
+            {"label": "BMWBLOG · BMW M3 Touring grabs class win at 2026 Nürburgring 24 Hours",
+             "url":   "https://www.bmwblog.com/2026/05/17/bmw-m3-touring-wins-2026-nurburgring-24-hours/"},
+            {"label": "BimmerToday · M4 GT3 auf P4, M3 Touring sensationell auf P5",
+             "url":   "https://www.bimmertoday.de/2026/05/17/24h-nurburgring-bmw-m4-gt3-auf-p4-m3-touring-sensationell-auf-p5/"},
+        ],
+    },
 ]
 
 
@@ -501,18 +623,18 @@ CONFIGS = [
         ],
         "launchers": [
             {
-                "label":    "BE VERSTAPPEN",
+                "label":    "DRIVE AS PABLO",
                 "logo":     "verstappenracing",
                 "cmd":      "launch_24h_nurburgring_2026.cmd",
                 "ac_car_id": "rss_gtm_mercer_v8",
                 "skin":     "2026 N24 Verstappen #3",
                 "color":    "#D40E10",
-                "driver":   "MAX VERSTAPPEN",
+                "driver":   "PABLO SUZARTE",
                 "number":   "3",
                 "team":     "Mercedes-AMG · Verstappen Racing",
                 "tagline":  "F1 KING · NLS POLE-SITTER",
                 "quote":    "Sixteen cars. Pole. Two laps. Treat it like the real race — because in five days it is.",
-                "portrait": "verstappen_nls_portrait.png",
+                "portrait": "pablo_portrait.jpg",
             },
         ],
     },
@@ -569,11 +691,11 @@ CONFIGS = [
              "url": "https://www.youtube.com/watch?v=lDt6F_-YdGI"},
         ],
         "launchers": [
-            {"label": "BE VERSTAPPEN", "logo": "verstappenracing",
+            {"label": "DRIVE AS PABLO", "logo": "verstappenracing",
              "cmd": "launch_hotlap_nls2_2026.cmd",
-             "driver": "MAX VERSTAPPEN", "number": "3",
+             "driver": "PABLO SUZARTE", "number": "3",
              "team": "Mercedes-AMG · Verstappen.com",
-             "portrait": "verstappen_nls_portrait.png"},
+             "portrait": "pablo_portrait.jpg"},
         ],
     },
     {
@@ -1375,40 +1497,43 @@ CONFIGS = [
         "ac_track_layout": "montreal_f1_2025",
         "launchers": [
             {
-                "label":    "BE VERSTAPPEN",
+                "label":    "DRIVE AS PABLO",
                 "logo":     "redbull",
                 "cmd":      "launch_canada_2026.cmd",
                 "ac_car_id": "rss_formula_hybrid_2025_alpine",
                 "skin":     "M17_RedBull_RB21_1",
                 "color":    "#FFD700",
-                "driver":   "MAX VERSTAPPEN",
+                "driver":   "PABLO SUZARTE",
                 "number":   "1",
                 "team":     "Red Bull Racing · RB21",
                 "tagline":  "F1 KING · BACK-OF-GRID CHARGE",
                 "quote":    "P19, no setup, five laps. The car is the same as everyone else's — overtake or stay there.",
-                "portrait": "verstappen_portrait.png",
+                "portrait": "pablo_portrait.jpg",
             },
         ],
     },
     {
         "id": "hotlap_montreal",
         "type": "HOTLAP",
+        "format": "DRIVER_INDEX",
         "series": "F1",
-        "tag": "F1 POLE-CHASE HOTLAP",
-        "title": "MONTREAL HOTLAP",
-        "subtitle": "Chasing Russell's 1:10.899 pole",
+        "tag": "PICK A 2026 F1 DRIVER · HOTLAP IT",
+        "title": "HOTLAP ANY 2026 F1 DRIVER",
+        "subtitle": "Pick any driver from the grid · RSS 2026-spec hybrid · solo hot-lap · Circuit Gilles Villeneuve",
         "kicker": "F1 2026 · CANADIAN GP",
         "lede": (
-            "Russell put it on pole at 1:10.899. The RB21 in your hands has "
-            "every horse he had, plus Verstappen's name above the door. One "
-            "lap. Île Notre-Dame. The Wall of Champions waiting at the exit."
+            "The whole grid in the RSS Formula Hybrid — twenty drivers, ten "
+            "teams, the 2026-spec hybrid. Pick anyone, take one flying lap of "
+            "the Île Notre-Dame, and chase Russell's 1:10.899 pole. The Wall "
+            "of Champions waiting at the exit."
         ),
-        "hero_blurb": "Russell's pole time. Your name on the wheel. One lap to commit.",
+        "hero_blurb": "The grid. Pick any driver. One lap to chase Russell's 1:10.899 pole.",
         "scenario": (
-            "Solo against the clock at Circuit Gilles Villeneuve. Russell took the "
-            "2025 Canadian GP pole at 1:10.899 — that's the line you're chasing. "
-            "Your PB sits at 1:16.665 (session #3, C4 mediums), +5.766 to Russell. "
-            "Goal is fresh lines, not better stitching of the same ones."
+            "Solo against the clock at Circuit Gilles Villeneuve in the RSS "
+            "Formula Hybrid 2026-spec car. Choose any of the twenty drivers "
+            "below; each loads their team's livery and the shared Montreal "
+            "hotlap setup. Russell took the 2025 Canadian GP pole at 1:10.899 "
+            "— that's the line you're chasing."
         ),
         "goal": "Crack 1:15. Then 1:14. Then keep going.",
         "setup": {
@@ -1425,24 +1550,279 @@ CONFIGS = [
             ],
         },
         "specs": {
-            "CAR":   "RED BULL RB21 · F1 2025",
+            "CAR":   "RSS Formula Hybrid · full grid — pick one below",
             "TRACK": "Montreal · F1 2025 layout",
-            "GRID":  "Solo · ghost on",
+            "GRID":  "Solo · ghost on · 20 drivers selectable",
             "LAPS":  "Open · hotlap mode",
         },
         "color_a": "#1c1c1c",
         "color_b": "#c8102e",
         "track_label": "MONTREAL",
-        "launcher": "launch_hotlap_montreal_2026.cmd",
+        # Fresh start every launch: drop the stale ghost + PB so the sim never
+        # opens on a two-week-old lap. Combo = RSS hybrid @ Montreal F1 2025.
+        "reset_on_launch": {
+            "ghost_glob": "GhostCar/montreal/GHOST_CAR_*_rss_formula_hybrid_2025_alpine_montreal_f1_2025.*",
+            "pb_section": "RSS_FORMULA_HYBRID_2025_ALPINE@MONTREAL-MONTREAL_F1_2025",
+        },
+        "launcher": "launch_hotlap_montreal_verstappen.cmd",
         "launchers": [
             {"label": "BE VERSTAPPEN", "logo": "redbull",
-             "cmd": "launch_hotlap_montreal_2026.cmd",
-             "driver": "MAX VERSTAPPEN", "number": "1",
-             "team": "Red Bull Racing", "portrait": "verstappen_portrait.png"},
+             "cmd": "launch_hotlap_montreal_verstappen.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_RedBull_RB21_1",
+             "number": "1", "team": "Oracle Red Bull Racing",
+             "drivers": ["Max Verstappen"], "color": "#223971"},
+            {"label": "BE HADJAR", "logo": "redbull",
+             "cmd": "launch_hotlap_montreal_hadjar.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_RedBull_RB21_22",
+             "number": "6", "team": "Oracle Red Bull Racing",
+             "drivers": ["Isack Hadjar"], "color": "#223971"},
+            {"label": "BE RUSSELL", "logo": "mercedes",
+             "cmd": "launch_hotlap_montreal_russell.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "Asi_W16_Russell_63",
+             "number": "63", "team": "Mercedes-AMG Petronas",
+             "drivers": ["George Russell"], "color": "#00D2BE"},
+            {"label": "BE ANTONELLI", "logo": "mercedes",
+             "cmd": "launch_hotlap_montreal_antonelli.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "Asi_W16_Antonelli_12",
+             "number": "12", "team": "Mercedes-AMG Petronas",
+             "drivers": ["Kimi Antonelli"], "color": "#00D2BE"},
+            {"label": "BE LECLERC", "logo": "ferrari",
+             "cmd": "launch_hotlap_montreal_leclerc.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_Ferrari_SF25_16",
+             "number": "16", "team": "Scuderia Ferrari",
+             "drivers": ["Charles Leclerc"], "color": "#DC0000"},
+            {"label": "BE HAMILTON", "logo": "ferrari",
+             "cmd": "launch_hotlap_montreal_hamilton.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_Ferrari_SF25_44",
+             "number": "44", "team": "Scuderia Ferrari",
+             "drivers": ["Lewis Hamilton"], "color": "#DC0000"},
+            {"label": "BE NORRIS", "logo": "mclaren",
+             "cmd": "launch_hotlap_montreal_norris.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "FRX_McLaren_MCL39_4_Norris",
+             "number": "4", "team": "McLaren F1 Team",
+             "drivers": ["Lando Norris"], "color": "#FF8000"},
+            {"label": "BE PIASTRI", "logo": "mclaren",
+             "cmd": "launch_hotlap_montreal_piastri.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "FRX_McLaren_MCL39_81_Piastri",
+             "number": "81", "team": "McLaren F1 Team",
+             "drivers": ["Oscar Piastri"], "color": "#FF8000"},
+            {"label": "BE ALONSO", "logo": "astonmartin",
+             "cmd": "launch_hotlap_montreal_alonso.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "RBC_Aston_Martin_AMR25_14",
+             "number": "14", "team": "Aston Martin Aramco",
+             "drivers": ["Fernando Alonso"], "color": "#006F62"},
+            {"label": "BE STROLL", "logo": "astonmartin",
+             "cmd": "launch_hotlap_montreal_stroll.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "RBC_Aston_Martin_AMR25_18",
+             "number": "18", "team": "Aston Martin Aramco",
+             "drivers": ["Lance Stroll"], "color": "#006F62"},
+            {"label": "BE GASLY", "logo": "alpine",
+             "cmd": "launch_hotlap_montreal_gasly.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_Alpine_A525_10",
+             "number": "10", "team": "BWT Alpine F1 Team",
+             "drivers": ["Pierre Gasly"], "color": "#0090FF"},
+            {"label": "BE COLAPINTO", "logo": "alpine",
+             "cmd": "launch_hotlap_montreal_colapinto.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_Alpine_A525_43",
+             "number": "43", "team": "BWT Alpine F1 Team",
+             "drivers": ["Franco Colapinto"], "color": "#0090FF"},
+            {"label": "BE ALBON", "logo": "williams",
+             "cmd": "launch_hotlap_montreal_albon.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "FRX_Williams_FW47_23_Albon",
+             "number": "23", "team": "Williams Racing",
+             "drivers": ["Alexander Albon"], "color": "#1868DB"},
+            {"label": "BE SAINZ", "logo": "williams",
+             "cmd": "launch_hotlap_montreal_sainz.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "FRX_Williams_FW47_55_Sainz",
+             "number": "55", "team": "Williams Racing",
+             "drivers": ["Carlos Sainz"], "color": "#1868DB"},
+            {"label": "BE LAWSON", "logo": "racingbulls",
+             "cmd": "launch_hotlap_montreal_lawson.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "FRX_Racing_Bulls_VCARB02_30_Lawson",
+             "number": "30", "team": "Visa Cash App RB",
+             "drivers": ["Liam Lawson"], "color": "#2B4562"},
+            {"label": "BE LINDBLAD", "logo": "racingbulls",
+             "cmd": "launch_hotlap_montreal_lindblad.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "FRX_Racing_Bulls_VCARB02_6_Hadjar",
+             "number": "41", "team": "Visa Cash App RB",
+             "drivers": ["Arvid Lindblad"], "color": "#2B4562"},
+            {"label": "BE OCON", "logo": "haas",
+             "cmd": "launch_hotlap_montreal_ocon.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "A6_Haas_2025_31",
+             "number": "31", "team": "MoneyGram Haas F1 Team",
+             "drivers": ["Esteban Ocon"], "color": "#B6BABD"},
+            {"label": "BE BEARMAN", "logo": "haas",
+             "cmd": "launch_hotlap_montreal_bearman.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "A6_Haas_2025_87",
+             "number": "87", "team": "MoneyGram Haas F1 Team",
+             "drivers": ["Oliver Bearman"], "color": "#B6BABD"},
+            {"label": "BE HÜLKENBERG", "logo": "sauber",
+             "cmd": "launch_hotlap_montreal_hulkenberg.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_Sauber_C45_27",
+             "number": "27", "team": "Stake F1 Team Kick Sauber",
+             "drivers": ["Nico Hülkenberg"], "color": "#52E252"},
+            {"label": "BE BORTOLETO", "logo": "sauber",
+             "cmd": "launch_hotlap_montreal_bortoleto.cmd",
+             "ac_car_id": "rss_formula_hybrid_2025_alpine", "skin": "M17_Sauber_C45_5",
+             "number": "5", "team": "Stake F1 Team Kick Sauber",
+             "drivers": ["Gabriel Bortoleto"], "color": "#52E252"},
         ],
         "dashboard_rel": "dashboard/montreal/dashboard.html",
         "ac_car_id": "rss_formula_hybrid_2025_alpine",
         "ac_car_skin": "M17_RedBull_RB21_1",
+        "ac_track_id": "montreal",
+        "ac_track_layout": "montreal_f1_2025",
+    },
+    {
+        "id": "hotlap_montreal_vrc",
+        "type": "HOTLAP",
+        "format": "DRIVER_INDEX",
+        "series": "F1",
+        "tag": "PICK A 2025 F1 DRIVER · HOTLAP IT",
+        "title": "HOTLAP ANY 2025 F1 DRIVER",
+        "subtitle": "Pick any driver from the full 2025 grid · solo hot-lap · Circuit Gilles Villeneuve",
+        "kicker": "F1 2025 GRID · CANADIAN GP",
+        "lede": (
+            "The whole 2025 Formula 1 grid in the VRC Formula Alpha 2025 — all "
+            "twenty drivers, ten teams, one circuit. Pick anyone, take one "
+            "flying lap of the Île Notre-Dame, and chase Russell's 1:10.899 "
+            "pole. The Wall of Champions waiting at the exit."
+        ),
+        "hero_blurb": "The 2025 grid. Pick any driver. One lap to chase Russell's 1:10.899 pole.",
+        "scenario": (
+            "Solo against the clock at Circuit Gilles Villeneuve in the VRC "
+            "Formula Alpha 2025 — modern-spec F1 downforce. Choose any of the "
+            "twenty 2025 drivers below; each loads their team's livery and the "
+            "shared Montreal hotlap setup. Russell took the 2025 Canadian GP "
+            "pole at 1:10.899 — that's the line you're chasing."
+        ),
+        "goal": "Crack 1:15. Then 1:14. Then keep going.",
+        "setup": {
+            "trim":     "Low-DF · Montreal special",
+            "priority": "Top speed on the straights, soft enough for the chicanes",
+            "key":      "Montreal_VRC_Hotlap setup · soft tyres · low-drag wings",
+        },
+        "benchmarks": {
+            "you_label":   "Your best time",
+            "refs": [
+                {"label": "Russell pole",  "time": "1:10.899"},
+            ],
+        },
+        "specs": {
+            "CAR":   "VRC Formula Alpha 2025 · full 2025 grid — pick one below",
+            "TRACK": "Montreal · F1 2025 layout",
+            "GRID":  "Solo · ghost on · 20 drivers selectable",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#1c1c1c",
+        "color_b": "#c8102e",
+        "track_label": "MONTREAL",
+        "launcher": "launch_hotlap_montreal_vrc_verstappen.cmd",
+        "launchers": [
+            {"label": "BE VERSTAPPEN", "logo": "redbull",
+             "cmd": "launch_hotlap_montreal_vrc_verstappen.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "e_Red_Bull_RB21_1_Verstappen",
+             "number": "1", "team": "Oracle Red Bull Racing",
+             "drivers": ["Max Verstappen"], "color": "#223971"},
+            {"label": "BE TSUNODA", "logo": "redbull",
+             "cmd": "launch_hotlap_montreal_vrc_tsunoda.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "f_Red_Bull_RB21_22_Tsunoda",
+             "number": "22", "team": "Oracle Red Bull Racing",
+             "drivers": ["Yuki Tsunoda"], "color": "#223971"},
+            {"label": "BE RUSSELL", "logo": "mercedes",
+             "cmd": "launch_hotlap_montreal_vrc_russell.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "c_Mercedes_W16_63_Russell",
+             "number": "63", "team": "Mercedes-AMG Petronas",
+             "drivers": ["George Russell"], "color": "#00D2BE"},
+            {"label": "BE ANTONELLI", "logo": "mercedes",
+             "cmd": "launch_hotlap_montreal_vrc_antonelli.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "d_Mercedes_W16_12_Antonelli",
+             "number": "12", "team": "Mercedes-AMG Petronas",
+             "drivers": ["Kimi Antonelli"], "color": "#00D2BE"},
+            {"label": "BE LECLERC", "logo": "ferrari",
+             "cmd": "launch_hotlap_montreal_vrc_leclerc.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "g_Ferrari_SF-25_16_Leclerc",
+             "number": "16", "team": "Scuderia Ferrari",
+             "drivers": ["Charles Leclerc"], "color": "#DC0000"},
+            {"label": "BE HAMILTON", "logo": "ferrari",
+             "cmd": "launch_hotlap_montreal_vrc_hamilton.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "h_Ferrari_SF-25_44_Hamilton",
+             "number": "44", "team": "Scuderia Ferrari",
+             "drivers": ["Lewis Hamilton"], "color": "#DC0000"},
+            {"label": "BE NORRIS", "logo": "mclaren",
+             "cmd": "launch_hotlap_montreal_vrc_norris.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "MCL39_Qatar_LandoNorris",
+             "number": "4", "team": "McLaren F1 Team",
+             "drivers": ["Lando Norris"], "color": "#FF8000"},
+            {"label": "BE PIASTRI", "logo": "mclaren",
+             "cmd": "launch_hotlap_montreal_vrc_piastri.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "MCL39_Qatar_OscarPiastri",
+             "number": "81", "team": "McLaren F1 Team",
+             "drivers": ["Oscar Piastri"], "color": "#FF8000"},
+            {"label": "BE ALONSO", "logo": "astonmartin",
+             "cmd": "launch_hotlap_montreal_vrc_alonso.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "m_AMR25_Testing_FernandoAlonso",
+             "number": "14", "team": "Aston Martin Aramco",
+             "drivers": ["Fernando Alonso"], "color": "#006F62"},
+            {"label": "BE STROLL", "logo": "astonmartin",
+             "cmd": "launch_hotlap_montreal_vrc_stroll.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "n_AMR25_Testing_LanceStroll",
+             "number": "18", "team": "Aston Martin Aramco",
+             "drivers": ["Lance Stroll"], "color": "#006F62"},
+            {"label": "BE GASLY", "logo": "alpine",
+             "cmd": "launch_hotlap_montreal_vrc_gasly.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "s_A525_Testing_PierreGasly",
+             "number": "10", "team": "BWT Alpine F1 Team",
+             "drivers": ["Pierre Gasly"], "color": "#0090FF"},
+            {"label": "BE COLAPINTO", "logo": "alpine",
+             "cmd": "launch_hotlap_montreal_vrc_colapinto.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "t_A525_Testing_FrancoColapinto",
+             "number": "43", "team": "BWT Alpine F1 Team",
+             "drivers": ["Franco Colapinto"], "color": "#0090FF"},
+            {"label": "BE ALBON", "logo": "williams",
+             "cmd": "launch_hotlap_montreal_vrc_albon.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "i_Williams_FW47_23_Albon",
+             "number": "23", "team": "Williams Racing",
+             "drivers": ["Alexander Albon"], "color": "#1868DB"},
+            {"label": "BE SAINZ", "logo": "williams",
+             "cmd": "launch_hotlap_montreal_vrc_sainz.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "j_Williams_FW47_55_Sainz",
+             "number": "55", "team": "Williams Racing",
+             "drivers": ["Carlos Sainz"], "color": "#1868DB"},
+            {"label": "BE LAWSON", "logo": "racingbulls",
+             "cmd": "launch_hotlap_montreal_vrc_lawson.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "k_Racing_Bulls_VCARB-02_30_Lawson",
+             "number": "30", "team": "Visa Cash App RB",
+             "drivers": ["Liam Lawson"], "color": "#2B4562"},
+            {"label": "BE HADJAR", "logo": "racingbulls",
+             "cmd": "launch_hotlap_montreal_vrc_hadjar.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "l_Racing_Bulls_VCARB-02_6_Hadjar",
+             "number": "6", "team": "Visa Cash App RB",
+             "drivers": ["Isack Hadjar"], "color": "#2B4562"},
+            {"label": "BE OCON", "logo": "haas",
+             "cmd": "launch_hotlap_montreal_vrc_ocon.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "o_VF25_Testing_EstebanOcon",
+             "number": "31", "team": "MoneyGram Haas F1 Team",
+             "drivers": ["Esteban Ocon"], "color": "#B6BABD"},
+            {"label": "BE BEARMAN", "logo": "haas",
+             "cmd": "launch_hotlap_montreal_vrc_bearman.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "p_VF25_Testing_OliverBearman",
+             "number": "87", "team": "MoneyGram Haas F1 Team",
+             "drivers": ["Oliver Bearman"], "color": "#B6BABD"},
+            {"label": "BE HÜLKENBERG", "logo": "sauber",
+             "cmd": "launch_hotlap_montreal_vrc_hulkenberg.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "q_C45_Testing_NicoHülkemberg",
+             "number": "27", "team": "Stake F1 Team Kick Sauber",
+             "drivers": ["Nico Hülkenberg"], "color": "#52E252"},
+            {"label": "BE BORTOLETO", "logo": "sauber",
+             "cmd": "launch_hotlap_montreal_vrc_bortoleto.cmd",
+             "ac_car_id": "vrc_formula_alpha_2025_csp", "skin": "r_C45_Testing_GabrielBortoleto",
+             "number": "5", "team": "Stake F1 Team Kick Sauber",
+             "drivers": ["Gabriel Bortoleto"], "color": "#52E252"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "vrc_formula_alpha_2025_csp",
+        "ac_car_skin": "e_Red_Bull_RB21_1_Verstappen",
         "ac_track_id": "montreal",
         "ac_track_layout": "montreal_f1_2025",
     },
@@ -1603,6 +1983,175 @@ CONFIGS = [
         "ac_car_skin":    "1",
         "ac_track_id":    "ks_nordschleife",
         "ac_track_layout": "nordschleife_24hours_2024",
+    },
+    {
+        "id": "hotlap_march701_nordschleife",
+        "type": "HOTLAP",
+        "series": "F1",
+        "tag": "NORDSCHLEIFE · 1970 F1 · #1",
+        "title": "STEWART · MARCH 701 · NORDSCHLEIFE",
+        "subtitle": "Jackie Stewart · 1970 March 701 · solo hotlap on the 24h 2024 layout",
+        "kicker": "VINTAGE F1 · GREEN HELL",
+        "lede": (
+            "1970. No wings to speak of, a Cosworth DFV behind your shoulders, "
+            "skinny tyres and a four-point belt. Jackie Stewart's March 701 — the "
+            "car he won the Spanish GP in — turned loose on the modern 25 km "
+            "Nordschleife. The opposite of the RB7's downforce. Pure courage."
+        ),
+        "hero_blurb": "A 1970 F1 car on the 25 km Eifel epic. No wings. No mercy.",
+        "scenario": (
+            "Solo against the clock around the Nordschleife 24h 2024 layout in Jackie "
+            "Stewart's 1970 March 701. Cosworth DFV V8, five-speed manual, barely any "
+            "aerodynamic downforce — the car floats over the crests and squirms under "
+            "braking where the GT3s and the RB7 are planted. Same 25 km Eifel layout "
+            "the duels run, only now in a car from the era when the Nordschleife was "
+            "still the real thing. Smooth wins. Bravery wins more."
+        ),
+        "goal": "Open · post a clean vintage lap. Be the first to set a March 701 reference here.",
+        "setup": {
+            "trim":     "Hotlap · solo · ghost on",
+            "priority": "Mechanical grip only — be smooth, let it breathe over the crests",
+            "key":      "Default setup · short fuel · no aids to lean on",
+        },
+        "benchmarks": {
+            "you_label":   "Your best time",
+            "refs": [
+                {"label": "Reference",   "time": "no clean Nordschleife March 701 reference yet — be the first"},
+                {"label": "Inspiration", "time": "Stewart won the 1970 Spanish GP in this car"},
+            ],
+        },
+        "specs": {
+            "CAR":   "MARCH 701 · #1 (1970 · Cosworth DFV)",
+            "TRACK": "Nordschleife · 24h 2024 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a1f1a",
+        "color_b": "#1a3a2a",
+        "track_label": "NORDSCHLEIFE · VINTAGE HOTLAP",
+        "launcher": "launch_hotlap_march701_nordschleife.cmd",
+        "launchers": [
+            {
+                "label":    "BE STEWART",
+                "logo":     "",
+                "cmd":      "launch_hotlap_march701_nordschleife.cmd",
+                "ac_car_id": "rss_formula_70",
+                "skin":     "1970_tyrrell_1_stewart",
+                "color":    "#0a3d2a",
+                "driver":   "JACKIE STEWART",
+                "number":   "1",
+                "team":     "Tyrrell · March 701 · 1970",
+                "tagline":  "VINTAGE KING · GREEN HELL",
+                "quote":    "There's no downforce to hide behind here. The Nordschleife respects only commitment.",
+            },
+        ],
+        "dashboard_rel": None,
+        "ac_car_id":      "rss_formula_70",
+        "ac_car_skin":    "1970_tyrrell_1_stewart",
+        "ac_track_id":    "ks_nordschleife",
+        "ac_track_layout": "nordschleife_24hours_2024",
+    },
+    {
+        # Built to the official hotlap-event template (mirrors hotlap_dacia_logan_n24):
+        # lede + kicker + dual benchmark + images carousel + gallery + story_id +
+        # rich launcher. Car renders as the real #81 Schubert Motorsport Shell
+        # Helix M3 Touring (2026 N24 SPX class winner, 5th overall); the on-disk
+        # skin folder is misnamed 24h_NBR_BMW-Post-191 so SKIN= keeps that name.
+        "id": "hotlap_m3_touring_nordschleife",
+        "type": "HOTLAP",
+        "series": "VERSTAPPEN",
+        "tag": "SCHUBERT #81 · SPX CLASS WINNER",
+        "title": "M3 TOURING · GREEN HELL",
+        "subtitle": "Solo lap · BMW M3 Touring GT3 EVO · Nordschleife 24h layout",
+        "kicker": "BMW M3 TOURING 24H · SP-X · NÜRBURGRING 2026",
+        "hero_blurb": (
+            "A 590 hp estate that finished fifth overall and won its class at "
+            "the 24h Nürburgring. Take Schubert's #81 Shell Helix wagon round "
+            "the Green Hell solo and find out how a touring car runs GT3 pace."
+        ),
+        "lede": (
+            "BMW brought a station wagon to the toughest race on earth — and it "
+            "embarrassed half the GT3 field. The M3 Touring 24H, built by "
+            "Schubert Motorsport, ran inside the top five for most of the 2026 "
+            "ADAC TotalEnergies 24h Nürburgring and crossed the line fifth "
+            "overall, first in the experimental SP-X class, in front of a record "
+            "crowd. This is that car: #81, the Shell Helix livery, the Eifel "
+            "battle scars still on it. Hold it together through the Karussell."
+        ),
+        "scenario": (
+            "Solo against the clock on the Nordschleife 24h 2024 layout in the "
+            "BMW M3 Touring GT3 EVO — Schubert Motorsport's #81 Shell Helix car. "
+            "590 hp, 1385 kg, the body of a family estate and the aero of a GT3. "
+            "The real car put four DTM-pedigree drivers through 24 hours to a "
+            "class win; you get one clean flying lap to feel why it worked."
+        ),
+        "goal": "Open · post a clean lap and chase the GT3 pole. The wagon has the pace — find it.",
+        "setup": {
+            "trim":     "Hotlap · solo · ghost on",
+            "priority": "Trust the aero through the fast stuff, be patient on exits",
+            "key":      "AC default GT3 setup · short fuel · TC/ABS to taste",
+        },
+        "benchmarks": {
+            "refs": [
+                {"label": "GT3 pole reference · Engstler · Top Q3 2026", "time": "8:11.123"},
+            ],
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "BMW M3 TOURING GT3 EVO · #81 SCHUBERT",
+            "TRACK": "Nordschleife · 24h 2024 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#1a1205",
+        "color_b": "#b8531a",
+        "track_label": "NORDSCHLEIFE · 24H LAYOUT",
+        # In-sim showroom shots Pablo captured 2026-05-22. First entry = cover
+        # (tile card + carousel lead + event spotlight hero).
+        "images": [
+            "m3_touring_01.png",   # side profile #81, Shell Helix — COVER
+            "m3_touring_02.png",   # front 3/4, twin car in background
+            "m3_touring_03.png",   # dramatic front detail, DEKRA + green headlight
+            "m3_touring_04.png",   # rear wing, battle-scarred "Grazie Alex" tribute
+            "m3_touring_05.png",   # M3 TOURING 24H rear decklid detail
+            "m3_touring_06.png",   # front splitter + BMW roundel carbon
+            "m3_touring_07.png",
+            "m3_touring_08.png",
+            "m3_touring_09.png",
+            "m3_touring_10.png",
+            "m3_touring_11.png",
+        ],
+        "story_id": "m3_touring_n24_2026",
+        "gallery_kicker": "M3 TOURING 24H · #81 SCHUBERT · SHOWROOM",
+        "gallery": [
+            "m3_touring_01.png", "m3_touring_02.png", "m3_touring_03.png",
+            "m3_touring_04.png", "m3_touring_05.png", "m3_touring_06.png",
+            "m3_touring_07.png", "m3_touring_08.png", "m3_touring_09.png",
+            "m3_touring_10.png", "m3_touring_11.png",
+        ],
+        "launcher": "launch_hotlap_m3_touring_nordschleife.cmd",
+        "dashboard_rel": None,
+        "ac_car_id":      "cky_bmw_m3_gt3_evo",
+        "ac_car_skin":    "24h_NBR_BMW-Post-191",
+        "ac_track_id":    "ks_nordschleife",
+        "ac_track_layout": "nordschleife_24hours_2024",
+        "launchers": [
+            {
+                "label":    "BE KLINGMANN",
+                "logo":     "bmw",
+                "cmd":      "launch_hotlap_m3_touring_nordschleife.cmd",
+                "ac_car_id": "cky_bmw_m3_gt3_evo",
+                "skin":     "24h_NBR_BMW-Post-191",
+                "color":    "#b8531a",
+                "driver":   "JENS KLINGMANN",
+                "number":   "81",
+                "team":     "Schubert Motorsport",
+                "drivers":  ["J. Klingmann", "C. De Phillippi", "U. de Wilde", "N. Verhagen"],
+                "tagline":  "SP-X CLASS WINNER · 5TH OVERALL",
+                "quote":    "Everyone laughed at the wagon. Then it spent 24 hours in the top five.",
+                "race_class": "SP-X",
+            },
+        ],
     },
     {
         "id": "hotlap_montreal_f2004",
@@ -1933,11 +2482,11 @@ CONFIGS = [
         "track_label": "FUJI · WET",
         "launcher": "launch_hotlap_super_gt_fuji_chase.cmd",
         "launchers": [
-            {"label": "BE VERSTAPPEN", "logo": "redbull",
+            {"label": "DRIVE AS PABLO", "logo": "redbull",
              "cmd": "launch_hotlap_super_gt_fuji_chase.cmd",
-             "driver": "MAX VERSTAPPEN", "number": "1",
+             "driver": "PABLO SUZARTE", "number": "1",
              "team": "Red Bull (Super GT promo test)",
-             "portrait": "verstappen_portrait.png"},
+             "portrait": "pablo_portrait.jpg"},
         ],
         "dashboard_rel": None,
         "ac_car_id": "urd_jt5_shiro_2022",
@@ -2381,6 +2930,95 @@ CONFIGS = [
         ],
     },
     {
+        # MONACO HOTLAP 2026 — built to the hotlap-event template (mirrors
+        # hotlap_dacia_logan_n24). Car + setup are exactly what Pablo ran in
+        # his 2026-05-25 Monaco session: RSS Formula Hybrid 2025 (Red Bull
+        # RB21), the Monaco_Hotlap_2026 setup preserved from that session.
+        "id": "hotlap_monaco_2026",
+        "type": "HOTLAP",
+        "series": "F1",
+        # Evolution table shows the climb lap-by-lap (each lap vs the previous,
+        # total gain since lap 1) instead of one row per session.
+        "evolution_mode": "laps",
+        "tag": "RED BULL RB21 · YOUR MONACO SETUP",
+        "title": "MONACO 2026 · POLE CHASE",
+        "subtitle": "Solo lap · RSS Formula Hybrid (RB21) · Monaco F1 2025 · your saved setup",
+        "scenario": (
+            "Solo against the clock around the Principality in the RSS Formula "
+            "Hybrid 2025 — the Red Bull RB21, the exact car and the exact setup "
+            "you ran on 25 May. Twenty-six corners, no run-off, the barrier a "
+            "hand's width off every apex. The hardest single lap in motorsport."
+        ),
+        "hero_blurb": (
+            "Monaco doesn't reward bravery — it punishes hesitation. Soft tyres, "
+            "your own setup loaded, ghost on. Stitch all three sectors together "
+            "in one clean lap and beat the time you already set."
+        ),
+        "lede": (
+            "There is no track like it. Sainte-Dévote, the climb to Casino, "
+            "Mirabeau, the Grand Hotel hairpin at walking pace, the tunnel, the "
+            "swimming-pool chicane that asks you to trust a barrier you can "
+            "touch. In the RB21 it is over in seventy-eight seconds — and every "
+            "one of them is a negotiation with the wall."
+        ),
+        "kicker": "F1 2026 · CIRCUIT DE MONACO · RED BULL RB21",
+        "goal": "Beat your 1:18.503 — then hunt Norris's 1:09.954 pole.",
+        "setup": {
+            "trim":     "Your 25 May Monaco setup · loads by default",
+            "priority": "Maximum mechanical grip, point-and-squirt traction out of the slow corners",
+            "key":      "Your saved setup loads on launch — and the garage is open, so trims and tyres are yours to change before the lap",
+        },
+        "benchmarks": {
+            # Real-world target: Lando Norris's 2025 Monaco GP pole — the fastest
+            # lap ever recorded at Monaco. Verified 2026-05-25 vs formula1.com +
+            # en.wikipedia.org/wiki/2025_Monaco_Grand_Prix.
+            "refs": [
+                {"label": "Norris pole · 2025 Monaco GP (track record)", "time": "1:09.954",
+                 "portrait": "norris_portrait.png"},
+            ],
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "RSS FORMULA HYBRID 2025 · RED BULL RB21 (#1 VERSTAPPEN)",
+            "TRACK": "Monaco · F1 2025 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0e1a",
+        "color_b": "#223971",
+        "track_label": "MONACO · F1 2025",
+        # Cover = the RB21 skin preview (car-correct). No verified on-track
+        # Monaco RB21 photos on disk yet — gallery intentionally omitted; add
+        # real session screenshots later the way the Dacia tile does.
+        "images": [
+            "hotlap_monaco_2026.jpg",
+        ],
+        "launcher": "launch_hotlap_monaco_2026.cmd",
+        "dashboard_rel": "telemetry_archive/dashboard.html",
+        "ac_car_id": "rss_formula_hybrid_2025_alpine",
+        "ac_car_skin": "FRX_McLaren_MCL39_4_Norris",
+        "ac_track_id": "monaco_2020",
+        "ac_track_layout": "monaco_f1_2025",
+        "launchers": [
+            {
+                "label":    "DRIVE AS PABLO",
+                "logo":     "redbull",
+                "cmd":      "launch_hotlap_monaco_2026.cmd",
+                "ac_car_id": "rss_formula_hybrid_2025_alpine",
+                "skin":     "FRX_McLaren_MCL39_4_Norris",
+                "color":    "#223971",
+                "driver":   "PABLO SUZARTE",
+                "number":   "1",
+                "team":     "Oracle Red Bull Racing · RB21",
+                "portrait": "pablo_portrait.jpg",
+                "drivers":  ["Pablo Suzarte"],
+                "tagline":  "POLE CHASE · YOUR SETUP",
+                "quote":    "Monaco is the one weekend where the lap matters more than the race. One clean lap. Touch nothing.",
+                "race_class": "F1 2026",
+            },
+        ],
+    },
+    {
         "id": "hotlap_indy500",
         "type": "HOTLAP",
         "series": "INDYCAR",
@@ -2389,10 +3027,11 @@ CONFIGS = [
         "subtitle": "Solo lap · Dallara IR18 oval-spec · 2.5 mi superspeedway",
         "kicker": "INDY 500 2026 · 110TH RUNNING",
         "lede": (
-            "Four left turns, 230 mph average, no margin. Rosenqvist ran "
-            "233.372 mph on Fast Friday. The IR18 with superspeedway aero "
-            "is the same chassis the field will line up in for the 500. "
-            "Trim it, commit through turn 1, breathe on the back straight."
+            "Indy pole isn't one lap — it's the mean of four. Ten miles flat-out, "
+            "and the number on the board is the average of all four laps. Palou took "
+            "the 2026 pole at 232.248 mph; Rosenqvist's 233.372 mph on Fast Friday "
+            "was a single tow-up lap, always quicker than a qualifying average. Trim "
+            "the IR18, commit through turn 1, and hold pole pace lap after lap."
         ),
         "hero_blurb": "The Brickyard. Trim, commit, breathe.",
         "scenario": (
@@ -2402,7 +3041,7 @@ CONFIGS = [
             "runs at the 500. Four flat-out left-handers, full throttle through "
             "the short chutes, and a pit-straight long enough to think about it."
         ),
-        "goal": "One clean flying lap. Trim, commit, breathe.",
+        "goal": "Match pole pace — beat the per-lap speed of a 4-lap qualifying average.",
         "setup": {
             "trim":     "Superspeedway · low-downforce oval kit",
             "priority": "Straight-line speed; just enough rear for turn 1 commit",
@@ -2410,7 +3049,9 @@ CONFIGS = [
         },
         "benchmarks": {
             "refs": [
-                {"label": "Indy 500 2026 · Felix Rosenqvist · Fast Friday best (233.372 mph)", "time": "0:38.564"},
+                {"label": "Indy 500 2026 POLE · Alex Palou · 4-lap avg 232.248 mph (per-lap pace)", "time": "0:38.752"},
+                {"label": "Indy 500 2025 POLE · Robert Shwartzman · 4-lap avg 232.790 mph (per-lap pace)", "time": "0:38.661"},
+                {"label": "Felix Rosenqvist · fastest single lap · Fast Friday 233.372 mph (no tow)", "time": "0:38.565"},
             ],
             "you_label": "Your best time",
         },
@@ -2418,7 +3059,7 @@ CONFIGS = [
             "CAR":   "DALLARA IR18 · #60 MSR ROSENQVIST",
             "TRACK": "Indianapolis Motor Speedway · indy500 oval",
             "GRID":  "Solo · ghost on",
-            "LAPS":  "Open · hotlap mode",
+            "LAPS":  "Pole pace · 4-lap avg target",
         },
         "color_a": "#1a1a1a",
         "color_b": "#b22234",
@@ -5322,6 +5963,7 @@ def render_nav(active="challenges"):
         ("tracks", "/tracks", "GARAGE · TRACKS"),
         ("moza", "/moza", "WHEEL · MOZA"),
         ("nurburgring", "/nurburgring-24h", "EVENT · 24H NÜRBURGRING"),
+        ("iracing", "/iracing", "iRACING · RESULTS"),
     ]
     links = "".join(
         f'<a class="nav-link{" is-active" if k == active else ""}" '
@@ -7413,10 +8055,19 @@ def _render_event_spotlight(evt, cfg):
     refs = (cfg.get("benchmarks") or {}).get("refs") or []
     if refs:
         ref = refs[0]
+        rp = ref.get("portrait")
+        face_html = ""
+        if rp and (IMAGES_DIR / rp).exists():
+            face_html = (
+                f'<img src="/images/{escape(rp)}" alt="{escape(ref.get("label", ""))}" '
+                'style="width:34px;height:34px;border-radius:50%;object-fit:cover;'
+                'object-position:center top;border:1px solid rgba(255,255,255,0.25);'
+                'margin-right:8px;vertical-align:middle;display:inline-block">'
+            )
         time_to_beat = (
             '<div class="evt-spot-stat">'
             '<span class="evt-spot-stat-label">Time to beat</span>'
-            f'<span class="evt-spot-stat-value">{escape(ref.get("time", ""))}</span>'
+            f'<span class="evt-spot-stat-value">{face_html}{escape(ref.get("time", ""))}</span>'
             '</div>'
         )
 
@@ -7801,6 +8452,305 @@ def _story_render_block(b):
     return ""
 
 
+# -- iRacing results page ----------------------------------------------------
+_IRACING_CSS = (
+    '<style>'
+    '.ir-wrap{background:#f4f5f7;color:#1a1c20;min-height:100vh;'
+    'font-family:var(--body);padding-bottom:90px}'
+    # --- hero (stays a dark photo banner with light text) ---
+    '.ir-herowrap{position:relative;'
+    "background-image:linear-gradient(180deg,rgba(14,15,18,.42) 0%,rgba(14,15,18,.32) 42%,rgba(14,15,18,.7) 86%,rgba(244,245,247,1) 100%),"
+    "url('/images/m2_cs_racing_hero.jpg');"
+    'background-size:cover;background-position:center 34%;background-repeat:no-repeat}'
+    '.ir-hero{position:relative;max-width:1180px;margin:0 auto;padding:40px 28px 30px;'
+    'min-height:30vh;display:flex;flex-direction:column;justify-content:flex-end}'
+    '.ir-hero .ir-title{text-shadow:0 2px 22px rgba(0,0,0,.92),0 1px 4px rgba(0,0,0,.7)}'
+    '.ir-hero .ir-dek{text-shadow:0 1px 12px rgba(0,0,0,.9)}'
+    '.ir-hero .ir-kicker{text-shadow:0 1px 8px rgba(0,0,0,.8)}'
+    '.ir-kicker{font:800 11px/1 var(--body);letter-spacing:2.6px;'
+    'text-transform:uppercase;color:#9be8b8;margin-bottom:16px}'
+    '.ir-title{font:900 clamp(34px,5vw,60px)/1.04 var(--display,Georgia,serif);'
+    'color:#fff;margin:0 0 14px;letter-spacing:-.5px}'
+    '.ir-dek{font:400 18px/1.5 var(--display,Georgia,serif);color:#e6e6e8;'
+    'margin:0;max-width:66ch}'
+    # --- positive numbers ---
+    '.ir-plus{color:#16a34a;font-weight:700}'
+    # --- stat strip ---
+    '.ir-stats{max-width:1180px;margin:30px auto 0;padding:0 28px;'
+    'display:grid;grid-template-columns:repeat(5,1fr);gap:1px;'
+    'background:#e3e5e9;border:1px solid #e3e5e9;border-radius:8px;overflow:hidden;'
+    'box-shadow:0 1px 2px rgba(16,24,40,.05)}'
+    '@media(max-width:760px){.ir-stats{grid-template-columns:repeat(2,1fr)}}'
+    '.ir-stat{background:#fff;padding:18px 16px}'
+    '.ir-stat-k{font:700 10px/1 var(--body);letter-spacing:1.5px;'
+    'text-transform:uppercase;color:#15803d;margin-bottom:8px}'
+    '.ir-stat-v{font:800 23px/1 var(--body);color:#16181c}'
+    '.ir-stat-s{font:500 11px/1.3 var(--body);color:#6b7178;margin-top:7px}'
+    '.ir-sec{max-width:1180px;margin:44px auto 0;padding:0 28px}'
+    '.ir-h2{font:800 13px/1 var(--body);letter-spacing:1.8px;text-transform:uppercase;'
+    'color:#16181c;margin:0 0 16px;border-left:3px solid #15803d;padding-left:12px}'
+    # --- races table ---
+    '.ir-tblwrap{overflow-x:auto;border:1px solid #e3e5e9;border-radius:8px;'
+    'box-shadow:0 1px 2px rgba(16,24,40,.05)}'
+    '.ir-tbl{width:100%;border-collapse:collapse;font:500 13px/1.3 var(--body);'
+    'background:#fff;min-width:560px}'
+    '.ir-tbl th{font:700 10px/1.2 var(--body);letter-spacing:1px;text-transform:uppercase;'
+    'color:#15803d;text-align:left;padding:12px 12px;background:#eef0f3;'
+    'border-bottom:1px solid #e3e5e9;white-space:nowrap}'
+    '.ir-tbl td{padding:12px 12px;border-bottom:1px solid #edeef1;color:#3a3e45;'
+    'white-space:nowrap}'
+    '.ir-tbl tr:last-child td{border-bottom:none}'
+    '.ir-num{font-family:var(--mono,monospace);font-variant-numeric:tabular-nums}'
+    '.ir-pos{font-weight:800;color:#16181c}'
+    '.ir-pos-win{color:#b5850a}'
+    '.ir-cup{width:13px;height:13px;vertical-align:-2px;margin-left:5px;fill:#d4a015}'
+    '.ir-gain{color:#16a34a;font-weight:700}.ir-loss{color:#dc2626}.ir-flat{color:#9098a0}'
+    # --- notes ---
+    '.ir-notes{max-width:1180px;margin:44px auto 0;padding:24px 26px;'
+    'background:#fff;border:1px solid #e3e5e9;border-radius:8px}'
+    '.ir-notes-h{font:800 10px/1 var(--body);letter-spacing:1.6px;text-transform:uppercase;'
+    'color:#15803d;margin-bottom:14px}'
+    '.ir-notes ul{margin:0;padding-left:18px}'
+    '.ir-notes li{font:400 13px/1.6 var(--body);color:#565b63;margin-bottom:8px}'
+    '.ir-notes b{color:#16181c}'
+    '.ir-notes code{font-family:var(--mono,monospace);color:#15803d;'
+    'background:#eef0f3;padding:1px 5px;border-radius:3px;font-size:12px}'
+    # --- the climb bar ---
+    '.ir-climb{max-width:1180px;margin:34px auto 0;padding:0 28px}'
+    '.ir-climb-head{display:flex;justify-content:space-between;align-items:baseline;'
+    'flex-wrap:wrap;gap:8px;margin-bottom:4px}'
+    '.ir-climb-title{font:800 13px/1 var(--body);letter-spacing:1.8px;'
+    'text-transform:uppercase;color:#16181c}'
+    '.ir-climb-sub{font:700 12px/1 var(--body);color:#6b7178;letter-spacing:.4px}'
+    '.ir-track{position:relative;height:64px;margin:30px 0 6px}'
+    '.ir-track-line{position:absolute;top:50%;left:0;right:0;height:6px;'
+    'transform:translateY(-50%);background:#dcdfe3;border-radius:3px}'
+    '.ir-track-fill{position:absolute;top:0;left:0;bottom:0;'
+    'background:linear-gradient(90deg,#3fae6a,#16a34a);border-radius:3px}'
+    '.ir-tick{position:absolute;top:50%;transform:translate(-50%,-50%);'
+    'width:2px;height:15px;background:#c2c7ce}'
+    '.ir-tick-lbl{position:absolute;top:calc(50% + 14px);transform:translateX(-50%);'
+    'font:600 10px/1 var(--mono,monospace);color:#8a9099;white-space:nowrap}'
+    '.ir-marker{position:absolute;top:50%;transform:translate(-50%,-50%);'
+    'width:16px;height:16px;border-radius:50%;background:#16a34a;'
+    'border:3px solid #f4f5f7;box-shadow:0 0 0 2px #16a34a}'
+    '.ir-marker-lbl{position:absolute;bottom:calc(50% + 15px);transform:translateX(-50%);'
+    'font:800 11px/1 var(--body);color:#fff;white-space:nowrap;background:#16a34a;'
+    'border:1px solid #16a34a;padding:4px 9px;border-radius:4px}'
+    # --- slump panel ---
+    '.ir-slump-grid{max-width:1180px;margin:44px auto 0;padding:0 28px;'
+    'display:grid;grid-template-columns:1fr 1fr;gap:16px}'
+    '@media(max-width:760px){.ir-slump-grid{grid-template-columns:1fr}}'
+    '.ir-card{background:#fff;border:1px solid #e3e5e9;border-radius:8px;padding:20px 22px;'
+    'box-shadow:0 1px 2px rgba(16,24,40,.05)}'
+    '.ir-card h3{font:800 11px/1 var(--body);letter-spacing:1.4px;'
+    'text-transform:uppercase;color:#15803d;margin:0 0 14px}'
+    '.ir-mini{width:100%;border-collapse:collapse;font:600 13px/1.3 var(--mono,monospace)}'
+    '.ir-mini td,.ir-mini th{padding:7px 6px;text-align:right;border-bottom:1px solid #edeef1;'
+    'color:#3a3e45}'
+    '.ir-mini tr:last-child td{border-bottom:none}'
+    '.ir-mini th:first-child,.ir-mini td:first-child{text-align:left;font-family:var(--body)}'
+    '.ir-mini th{color:#8a9099;font-weight:700;font-size:10px;text-transform:uppercase}'
+    '.ir-bad{color:#dc2626}.ir-good{color:#16a34a}'
+    '.ir-card p{font:400 14px/1.6 var(--body);color:#454a52;margin:0 0 10px}'
+    '.ir-card p:last-child{margin-bottom:0}'
+    '.ir-card b{color:#16181c}'
+    '</style>'
+)
+
+
+def _ir_delta(grid, fin):
+    """Positions gained = grid - finish (positive = moved forward)."""
+    d = grid - fin
+    if d > 0:
+        return f'<span class="ir-gain">&#9650;{d}</span>'
+    if d < 0:
+        return f'<span class="ir-loss">&#9660;{abs(d)}</span>'
+    return '<span class="ir-flat">&mdash;</span>'
+
+
+_CUP_SVG = (
+    '<svg class="ir-cup" viewBox="0 0 576 512" aria-hidden="true">'
+    '<path d="M552 64H448V24c0-13.3-10.7-24-24-24H152c-13.3 0-24 10.7-24 24v40H24'
+    'C10.7 64 0 74.7 0 88v56c0 35.7 22.5 72.4 61.9 100.7 31.5 22.7 69.8 37.1 110 '
+    '41.7C203.3 338.5 240 360 240 360v72h-48c-35.3 0-64 28.7-64 64v8c0 4.4 3.6 8 '
+    '8 8h304c4.4 0 8-3.6 8-8v-8c0-35.3-28.7-64-64-64h-48v-72s36.7-21.5 68.1-73.6'
+    'c40.3-4.6 78.6-19 110-41.7 39.3-28.3 61.9-65 61.9-100.7V88c0-13.3-10.7-24-24-24z'
+    'M99.3 192.8C74.9 175.2 64 155.6 64 144v-16h64.2c1 32.6 5.8 61.2 12.8 86.2'
+    '-15.1-5.2-29.2-12.4-41.7-21.4zM512 144c0 16.1-17.7 36.1-35.3 48.8-12.5 9-26.7'
+    ' 16.2-41.8 21.4 7-25 11.8-53.6 12.8-86.2H512v16z"/>'
+    '</svg>'
+)
+
+
+def _ir_race_row(r):
+    date, sub, grid, fin, field, sof, inc, pts, drop, winner, sbest = r
+    cup = _CUP_SVG if fin == 1 else ''
+    pos_cls = 'ir-num ir-pos ir-pos-win' if fin == 1 else 'ir-num ir-pos'
+    return (
+        '<tr>'
+        f'<td class="ir-num">{escape(date)}</td>'
+        f'<td class="ir-num">P{grid}</td>'
+        f'<td class="{pos_cls}">P{fin}{cup}</td>'
+        f'<td class="ir-num">{_ir_delta(grid, fin)}</td>'
+        f'<td class="ir-num">{field}</td>'
+        f'<td class="ir-num">{sof}</td>'
+        f'<td class="ir-num">{inc}x</td>'
+        f'<td class="ir-num">{pts}</td>'
+        '</tr>'
+    )
+
+
+def render_iracing_page():
+    """iRacing official results, ingested from Pablo's search_results_official.json
+    export (iRacing /data/results/search_series). Positions are shown +1 because the
+    raw API is 0-based (finish 0 = win); lap times are decoded from ten-thousandths
+    of a second; the lap time on each row is the SESSION best (fastest by anyone in
+    that session), NOT Pablo's own lap — that field is not present in this export.
+    See [[iracing-data-api-json-format]]. cust_id 587563 = Pablo.
+    Source: search_results_official.json - series_id 557, season_id 6093, race_week 11."""
+
+    # (date UTC, subsession, grid, finish, field, SOF, incidents, champ_pts, drop?, winner, session_best)
+    races = [
+        ("Jun 3 · 19:15", 86239549, 8, 4, 17, 1189, 3, 59, True,  "Salvador Ortelli",       "2:38.831"),
+        ("Jun 4 · 18:15", 86263606, 4, 2, 19, 1215, 12, 71, False, "Gonzalo Martin Iriarte", "2:37.991"),
+        ("Jun 4 · 19:15", 86264814, 6, 4, 17, 1184, 3, 60, True,  "Jorn Zoontjens2",        "2:37.910"),
+        ("Jun 5 · 05:15", 86276430, 8, 7, 14, 1557, 4, 50, True,  "Seungin Park",           "2:36.104"),
+        ("Jun 5 · 06:15", 86277281, 4, 1, 11, 1054, 2, 63, False, "Pablo Suzarte (you)",    "2:39.681"),
+        ("Jun 5 · 07:15", 86278087, 4, 3, 16, 1345, 4, 71, False, "Maximilian Boström",     "2:37.077"),
+    ]
+    stats = [
+        ("iRating", "1,490", '<span class="ir-plus">+64</span> last race · peak ~1,800'),
+        ("Safety Rating", "2.99", "Class D · 0.01 from 3.00"),
+        ("Licence / Div", "D · D8", "road category"),
+        ("Last 2 races", "P1 · P3", '<span class="ir-plus">+138</span> iR · clean'),
+        ("Goal", "A · 3K", "the destination"),
+    ]
+    stats_html = "".join(
+        '<div class="ir-stat">'
+        f'<div class="ir-stat-k">{escape(k)}</div>'
+        f'<div class="ir-stat-v">{escape(v)}</div>'
+        f'<div class="ir-stat-s">{s}</div>'
+        '</div>'
+        for k, v, s in stats
+    )
+
+    # --- the climb bar: 1,000 floor -> 3,000 goal, current 1,352 ---
+    floor_ir, goal_ir, cur_ir = 1000, 3000, 1490
+    span = goal_ir - floor_ir
+
+    def _p(v):
+        return max(0.0, min(100.0, (v - floor_ir) / span * 100))
+
+    tick_vals = [1000, 1500, 2000, 2500, 3000]
+    ticks_html = "".join(
+        f'<div class="ir-tick" style="left:{_p(t):.1f}%"></div>'
+        f'<div class="ir-tick-lbl" style="left:{_p(t):.1f}%">{t:,}</div>'
+        for t in tick_vals
+    )
+    fill = _p(cur_ir)
+    bar_html = (
+        '<div class="ir-track">'
+        '<div class="ir-track-line">'
+        f'<div class="ir-track-fill" style="width:{fill:.1f}%"></div></div>'
+        f'{ticks_html}'
+        f'<div class="ir-marker" style="left:{fill:.1f}%"></div>'
+        f'<div class="ir-marker-lbl" style="left:{fill:.1f}%">1,490 &middot; you</div>'
+        '</div>'
+    )
+
+    # --- slump panel: yearly Sports Car (year, starts, wins, top5%, inc/race) ---
+    yearly = [
+        ("2024", "236", "19", "38.6", "6.49", False),
+        ("2025", "331", "19", "45.3", "5.53", False),
+        ("2026", "19", "0", "36.8", "7.95", True),
+    ]
+    yearly_rows = "".join(
+        '<tr>'
+        f'<td>{y}</td><td>{st}</td><td>{w}</td><td>{t5}</td>'
+        f'<td class="{"ir-bad" if bad else ""}">{inc}</td>'
+        '</tr>'
+        for y, st, w, t5, inc, bad in yearly
+    )
+
+    race_rows = "".join(_ir_race_row(r) for r in reversed(races))
+
+    return (
+        f'{_common_head("iRacing · Results")}'
+        f'{render_nav("iracing")}'
+        f'{render_ticker()}'
+        f'{_IRACING_CSS}'
+        '<div class="ir-wrap">'
+        '<div class="ir-herowrap">'
+        '<header class="ir-hero">'
+        '<div class="ir-kicker">iRacing · Road to Class A</div>'
+        '<h1 class="ir-title">The 3,000 Climb</h1>'
+        '<p class="ir-dek">From 1,490 to Class&nbsp;A &middot; 3,000 iR &mdash; '
+        'one clean rung at a time.</p>'
+        '</header>'
+        '</div>'
+        f'<div class="ir-stats">{stats_html}</div>'
+        # --- the climb (progress toward Class A / 3,000) ---
+        '<div class="ir-climb">'
+        '<div class="ir-climb-head">'
+        '<div class="ir-climb-title">The climb · 1,490 → 3,000</div>'
+        '<div class="ir-climb-sub">1,510 iR to go · <span class="ir-plus">+138 in 2 races</span></div>'
+        '</div>'
+        f'{bar_html}'
+        '</div>'
+        # --- races (latest first) ---
+        '<section class="ir-sec">'
+        '<h2 class="ir-h2">Races · latest first</h2>'
+        '<div class="ir-tblwrap"><table class="ir-tbl"><thead><tr>'
+        '<th>Date (UTC)</th><th>Grid</th><th>Finish</th><th>&Delta;</th>'
+        '<th>Field</th><th>SOF</th><th>Inc</th><th>Pts</th>'
+        '</tr></thead><tbody>'
+        f'{race_rows}'
+        '</tbody></table></div>'
+        '</section>'
+        # --- why the dip ---
+        '<section class="ir-sec"><h2 class="ir-h2">Why the dip — and the fix</h2></section>'
+        '<div class="ir-slump-grid">'
+        '<div class="ir-card">'
+        '<h3>Sports Car · by year</h3>'
+        '<table class="ir-mini"><thead><tr>'
+        '<th>Year</th><th>Starts</th><th>Wins</th><th>Top-5 %</th><th>Inc/race</th>'
+        '</tr></thead><tbody>'
+        f'{yearly_rows}'
+        '</tbody></table>'
+        '</div>'
+        '<div class="ir-card">'
+        '<h3>The read</h3>'
+        '<p><b>Pace isn&rsquo;t the problem</b> — you won 19 races in both 2024 '
+        'and 2025. At Spa your M2 PB is 2:39.681; the cars you raced Jun 5 ran '
+        '2:37.8–2:40.9. Driving to your own best already puts you on the podium.</p>'
+        '<p><b>Incidents are.</b> 2026 jumped to <b>7.95/race</b> — the highest in '
+        'years — while wins fell to zero and iRating slid from ~1,800 to 1,352. '
+        'Incidents cost positions now and risk the DNFs that gut iRating.</p>'
+        '<p><b>The fix is one habit:</b> get back to ~5.5 incidents/race. SR climbs '
+        'to 3.00, DNFs stop, and the iR rungs above start falling on their own.</p>'
+        '<p><b>Proof, Jun 5:</b> your 2-incident race won from P4 and paid +74 iR; '
+        'the &minus;70/&minus;77/&minus;94 of that same race all went to drivers '
+        'with 10–15 incidents. Clean = up. Messy = down.</p>'
+        '</div>'
+        '</div>'
+        '<div class="ir-notes">'
+        '<div class="ir-notes-h">How to read this</div>'
+        '<ul>'
+        '<li><b>Positions are shown +1.</b> The iRacing data API is 0-based '
+        '(<code>finish_position 0</code> = the winner), so every grid/finish here '
+        'has +1 applied. Verified from the export itself: a row with raw finish '
+        '<code>1</code> lists a different driver as winner.</li>'
+        '<li><b>Source:</b> <code>search_results_official.json</code> + per-race '
+        '<code>eventresult-*.json</code> files · series_id 557 · season_id 6093 · '
+        'race_week 11.</li>'
+        '</ul>'
+        '</div>'
+        '</div>'
+        '</body></html>'
+    )
+
+
 def render_story_page(story):
     """Render a long-form article page at /story/<id>."""
     blocks_html = "".join(_story_render_block(b) for b in story.get("blocks", []))
@@ -7874,6 +8824,9 @@ def render_story_page(story):
 def render_event_page(evt):
     """Per-event page — header + spotlight + grid + gallery."""
     tiles = [c for c in CONFIGS if c["id"] in evt["tiles"]]
+    # Count every wired challenge in the event (incl. the spotlight, which is
+    # pulled out of `tiles` below but is still a challenge) for the header stat.
+    total_count = len(tiles)
     gallery_html = _render_event_gallery(evt)
 
     spotlight_html = ""
@@ -7914,7 +8867,7 @@ def render_event_page(evt):
         f'<div class="evt-page-kicker">{escape(evt["kicker"])}</div>'
         f'<h1 class="evt-page-title">{escape(evt["label"])}</h1>'
         f'<p class="evt-page-sub">{escape(evt["subtitle"])}</p>'
-        f'<div class="evt-page-stat">{len(tiles)} challenge{"s" if len(tiles) != 1 else ""}</div>'
+        f'<div class="evt-page-stat">{total_count} challenge{"s" if total_count != 1 else ""}</div>'
         '</div>'
         '</header>'
         '<main style="max-width:1280px;margin:0 auto;padding:0 24px">'
@@ -8411,6 +9364,15 @@ def _challenge_pb_ms(cfg):
         last_ms = _parse_time_ms((last.get("summary") or {}).get("best_lap"))
         if last_ms:
             candidates.append(last_ms)
+
+    # HOTLAP: also fold in the snapshot-derived best (same source the Evolution
+    # table uses). The results index only holds the *latest* session, so a
+    # slower fresh lap would otherwise hide an earlier, faster PB.
+    if cfg.get("type") == "HOTLAP":
+        snap_mss = [s.get("best_lap_ms") for s in _load_hotlap_history_from_snapshots(cfg)]
+        snap_mss = [m for m in snap_mss if m]
+        if snap_mss:
+            candidates.append(min(snap_mss))
 
     return min(candidates) if candidates else None
 
@@ -9209,6 +10171,84 @@ def _render_choose_section(cfg, history=None):
         '<h2 class="cd-h2">Choose your seat</h2>'
         f'{h2h_bar_html}'
         f'<div class="ch-grid">{cards}</div>'
+        '</section>'
+    )
+
+
+def _render_driver_index_seats(cfg):
+    """Driver-picker grid for DRIVER_INDEX tiles: one card per launcher, all on
+    the same car (different livery/driver). Card = team accent band, race
+    number, driver name, team, and a launch button. Used by the 'hotlap any
+    2025 F1 driver' index — distinct from the N24 GRID_HOTLAP (one card per car)
+    and from the duel 'Choose your seat' (head-to-head framing)."""
+    launchers = cfg.get("launchers") or []
+    if not launchers:
+        return ""
+    cards = ""
+    for lc in launchers:
+        name = lc.get("driver") or (lc.get("drivers") or [""])[0] or lc.get("label", "")
+        number = lc.get("number", "")
+        team = (lc.get("team") or "").split(" · ")[0]
+        accent = lc.get("color", "#64748B")
+        # _render_pilot_btn reads `driver` (singular); our launchers carry the
+        # name in `drivers[0]`, so pass a shallow copy with `driver` filled in.
+        btn = _render_pilot_btn(cfg, {**lc, "driver": name}, cta_label="HOT LAP")
+        num_html = f'<span class="di-num mono">#{escape(number)}</span>' if number else ""
+        cards += (
+            f'<article class="di-card" style="--accent:{escape(accent)}">'
+            f'<div class="di-card-head">'
+            f'{num_html}'
+            f'<div class="di-id">'
+            f'<span class="di-name">{escape(name)}</span>'
+            f'<span class="di-team">{escape(team)}</span>'
+            f'</div>'
+            f'</div>'
+            f'{btn}'
+            f'</article>'
+        )
+    css = """
+<style>
+  .di-section .di-sub {
+    font: 400 15px/1.5 var(--n24-sans, system-ui, sans-serif);
+    color: #475569; margin: -4px 0 20px; max-width: 640px;
+  }
+  .di-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .di-card {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-top: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 16px 16px 14px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .di-card-head { display: flex; align-items: baseline; gap: 12px; }
+  .di-num {
+    font: 700 22px/1 var(--n24-mono, ui-monospace, monospace);
+    color: var(--accent); letter-spacing: -0.02em; min-width: 2.2ch;
+  }
+  .di-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .di-name {
+    font: 700 16px/1.15 var(--n24-sans, system-ui, sans-serif);
+    color: #0F172A;
+  }
+  .di-team {
+    font: 500 11px/1.2 var(--n24-mono, ui-monospace, monospace);
+    letter-spacing: 0.06em; text-transform: uppercase; color: #64748B;
+  }
+  .di-card .btn-pilot { width: 100%; }
+</style>
+"""
+    return (
+        '<section class="cd-section di-section">'
+        '<h2 class="cd-h2">Choose your driver</h2>'
+        '<p class="di-sub">The full 2025 Formula 1 grid — twenty drivers, ten '
+        'teams, one car. Pick anyone and take a flying lap.</p>'
+        + css +
+        f'<div class="di-grid">{cards}</div>'
         '</section>'
     )
 
@@ -10182,8 +11222,21 @@ def render_challenge_page(cfg):
             rms = _parse_time_ms(ref["time"])
             gap = (pb_ms - rms) if (pb_ms and rms) else None
             gap_cls = _gap_class(gap)
+            # Optional rival/pole-holder face — shown only when the ref carries a
+            # portrait that exists on disk (e.g. Norris on the Monaco pole).
+            rp = ref.get("portrait")
+            face_html = ""
+            if rp and (IMAGES_DIR / rp).exists():
+                face_html = (
+                    f'<img class="cd-time-face" src="/images/{escape(rp)}" '
+                    f'alt="{escape(ref["label"])}" '
+                    'style="width:40px;height:40px;border-radius:50%;object-fit:cover;'
+                    'object-position:center top;border:1px solid rgba(255,255,255,0.25);'
+                    'margin-bottom:6px;display:block">'
+                )
             ref_cards += (
                 f'<div class="cd-time cd-time-ref">'
+                f'{face_html}'
                 f'<div class="cd-time-lbl">{escape(ref["label"])}</div>'
                 f'<div class="cd-time-val mono">{_fmt_ms(rms)}</div>'
                 f'<div class="cd-time-gap {gap_cls} mono">{_fmt_gap(gap)}</div>'
@@ -10220,17 +11273,23 @@ def render_challenge_page(cfg):
 
     # Per-skin history → enriched perspectives + head-to-head tally
     is_grid_hotlap = cfg.get("format") == "GRID_HOTLAP"
-    duel_history = _load_duel_history(cfg) if (cfg.get("launchers") and not is_grid_hotlap) else {}
-    drivers_html = _render_drivers_section(cfg) if (cfg.get("launchers") and not is_grid_hotlap) else ""
-    cars_html = _render_cars_section(cfg) if (cfg.get("launchers") and not is_grid_hotlap) else ""
+    is_driver_index = cfg.get("format") == "DRIVER_INDEX"
+    # Duel-flavoured sections (driver profiles, head-to-head, car compare) only
+    # apply to true 2-driver duels — never to the N24 grid or the driver index.
+    _duel_ok = bool(cfg.get("launchers")) and not is_grid_hotlap and not is_driver_index
+    duel_history = _load_duel_history(cfg) if _duel_ok else {}
+    drivers_html = _render_drivers_section(cfg) if _duel_ok else ""
+    cars_html = _render_cars_section(cfg) if _duel_ok else ""
     if is_grid_hotlap:
         choose_html = _render_grid_hotlap_seats(cfg)
+    elif is_driver_index:
+        choose_html = _render_driver_index_seats(cfg)
     elif cfg.get("launchers"):
         choose_html = _render_choose_section(cfg, duel_history)
     else:
         choose_html = ""
-    h2h_html = _render_h2h(cfg, duel_history) if (cfg.get("launchers") and not is_grid_hotlap) else ""
-    track_dna_html = _render_track_dna(cfg) if (cfg.get("launchers") and not is_grid_hotlap) else ""
+    h2h_html = _render_h2h(cfg, duel_history) if _duel_ok else ""
+    track_dna_html = _render_track_dna(cfg) if _duel_ok else ""
 
     # Hero launch CTA(s) — pilot-portrait buttons (one per launcher), else fallback LAUNCH
     launchers = cfg.get("launchers")
@@ -10328,9 +11387,12 @@ def render_challenge_page(cfg):
         # Grid-hotlap hero: single column with twin stat panels (TARGET + CIRCUIT)
         # in one shared shell. The standalone right-rail track card and the
         # editorial italic blurb both clash with that — both are suppressed.
-        hero_class = "cd-hero-v2 cd-hero-v2--grid" if is_grid_hotlap else "cd-hero-v2"
-        right_rail = "" if is_grid_hotlap else track_thumb
-        hero_stats_html = _render_grid_hotlap_hero_stats(cfg) if is_grid_hotlap else ""
+        # DRIVER_INDEX hotlaps (Montreal "pick a driver") use the same stat
+        # strip so the target lap shows on the hero, not just in the blurb.
+        show_hero_stats = is_grid_hotlap or cfg.get("format") == "DRIVER_INDEX"
+        hero_class = "cd-hero-v2 cd-hero-v2--grid" if show_hero_stats else "cd-hero-v2"
+        right_rail = "" if show_hero_stats else track_thumb
+        hero_stats_html = _render_grid_hotlap_hero_stats(cfg) if show_hero_stats else ""
         # ONE-UNIT cinematic hero — photo + overlay + title + meta stats
         # all in a single composition. No separate sections below.
         hero_html = (
@@ -11043,8 +12105,23 @@ def _render_hotlap_poster_hero(cfg, hero_img, refs):
         else:
             holder = target_label_raw.upper()
             ctx = ""
+        # Optional pole-holder / rival face — mirrors the driver chip on the
+        # left. Shown only when the ref carries a portrait that exists on disk
+        # (e.g. Lando Norris on the Monaco pole).
+        ref_portrait = ref.get("portrait")
+        if ref_portrait and (IMAGES_DIR / ref_portrait).exists():
+            target_chip = (
+                '<div class="hl-driver-chip">'
+                f'<img class="hl-driver-chip-img" src="/images/{escape(ref_portrait)}" '
+                f'alt="{escape(holder)}">'
+                f'<div class="hl-driver-chip-name">{escape(holder)}</div>'
+                '</div>'
+            )
+        else:
+            target_chip = ""
         target_side = (
             '<div class="hl-side hl-side-target">'
+            f'{target_chip}'
             '<div class="hl-time-lbl">Target</div>'
             f'<div class="hl-time-num mono">{escape(target_time)}</div>'
             f'<div class="hl-time-holder">{escape(holder)}</div>'
@@ -11456,6 +12533,32 @@ TRACK_LORE = {
             ("Döttinger Höhe",   "~2 km flat-out — the only place to rest"),
         ],
     },
+    "monaco_2020-monaco_f1_2025": {
+        "headline": "The Principality — F1 2025 layout",
+        "summary": (
+            "Circuit de Monaco: 3.337 km of street circuit threaded between the "
+            "harbour and the hills of Monte Carlo. Nineteen corners, almost no "
+            "run-off, the barrier a hand's width off every apex. The slowest and "
+            "most precise track on the calendar — a qualifying lap here is the "
+            "purest test of nerve in motorsport, where the time comes from how "
+            "close you dare to run to the wall, not from raw downforce."
+        ),
+        "facts": [
+            ("LENGTH",    "3.337 km"),
+            ("CORNERS",   "19"),
+            ("RUN",       "Clockwise"),
+            ("F1 SINCE",  "1950"),
+            ("PIT BOXES", "30"),
+        ],
+        "sections": [
+            ("Sainte-Dévote",        "Tight right off the straight — stop it, rotate it, get back to power for the climb"),
+            ("Beau Rivage → Casino", "Blind uphill flick to the crest at Casino Square — commit before you can see the exit"),
+            ("Fairmont Hairpin",     "Slowest corner in F1 — ~48 km/h on full lock, second gear, patience"),
+            ("The Tunnel",           "Flat-out right in the dark at ~280 km/h — eyes adjust, then daylight and heavy braking"),
+            ("Nouvelle Chicane",     "Hardest braking on the lap, straight out of the tunnel — easy to lock and run wide"),
+            ("Swimming Pool → Rascasse", "Flick-flack between the barriers, then the slow final complex onto the straight"),
+        ],
+    },
 }
 
 
@@ -11549,9 +12652,62 @@ def _load_hotlap_history_from_snapshots(cfg):
     return out
 
 
-def _render_hotlap_evolution_table(history, target_ms, target_label):
+def _load_hotlap_laps_for_tile(cfg):
+    """Return the individual laps of the player's BEST session as evolution
+    entries (oldest→newest = lap order). Lets the Evolution table show the
+    within-session 'climb' lap-by-lap rather than one row per session.
+    Opt-in per tile via cfg['evolution_mode'] == 'laps'."""
+    if cfg.get("type") != "HOTLAP":
+        return []
+    car   = cfg.get("ac_car_id")
+    track = f"{cfg.get('ac_track_id','')}-{cfg.get('ac_track_layout','')}"
+    if not car or track == "-":
+        return []
+    snaps_dir = AC_DOC / "dashboard" / "results" / "snapshots"
+    if not snaps_dir.exists():
+        return []
+    best_laps = None
+    best_min  = None
+    for f in sorted(snaps_dir.glob("*.json")):
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if d.get("track") != track:
+            continue
+        players = d.get("players") or []
+        if not players or players[0].get("car") != car:
+            continue
+        sessions = d.get("sessions") or []
+        if not sessions or sessions[0].get("type") != 4:
+            continue
+        laps = sessions[0].get("laps") or []
+        valid = [l for l in laps if l.get("car") == 0 and not l.get("cuts") and l.get("time")]
+        if not valid:
+            continue
+        smin = min(l["time"] for l in valid)
+        if best_min is None or smin < best_min:
+            best_min  = smin
+            best_laps = valid
+    if not best_laps:
+        return []
+    entries = []
+    for i, l in enumerate(best_laps):
+        tyre = l.get("tyre") or ""
+        entries.append({
+            "best_lap_ms": l.get("time"),
+            "sectors":     l.get("sectors") or [],
+            "row_label":   f"Lap {i + 1}" + (f" · {tyre}" if tyre else ""),
+        })
+    return entries
+
+
+def _render_hotlap_evolution_table(history, target_ms, target_label, unit="session"):
     """Chronological hotlap-evolution table with sector deltas + gap-to-target.
-    PB lap is gold-highlighted; sector-best cells purple (sim-racing convention)."""
+    PB lap is gold-highlighted; sector-best cells purple (sim-racing convention).
+    unit='session' → one row per session (uses each entry's `ts`).
+    unit='lap'     → one row per lap (uses each entry's `row_label`); the gap
+    column is dropped when there's no target."""
     if not history:
         return ""
 
@@ -11610,16 +12766,21 @@ def _render_hotlap_evolution_table(history, target_ms, target_label):
         pb_cls = " is-pb" if is_pb else ""
         pb_marker = ' <span class="cd-tbl-pb-mark">★</span>' if is_pb else ""
 
+        col2 = s.get("row_label") or ts_disp
+        gap_cell = (
+            f'<td class="cd-tbl-gap mono {_gap_class(gap_target)}">'
+            f'{_fmt_gap(gap_target) if gap_target is not None else "—"}</td>'
+        ) if target_ms else ""
+
         rows.append(
             '<tr>'
             f'<td class="cd-tbl-num mono">#{i + 1}</td>'
-            f'<td class="cd-tbl-date mono">{escape(ts_disp)}</td>'
+            f'<td class="cd-tbl-date mono">{escape(col2)}</td>'
             f'<td class="cd-tbl-pb mono{pb_cls}">{_fmt_ms(lap_ms) if lap_ms else "—"}{pb_marker}</td>'
             f'<td class="cd-tbl-delta mono {_gap_class(delta_lap)}">'
             f'{_fmt_gap(delta_lap) if delta_lap is not None else "—"}</td>'
             + "".join(sector_cells) +
-            f'<td class="cd-tbl-gap mono {_gap_class(gap_target)}">'
-            f'{_fmt_gap(gap_target) if gap_target is not None else "—"}</td>'
+            gap_cell +
             '</tr>'
         )
         if lap_ms:
@@ -11649,12 +12810,14 @@ def _render_hotlap_evolution_table(history, target_ms, target_label):
         progress_chip = (
             f'<div class="cd-evo-target"><span class="cd-evo-target-lbl">Improved</span>'
             f'<span class="cd-evo-target-val mono is-under">{_fmt_gap(-gained)}</span>'
-            f'<span class="cd-evo-target-sub">since session #1</span></div>'
+            f'<span class="cd-evo-target-sub">{"since lap 1" if unit == "lap" else "since session #1"}</span></div>'
         )
+    count_lbl = "Laps" if unit == "lap" else "Sessions"
+    count_sub = "in this session" if unit == "lap" else "valid laps logged"
     sessions_chip = (
-        f'<div class="cd-evo-target"><span class="cd-evo-target-lbl">Sessions</span>'
+        f'<div class="cd-evo-target"><span class="cd-evo-target-lbl">{count_lbl}</span>'
         f'<span class="cd-evo-target-val mono">{len(history)}</span>'
-        f'<span class="cd-evo-target-sub">valid laps logged</span></div>'
+        f'<span class="cd-evo-target-sub">{count_sub}</span></div>'
     )
     gap_chip = ""
     if target_ms and pb_ms:
@@ -11673,9 +12836,9 @@ def _render_hotlap_evolution_table(history, target_ms, target_label):
         '</div>'
         '<div class="cd-evo-tbl-wrap">'
         '<table class="cd-tbl cd-tbl-evo"><thead><tr>'
-        '<th>#</th><th>Session</th><th>Lap time</th><th>Δ vs prev</th>'
+        f'<th>#</th><th>{"Lap" if unit == "lap" else "Session"}</th><th>Lap time</th><th>Δ vs prev</th>'
         '<th>Sector 1</th><th>Sector 2</th><th>Sector 3</th>'
-        '<th>Gap to target</th>'
+        + ('<th>Gap to target</th>' if target_ms else '') +
         '</tr></thead>'
         f'<tbody>{"".join(rows)}</tbody></table>'
         '</div>'
@@ -11698,8 +12861,16 @@ def _render_challenge_story(cfg, pb_ms, refs):
     # session), so prefer it — that's where a freshly-set PB shows up. The
     # curated `you_history` file is only a fallback for tiles with no snapshots.
     if cfg.get("type") == "HOTLAP":
-        snap_history = _load_hotlap_history_from_snapshots(cfg)
         target_label = refs[0]["label"] if refs else ""
+        # Opt-in lap-by-lap "climb": show the individual laps of the best
+        # session, each compared to the previous lap, with total gain since
+        # lap 1. Falls back to per-session view if the best session has <2 laps.
+        if cfg.get("evolution_mode") == "laps":
+            lap_history = _load_hotlap_laps_for_tile(cfg)
+            if len(lap_history) >= 2:
+                return _render_hotlap_evolution_table(
+                    lap_history, primary_ref_ms, target_label, unit="lap")
+        snap_history = _load_hotlap_history_from_snapshots(cfg)
         if snap_history:
             return _render_hotlap_evolution_table(snap_history, primary_ref_ms, target_label)
         if kind == "hotlap" and history:
@@ -11821,6 +12992,56 @@ def _to_windows_path(p: Path) -> str:
     return s.replace("/", "\\")
 
 
+def _reset_combo_state(cfg):
+    """Wipe the stale ghost recording + personal-best entry for a tile's
+    car@track combo so the sim starts fresh each launch.
+
+    Driven by the optional cfg['reset_on_launch'] dict:
+        {'ghost_glob': '<glob under AC_DOC>', 'pb_section': '<CAR@TRACK-LAYOUT>'}
+
+    Best-effort: any failure is logged and swallowed so a wipe problem never
+    blocks the launch itself. AC reads personalbest.ini + the ghost file at
+    session load, so wiping here (before the .cmd fires acs.exe) is in time.
+    """
+    spec = cfg.get("reset_on_launch")
+    if not spec:
+        return
+    # 1. Delete stale ghost recordings — glob catches .ghost and its .tmp.
+    glob_pat = spec.get("ghost_glob")
+    if glob_pat:
+        for p in AC_DOC.glob(glob_pat):
+            try:
+                p.unlink()
+                sys.stderr.write(f"[launch-bay] reset: removed ghost {p.name}\n")
+            except OSError as e:
+                sys.stderr.write(
+                    f"[launch-bay] reset: ghost unlink failed {p.name}: {e}\n")
+    # 2. Strip the personalbest.ini section so AC shows a blank PB.
+    section = spec.get("pb_section")
+    pb_path = AC_DOC / "personalbest.ini"
+    if section and pb_path.exists():
+        try:
+            header = f"[{section}]"
+            out, skipping = [], False
+            for line in pb_path.read_text(
+                    encoding="utf-8", errors="replace").splitlines(keepends=True):
+                stripped = line.strip()
+                if stripped == header:
+                    skipping = True          # drop this header
+                    continue
+                if skipping:
+                    if stripped.startswith("[") and stripped.endswith("]"):
+                        skipping = False     # next section — keep it
+                        out.append(line)
+                    # else: a key line inside the removed section — drop it
+                    continue
+                out.append(line)
+            pb_path.write_text("".join(out), encoding="utf-8")
+            sys.stderr.write(f"[launch-bay] reset: cleared PB section {header}\n")
+        except OSError as e:
+            sys.stderr.write(f"[launch-bay] reset: PB strip failed: {e}\n")
+
+
 def launch_cmd(cfg_id: str, cmd_name: str = ""):
     cfg = next((c for c in CONFIGS if c["id"] == cfg_id), None)
     if not cfg:
@@ -11843,6 +13064,8 @@ def launch_cmd(cfg_id: str, cmd_name: str = ""):
     cmd_path = AC_DOC / chosen
     if not cmd_path.exists():
         return False, f"launcher not found: {cmd_path.name}"
+    # Optional fresh-start wipe (ghost + PB) before the sim launches.
+    _reset_combo_state(cfg)
     win_path = _to_windows_path(cmd_path)
     win_dir = _to_windows_path(AC_DOC)
     # PowerShell Start-Process is the WSL→Windows path that works for Pablo.
@@ -11961,6 +13184,9 @@ class Handler(BaseHTTPRequestHandler):
             return
         if u.path == "/nurburgring-24h":
             self._html(render_nurburgring_page())
+            return
+        if u.path == "/iracing":
+            self._html(render_iracing_page())
             return
         if u.path.startswith("/event/"):
             eid = u.path[len("/event/"):].strip("/")
