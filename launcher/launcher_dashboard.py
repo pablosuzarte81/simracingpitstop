@@ -9,6 +9,7 @@ Run:  wsl python3 launcher_dashboard.py    # serves on http://localhost:8765/
 Or:   LAUNCH_BAY.cmd                       # one-click entrypoint
 """
 
+import gzip
 import json
 import os
 import re
@@ -114,8 +115,8 @@ SERIES = [
     },
     {
         "id":    "LE_MANS_FAST",
-        "label": "FASTEST CARS · LE MANS",
-        "deck":  "Four hotlaps for the fastest machines in the garage, each turned loose on the 24h_2025 layout of the Sarthe. The 1200 bhp Porsche 917/30 that killed Can-Am. A Reiter-tuner Gallardo on the same straight. A turbo-era F1 car at 0.51 kg/hp. And an IndyCar oval-spec entry that has no business being there. No historic refs — write the bar.",
+        "label": "LE MANS 2026 · HYPERCAR + LMGT3",
+        "deck":  "The 2026 Le Mans grid split by class on the 24h_2026 Sarthe. HYPERCAR: Porsche 963, BMW M Hybrid V8, Cadillac V-Series.R, Lamborghini SC63. LMGT3: Porsche 911 GT3 R, Ferrari 488 GT3, BMW M3 GT3 EVO, Lamborghini Huracán GT3, Mercedes-AMG GT3. Plus the RSS Formula 1986 V6 as the what-if wildcard. No invented lap times — set the bar yourself.",
     },
 ]
 
@@ -193,6 +194,33 @@ EVENTS = [
         },
         "tiles": [
             "hotlap_monaco_2026",
+            "race_monaco_2026",
+            "hotlap_monaco_f2004",
+            "hotlap_monaco_jordan",
+            "hotlap_monaco_senna",
+        ],
+    },
+    {
+        "id":       "barcelona_2026",
+        "label":    "FORMULA 1 · SPANISH GP",
+        "kicker":   "F1 2026 · Circuit de Barcelona-Catalunya",
+        "subtitle": "MSC Cruises Gran Premio de España 2026 · Montmeló · 4.657 km",
+        "color_a":  "#0a1413",
+        "color_b":  "#00A19C",
+        "image":    "hotlap_barcelona_2026.jpg",
+        # Spotlight the pole-chase hotlap — Antonelli took pole here, drive his W16.
+        "spotlight": {
+            "tile_id": "hotlap_barcelona_2026",
+            "kicker":  "POLE CHASE · SPOTLIGHT",
+            "lede":    (
+                "Kimi Antonelli put the Mercedes-AMG W16 on pole at Barcelona — "
+                "the circuit every F1 driver knows better than their own street. "
+                "Drive his car, ghost on, and chase the pole lap."
+            ),
+        },
+        "tiles": [
+            "hotlap_barcelona_2026",
+            "race_barcelona_2026",
         ],
     },
     {
@@ -211,15 +239,52 @@ EVENTS = [
         "id":       "lemans_2026",
         "label":    "LE MANS 24H 2026",
         "kicker":   "FIA WEC · Circuit de la Sarthe",
-        "subtitle": "Sat 13 → Sun 14 June 2026 · 13.626 km · 24h_2025 layout",
+        "subtitle": "Sat 13 → Sun 14 June 2026 · 13.626 km · 24h_2026 layout",
         "color_a":  "#0c2a18",
         "color_b":  "#facc15",
         "image":    "lemans_2026.jpg",
+        # Tiles grouped by race class. When an event defines `groups`, the page
+        # renders one labelled section per class instead of a single flat grid.
+        # `tiles` (flat list) is kept in sync for the header count + fallback.
         "tiles": [
-            "hotlap_lemans_porsche_91730",
-            "hotlap_lemans_gallardo_sl",
+            "hotlap_lemans_porsche_963",
+            "hotlap_lemans_bmw_mhybrid",
+            "hotlap_lemans_cadillac",
+            "hotlap_lemans_lambo_sc63",
+            "hotlap_lemans_porsche_gt3r",
+            "hotlap_lemans_ferrari_488",
+            "hotlap_lemans_bmw_m3",
+            "hotlap_lemans_huracan",
+            "hotlap_lemans_amg_gt3",
             "hotlap_lemans_rss_1986",
-            "hotlap_lemans_vrc_oval",
+        ],
+        "groups": [
+            {
+                "label":  "HYPERCAR",
+                "kicker": "Top class · LMDh + LMH",
+                "tiles": [
+                    "hotlap_lemans_porsche_963",
+                    "hotlap_lemans_bmw_mhybrid",
+                    "hotlap_lemans_cadillac",
+                    "hotlap_lemans_lambo_sc63",
+                ],
+            },
+            {
+                "label":  "LMGT3",
+                "kicker": "GT3 class · five marques",
+                "tiles": [
+                    "hotlap_lemans_porsche_gt3r",
+                    "hotlap_lemans_ferrari_488",
+                    "hotlap_lemans_bmw_m3",
+                    "hotlap_lemans_huracan",
+                    "hotlap_lemans_amg_gt3",
+                ],
+            },
+            {
+                "label":  "WILDCARD",
+                "kicker": "What-if · not a real class",
+                "tiles": ["hotlap_lemans_rss_1986"],
+            },
         ],
     },
     {
@@ -2215,37 +2280,32 @@ CONFIGS = [
     # -----------------------------------------------------------------------
     # FASTEST CARS · LE MANS
     # Four hotlaps for the fastest machines in the garage, each turned loose
-    # on the 24h_2025 layout of the Sarthe. Two real cars, one fictional, one
+    # on the 24h_2026 layout of the Sarthe. Two real cars, one fictional, one
     # IndyCar oval-spec for the meme. No historic refs — write the bar.
     # -----------------------------------------------------------------------
     {
-        "id": "hotlap_lemans_porsche_91730",
+        "id": "hotlap_lemans_porsche_963",
         "type": "HOTLAP",
         "series": "LE_MANS_FAST",
-        "tag": "CAN-AM ON THE SARTHE",
-        "title": "PORSCHE 917/30 · LE MANS",
-        "subtitle": "1200 bhp · 800 kg · twin-turbo flat-12",
-        "kicker": "WHAT IF · 1973 CAN-AM ON LM",
+        "tag": "LMDh HYPERCAR · LE MANS 2026",
+        "title": "PORSCHE 963 · LE MANS",
+        "subtitle": "LMDh Hypercar · twin-turbo V8 hybrid",
+        "kicker": "FIA WEC HYPERCAR · CIRCUIT DE LA SARTHE",
         "lede": (
-            "Mark Donohue's 917/30 never raced Le Mans — it was built to "
-            "obliterate Can-Am, which it did so completely they banned it. "
-            "1200 bhp, 800 kg, two turbos hanging off a flat-12. Now bolted "
-            "onto the 13.6 km Sarthe. No reference exists. Write it."
+            "The Porsche 963 is the LMDh that carries Porsche Penske Motorsport into the "
+            "2026 24 Hours — a twin-turbo V8 from the RS Spyder bloodline with the spec "
+            "LMDh hybrid. Built to run flat-out for a day and a night. Now turned loose "
+            "for a single lap of the 13.6 km Sarthe."
         ),
-        "hero_blurb": "The car that killed Can-Am, loose on the Mulsanne.",
+        "hero_blurb": "Penske's LMDh, alone on the Mulsanne.",
         "scenario": (
-            "Solo against the clock on the 24h_2025 layout. Mulsanne now has "
-            "two chicanes the 917/30 never knew. The Porsche curves were a "
-            "campsite when this car was new. You have the most aggressive "
-            "Can-Am car ever built — turbo lag the size of a swimming pool, "
-            "no aero downforce by modern standards, brakes from another era. "
-            "Don't lift early on Mulsanne."
+            "Solo against the clock on the 24h_2026 layout. Hypercar downforce, hybrid deployment out of the slow corners, and the two Mulsanne chicanes to manage. Brake late, get the hybrid back on exit, and carry everything you dare through the Porsche Curves."
         ),
-        "goal": "Set the bar. There isn't one.",
+        "goal": "Set a clean Hypercar benchmark. Then beat it.",
         "setup": {
-            "trim":     "Default · low-DF Can-Am",
-            "priority": "Manage turbo spool out of slow corners",
-            "key":      "Default setup · 40L fuel · soft compound",
+            "trim":     "Default · BoP Hypercar trim",
+            "priority": "Hybrid deployment + high-speed stability",
+            "key":      "Default BoP setup · garage open · medium compound",
         },
         "benchmarks": {
             "refs": [
@@ -2253,79 +2313,176 @@ CONFIGS = [
             ],
         },
         "specs": {
-            "CAR":   "PORSCHE 917/30 SPYDER · 1973",
-            "TRACK": "Le Mans · 24h 2025 layout",
-            "GRID":  "Solo · ghost on",
-            "LAPS":  "Open · hotlap mode",
-        },
-        "color_a": "#1a1a1a",
-        "color_b": "#c8102e",
-        "track_label": "LE MANS",
-        "launcher": "launch_hotlap_lemans_porsche_91730.cmd",
-        "launchers": [
-            {"label": "BE DONOHUE", "logo": "porsche",
-             "cmd": "launch_hotlap_lemans_porsche_91730.cmd",
-             "driver": "MARK DONOHUE", "number": "6",
-             "team": "Penske Racing"},
-        ],
-        "dashboard_rel": None,
-        "ac_car_id": "ks_porsche_917_30",
-        "ac_car_skin": "00_chassis_002_racing",
-        "ac_track_id": "sx_lemans",
-        "ac_track_layout": "24h_2025",
-    },
-    {
-        "id": "hotlap_lemans_gallardo_sl",
-        "type": "HOTLAP",
-        "series": "LE_MANS_FAST",
-        "tag": "TUNER MONSTER",
-        "title": "GALLARDO SL S3 · LE MANS",
-        "subtitle": "1200 bhp · 1390 kg · twin-turbo V10 build",
-        "kicker": "TUNER · 1200 BHP STREET CAR",
-        "lede": (
-            "Reiter-style Step3 Gallardo. Twin turbos on the V10. 1200 bhp "
-            "with the wick turned up. Not legal anywhere serious — perfect "
-            "for an empty 13.6 km loop at three in the morning."
-        ),
-        "hero_blurb": "Italy's loudest tuner build, alone on the Sarthe.",
-        "scenario": (
-            "One driver, one Gallardo SL Step3, one shot at the Mulsanne "
-            "straight. The car is heavier than the 917/30 by 600 kg and has "
-            "modern brakes — that's the trade. Real downforce. Real grip. "
-            "Real chance of losing it on the kerbs at Tertre Rouge."
-        ),
-        "goal": "Use all the power. Keep it on the grey.",
-        "setup": {
-            "trim":     "Default · low-drag tune",
-            "priority": "Top-end on Mulsanne, not corner-exit traction",
-            "key":      "Default setup · 50L fuel · medium compound",
-        },
-        "benchmarks": {
-            "refs": [
-                {"label": "No historic ref", "time": "—"},
-            ],
-        },
-        "specs": {
-            "CAR":   "LAMBORGHINI GALLARDO SL STEP3",
-            "TRACK": "Le Mans · 24h 2025 layout",
+            "CAR":   "PORSCHE 963 · LMDh HYPERCAR",
+            "TRACK": "Le Mans · 24h 2026 layout",
             "GRID":  "Solo · ghost on",
             "LAPS":  "Open · hotlap mode",
         },
         "color_a": "#0a0a0a",
-        "color_b": "#f97316",
+        "color_b": "#cf1020",
         "track_label": "LE MANS",
-        "launcher": "launch_hotlap_lemans_gallardo_sl.cmd",
+        "launcher": "launch_hotlap_lemans_porsche_963.cmd",
         "launchers": [
-            {"label": "DRIVE IT", "logo": "lamborghini",
-             "cmd": "launch_hotlap_lemans_gallardo_sl.cmd",
-             "driver": "PRIVATE TEST", "number": "—",
-             "team": "Reiter Engineering (tuned)"},
+            {"label": "DRIVE IT", "logo": "porsche",
+             "cmd": "launch_hotlap_lemans_porsche_963.cmd",
+             "driver": "PABLO SUZARTE", "number": "6",
+             "team": "Porsche Penske Motorsport"},
         ],
         "dashboard_rel": None,
-        "ac_car_id": "ks_lamborghini_gallardo_sl_s3",
-        "ac_car_skin": "striped_black_orange",
+        "ac_car_id": "rss_mph_protech_p96_v8",
+        "ac_car_skin": "04_protech_endurance_65",
         "ac_track_id": "sx_lemans",
-        "ac_track_layout": "24h_2025",
+        "ac_track_layout": "24h_2026",
+    },
+    {
+        "id": "hotlap_lemans_bmw_mhybrid",
+        "type": "HOTLAP",
+        "series": "LE_MANS_FAST",
+        "tag": "LMDh HYPERCAR · LE MANS 2026",
+        "title": "BMW M HYBRID V8 · LE MANS",
+        "subtitle": "LMDh Hypercar · twin-turbo V8 hybrid",
+        "kicker": "FIA WEC HYPERCAR · CIRCUIT DE LA SARTHE",
+        "lede": (
+            "BMW's return to the top class. The M Hybrid V8 put BMW M Team WRT back on "
+            "the Le Mans grid — a twin-turbo V8 with the spec LMDh hybrid, run by WRT in "
+            "M colours, built for the 2026 Hypercar fight."
+        ),
+        "hero_blurb": "BMW M back in the top class, on the Sarthe.",
+        "scenario": (
+            "Solo on the 24h_2026 layout. The M Hybrid V8 makes its time in the high-speed sections — trust the front end through the Porsche Curves and Indianapolis, manage the hybrid down the long straights."
+        ),
+        "goal": "Find the limit of BMW's Hypercar. Hold it.",
+        "setup": {
+            "trim":     "Default · BoP Hypercar trim",
+            "priority": "Hybrid deployment + high-speed stability",
+            "key":      "Default BoP setup · garage open · medium compound",
+        },
+        "benchmarks": {
+            "refs": [
+                {"label": "No historic ref", "time": "—"},
+            ],
+        },
+        "specs": {
+            "CAR":   "BMW M HYBRID V8 · LMDh HYPERCAR",
+            "TRACK": "Le Mans · 24h 2026 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0a0a",
+        "color_b": "#2e86c1",
+        "track_label": "LE MANS",
+        "launcher": "launch_hotlap_lemans_bmw_mhybrid.cmd",
+        "launchers": [
+            {"label": "DRIVE IT", "logo": "bmw",
+             "cmd": "launch_hotlap_lemans_bmw_mhybrid.cmd",
+             "driver": "PABLO SUZARTE", "number": "15",
+             "team": "BMW M Team WRT"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "rss_mph_bayer_hybrid_v8",
+        "ac_car_skin": "01_hybrid_red",
+        "ac_track_id": "sx_lemans",
+        "ac_track_layout": "24h_2026",
+    },
+    {
+        "id": "hotlap_lemans_cadillac",
+        "type": "HOTLAP",
+        "series": "LE_MANS_FAST",
+        "tag": "LMDh HYPERCAR · LE MANS 2026",
+        "title": "CADILLAC V-SERIES.R · LE MANS",
+        "subtitle": "LMDh Hypercar · naturally-aspirated V8 hybrid",
+        "kicker": "FIA WEC HYPERCAR · CIRCUIT DE LA SARTHE",
+        "lede": (
+            "The loudest car in the Hypercar class. Cadillac's V-Series.R runs a "
+            "naturally-aspirated V8 — no turbos, just a howling motor and the spec LMDh "
+            "hybrid. Run by Hertz Team JOTA, it sounds like nothing else on the Mulsanne."
+        ),
+        "hero_blurb": "The naturally-aspirated V8 that sings down Mulsanne.",
+        "scenario": (
+            "Solo on the 24h_2026 layout. The Cadillac's NA V8 gives linear throttle response the turbo cars can't match — use it on corner exit. The trade is a touch less straight-line punch; make it back through the corners."
+        ),
+        "goal": "Make the V8 sing a clean lap.",
+        "setup": {
+            "trim":     "Default · BoP Hypercar trim",
+            "priority": "Hybrid deployment + high-speed stability",
+            "key":      "Default BoP setup · garage open · medium compound",
+        },
+        "benchmarks": {
+            "refs": [
+                {"label": "No historic ref", "time": "—"},
+            ],
+        },
+        "specs": {
+            "CAR":   "CADILLAC V-SERIES.R · LMDh HYPERCAR",
+            "TRACK": "Le Mans · 24h 2026 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0a0a",
+        "color_b": "#0b3d91",
+        "track_label": "LE MANS",
+        "launcher": "launch_hotlap_lemans_cadillac.cmd",
+        "launchers": [
+            {"label": "DRIVE IT", "logo": "cadillac",
+             "cmd": "launch_hotlap_lemans_cadillac.cmd",
+             "driver": "PABLO SUZARTE", "number": "28",
+             "team": "Cadillac Hertz Team JOTA"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "rss_mph_callahan_v8",
+        "ac_car_skin": "00_blue_28",
+        "ac_track_id": "sx_lemans",
+        "ac_track_layout": "24h_2026",
+    },
+    {
+        "id": "hotlap_lemans_lambo_sc63",
+        "type": "HOTLAP",
+        "series": "LE_MANS_FAST",
+        "tag": "LMDh HYPERCAR · LE MANS 2026",
+        "title": "LAMBORGHINI SC63 · LE MANS",
+        "subtitle": "LMDh Hypercar · twin-turbo V8 hybrid",
+        "kicker": "FIA WEC HYPERCAR · CIRCUIT DE LA SARTHE",
+        "lede": (
+            "Lamborghini's first top-class prototype. The SC63 took the Raging Bull to "
+            "Le Mans, run by Iron Lynx with a twin-turbo V8. Number 63 — for 1963, the "
+            "year Lamborghini was founded. Now on the longest straight in racing."
+        ),
+        "hero_blurb": "The Raging Bull's first Le Mans Hypercar.",
+        "scenario": (
+            "Solo on the 24h_2026 layout. The SC63 is the newcomer of the class — point it down the Mulsanne, manage the hybrid, and find out what Lamborghini's prototype can do on a single qualifying lap."
+        ),
+        "goal": "Write the SC63's lap. There's no reference.",
+        "setup": {
+            "trim":     "Default · BoP Hypercar trim",
+            "priority": "Hybrid deployment + high-speed stability",
+            "key":      "Default BoP setup · garage open · medium compound",
+        },
+        "benchmarks": {
+            "refs": [
+                {"label": "No historic ref", "time": "—"},
+            ],
+        },
+        "specs": {
+            "CAR":   "LAMBORGHINI SC63 · LMDh HYPERCAR",
+            "TRACK": "Le Mans · 24h 2026 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0a0a",
+        "color_b": "#d4af37",
+        "track_label": "LE MANS",
+        "launcher": "launch_hotlap_lemans_lambo_sc63.cmd",
+        "launchers": [
+            {"label": "DRIVE IT", "logo": "lamborghini",
+             "cmd": "launch_hotlap_lemans_lambo_sc63.cmd",
+             "driver": "PABLO SUZARTE", "number": "63",
+             "team": "Lamborghini Iron Lynx"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "rss_mph_lanzo_v8_evo",
+        "ac_car_skin": "00_yellow_63",
+        "ac_track_id": "sx_lemans",
+        "ac_track_layout": "24h_2026",
     },
     {
         "id": "hotlap_lemans_rss_1986",
@@ -2343,7 +2500,7 @@ CONFIGS = [
         ),
         "hero_blurb": "The most lethal F1 car ever built, on the longest straight in racing.",
         "scenario": (
-            "Solo on the 24h_2025 layout. F1 brakes, F1 aero, but no "
+            "Solo on the 24h_2026 layout. F1 brakes, F1 aero, but no "
             "F1 reference time to chase — nobody has been mad enough to "
             "put this combo on a leaderboard. The Mulsanne chicanes are "
             "going to want a 4th-gear stab and a prayer. Turbo lag, no "
@@ -2362,7 +2519,7 @@ CONFIGS = [
         },
         "specs": {
             "CAR":   "RSS FORMULA 1986 V6 · TURBO ERA",
-            "TRACK": "Le Mans · 24h 2025 layout",
+            "TRACK": "Le Mans · 24h 2026 layout",
             "GRID":  "Solo · ghost on",
             "LAPS":  "Open · hotlap mode",
         },
@@ -2380,62 +2537,252 @@ CONFIGS = [
         "ac_car_id": "rss_formula_1986",
         "ac_car_skin": "01_formula_yellow_21",
         "ac_track_id": "sx_lemans",
-        "ac_track_layout": "24h_2025",
+        "ac_track_layout": "24h_2026",
     },
+    # -----------------------------------------------------------------------
+    # LMGT3 · LE MANS — the GT3 class of the 2026 24 Hours. Five marques on the
+    # 24h_2026 layout, each a solo hotlap (ghost on, garage open). No invented
+    # lap times — set the bar yourself. Cars verified on disk 2026-06-13.
+    # -----------------------------------------------------------------------
     {
-        "id": "hotlap_lemans_vrc_oval",
+        "id": "hotlap_lemans_porsche_gt3r",
         "type": "HOTLAP",
         "series": "LE_MANS_FAST",
-        "tag": "MEME RUN · OVAL ON A ROAD COURSE",
-        "title": "VRC FORMULA NA · LE MANS",
-        "subtitle": "390+ kph · 751 kg · IndyCar oval-spec on the Sarthe",
-        "kicker": "JOKE CHALLENGE · OVAL-ONLY CAR",
+        "tag": "LMGT3 · LE MANS 2026",
+        "title": "PORSCHE 911 GT3 R · LE MANS",
+        "subtitle": "LMGT3 · 4.2 flat-six · 992-generation",
+        "kicker": "FIA WEC LMGT3 · CIRCUIT DE LA SARTHE",
         "lede": (
-            "The fastest top-speed car in your garage is the VRC Formula NA "
-            "2021 Oval Kit — geared for the Brickyard, sprung for 60° banking, "
-            "with brakes that don't exist. Now point it at the Dunlop chicane. "
-            "This is not a serious lap. This is a survival test."
+            "The 911 GT3 R (992) is the benchmark of LMGT3 — a naturally aspirated "
+            "flat-six bred from decades of Porsche endurance racing. Where the "
+            "Hypercars are about hybrid deployment, this is about momentum: carry "
+            "speed through the Porsche Curves and let the rear-engined balance work."
         ),
-        "hero_blurb": "390 kph theoretical. Two left turns the car wasn't told about.",
+        "hero_blurb": "The GT3 benchmark, on the longest straight in racing.",
         "scenario": (
-            "Solo on the 24h_2025 layout. The car will pull 390 kph down "
-            "Mulsanne and then refuse to brake hard enough for the chicane. "
-            "The Porsche curves are right-handers — the car may not even "
-            "want to turn that way. Best case: a single clean lap. Worst "
-            "case: gravel at Tertre Rouge before lap 1 is done."
+            "Solo on the 24h_2026 layout. No hybrid, no turbo — just a flat-six and "
+            "your right foot. Brake deep into the Mulsanne chicanes, protect the rear "
+            "on exit, and string the Porsche Curves into one flowing arc."
         ),
-        "goal": "Complete one clean lap. Just one. Bragging rights forever.",
+        "goal": "Set the GT3 class benchmark. Then beat it.",
         "setup": {
-            "trim":     "Oval-only · low downforce",
-            "priority": "Don't break the car · don't beach it",
-            "key":      "Default setup · 30L fuel · oval-spec compound",
+            "trim":     "Default · BoP GT3 trim",
+            "priority": "Rear stability + traction out of the chicanes",
+            "key":      "Default BoP setup · garage open · medium compound",
         },
-        "benchmarks": {
-            "refs": [
-                {"label": "No historic ref", "time": "—"},
-            ],
-        },
+        "benchmarks": {"refs": [{"label": "No historic ref", "time": "—"}]},
         "specs": {
-            "CAR":   "VRC FORMULA NA 2021 · OVAL KIT",
-            "TRACK": "Le Mans · 24h 2025 layout",
+            "CAR":   "PORSCHE 911 GT3 R · LMGT3",
+            "TRACK": "Le Mans · 24h 2026 layout",
             "GRID":  "Solo · ghost on",
             "LAPS":  "Open · hotlap mode",
         },
         "color_a": "#0a0a0a",
-        "color_b": "#22d3ee",
+        "color_b": "#cf1020",
         "track_label": "LE MANS",
-        "launcher": "launch_hotlap_lemans_vrc_oval.cmd",
+        "launcher": "launch_hotlap_lemans_porsche_gt3r.cmd",
         "launchers": [
-            {"label": "ATTEMPT IT", "logo": "",
-             "cmd": "launch_hotlap_lemans_vrc_oval.cmd",
-             "driver": "PRIVATE TEST", "number": "15",
-             "team": "VRC EMT Racing"},
+            {"label": "DRIVE IT", "logo": "porsche",
+             "cmd": "launch_hotlap_lemans_porsche_gt3r.cmd",
+             "driver": "PABLO SUZARTE", "number": "92", "team": "Manthey EMA"},
         ],
         "dashboard_rel": None,
-        "ac_car_id": "vrc_formula_na_2021_oval",
-        "ac_car_skin": "15_EMT_Racing",
+        "ac_car_id": "lm_911_992_gt3r",
+        "ac_car_skin": "911",
         "ac_track_id": "sx_lemans",
-        "ac_track_layout": "24h_2025",
+        "ac_track_layout": "24h_2026",
+    },
+    {
+        "id": "hotlap_lemans_ferrari_488",
+        "type": "HOTLAP",
+        "series": "LE_MANS_FAST",
+        "tag": "LMGT3 · LE MANS 2026",
+        "title": "FERRARI 488 GT3 · LE MANS",
+        "subtitle": "LMGT3 · twin-turbo V8 · Maranello GT",
+        "kicker": "FIA WEC LMGT3 · CIRCUIT DE LA SARTHE",
+        "lede": (
+            "Maranello's GT3 weapon — a 3.9 twin-turbo V8 with the mid-engined "
+            "balance that made the 488 one of the most successful GT3 cars ever "
+            "built. Torque off the slow corners, stability under braking, and a "
+            "front end that bites exactly where you point it."
+        ),
+        "hero_blurb": "The Prancing Horse's GT3, alone on the Mulsanne.",
+        "scenario": (
+            "Solo on the 24h_2026 layout. Use the turbo torque to fire out of the "
+            "chicanes, trust the front end into Indianapolis, and keep it clean "
+            "through the Porsche Curves where the V8 wants to step the rear out."
+        ),
+        "goal": "Write the 488's lap. There's no reference.",
+        "setup": {
+            "trim":     "Default · BoP GT3 trim",
+            "priority": "Front-end bite + turbo traction",
+            "key":      "Default BoP setup · garage open · medium compound",
+        },
+        "benchmarks": {"refs": [{"label": "No historic ref", "time": "—"}]},
+        "specs": {
+            "CAR":   "FERRARI 488 GT3 · LMGT3",
+            "TRACK": "Le Mans · 24h 2026 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0a0a",
+        "color_b": "#d40000",
+        "track_label": "LE MANS",
+        "launcher": "launch_hotlap_lemans_ferrari_488.cmd",
+        "launchers": [
+            {"label": "DRIVE IT", "logo": "ferrari",
+             "cmd": "launch_hotlap_lemans_ferrari_488.cmd",
+             "driver": "PABLO SUZARTE", "number": "51", "team": "AF Corse"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "ks_ferrari_488_gt3",
+        "ac_car_skin": "00_rosso_scuderia",
+        "ac_track_id": "sx_lemans",
+        "ac_track_layout": "24h_2026",
+    },
+    {
+        "id": "hotlap_lemans_bmw_m3",
+        "type": "HOTLAP",
+        "series": "LE_MANS_FAST",
+        "tag": "LMGT3 · LE MANS 2026",
+        "title": "BMW M3 GT3 EVO · LE MANS",
+        "subtitle": "LMGT3 · twin-turbo inline-six · M Motorsport",
+        "kicker": "FIA WEC LMGT3 · CIRCUIT DE LA SARTHE",
+        "lede": (
+            "BMW's GT3 EVO — a twin-turbo straight-six built by M Motorsport, the "
+            "same platform that won SP9 at the Nürburgring. Big torque, a long "
+            "wheelbase that loves high-speed stability, and the brawn to haul down "
+            "the Mulsanne lap after lap."
+        ),
+        "hero_blurb": "Munich's GT3, built for a day and a night.",
+        "scenario": (
+            "Solo on the 24h_2026 layout. The M3 is a stable, planted GT3 — lean on "
+            "it through the fast stuff, manage the turbo into the chicanes, and keep "
+            "the long body settled through the Porsche Curves."
+        ),
+        "goal": "Set the M3's benchmark. Then chase it down.",
+        "setup": {
+            "trim":     "Default · BoP GT3 trim",
+            "priority": "High-speed stability + braking",
+            "key":      "Default BoP setup · garage open · medium compound",
+        },
+        "benchmarks": {"refs": [{"label": "No historic ref", "time": "—"}]},
+        "specs": {
+            "CAR":   "BMW M3 GT3 EVO · LMGT3",
+            "TRACK": "Le Mans · 24h 2026 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0a0a",
+        "color_b": "#0166b1",
+        "track_label": "LE MANS",
+        "launcher": "launch_hotlap_lemans_bmw_m3.cmd",
+        "launchers": [
+            {"label": "DRIVE IT", "logo": "bmw",
+             "cmd": "launch_hotlap_lemans_bmw_m3.cmd",
+             "driver": "PABLO SUZARTE", "number": "46", "team": "BMW M Team WRT"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "cky_bmw_m3_gt3_evo",
+        "ac_car_skin": "24h_NBR_BMW-Post-191",
+        "ac_track_id": "sx_lemans",
+        "ac_track_layout": "24h_2026",
+    },
+    {
+        "id": "hotlap_lemans_huracan",
+        "type": "HOTLAP",
+        "series": "LE_MANS_FAST",
+        "tag": "LMGT3 · LE MANS 2026",
+        "title": "LAMBORGHINI HURACAN GT3 · LE MANS",
+        "subtitle": "LMGT3 · naturally aspirated V10 · Iron Lynx",
+        "kicker": "FIA WEC LMGT3 · CIRCUIT DE LA SARTHE",
+        "lede": (
+            "The Huracán GT3 keeps a naturally aspirated V10 in a GT3 world gone "
+            "turbo — a screaming 5.2 from Sant'Agata, run by Iron Lynx. Linear "
+            "power, a pointy front end, and a soundtrack nothing else on the grid "
+            "can match down the Mulsanne."
+        ),
+        "hero_blurb": "The last great GT3 V10, on the Sarthe.",
+        "scenario": (
+            "Solo on the 24h_2026 layout. The V10 rewards a clean throttle and a "
+            "trusting right foot — no turbo to wait for. Keep momentum through the "
+            "Porsche Curves and let the engine sing down the straight."
+        ),
+        "goal": "Write the Huracán's lap. There's no reference.",
+        "setup": {
+            "trim":     "Default · BoP GT3 trim",
+            "priority": "Front-end response + mid-corner balance",
+            "key":      "Default BoP setup · garage open · medium compound",
+        },
+        "benchmarks": {"refs": [{"label": "No historic ref", "time": "—"}]},
+        "specs": {
+            "CAR":   "LAMBORGHINI HURACAN GT3 · LMGT3",
+            "TRACK": "Le Mans · 24h 2026 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0a0a",
+        "color_b": "#d4af37",
+        "track_label": "LE MANS",
+        "launcher": "launch_hotlap_lemans_huracan.cmd",
+        "launchers": [
+            {"label": "DRIVE IT", "logo": "lamborghini",
+             "cmd": "launch_hotlap_lemans_huracan.cmd",
+             "driver": "PABLO SUZARTE", "number": "60", "team": "Iron Lynx"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "ks_lamborghini_huracan_gt3",
+        "ac_car_skin": "Racing_Orange",
+        "ac_track_id": "sx_lemans",
+        "ac_track_layout": "24h_2026",
+    },
+    {
+        "id": "hotlap_lemans_amg_gt3",
+        "type": "HOTLAP",
+        "series": "LE_MANS_FAST",
+        "tag": "LMGT3 · LE MANS 2026",
+        "title": "MERCEDES-AMG GT3 · LE MANS",
+        "subtitle": "LMGT3 · naturally aspirated V8 · Affalterbach",
+        "kicker": "FIA WEC LMGT3 · CIRCUIT DE LA SARTHE",
+        "lede": (
+            "The AMG GT3 carries a naturally aspirated 6.2 V8 — old-school "
+            "displacement in a turbo era. A long nose, huge front grip, and a "
+            "rear that hooks up under power. One of the most planted, drivable "
+            "GT3 cars ever built, here on the longest lap in racing."
+        ),
+        "hero_blurb": "Affalterbach's V8 GT3, alone at the Sarthe.",
+        "scenario": (
+            "Solo on the 24h_2026 layout. The AMG is forgiving and fast — use the "
+            "front grip into the chicanes, get the V8 down early, and lean on the "
+            "stability through the Porsche Curves."
+        ),
+        "goal": "Set the AMG's benchmark. Then go faster.",
+        "setup": {
+            "trim":     "Default · BoP GT3 trim",
+            "priority": "Front grip + traction on exit",
+            "key":      "Default BoP setup · garage open · medium compound",
+        },
+        "benchmarks": {"refs": [{"label": "No historic ref", "time": "—"}]},
+        "specs": {
+            "CAR":   "MERCEDES-AMG GT3 · LMGT3",
+            "TRACK": "Le Mans · 24h 2026 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a0a0a",
+        "color_b": "#00a19c",
+        "track_label": "LE MANS",
+        "launcher": "launch_hotlap_lemans_amg_gt3.cmd",
+        "launchers": [
+            {"label": "DRIVE IT", "logo": "mercedes",
+             "cmd": "launch_hotlap_lemans_amg_gt3.cmd",
+             "driver": "PABLO SUZARTE", "number": "90", "team": "Mercedes-AMG"},
+        ],
+        "dashboard_rel": None,
+        "ac_car_id": "ks_mercedes_amg_gt3",
+        "ac_car_skin": "0_0fficial",
+        "ac_track_id": "sx_lemans",
+        "ac_track_layout": "24h_2026",
     },
     {
         "id": "hotlap_supergt_fuji",
@@ -2940,14 +3287,15 @@ CONFIGS = [
         # Evolution table shows the climb lap-by-lap (each lap vs the previous,
         # total gain since lap 1) instead of one row per session.
         "evolution_mode": "laps",
-        "tag": "RED BULL RB21 · YOUR MONACO SETUP",
+        "tag": "MERCEDES-AMG W16 · YOUR MONACO SETUP",
         "title": "MONACO 2026 · POLE CHASE",
-        "subtitle": "Solo lap · RSS Formula Hybrid (RB21) · Monaco F1 2025 · your saved setup",
+        "subtitle": "Solo lap · RSS Formula Hybrid (W16) · Monaco F1 2025 · your saved setup",
         "scenario": (
             "Solo against the clock around the Principality in the RSS Formula "
-            "Hybrid 2025 — the Red Bull RB21, the exact car and the exact setup "
-            "you ran on 25 May. Twenty-six corners, no run-off, the barrier a "
-            "hand's width off every apex. The hardest single lap in motorsport."
+            "Hybrid 2025 — Antonelli's Mercedes-AMG W16, the exact car and the "
+            "exact setup you ran on 25 May. Twenty-six corners, no run-off, the "
+            "barrier a hand's width off every apex. The hardest single lap in "
+            "motorsport."
         ),
         "hero_blurb": (
             "Monaco doesn't reward bravery — it punishes hesitation. Soft tyres, "
@@ -2958,34 +3306,41 @@ CONFIGS = [
             "There is no track like it. Sainte-Dévote, the climb to Casino, "
             "Mirabeau, the Grand Hotel hairpin at walking pace, the tunnel, the "
             "swimming-pool chicane that asks you to trust a barrier you can "
-            "touch. In the RB21 it is over in seventy-eight seconds — and every "
+            "touch. In the W16 it is over in seventy-three seconds — and every "
             "one of them is a negotiation with the wall."
         ),
-        "kicker": "F1 2026 · CIRCUIT DE MONACO · RED BULL RB21",
-        "goal": "Beat your 1:18.503 — then hunt Norris's 1:09.954 pole.",
+        "kicker": "F1 2026 · CIRCUIT DE MONACO · MERCEDES-AMG W16",
+        "goal": "Beat your 1:12.912 — then hunt Antonelli's 1:12.051 pole (0.861s).",
         "setup": {
             "trim":     "Your 25 May Monaco setup · loads by default",
             "priority": "Maximum mechanical grip, point-and-squirt traction out of the slow corners",
             "key":      "Your saved setup loads on launch — and the garage is open, so trims and tyres are yours to change before the lap",
         },
         "benchmarks": {
-            # Real-world target: Lando Norris's 2025 Monaco GP pole — the fastest
-            # lap ever recorded at Monaco. Verified 2026-05-25 vs formula1.com +
-            # en.wikipedia.org/wiki/2025_Monaco_Grand_Prix.
+            # Real-world target: Kimi Antonelli's 2026 Monaco GP pole, 1:12.051 —
+            # his maiden Monte Carlo pole (P1 ahead of Verstappen +0.043 /
+            # Hamilton). Source: F1.com 2026 Monaco qualifying report,
+            # verified 2026-06-07.
             "refs": [
-                {"label": "Norris pole · 2025 Monaco GP (track record)", "time": "1:09.954",
-                 "portrait": "norris_portrait.png"},
+                {"label": "Antonelli pole · 2026 Monaco GP", "time": "1:12.051",
+                 "portrait": "antonelli_portrait.png"},
             ],
             "you_label": "Your best time",
         },
+        "embeds": [
+            # Self-hosted (FOM blocks the YouTube iframe off-site) — 1080p50
+            # H.264, served with Range support so the lap is fully scrubbable.
+            {"label": "Antonelli pole lap · 2026 Monaco GP qualifying — study the line",
+             "file": "videos/monaco_2026_antonelli_pole.mp4"},
+        ],
         "specs": {
-            "CAR":   "RSS FORMULA HYBRID 2025 · RED BULL RB21 (#1 VERSTAPPEN)",
+            "CAR":   "RSS FORMULA HYBRID 2025 · MERCEDES-AMG W16 (#12 ANTONELLI)",
             "TRACK": "Monaco · F1 2025 layout",
             "GRID":  "Solo · ghost on",
             "LAPS":  "Open · hotlap mode",
         },
-        "color_a": "#0a0e1a",
-        "color_b": "#223971",
+        "color_a": "#0a1413",
+        "color_b": "#00A19C",
         "track_label": "MONACO · F1 2025",
         # Cover = the RB21 skin preview (car-correct). No verified on-track
         # Monaco RB21 photos on disk yet — gallery intentionally omitted; add
@@ -2996,26 +3351,468 @@ CONFIGS = [
         "launcher": "launch_hotlap_monaco_2026.cmd",
         "dashboard_rel": "telemetry_archive/dashboard.html",
         "ac_car_id": "rss_formula_hybrid_2025_alpine",
-        "ac_car_skin": "FRX_McLaren_MCL39_4_Norris",
+        "ac_car_skin": "Asi_W16_Antonelli_12",
         "ac_track_id": "monaco_2020",
         "ac_track_layout": "monaco_f1_2025",
         "launchers": [
             {
                 "label":    "DRIVE AS PABLO",
-                "logo":     "redbull",
+                "logo":     "mercedes",
                 "cmd":      "launch_hotlap_monaco_2026.cmd",
                 "ac_car_id": "rss_formula_hybrid_2025_alpine",
-                "skin":     "FRX_McLaren_MCL39_4_Norris",
-                "color":    "#223971",
+                "skin":     "Asi_W16_Antonelli_12",
+                "color":    "#00A19C",
                 "driver":   "PABLO SUZARTE",
-                "number":   "1",
-                "team":     "Oracle Red Bull Racing · RB21",
+                "number":   "12",
+                "team":     "Mercedes-AMG Petronas · W16",
                 "portrait": "pablo_portrait.jpg",
                 "drivers":  ["Pablo Suzarte"],
                 "tagline":  "POLE CHASE · YOUR SETUP",
                 "quote":    "Monaco is the one weekend where the lap matters more than the race. One clean lap. Touch nothing.",
                 "race_class": "F1 2026",
             },
+        ],
+    },
+    {
+        "id": "race_monaco_2026",
+        "type": "RACE",
+        "series": "F1",
+        "type_label": "GRID RACE",
+        "tag": "F1 · WIN FROM POLE · MONACO",
+        "title": "MONACO GP 2026",
+        "subtitle": "5-lap sprint · real 2026 F1 grid · start on pole",
+        "scenario": (
+            "The Principality in a Verstappen-livery Alpine 2025 hybrid against "
+            "the actual 2026 F1 field — Antonelli, Russell, Norris, Leclerc, "
+            "Piastri, Hamilton and the rest. You line up P1 on pole. At Monaco "
+            "that is the whole game: track position is the race, the barriers "
+            "leave no room to pass. Convert the lap you already chased into a "
+            "win, and hold the lead nobody can take from you."
+        ),
+        "hero_blurb": (
+            "Nineteen cars, the real 2026 grid, the hardest 3.3 km in racing. "
+            "You start on pole in Red Bull colours. Nail the launch to "
+            "Sainte-Dévote and Monaco does the rest — defend, don't crash, win."
+        ),
+        "goal": "Win from pole. At Monaco, every clean lap is a defended lead.",
+        "setup": {
+            "trim":     "Default · no tuning",
+            "priority": "Maximum mechanical grip, clean exits — track position is everything",
+            "key":      "All 19 cars on AC factory trim; the lead is won on the launch and kept by never touching a barrier",
+        },
+        "benchmarks": {
+            # Real-world reference: Charles Leclerc's 2026 Monaco GP pole, 1:13.978
+            # — same weekend as this event. Source: the 2026 Monaco qualifying
+            # timing screen Pablo captured 2026-06-06.
+            "refs": [
+                {"label": "Leclerc pole · 2026 Monaco GP", "time": "1:13.978",
+                 "portrait": "leclerc_portrait.png"},
+            ],
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "RED BULL RB21 · F1 2025",
+            "TRACK": "Monaco · F1 2025 layout",
+            "GRID":  "19 cars · You start P1 (pole)",
+            "LAPS":  "5 laps · AI 84–99",
+        },
+        "color_a": "#0a0e1a",
+        "color_b": "#223971",
+        "track_label": "MONACO",
+        "launcher": "launch_race_monaco_2026.cmd",
+        "ac_car_id": "rss_formula_hybrid_2025_alpine",
+        "ac_car_skin": "M17_RedBull_RB21_1",
+        "ac_track_id": "monaco_2020",
+        "ac_track_layout": "monaco_f1_2025",
+        "launchers": [
+            {
+                "label":    "DRIVE AS PABLO",
+                "logo":     "redbull",
+                "cmd":      "launch_race_monaco_2026.cmd",
+                "ac_car_id": "rss_formula_hybrid_2025_alpine",
+                "skin":     "M17_RedBull_RB21_1",
+                "color":    "#223971",
+                "driver":   "PABLO SUZARTE",
+                "number":   "1",
+                "team":     "Oracle Red Bull Racing · RB21",
+                "tagline":  "POLE · DEFEND THE LEAD",
+                "quote":    "At Monaco the race is won on Saturday. Start on pole, get to turn one first, and never give the inside line away.",
+                "portrait": "pablo_portrait.jpg",
+                "race_class": "F1 2026",
+            },
+        ],
+    },
+    {
+        # BARCELONA HOTLAP 2026 — built to the hotlap-event template (mirrors
+        # hotlap_monaco_2026). Kimi Antonelli took pole at the 2026 Spanish GP;
+        # drive his Mercedes-AMG W16 around Montmeló against the clock.
+        "id": "hotlap_barcelona_2026",
+        "type": "HOTLAP",
+        "series": "F1",
+        "evolution_mode": "laps",
+        "tag": "MERCEDES-AMG W16 · POLE CHASE",
+        "title": "SPANISH GP 2026 · POLE CHASE",
+        "subtitle": "Solo lap · RSS Formula Hybrid (W16) · Barcelona-Catalunya · ghost on",
+        "scenario": (
+            "Solo against the clock around the Circuit de Barcelona-Catalunya in "
+            "the RSS Formula Hybrid 2025 — Kimi Antonelli's Mercedes-AMG W16, the "
+            "car that took pole. The reference track of Formula 1: every driver "
+            "has done a thousand laps here, so the lap time has nowhere to hide. "
+            "Long final corner onto the straight — get it right and the whole lap "
+            "comes alive."
+        ),
+        "hero_blurb": (
+            "Barcelona is the benchmark every F1 driver is measured against. Soft "
+            "tyres, ghost on, the garage open to tune. Stitch all three sectors "
+            "into one clean lap and chase Antonelli's pole."
+        ),
+        "lede": (
+            "No circuit reveals a car like Barcelona. The long right of Turn 3, "
+            "the climb to Turn 4, the technical final sector that punishes a "
+            "nervous rear — it is the lap every driver knows by heart, which is "
+            "exactly why it is so hard to perfect. In the W16 it is a negotiation "
+            "with tyre temperature from the first corner to the last."
+        ),
+        "kicker": "F1 2026 · CIRCUIT DE BARCELONA-CATALUNYA · MERCEDES-AMG W16",
+        "goal": "Set a clean lap, then chase the pole — George Russell took P1 for the 2026 Spanish GP. Watch his onboard, then go beat it.",
+        "setup": {
+            "trim":     "Barcelona quali trim",
+            # Chips are short, verified facts. FUEL 14 L is read straight from
+            # Barcelona_Quali_2026.ini; the rest are the challenge's stated intent.
+            "chips": [
+                {"k": "FUEL",   "v": "14 L"},
+                {"k": "RUN",    "v": "1 out + 3 flying"},
+                {"k": "TYRES",  "v": "Soft"},
+                {"k": "AERO",   "v": "High-DF"},
+                {"k": "GARAGE", "v": "Open"},
+            ],
+            "priority": "Front-end bite for the long corners, a stable rear through the technical final sector — Barcelona punishes a nervous rear on exit.",
+            "key":      "A light-fuel quali run: 14 litres — one out lap plus three flyers, no extra weight. High-downforce base carried over from Monaco. The garage stays unlocked, so trim the wing for the back straight or top up fuel however you like.",
+        },
+        "benchmarks": {
+            # Friday benchmark verified from FP2 (12 Jun 2026): Norris fastest overall
+            # at 1:15.426; Antonelli (the W16 in this challenge) P5 at 1:16.015.
+            # Sources: motorsportweek.com + total-motorsport.com FP2 results.
+            # POLE: qualifying ran Sat 13 Jun 2026 — George Russell took pole (his
+            # 10th career pole, 3rd of 2026), confirmed by F1's onboard pole-lap
+            # video (uMDxwGVbEfQ). The exact lap TIME is not stated in that video —
+            # do NOT invent it; fill in once Pablo confirms the official quali time.
+            # refs[0] is THE target in the duel/launcher template (used for the
+            # Target card AND the evolution chart). Russell's pole is the target,
+            # so it leads. Friday refs kept below as context.
+            # POLE TIME 1:14.679 — verified from F1's official onboard pole-lap
+            # graphic (YouTube uMDxwGVbEfQ, end card ~85s: "GEORGE RUSSELL …
+            # 1:14.679"). Not invented; read off the frame.
+            "refs": [
+                {"label": "Russell pole · 2026 Spanish GP", "time": "1:14.679",
+                 "portrait": "russell_portrait.png"},
+                {"label": "Norris · Friday best (FP2)", "time": "1:15.426",
+                 "portrait": "norris_portrait.png"},
+                {"label": "Antonelli · Friday best (FP2)", "time": "1:16.015",
+                 "portrait": "antonelli_portrait.png"},
+            ],
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "RSS FORMULA HYBRID 2025 · MERCEDES-AMG W16 (#12 ANTONELLI)",
+            "TRACK": "Barcelona-Catalunya · 2026 F1 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a1413",
+        "color_b": "#00A19C",
+        "track_label": "BARCELONA · F1 2026",
+        "images": [
+            "hotlap_barcelona_2026.jpg",
+        ],
+        "launcher": "launch_hotlap_barcelona_2026.cmd",
+        "dashboard_rel": "telemetry_archive/dashboard.html",
+        "ac_car_id": "rss_formula_hybrid_2025_alpine",
+        # Identity shown on the Car & Setup card — the W16 we're driving, not the
+        # raw RSS mod name. Sub line names the chassis it runs on.
+        "ac_car_label": "Mercedes-AMG W16",
+        "ac_car_sub": "RSS Formula Hybrid 2025 · 2026 F1-spec hybrid",
+        "ac_car_skin": "Asi_W16_Antonelli_12",
+        "ac_track_id": "ks_barcelona",
+        "ac_track_layout": "layout_gp_2026",
+        # The new KNS Barcelona build (ks_barcelona/layout_gp_2026) replaced the
+        # FNR build on 2026-06-13. Count laps set on the old FNR track as the same
+        # challenge so the 1:15.630 PB set that morning still shows.
+        "alt_tracks": ["fn_barcelona-layout_gp_2026_fnr"],
+        # Onboard reference lap (self-hosted; served via /images/ with Range support).
+        "embeds": [
+            {"label": "Russell's pole lap · 2026 Spanish GP — the time to beat",
+             "file": "videos/barcelona_2026_russell_pole.mp4"},
+            {"label": "Onboard reference lap · learn the line",
+             "file": "videos/barcelona_2026_lap_guide.mp4"},
+        ],
+        "launchers": [
+            {
+                "label":    "DRIVE AS PABLO",
+                "logo":     "mercedes",
+                "cmd":      "launch_hotlap_barcelona_2026.cmd",
+                "ac_car_id": "rss_formula_hybrid_2025_alpine",
+                "skin":     "Asi_W16_Antonelli_12",
+                "color":    "#00A19C",
+                "driver":   "PABLO SUZARTE",
+                "number":   "12",
+                "team":     "Mercedes-AMG Petronas · W16",
+                "portrait": "pablo_portrait.jpg",
+                "drivers":  ["Pablo Suzarte"],
+                "tagline":  "POLE CHASE · ANTONELLI'S W16",
+                "quote":    "Barcelona is where you find out if the lap is real. There's no corner to hide a mistake — just do every one of them right.",
+                "race_class": "F1 2026",
+            },
+        ],
+    },
+    {
+        "id": "race_barcelona_2026",
+        "type": "RACE",
+        "series": "F1",
+        "type_label": "GRID RACE",
+        "tag": "F1 · WIN FROM POLE · BARCELONA",
+        "title": "SPANISH GP 2026",
+        "subtitle": "5-lap sprint · real 2026 F1 grid · start on pole in the W16",
+        "scenario": (
+            "Barcelona-Catalunya in Antonelli's Mercedes-AMG W16 against the actual "
+            "2026 F1 field — Verstappen, Russell, Norris, Leclerc, Piastri, Hamilton "
+            "and the rest. You line up P1 on pole. Unlike Monaco, Barcelona has a real "
+            "overtaking spot: the long DRS straight into Turn 1. Defend the inside, "
+            "manage the front tyres through the long corners, and convert pole into a "
+            "home-style win."
+        ),
+        "hero_blurb": (
+            "Nineteen cars, the real 2026 grid, the circuit every driver knows best. "
+            "You start on pole in Antonelli's W16. Nail the launch to Turn 1, cover "
+            "the inside, and don't cook the fronts — win the reference race."
+        ),
+        "goal": "Win from pole. Defend Turn 1, manage the fronts, hold the lead to the flag.",
+        "setup": {
+            "trim":     "Default · no tuning",
+            "priority": "Front-tyre management through the long corners, traction out of the final chicane",
+            "key":      "All 19 cars on AC factory trim; pole is won at the launch and kept by protecting the inside line into Turn 1",
+        },
+        "benchmarks": {
+            # Real-world reference: Antonelli's 2026 Spanish GP pole. Exact time
+            # PENDING — Pablo to supply the verified figure (do NOT invent).
+            "refs": [
+                {"label": "Antonelli pole · 2026 Spanish GP", "time": "PENDING · awaiting verified pole time",
+                 "portrait": "antonelli_portrait.png"},
+            ],
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "MERCEDES-AMG W16 · F1 2025",
+            "TRACK": "Barcelona-Catalunya · 2025 F1 layout",
+            "GRID":  "19 cars · You start P1 (pole)",
+            "LAPS":  "5 laps · AI 84–99",
+        },
+        "color_a": "#0a1413",
+        "color_b": "#00A19C",
+        "track_label": "BARCELONA",
+        "launcher": "launch_race_barcelona_2026.cmd",
+        "ac_car_id": "rss_formula_hybrid_2025_alpine",
+        "ac_car_skin": "Asi_W16_Antonelli_12",
+        "ac_track_id": "fn_barcelona",
+        "ac_track_layout": "layout_gp_2025_fnr",
+        "launchers": [
+            {
+                "label":    "DRIVE AS PABLO",
+                "logo":     "mercedes",
+                "cmd":      "launch_race_barcelona_2026.cmd",
+                "ac_car_id": "rss_formula_hybrid_2025_alpine",
+                "skin":     "Asi_W16_Antonelli_12",
+                "color":    "#00A19C",
+                "driver":   "PABLO SUZARTE",
+                "number":   "12",
+                "team":     "Mercedes-AMG Petronas · W16",
+                "tagline":  "POLE · DEFEND THE LEAD",
+                "quote":    "Pole at Barcelona means everything — you control Turn 1. Get the launch right and the race is yours to lose.",
+                "portrait": "pablo_portrait.jpg",
+                "race_class": "F1 2026",
+            },
+        ],
+    },
+    {
+        "id": "hotlap_monaco_f2004",
+        "type": "HOTLAP",
+        "series": "F1",
+        "tag": "FERRARI F2004 · V10 · MONACO",
+        "title": "MONACO · FERRARI F2004",
+        "subtitle": "Solo lap · Ferrari F2004 V10 · Monaco F1 2025 · ghost on",
+        "scenario": (
+            "Solo against the clock around the Principality in the Ferrari "
+            "F2004 — Schumacher's 2004 championship V10, the last truly analog "
+            "F1 car. No hybrid, no DRS, no aids: 19,000 RPM and twenty-six "
+            "corners with the barrier a hand's width off every apex."
+        ),
+        "kicker": "F1 V10 ERA · CIRCUIT DE MONACO",
+        "lede": (
+            "The most dominant car of the V10 era, let loose on the most "
+            "unforgiving circuit on the calendar. 950 hp screaming to 19,000 "
+            "RPM, no electronic safety net, the wall waiting at every exit. "
+            "One clean lap of Monte Carlo — your name against the ghost."
+        ),
+        "hero_blurb": (
+            "Schumacher's championship V10 at walking pace through the hairpin, "
+            "flat-out through the tunnel. Pure analog F1 against the barriers."
+        ),
+        "goal": "Set your Monaco F2004 benchmark — then chip away at it lap by lap.",
+        "setup": {
+            "trim":     "V10 hotlap · default Ferrari trim",
+            "priority": "Smooth throttle out of the slow corners — the V10 punishes greed",
+            "key":      "Default aero · short fuel · no TC · no ABS · 19k RPM ceiling",
+        },
+        "benchmarks": {
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "FERRARI F2004 · 2004 V10",
+            "TRACK": "Monaco · F1 2025 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#3a0608",
+        "color_b": "#c8102e",
+        "track_label": "MONACO",
+        "images": ["hotlap_monaco_f2004.jpg"],
+        "launcher": "launch_hotlap_monaco_f2004.cmd",
+        "ac_car_id": "ks_ferrari_f2004",
+        "ac_car_skin": "00_official",
+        "ac_track_id": "monaco_2020",
+        "ac_track_layout": "monaco_f1_2025",
+        "launchers": [
+            {"label": "BE SCHUMACHER", "logo": "ferrari",
+             "cmd": "launch_hotlap_monaco_f2004.cmd",
+             "ac_car_id": "ks_ferrari_f2004", "skin": "00_official",
+             "color": "#c8102e",
+             "driver": "MICHAEL SCHUMACHER", "number": "1",
+             "team": "Scuderia Ferrari Marlboro",
+             "tagline": "V10 KING · MONACO",
+             "quote": "Monaco rewards precision more than power. The F2004 has both — the trick is spending neither carelessly.",
+             "portrait": "schumacher_portrait.png"},
+        ],
+    },
+    {
+        "id": "hotlap_monaco_jordan",
+        "type": "HOTLAP",
+        "series": "F1",
+        "tag": "JORDAN 191 · DEBUT-CAR TRIBUTE",
+        "title": "MONACO · JORDAN 191 · SCHUMACHER",
+        "subtitle": "Solo lap · Jordan 191 (Schumacher livery) · Monaco F1 2025 · ghost on",
+        "scenario": (
+            "The car that introduced Michael Schumacher to Formula 1 — the "
+            "1991 Jordan 191, the green 7UP car he qualified seventh in on "
+            "debut at Spa before the clutch let go. Here it is reimagined "
+            "around the walls of Monaco: a naturally-aspirated V8 against the "
+            "Principality, a tribute to the lap that started everything."
+        ),
+        "kicker": "1991 DEBUT TRIBUTE · CIRCUIT DE MONACO",
+        "lede": (
+            "Widely called the most beautiful car of the early '90s, the "
+            "Jordan 191 is where the Schumacher story begins. He never raced "
+            "it at Monaco — this is a tribute drive, the debut car on the "
+            "circuit that defines greatness. One clean lap of Monte Carlo."
+        ),
+        "hero_blurb": (
+            "The most beautiful car of the era, the driver who'd win seven "
+            "titles, the streets where legends are made. A what-if hot lap."
+        ),
+        "goal": "Set your Monaco Jordan benchmark — and feel where it all began.",
+        "setup": {
+            "trim":     "Default · 1991-spec trim",
+            "priority": "Carry momentum — the V8 needs every corner exit clean",
+            "key":      "Default setup · short fuel · ghost on",
+        },
+        "benchmarks": {
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "JORDAN 191 · #32 SCHUMACHER LIVERY",
+            "TRACK": "Monaco · F1 2025 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0c2818",
+        "color_b": "#1f8a4c",
+        "track_label": "MONACO",
+        "images": ["hotlap_monaco_jordan.jpg"],
+        "launcher": "launch_hotlap_monaco_jordan.cmd",
+        "ac_car_id": "vrc_1991_jordan_191",
+        "ac_car_skin": "32_schumacher",
+        "ac_track_id": "monaco_2020",
+        "ac_track_layout": "monaco_f1_2025",
+        "launchers": [
+            {"label": "BE SCHUMACHER", "logo": "jordan",
+             "cmd": "launch_hotlap_monaco_jordan.cmd",
+             "ac_car_id": "vrc_1991_jordan_191", "skin": "32_schumacher",
+             "color": "#1f8a4c",
+             "driver": "MICHAEL SCHUMACHER", "number": "32",
+             "team": "Team 7UP Jordan",
+             "tagline": "DEBUT CAR · MONACO TRIBUTE",
+             "quote": "Everyone remembers the seventh title. Few remember the green car that started it. This is for the green car.",
+             "portrait": "schumacher_portrait.png"},
+        ],
+    },
+    {
+        "id": "hotlap_monaco_senna",
+        "type": "HOTLAP",
+        "series": "F1",
+        "tag": "McLAREN MP4/8 · SENNA · MONACO",
+        "title": "MONACO · SENNA · McLAREN",
+        "subtitle": "Solo lap · McLaren MP4/8 (Senna #8) · Monaco F1 2025 · ghost on",
+        "scenario": (
+            "Solo against the clock around the streets Ayrton Senna owned. The "
+            "1993 McLaren MP4/8 in his #8 livery, on the circuit where he won a "
+            "record six times — five of them in a row. Monaco was his "
+            "cathedral; this is your lap of it in his car."
+        ),
+        "kicker": "THE KING OF MONACO · CIRCUIT DE MONACO",
+        "lede": (
+            "Six wins. Five consecutive. No driver has ever mastered a circuit "
+            "the way Ayrton Senna mastered Monaco — he once described qualifying "
+            "here as driving 'in a different dimension.' Take his McLaren MP4/8 "
+            "through Sainte-Dévote, the hairpin, the tunnel, the swimming pool, "
+            "and find a fraction of what he found."
+        ),
+        "hero_blurb": (
+            "The most-cited driver-track bond in F1 history. Senna's McLaren, "
+            "Senna's streets, ghost on. Chase the different dimension."
+        ),
+        "goal": "Set your Monaco Senna benchmark — then hunt the lap he'd be proud of.",
+        "setup": {
+            "trim":     "Monaco · max downforce · qualifying trim",
+            "priority": "Confidence through Casino, Tabac and the swimming pool",
+            "key":      "High wing · low fuel · soft tyres · ghost on",
+        },
+        "benchmarks": {
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "McLAREN MP4/8 · SENNA #8",
+            "TRACK": "Monaco · F1 2025 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": "#0a1530",
+        "color_b": "#ff8000",
+        "track_label": "MONACO",
+        "images": ["senna_monaco_1988.jpg"],
+        "launcher": "launch_hotlap_senna_monaco.cmd",
+        "ac_car_id": "asr_1993_mclaren_mp4-8",
+        "ac_car_skin": "8_senna_r1_r2_r4_r5_r6_r7",
+        "ac_track_id": "monaco_2020",
+        "ac_track_layout": "monaco_f1_2025",
+        "launchers": [
+            {"label": "BE SENNA", "logo": "mclaren",
+             "cmd": "launch_hotlap_senna_monaco.cmd",
+             "ac_car_id": "asr_1993_mclaren_mp4-8", "skin": "8_senna_r1_r2_r4_r5_r6_r7",
+             "color": "#ff8000",
+             "driver": "AYRTON SENNA", "number": "8",
+             "team": "Marlboro McLaren-Honda",
+             "tagline": "KING OF MONACO · 6 WINS",
+             "quote": "I was no longer driving the car consciously. It was like I was in a different dimension.",
+             "portrait": "senna_portrait.png"},
         ],
     },
     {
@@ -3150,6 +3947,497 @@ CONFIGS = [
 ]
 
 
+# ===========================================================================
+# F1 2026 CALENDAR — generated event tiles
+# ---------------------------------------------------------------------------
+# The remaining 2026 Grand Prix weekends, each built to the EXACT Barcelona/
+# Monaco pattern: a /event/<slug>_2026 page with a pole-chase HOTLAP + a
+# 5-lap GRID RACE. Player = Pablo in Kimi Antonelli's Mercedes-AMG W16
+# (Asi_W16_Antonelli_12), starting P1 on pole. Pole lap times are PENDING
+# (not invented — Pablo to supply verified figures).
+#
+# Every spec below was verified on disk 2026-06-08: each track/layout has
+# fast_lane.ai + pit_lane.ai and >=30 pitboxes for the 19-car grid, and a
+# preview.png (circuit photo) + outline.png (track map) for the card art.
+# Madrid ("Gran Premio de Espana") is intentionally absent — no AC track.
+#
+# Card/gallery art is the CIRCUIT photo + track map (no car photos), copied
+# from the AC track's own preview.png/outline.png by gen_f1_2026_assets.py.
+# ===========================================================================
+
+# ===========================================================================
+# REAL-WORLD 2026 F1 RESULTS — every figure verified from Wikipedia race pages
+# + formula1.com standings (2026-06-12). DO NOT invent. Keyed by event id. Only
+# rounds that have actually run are listed; add a new round AFTER its race.
+#   pole/flap = (driver, team, time) · winner = (driver, team)
+#   grid      = finishing order, list of (driver, team)
+# ===========================================================================
+_F1_PORTRAITS = {
+    "Kimi Antonelli": "antonelli_portrait.png",
+    "Charles Leclerc": "leclerc_portrait.png",
+    "Lando Norris": "norris_portrait.png",
+    "Max Verstappen": "verstappen_portrait.png",
+}
+_F1_TEAM_COLORS = {
+    "Mercedes": "#00D7B6", "Ferrari": "#E8002D", "McLaren": "#FF8000",
+    "Red Bull": "#3671C6", "Racing Bulls": "#6692FF", "Audi": "#00352F",
+    "Alpine": "#0093CC", "Haas": "#B6BABD", "Williams": "#1868DB",
+    "Cadillac": "#C5A059", "Aston Martin": "#229971",
+}
+
+F1_2026_RESULTS = {
+    "australia_2026": {
+        "round": 1, "gp": "Australian Grand Prix", "date": "Mar 8",
+        "pole": ("George Russell", "Mercedes", "1:18.518"),
+        "winner": ("George Russell", "Mercedes"),
+        "flap": ("Max Verstappen", "Red Bull", "1:22.091"),
+        "grid": [
+            ("George Russell", "Mercedes"), ("Kimi Antonelli", "Mercedes"),
+            ("Charles Leclerc", "Ferrari"), ("Lewis Hamilton", "Ferrari"),
+            ("Lando Norris", "McLaren"), ("Max Verstappen", "Red Bull"),
+            ("Oliver Bearman", "Haas"), ("Arvid Lindblad", "Racing Bulls"),
+            ("Gabriel Bortoleto", "Audi"), ("Pierre Gasly", "Alpine"),
+            ("Esteban Ocon", "Haas"), ("Alexander Albon", "Williams"),
+            ("Liam Lawson", "Racing Bulls"), ("Franco Colapinto", "Alpine"),
+            ("Carlos Sainz", "Williams"), ("Sergio Perez", "Cadillac"),
+        ],
+    },
+    "china_2026": {
+        "round": 2, "gp": "Chinese Grand Prix", "date": "Mar 15",
+        "pole": ("Kimi Antonelli", "Mercedes", "1:32.064"),
+        "winner": ("Kimi Antonelli", "Mercedes"),
+        "flap": ("Kimi Antonelli", "Mercedes", "1:35.275"),
+        "grid": [
+            ("Kimi Antonelli", "Mercedes"), ("George Russell", "Mercedes"),
+            ("Lewis Hamilton", "Ferrari"), ("Charles Leclerc", "Ferrari"),
+            ("Oliver Bearman", "Haas"), ("Pierre Gasly", "Alpine"),
+            ("Liam Lawson", "Racing Bulls"), ("Isack Hadjar", "Red Bull"),
+            ("Carlos Sainz", "Williams"), ("Franco Colapinto", "Alpine"),
+            ("Nico Hulkenberg", "Audi"), ("Arvid Lindblad", "Racing Bulls"),
+            ("Valtteri Bottas", "Cadillac"), ("Esteban Ocon", "Haas"),
+            ("Sergio Perez", "Cadillac"),
+        ],
+    },
+    "japan_2026": {
+        "round": 3, "gp": "Japanese Grand Prix", "date": "Mar 29",
+        "pole": ("Kimi Antonelli", "Mercedes", "1:28.778"),
+        "winner": ("Kimi Antonelli", "Mercedes"),
+        "flap": ("Kimi Antonelli", "Mercedes", "1:32.432"),
+        "grid": [
+            ("Kimi Antonelli", "Mercedes"), ("Oscar Piastri", "McLaren"),
+            ("Charles Leclerc", "Ferrari"), ("George Russell", "Mercedes"),
+            ("Lando Norris", "McLaren"), ("Lewis Hamilton", "Ferrari"),
+            ("Pierre Gasly", "Alpine"), ("Max Verstappen", "Red Bull"),
+            ("Liam Lawson", "Racing Bulls"), ("Esteban Ocon", "Haas"),
+            ("Nico Hulkenberg", "Audi"), ("Isack Hadjar", "Red Bull"),
+            ("Gabriel Bortoleto", "Audi"), ("Arvid Lindblad", "Racing Bulls"),
+            ("Carlos Sainz", "Williams"), ("Franco Colapinto", "Alpine"),
+            ("Sergio Perez", "Cadillac"), ("Fernando Alonso", "Aston Martin"),
+            ("Valtteri Bottas", "Cadillac"), ("Alexander Albon", "Williams"),
+        ],
+    },
+    "miami_2026": {
+        "round": 4, "gp": "Miami Grand Prix", "date": "May 3",
+        "pole": ("Kimi Antonelli", "Mercedes", "1:27.798"),
+        "winner": ("Kimi Antonelli", "Mercedes"),
+        "flap": ("Lando Norris", "McLaren", "1:31.869"),
+        "grid": [
+            ("Kimi Antonelli", "Mercedes"), ("Lando Norris", "McLaren"),
+            ("Oscar Piastri", "McLaren"), ("George Russell", "Mercedes"),
+            ("Max Verstappen", "Red Bull"), ("Lewis Hamilton", "Ferrari"),
+            ("Franco Colapinto", "Alpine"), ("Charles Leclerc", "Ferrari"),
+            ("Carlos Sainz", "Williams"), ("Alexander Albon", "Williams"),
+            ("Oliver Bearman", "Haas"), ("Gabriel Bortoleto", "Audi"),
+            ("Esteban Ocon", "Haas"), ("Arvid Lindblad", "Racing Bulls"),
+            ("Fernando Alonso", "Aston Martin"), ("Sergio Perez", "Cadillac"),
+            ("Lance Stroll", "Aston Martin"), ("Valtteri Bottas", "Cadillac"),
+        ],
+    },
+    "montreal_2026": {
+        "round": 5, "gp": "Canadian Grand Prix", "date": "May 24",
+        "pole": ("George Russell", "Mercedes", "1:12.578"),
+        "winner": ("Kimi Antonelli", "Mercedes"),
+        "flap": ("Kimi Antonelli", "Mercedes", "1:14.210"),
+        "grid": [
+            ("Kimi Antonelli", "Mercedes"), ("Lewis Hamilton", "Ferrari"),
+            ("Max Verstappen", "Red Bull"), ("Charles Leclerc", "Ferrari"),
+            ("Isack Hadjar", "Red Bull"), ("Franco Colapinto", "Alpine"),
+            ("Liam Lawson", "Racing Bulls"), ("Pierre Gasly", "Alpine"),
+            ("Carlos Sainz", "Williams"), ("Oliver Bearman", "Haas"),
+            ("Oscar Piastri", "McLaren"), ("Nico Hulkenberg", "Audi"),
+            ("Gabriel Bortoleto", "Audi"), ("Esteban Ocon", "Haas"),
+            ("Lance Stroll", "Aston Martin"), ("Valtteri Bottas", "Cadillac"),
+        ],
+    },
+    "monaco_2026": {
+        "round": 6, "gp": "Monaco Grand Prix", "date": "Jun 7",
+        "pole": ("Kimi Antonelli", "Mercedes", "1:12.051"),
+        "winner": ("Kimi Antonelli", "Mercedes"),
+        "flap": ("Kimi Antonelli", "Mercedes", "1:13.481"),
+        "grid": [
+            ("Kimi Antonelli", "Mercedes"), ("Lewis Hamilton", "Ferrari"),
+            ("Pierre Gasly", "Alpine"), ("Isack Hadjar", "Red Bull"),
+            ("Oscar Piastri", "McLaren"), ("Liam Lawson", "Racing Bulls"),
+            ("Arvid Lindblad", "Racing Bulls"), ("Alexander Albon", "Williams"),
+            ("Esteban Ocon", "Haas"), ("Fernando Alonso", "Aston Martin"),
+            ("Gabriel Bortoleto", "Audi"), ("George Russell", "Mercedes"),
+            ("Nico Hulkenberg", "Audi"), ("Franco Colapinto", "Alpine"),
+            ("Sergio Perez", "Cadillac"), ("Carlos Sainz", "Williams"),
+        ],
+    },
+}
+
+# World Drivers' Championship after Round 6 (Monaco) — current as of 2026-06-12,
+# before the Spanish GP. Verified: formula1.com/en/results/2026/drivers +
+# Wikipedia 2026 F1 World Championship. (driver, team, points)
+F1_2026_STANDINGS_AFTER = "Round 6 · Monaco Grand Prix"
+F1_2026_STANDINGS = [
+    ("Kimi Antonelli", "Mercedes", 156), ("Lewis Hamilton", "Ferrari", 90),
+    ("George Russell", "Mercedes", 88), ("Charles Leclerc", "Ferrari", 75),
+    ("Oscar Piastri", "McLaren", 58), ("Lando Norris", "McLaren", 58),
+    ("Max Verstappen", "Red Bull", 43), ("Pierre Gasly", "Alpine", 35),
+    ("Isack Hadjar", "Red Bull", 26), ("Liam Lawson", "Racing Bulls", 24),
+    ("Oliver Bearman", "Haas", 18), ("Franco Colapinto", "Alpine", 15),
+    ("Arvid Lindblad", "Racing Bulls", 11), ("Carlos Sainz", "Williams", 6),
+    ("Alexander Albon", "Williams", 5), ("Esteban Ocon", "Haas", 3),
+    ("Gabriel Bortoleto", "Audi", 2), ("Fernando Alonso", "Aston Martin", 1),
+    ("Nico Hulkenberg", "Audi", 0), ("Valtteri Bottas", "Cadillac", 0),
+    ("Sergio Perez", "Cadillac", 0), ("Lance Stroll", "Aston Martin", 0),
+]
+
+
+# Real 2025 F1 pole laps — the historic target a pole-chase hotlap runs against
+# when the matching 2026 round has not been run yet. The hotlap is the RSS Formula
+# Hybrid 2025 on each circuit's 2025 F1 layout, so the 2025 pole is the like-for-like
+# benchmark. (slug -> (driver, team, time)). Verified per entry; do not invent times.
+#   austria: Lando Norris (McLaren) 1:03.971 — 2025 Austrian GP, Red Bull Ring.
+#            Source: en.wikipedia.org/wiki/2025_Austrian_Grand_Prix (Q3).
+F1_2025_POLES = {
+    "austria": ("Lando Norris", "McLaren", "1:03.971"),
+}
+
+# Per-circuit hotlap setup overrides for the F1 2026 pole-chase. Default (no entry)
+# = default AC garage, open. An entry means a saved quali setup ships in
+# setups/rss_formula_hybrid_2025_alpine/<track>/ and the launcher pre-writes it to
+# last.ini so hotlap mode (TYPE=4) loads it. Built from the proven Barcelona quali
+# base — only the values defensible without the encrypted data.acd are changed.
+F1_2026_HOTLAP_SETUPS = {
+    "austria": {
+        "trim":     "Low-downforce quali · wings trimmed (15) · 12 L",
+        "priority": "Top speed down the three straights, enough rear to keep T6–T7 settled",
+        "key":      "Saved setup auto-loads (RedBullRing_Quali_2026 → last.ini). Built off the proven Barcelona quali base; FIXED_SETUP=0 so you can keep tuning in the garage.",
+    },
+}
+
+
+def _f1_2025_pole_ref(slug):
+    """Benchmark ref dict for the real 2025 pole of this circuit, or None."""
+    p = F1_2025_POLES.get(slug)
+    if not p:
+        return None
+    drv, _team, time = p
+    surname = drv.split()[-1]
+    ref = {"label": f"{surname} pole · 2025 {slug.title()} GP", "time": time}
+    port = _F1_PORTRAITS.get(drv)
+    if port:
+        ref["portrait"] = port
+    return ref
+
+
+def _f1_2026_pole_ref(event_id):
+    """Benchmark ref dict for a hotlap challenge = the real 2026 pole, or None."""
+    r = F1_2026_RESULTS.get(event_id)
+    if not r or not r.get("pole"):
+        return None
+    drv, _team, time = r["pole"]
+    surname = drv.split()[-1]
+    ref = {"label": f"{surname} pole · 2026 {r['gp']}", "time": time}
+    port = _F1_PORTRAITS.get(drv)
+    if port:
+        ref["portrait"] = port
+    return ref
+
+
+F1_2026_SPECS = [
+    {"slug": "austria", "gp": "AUSTRIAN GP 2026", "loc": "RED BULL RING",
+     "sponsor": "Lenovo Austrian Grand Prix 2026", "circuit": "Red Bull Ring",
+     "place": "Spielberg, Austria", "track_id": "fn_redbullring", "layout": "austria_f1_2026",
+     "lat": "47.2197", "lng": "14.7647", "km": "4.326", "ca": "#0a1413", "cb": "#c8102e",
+     "char": "Short and brutal — barely a minute between the green Styrian hills, with three long straights and savage kerbs.",
+     "lede": "Ten corners, huge elevation, and three flat-out straights stitched together by some of the most punishing kerbs in F1. The uphill blast to Turn 3 and the plunge through Turns 6 and 7 reward bravery and bite back the instant you ask too much."},
+    {"slug": "britain", "gp": "BRITISH GP 2026", "loc": "SILVERSTONE",
+     "sponsor": "Pirelli British Grand Prix 2026", "circuit": "Silverstone",
+     "place": "Silverstone, England", "track_id": "ks_silverstone", "layout": "silverstone_f1_2025",
+     "lat": "52.0733", "lng": "-1.0147", "km": "5.901", "ca": "#0b1d3a", "cb": "#c8102e",
+     "char": "High-speed, historic and merciless on a nervous car — the home of British motorsport.",
+     "lede": "Maggotts, Becketts and Chapel — the finest sequence of corners in Formula 1, taken with the steering barely moving and the car on a knife edge. Copse and the long Stowe ask for total commitment; flinch once and the lap is gone."},
+    {"slug": "belgium", "gp": "BELGIAN GP 2026", "loc": "SPA",
+     "sponsor": "Moet & Chandon Belgian Grand Prix 2026", "circuit": "Spa-Francorchamps",
+     "place": "Stavelot, Belgium", "track_id": "spa", "layout": "layout_f1_2025",
+     "lat": "50.4372", "lng": "5.9714", "km": "7.004", "ca": "#1a1a1a", "cb": "#f0c000",
+     "char": "Seven kilometres through the Ardennes — the greatest lap in racing.",
+     "lede": "Eau Rouge into Raidillon, flat in top, the car compressing at the bottom and going light over the crest — the corner every driver measures themselves against. Then the long Kemmel straight, the technical middle sector, and the blind plunge of Pouhon."},
+    {"slug": "hungary", "gp": "HUNGARIAN GP 2026", "loc": "HUNGARORING",
+     "sponsor": "AWS Hungarian Grand Prix 2026", "circuit": "Hungaroring",
+     "place": "Mogyorod, Hungary", "track_id": "fn_hungaroring", "layout": "layout_f1_2025",
+     "lat": "47.5789", "lng": "19.2486", "km": "4.381", "ca": "#0a1413", "cb": "#1a6b3c",
+     "char": "A go-kart track for F1 cars — relentless, hot, with nowhere to breathe.",
+     "lede": "Monaco without the walls: a tight, twisting ribbon with almost no straight to rest on. The downhill Turn 1 into the snaking infield never lets up — it is two laps of rhythm and patience packed into one, in furnace heat."},
+    {"slug": "netherlands", "gp": "DUTCH GP 2026", "loc": "ZANDVOORT",
+     "sponsor": "Heineken Dutch Grand Prix 2026", "circuit": "Zandvoort",
+     "place": "Zandvoort, Netherlands", "track_id": "zandvoort2023", "layout": "layout_f1_2025",
+     "lat": "52.3888", "lng": "4.5409", "km": "4.259", "ca": "#1a1a1a", "cb": "#ff6a00",
+     "char": "Banking, dunes and a wall of orange — old-school and unforgiving.",
+     "lede": "Carved through the North Sea dunes, with the banked Hugenholtz at Turn 3 and the banked final corner firing you onto the straight. Blind crests, no run-off, and a constantly shifting wind off the sea — old-school in the best and hardest way."},
+    {"slug": "italy", "gp": "ITALIAN GP 2026", "loc": "MONZA",
+     "sponsor": "Pirelli Gran Premio d'Italia 2026", "circuit": "Monza",
+     "place": "Monza, Italy", "track_id": "monza", "layout": "monza_f1_2025",
+     "lat": "45.6156", "lng": "9.2811", "km": "5.793", "ca": "#0a2a1a", "cb": "#c8102e",
+     "char": "The Temple of Speed — full throttle, slipstream, and the Tifosi.",
+     "lede": "The fastest lap of the year: low downforce, long straights, and heavy braking into the chicanes. The Variante della Roggia and the flat-out Parabolica decide it — get the kerbs and the exit onto the straight right, and the Tifosi roar."},
+    {"slug": "madrid", "gp": "MADRID GP 2026", "loc": "MOTORLAND ARAGON",
+     "sponsor": "TAG Heuer Gran Premio de Espana 2026", "circuit": "MotorLand Aragon",
+     "place": "Alcaniz, Spain (Madring stand-in — no Madrid track in AC)",
+     "track_id": "fn_aragon", "layout": "gp",
+     "lat": "41.0786", "lng": "-0.2042", "km": "5.344", "ca": "#0a1413", "cb": "#c8102e",
+     "char": "A Tilke-designed Spanish circuit standing in for the new Madring — long straight, tricky rhythm, abrasive tarmac.",
+     "lede": "The 2026 Spanish GP moves to the new Madrid 'Madring' — which has no Assetto Corsa track yet, so this weekend is run at MotorLand Aragon, the closest Spanish stand-in. A long back straight loads the brakes into the hard Turn 16 hairpin, and a technical, undulating middle sector rewards a car you can place to the centimetre."},
+    {"slug": "azerbaijan", "gp": "AZERBAIJAN GP 2026", "loc": "BAKU",
+     "sponsor": "Qatar Airways Azerbaijan Grand Prix 2026", "circuit": "Baku City Circuit",
+     "place": "Baku, Azerbaijan", "track_id": "baku_2022", "layout": "layout_f1_2025",
+     "lat": "40.3725", "lng": "49.8533", "km": "6.003", "ca": "#0a1413", "cb": "#00a3a3",
+     "char": "A street circuit with the longest straight on the calendar — and walls inches away.",
+     "lede": "Two kilometres flat-out down the seafront into a 90-degree Turn 1, then the tight, twisting castle section where the walls close to the width of the car. Power and bravery on the straight, millimetre precision in the old town."},
+    {"slug": "singapore", "gp": "SINGAPORE GP 2026", "loc": "MARINA BAY",
+     "sponsor": "Singapore Airlines Singapore Grand Prix 2026", "circuit": "Marina Bay",
+     "place": "Marina Bay, Singapore", "track_id": "singapore_2020", "layout": "layout_f1_2025",
+     "lat": "1.2914", "lng": "103.8640", "km": "4.928", "ca": "#1a0a2e", "cb": "#00b4d8",
+     "char": "Under the lights, in the heat — the most physically demanding race of the year.",
+     "lede": "A bumpy, walled night circuit that never gives you a moment off. Nineteen corners under the floodlights, the humidity relentless, the barriers waiting on every exit. Concentration is the whole game — one lapse and the wall finds you."},
+    {"slug": "usa", "gp": "UNITED STATES GP 2026", "loc": "COTA",
+     "sponsor": "MSC Cruises United States Grand Prix 2026", "circuit": "Circuit of the Americas",
+     "place": "Austin, USA", "track_id": "cota_2022", "layout": "layout_f1_2025",
+     "lat": "30.1328", "lng": "-97.6411", "km": "5.513", "ca": "#0a1a3a", "cb": "#b22234",
+     "char": "Austin's amphitheatre — elevation, esses, and a stadium section.",
+     "lede": "A steep, blind uphill into Turn 1, then a Silverstone-style sequence of esses that flows downhill and demands total commitment. The long back straight and the stadium section reward a car that can be thrown into the high-speed direction changes."},
+    {"slug": "mexico", "gp": "MEXICO CITY GP 2026", "loc": "MEXICO CITY",
+     "sponsor": "Gran Premio de la Ciudad de Mexico 2026", "circuit": "Autodromo Hermanos Rodriguez",
+     "place": "Mexico City, Mexico", "track_id": "acu_mexico_2021", "layout": "layout_f1_2025",
+     "lat": "19.4042", "lng": "-99.0907", "km": "4.304", "ca": "#0a3a1a", "cb": "#c8102e",
+     "char": "Two thousand metres up — thin air, a vast straight, and the loudest grandstand in F1.",
+     "lede": "At altitude the engines gasp and the wings work less, so the cars run maximum downforce and still slide. The colossal main straight ends in a heavy braking zone, and the lap finishes through the old baseball stadium with the crowd on top of you."},
+    {"slug": "brazil", "gp": "SAO PAULO GP 2026", "loc": "INTERLAGOS",
+     "sponsor": "MSC Cruises Grande Premio de Sao Paulo 2026", "circuit": "Interlagos",
+     "place": "Sao Paulo, Brazil", "track_id": "vhe_interlagos", "layout": "layout_f1_2025",
+     "lat": "-23.7036", "lng": "-46.6997", "km": "4.309", "ca": "#0a3a1a", "cb": "#f0c000",
+     "char": "Anticlockwise, undulating, and almost always dramatic.",
+     "lede": "Down the hill into the Senna S, through the flowing infield, then the long climb back up onto the pit straight that loads the rear and tests every ounce of traction. Short, old-school, and a circuit that has decided more championships than any other."},
+    {"slug": "lasvegas", "gp": "LAS VEGAS GP 2026", "loc": "LAS VEGAS",
+     "sponsor": "Heineken Las Vegas Grand Prix 2026", "circuit": "Las Vegas Strip Circuit",
+     "place": "Las Vegas, USA", "track_id": "lasvegas23", "layout": "layout_f1_2025",
+     "lat": "36.1147", "lng": "-115.1728", "km": "6.000", "ca": "#1a0a1a", "cb": "#ff2d78",
+     "char": "Flat-out down the Strip at midnight — neon, cold tarmac, low grip.",
+     "lede": "A near-two-kilometre straight blazing down the Las Vegas Strip, bracketed by 90-degree turns where the cold desert night refuses to switch the tyres on. Top speed and tyre temperature are everything — a lap fought as much against the cold as the clock."},
+    {"slug": "qatar", "gp": "QATAR GP 2026", "loc": "LOSAIL",
+     "sponsor": "Qatar Airways Qatar Grand Prix 2026", "circuit": "Losail International Circuit",
+     "place": "Lusail, Qatar", "track_id": "fn_losail", "layout": "layout_f1_2025",
+     "lat": "25.4900", "lng": "51.4542", "km": "5.418", "ca": "#0a1413", "cb": "#6a0a2a",
+     "char": "A floodlit ribbon of fast corners — brutal on the neck and the tyres.",
+     "lede": "An MotoGP-bred circuit of fast, flowing medium-speed sweeps strung together with barely a slow corner to break the rhythm. Under the floodlights the lap is one long, committed flow — relentless lateral load that punishes both driver and front-left."},
+    {"slug": "abudhabi", "gp": "ABU DHABI GP 2026", "loc": "YAS MARINA",
+     "sponsor": "Etihad Airways Abu Dhabi Grand Prix 2026", "circuit": "Yas Marina",
+     "place": "Abu Dhabi, UAE", "track_id": "chq_abu_dhabi_2024", "layout": "layout_f1_2025",
+     "lat": "24.4672", "lng": "54.6031", "km": "5.281", "ca": "#0a2a2a", "cb": "#6a2a8a",
+     "char": "Twilight to night, the season finale — where championships are settled.",
+     "lede": "The sun drops over the marina as the lap unfolds: a long back straight into heavy braking, the flowing revised final sector under the lights, and the hotel glowing above the track. The last lap of the year, where everything is decided."},
+    {"slug": "australia", "gp": "AUSTRALIAN GP 2026", "loc": "ALBERT PARK",
+     "sponsor": "Qatar Airways Australian Grand Prix 2026", "circuit": "Albert Park",
+     "place": "Melbourne, Australia", "track_id": "fn_albertpark", "layout": "layout_f1_2026",
+     "lat": "-37.8497", "lng": "144.9680", "km": "5.280", "ca": "#0a2a1a", "cb": "#f0c000",
+     "char": "A fast, flowing park circuit around a Melbourne lake — smooth, quick, and merciless on the walls.",
+     "lede": "Albert Park flows around the lake in a rhythm of medium and high-speed corners, the surface fast and the walls close on every exit. The reprofiled layout rewards commitment through the quick esses and a clean run onto the long straights — overdrive it and the barrier is right there."},
+    {"slug": "china", "gp": "CHINESE GP 2026", "loc": "SHANGHAI",
+     "sponsor": "Heineken Chinese Grand Prix 2026", "circuit": "Shanghai International Circuit",
+     "place": "Shanghai, China", "track_id": "shanghai_v2_25", "layout": "layout_f1_2026",
+     "lat": "31.3389", "lng": "121.2200", "km": "5.451", "ca": "#0a1413", "cb": "#c8102e",
+     "char": "The endless, tightening Turn 1–2 snail and a colossal back straight — brutal on the front-left.",
+     "lede": "Shanghai opens with the famous spiralling Turn 1 that tightens forever before unwinding into a long, demanding lap. A vast back straight ends in the heavy stop at Turn 14, and the long right-handers work the front-left tyre harder than almost anywhere on the calendar."},
+    {"slug": "japan", "gp": "JAPANESE GP 2026", "loc": "SUZUKA",
+     "sponsor": "Aramco Japanese Grand Prix 2026", "circuit": "Suzuka",
+     "place": "Suzuka, Japan", "track_id": "rt_suzuka", "layout": "layout_f1_2026",
+     "lat": "34.8431", "lng": "136.5410", "km": "5.807", "ca": "#0a1413", "cb": "#c8102e",
+     "char": "The only figure-eight in F1 — the Esses are the purest test of rhythm in the sport.",
+     "lede": "Suzuka's opening Esses are the finest rhythm section in motorsport: a flowing, uphill weave where each corner sets up the next and a single error costs the whole sequence. Degner, the Spoon and the daunting 130R reward total commitment and punish hesitation."},
+    {"slug": "miami", "gp": "MIAMI GP 2026", "loc": "MIAMI",
+     "sponsor": "Crypto.com Miami Grand Prix 2026", "circuit": "Miami International Autodrome",
+     "place": "Miami Gardens, USA", "track_id": "miami_f1", "layout": "layout_f1_2025",
+     "lat": "25.9581", "lng": "-80.2389", "km": "5.410", "ca": "#1a0a2e", "cb": "#00b4d8",
+     "char": "A made-for-TV street circuit around the Hard Rock Stadium — long straights, a fiddly technical section.",
+     "lede": "Miami strings three long straights together with a slow, fiddly chicane complex under the stadium. The fast sweeps reward a stable, planted car while the tight technical section punishes anyone who overdrives it — and the green, low-grip surface offers little in return early on."},
+]
+
+
+def _f1_2026_event(s):
+    slug = s["slug"]
+    return {
+        "id":       f"{slug}_2026",
+        "label":    f"FORMULA 1 · {s['gp'].replace(' 2026','')}",
+        "kicker":   f"F1 2026 · {s['circuit']}",
+        "subtitle": f"{s['sponsor']} · {s['place']} · {s['km']} km",
+        "color_a":  s["ca"],
+        "color_b":  s["cb"],
+        "image":    f"hotlap_{slug}_2026.jpg",
+        "spotlight": {
+            "tile_id": f"hotlap_{slug}_2026",
+            "kicker":  "POLE CHASE · SPOTLIGHT",
+            "lede": (
+                f"Kimi Antonelli put the Mercedes-AMG W16 on pole at {s['circuit']}. "
+                f"{s['char']} Drive his car, ghost on, and chase the pole lap."
+            ),
+        },
+        "tiles": [f"hotlap_{slug}_2026", f"race_{slug}_2026"],
+    }
+
+
+def _f1_2026_driver(slug, cmd):
+    return {
+        "label":    "DRIVE AS PABLO",
+        "logo":     "mercedes",
+        "cmd":      cmd,
+        "ac_car_id": "rss_formula_hybrid_2025_alpine",
+        "skin":     "Asi_W16_Antonelli_12",
+        "color":    "#00A19C",
+        "driver":   "PABLO SUZARTE",
+        "number":   "12",
+        "team":     "Mercedes-AMG Petronas · W16",
+        "portrait": "pablo_portrait.jpg",
+        "drivers":  ["Pablo Suzarte"],
+        "tagline":  "POLE CHASE · ANTONELLI'S W16",
+        "quote":    "Pole means everything — you control the start. Get the launch right and the lead is yours to keep.",
+        "race_class": "F1 2026",
+    }
+
+
+def _f1_2026_hotlap(s):
+    slug = s["slug"]
+    # Pole target, best available: real 2026 pole if the round has run, else the
+    # real 2025 pole of this circuit, else the Antonelli-pole PENDING placeholder.
+    pole_ref = _f1_2026_pole_ref(f"{slug}_2026")
+    if pole_ref:
+        _ps = pole_ref["label"].split(" pole")[0]
+        goal = f"Set a clean lap, then chase {_ps}'s real 2026 pole — {pole_ref['time']}."
+    elif _f1_2025_pole_ref(slug):
+        pole_ref = _f1_2025_pole_ref(slug)
+        _ps = pole_ref["label"].split(" pole")[0]
+        goal = f"Set a clean lap, then chase {_ps}'s 2025 pole — {pole_ref['time']}."
+    else:
+        pole_ref = {"label": f"Antonelli pole · 2026 {s['gp'].replace(' 2026','')}",
+                    "time": "PENDING · awaiting verified pole time",
+                    "portrait": "antonelli_portrait.png"}
+        goal = "Set a clean lap, then hunt Antonelli's pole (time pending — verify before chasing)."
+    return {
+        "id": f"hotlap_{slug}_2026", "type": "HOTLAP", "series": "F1",
+        "evolution_mode": "laps",
+        "tag": "MERCEDES-AMG W16 · POLE CHASE",
+        "title": f"{s['gp']} · POLE CHASE",
+        "subtitle": f"Solo lap · RSS Formula Hybrid (W16) · {s['circuit']} · ghost on",
+        "scenario": (
+            f"Solo against the clock around {s['circuit']} in the RSS Formula Hybrid "
+            f"2025 — Kimi Antonelli's Mercedes-AMG W16, the car that took pole. "
+            f"{s['char']}"
+        ),
+        "hero_blurb": (
+            f"{s['char']} Soft tyres, ghost on, the garage open to tune. Stitch all "
+            f"three sectors into one clean lap and chase Antonelli's pole."
+        ),
+        "lede": s["lede"],
+        "kicker": f"F1 2026 · {s['circuit'].upper()} · MERCEDES-AMG W16",
+        "goal": goal,
+        "setup": F1_2026_HOTLAP_SETUPS.get(slug, {
+            "trim":     "Default AC setup · garage open",
+            "priority": "Front-end bite into the corners, a stable rear on the exits",
+            "key":      f"No saved {s['circuit']} setup yet — FIXED_SETUP=0 leaves the garage unlocked so you can build and save your own",
+        }),
+        "benchmarks": {
+            # Real 2026 pole when the round has run (from F1_2026_RESULTS), else
+            # the Antonelli-pole PENDING placeholder — never an invented time.
+            "refs": [pole_ref],
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "RSS FORMULA HYBRID 2025 · MERCEDES-AMG W16 (#12 ANTONELLI)",
+            "TRACK": f"{s['circuit']} · 2025 F1 layout",
+            "GRID":  "Solo · ghost on",
+            "LAPS":  "Open · hotlap mode",
+        },
+        "color_a": s["ca"], "color_b": s["cb"],
+        "track_label": s["loc"],
+        "images": [f"hotlap_{slug}_2026.jpg", f"{slug}_2026_map.jpg"],
+        "launcher": f"launch_hotlap_{slug}_2026.cmd",
+        "dashboard_rel": "telemetry_archive/dashboard.html",
+        "ac_car_id": "rss_formula_hybrid_2025_alpine",
+        "ac_car_skin": "Asi_W16_Antonelli_12",
+        "ac_track_id": s["track_id"], "ac_track_layout": s["layout"],
+        "launchers": [_f1_2026_driver(slug, f"launch_hotlap_{slug}_2026.cmd")],
+    }
+
+
+def _f1_2026_race(s):
+    slug = s["slug"]
+    # Real 2026 pole when the round has run, else the Antonelli PENDING ref.
+    pole_ref = _f1_2026_pole_ref(f"{slug}_2026") or {
+        "label": f"Antonelli pole · 2026 {s['gp'].replace(' 2026','')}",
+        "time": "PENDING · awaiting verified pole time",
+        "portrait": "antonelli_portrait.png",
+    }
+    return {
+        "id": f"race_{slug}_2026", "type": "RACE", "series": "F1",
+        "type_label": "GRID RACE",
+        "tag": f"F1 · WIN FROM POLE · {s['loc']}",
+        "title": s["gp"],
+        "subtitle": "5-lap sprint · real 2026 F1 grid · start on pole in the W16",
+        "scenario": (
+            f"{s['circuit']} in Antonelli's Mercedes-AMG W16 against the actual 2026 "
+            f"F1 field — Verstappen, Russell, Norris, Leclerc, Piastri, Hamilton and "
+            f"the rest. You line up P1 on pole. {s['char']} Convert the pole lap into "
+            f"a win and hold the lead to the flag."
+        ),
+        "hero_blurb": (
+            f"Nineteen cars, the real 2026 grid, {s['circuit']}. You start on pole in "
+            f"Antonelli's W16. Nail the launch, defend the inside, manage the tyres — win it."
+        ),
+        "goal": "Win from pole. Defend the lead, manage the tyres, hold it to the flag.",
+        "setup": {
+            "trim":     "Default · no tuning",
+            "priority": "Tyre management through the corners, clean traction on the exits",
+            "key":      "All 19 cars on AC factory trim; pole is won at the launch and kept by protecting the inside line",
+        },
+        "benchmarks": {
+            "refs": [pole_ref],
+            "you_label": "Your best time",
+        },
+        "specs": {
+            "CAR":   "MERCEDES-AMG W16 · F1 2025",
+            "TRACK": f"{s['circuit']} · 2025 F1 layout",
+            "GRID":  "19 cars · You start P1 (pole)",
+            "LAPS":  "5 laps · AI 84–99",
+        },
+        "color_a": s["ca"], "color_b": s["cb"],
+        "track_label": s["loc"],
+        "images": [f"race_{slug}_2026.jpg", f"{slug}_2026_map.jpg"],
+        "launcher": f"launch_race_{slug}_2026.cmd",
+        "ac_car_id": "rss_formula_hybrid_2025_alpine",
+        "ac_car_skin": "Asi_W16_Antonelli_12",
+        "ac_track_id": s["track_id"], "ac_track_layout": s["layout"],
+        "launchers": [_f1_2026_driver(slug, f"launch_race_{slug}_2026.cmd")],
+    }
+
+
+EVENTS += [_f1_2026_event(s) for s in F1_2026_SPECS]
+for _s in F1_2026_SPECS:
+    CONFIGS += [_f1_2026_hotlap(_s), _f1_2026_race(_s)]
+
+
 # -- Render ------------------------------------------------------------------
 
 CSS = """
@@ -3189,8 +4477,11 @@ CSS = """
   --blue:#1d4ed8;         /* info */
 
   /* -- Typography family -- */
-  --display:'Big Shoulders Display',Impact,sans-serif;
-  --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  /* F1-style typography — Titillium Web is the standard free stand-in for the
+     official "Formula1" typeface (F1 itself was built on Titillium). Big
+     Shoulders kept as the condensed-poster fallback for big display headings. */
+  --display:'Titillium Web','Big Shoulders Display',Impact,sans-serif;
+  --body:'Titillium Web','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono','SF Mono',ui-monospace,monospace;
 
   /* -- Spacing scale (4px base, 8px grid) -- */
@@ -3952,6 +5243,30 @@ body{margin:0;background:var(--paper);color:var(--ink-2);font:15px/1.55 var(--bo
 .nav-link:hover{color:var(--ink);background:var(--paper)}
 .nav-link.is-active{color:var(--ink);border-bottom-color:var(--max)}
 .nav-link:focus-visible{outline:none;color:var(--ink);background:var(--paper-2)}
+/* --- Top-right avatar dropdown (garage / hardware / results) ---------- */
+.navav-spacer{flex:1 1 auto;min-width:12px}
+.navav{position:relative;display:flex;align-items:stretch}
+.navav>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+  padding:0 var(--s-5);border-bottom:3px solid transparent;outline:none;-webkit-tap-highlight-color:transparent}
+.navav>summary::-webkit-details-marker{display:none}
+.navav>summary::marker{content:""}
+.navav.is-active>summary{border-bottom-color:var(--max)}
+.navav>summary:hover{background:var(--paper)}
+.navav-face{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid var(--rule);
+  background:var(--paper-2);display:block}
+.navav[open]>summary .navav-face{border-color:var(--max)}
+.navav-caret{font-size:9px;color:var(--ink-3);transition:transform .15s ease}
+.navav[open] .navav-caret{transform:rotate(180deg)}
+.navav-pop{position:absolute;top:calc(100% + 6px);right:0;min-width:212px;background:var(--surface);
+  border:1px solid var(--rule);box-shadow:0 14px 38px rgba(0,0,0,.28);border-radius:6px;
+  padding:6px;z-index:60;display:flex;flex-direction:column}
+.navav-head{font:800 9px/1 var(--body);letter-spacing:1.8px;color:var(--ink-4);
+  padding:9px 10px 8px;border-bottom:1px solid var(--rule-hair);margin-bottom:4px}
+.navav-item{display:block;padding:10px 10px;color:var(--ink-3);text-decoration:none;
+  font:700 11px/1 var(--body);letter-spacing:1.2px;border-radius:4px;border-bottom:0;
+  transition:background .12s ease,color .12s ease}
+.navav-item:hover{background:var(--paper);color:var(--ink)}
+.navav-item.is-active{color:var(--ink);background:var(--paper-2)}
 
 /* Garage pages */
 .garage-hero{padding:24px 24px 18px}
@@ -4186,15 +5501,25 @@ body{margin:0;background:var(--paper);color:var(--ink-2);font:15px/1.55 var(--bo
 .cs-livery-num{font-family:var(--mono);color:var(--max);font-weight:800}
 .cs-livery-driver{font-weight:700;color:var(--ink)}
 .cs-livery-team{color:var(--ink-3)}
-.cs-stat-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 14px;margin-top:auto;padding-top:10px;border-top:1px dashed var(--border)}
-.cs-stat-row{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
-.cs-stat-lbl{font:700 9.5px/1 var(--body);letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-4)}
-.cs-stat-val{font:700 13px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.cs-stat-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:0;margin-top:auto;padding-top:16px;border-top:1px solid var(--border)}
+.cs-stat-row{display:flex;flex-direction:column;gap:4px;padding:0 16px 0 0}
+.cs-stat-row + .cs-stat-row{border-left:1px solid var(--border);padding-left:16px}
+.cs-stat-lbl{font:700 9px/1 var(--body);letter-spacing:1.3px;text-transform:uppercase;color:var(--ink-3)}
+.cs-stat-val{font:800 18px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:-0.3px}
 .cs-set-list{display:flex;flex-direction:column;gap:0;margin-top:6px}
 .cs-set-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--border)}
 .cs-set-row:last-child{border-bottom:0}
 .cs-set-lbl{font:700 10.5px/1 var(--body);letter-spacing:1.3px;text-transform:uppercase;color:var(--ink-3)}
 .cs-set-val{font:700 14px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--max)}
+/* Verified-fact pills + prose brief (used when there are no decoded .ini rows) */
+.cs-chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+.cs-chip{display:inline-flex;align-items:baseline;gap:7px;background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:6px 13px}
+.cs-chip-k{font:700 8.5px/1 var(--body);letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-4)}
+.cs-chip-v{font:800 12.5px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.cs-setup-note{padding:13px 0;border-top:1px dashed var(--border)}
+.cs-setup-note:first-of-type{border-top:0}
+.cs-setup-note-lbl{font:700 9px/1 var(--body);letter-spacing:1.6px;text-transform:uppercase;color:var(--max);margin-bottom:7px}
+.cs-setup-note-body{font:500 14px/1.6 var(--body);color:var(--ink-2);max-width:54ch}
 /* Track explained section — researched layout with key sections list */
 .tx-section{margin-top:32px}
 .tx-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:stretch;background:#fff;border:1px solid var(--border);border-radius:3px;padding:22px 24px}
@@ -4347,6 +5672,9 @@ body{margin:0;background:var(--paper);color:var(--ink-2);font:15px/1.55 var(--bo
 .hl-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 28px 15px;font:900 13px/1 var(--body);letter-spacing:2.4px;text-transform:uppercase;border:0;border-radius:2px;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;white-space:nowrap;color:#fff;background:var(--green);min-width:240px}
 .hl-cta:hover{background:#15803d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.5)}
 .hl-cta-meta{font:600 11px/1.4 var(--body);letter-spacing:0.4px;color:rgba(255,255,255,0.65)}
+.hl-cta-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;width:100%}
+.hl-cta-event{display:inline-flex;align-items:center;gap:8px;padding:16px 24px 15px;font:900 12px/1 var(--body);letter-spacing:1.8px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.45);border-radius:2px;color:#fff;text-decoration:none;background:rgba(255,255,255,0.06);white-space:nowrap;transition:background .15s,border-color .15s,transform .15s}
+.hl-cta-event:hover{background:rgba(255,255,255,0.16);border-color:#fff;transform:translateY(-2px)}
 
 /* === RACE HERO — "you vs the field" poster (sibling of duel + hotlap) === */
 .race-hero{position:relative;width:100%;min-height:680px;color:#fff;overflow:hidden;background:#000;margin:0 0 56px;border-bottom:1px solid var(--ink)}
@@ -4409,7 +5737,9 @@ body{margin:0;background:var(--paper);color:var(--ink-2);font:15px/1.55 var(--bo
 .eh-data-lbl{font:700 9.5px/1 var(--body);letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,0.55)}
 .eh-data-val{font:800 18px/1.15 var(--mono);font-variant-numeric:tabular-nums;color:#fff;letter-spacing:-0.4px;word-break:break-word}
 .eh-cta .cd-launchers,.eh-cta .cd-btn-launch{margin:0}
-.eh-cta{display:flex;gap:12px}
+.eh-cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.eh-cta-event{display:inline-flex;align-items:center;gap:8px;font:800 12px/1 var(--body);letter-spacing:1.4px;text-transform:uppercase;color:#fff;text-decoration:none;padding:15px 22px;border:1px solid rgba(255,255,255,0.4);border-radius:2px;background:rgba(255,255,255,0.06);transition:background .15s ease,border-color .15s ease}
+.eh-cta-event:hover{background:rgba(255,255,255,0.14);border-color:#fff}
 
 /* --- Sections wrapper ------------------------------------------ */
 .cd-page.is-editorial .cd-section{max-width:1180px;margin:0 auto 72px;padding:0 28px;background:transparent;border:0;box-shadow:none}
@@ -4718,7 +6048,21 @@ body.is-editorial-site .btn-launch:hover{transform:none;background:#9b0a0c}
 .ncard-type.race{border-left:3px solid var(--max)}
 .ncard-type.duel{border-left:3px solid #6677ee}
 
-.ncard-flag{position:absolute;top:10px;right:10px;z-index:3;display:inline-flex;width:24px;height:16px;box-shadow:0 0 0 1px rgba(255,255,255,0.45),0 1px 2px rgba(0,0,0,0.3);border-radius:1px;overflow:hidden}
+.ncard-flag{position:absolute;top:12px;right:46px;z-index:3;display:inline-flex;width:24px;height:16px;box-shadow:0 0 0 1px rgba(255,255,255,0.45),0 1px 2px rgba(0,0,0,0.3);border-radius:1px;overflow:hidden}
+.ncard-star{position:absolute;top:8px;right:8px;z-index:5;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:none;cursor:pointer;border-radius:50%;background:rgba(10,10,10,0.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);box-shadow:0 1px 3px rgba(0,0,0,0.4);transition:transform .12s ease,background .12s ease}
+.ncard-star svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linejoin:round;transition:fill .12s,stroke .12s}
+.ncard-star:hover{transform:scale(1.14);background:rgba(10,10,10,0.82)}
+.ncard-star.is-on{background:rgba(212,14,16,0.92)}
+.ncard-star.is-on svg{fill:#ffd34d;stroke:#ffd34d}
+.ongoing-grid .ncard-star{background:rgba(212,14,16,0.92)}
+.ongoing-grid .ncard-star svg{fill:#ffd34d;stroke:#ffd34d}
+.cd-fstar{position:fixed;top:74px;right:20px;z-index:60;width:auto;height:auto;border-radius:999px;gap:8px;padding:10px 16px;background:rgba(10,10,10,0.72);border:1px solid rgba(255,255,255,0.30);color:#fff;font:800 11px/1 var(--body);letter-spacing:1.4px;text-transform:uppercase;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 16px rgba(0,0,0,0.4)}
+.cd-fstar svg{width:16px;height:16px}
+.cd-fstar:hover{transform:translateY(-1px);background:rgba(10,10,10,0.9)}
+.cd-fstar.is-on{background:rgba(212,14,16,0.95);border-color:rgba(212,14,16,0.95)}
+.cd-fstar.is-on svg{fill:#ffd34d;stroke:#ffd34d}
+.cd-fstar.is-on:hover{background:rgba(212,14,16,1)}
+@media(max-width:700px){.cd-fstar{top:auto;bottom:18px;right:14px}}
 .ncard-flag svg{width:100%;height:100%;display:block}
 
 .ncard-title{position:absolute;left:14px;right:14px;bottom:12px;z-index:4;margin:0;font:900 22px/0.92 var(--display);letter-spacing:-0.4px;text-transform:uppercase;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,0.85),0 1px 2px rgba(0,0,0,0.9);font-stretch:condensed;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -4986,6 +6330,66 @@ document.addEventListener('DOMContentLoaded', startCountdownTicker);
       apply();
     }
   });
+})();
+
+/* ===== Star → Active challenges (per-visitor, localStorage) ===== */
+(function(){
+  const KEY = 'activeChallenges';
+  function readRaw(){ return localStorage.getItem(KEY); }
+  function getSet(){
+    try { return new Set(JSON.parse(readRaw() || '[]')); } catch(e){ return new Set(); }
+  }
+  function save(s){ localStorage.setItem(KEY, JSON.stringify([...s])); }
+  // First visit (key never set): seed from the curated defaults so the
+  // Active section isn't empty out of the box.
+  function ensureSeed(){
+    if (readRaw() !== null) return;
+    const sec = document.getElementById('active-section');
+    const def = (sec && sec.dataset.defaultIds || '').split(',').map(x=>x.trim()).filter(Boolean);
+    save(new Set(def));
+  }
+  function syncStars(){
+    const s = getSet();
+    document.querySelectorAll('.ncard-star[data-cfg-id]').forEach(b => {
+      const on = s.has(b.dataset.cfgId);
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.title = on ? 'Remove from Active challenges' : 'Add to Active challenges';
+    });
+  }
+  let busy = false;
+  async function refreshActive(){
+    const sec = document.getElementById('active-section');
+    if (!sec) return;
+    const grid = document.getElementById('active-grid');
+    const cnt = document.getElementById('active-count');
+    const ids = [...getSet()];
+    if (!ids.length){ sec.hidden = true; if (grid) grid.innerHTML=''; if (cnt) cnt.textContent='0'; return; }
+    if (busy) return; busy = true;
+    try {
+      const r = await fetch('/api/active-cards?ids=' + encodeURIComponent(ids.join(',')));
+      const html = await r.text();
+      if (grid) grid.innerHTML = html;
+      const n = grid ? grid.querySelectorAll('.ncard').length : 0;
+      sec.hidden = n === 0;
+      if (cnt) cnt.textContent = String(n);
+      syncStars();
+    } catch(e){ /* offline / ignore */ }
+    finally { busy = false; }
+  }
+  document.addEventListener('click', (e) => {
+    const star = e.target.closest('.ncard-star');
+    if (!star) return;
+    e.preventDefault(); e.stopPropagation();
+    const id = star.dataset.cfgId; if (!id) return;
+    const s = getSet();
+    if (s.has(id)) s.delete(id); else s.add(id);
+    save(s); syncStars(); refreshActive();
+  });
+  function boot(){ ensureSeed(); syncStars(); refreshActive(); }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 """
 
@@ -5298,132 +6702,54 @@ def _best_from_history(rel_path):
     return best
 
 
-def _resolve_your_ms(bm):
-    """Pick the best available time for 'you': history JSON beats personalbest.ini."""
-    h_ms = _best_from_history(bm.get("you_history"))
-    if h_ms is not None:
-        return h_ms
-    section = bm.get("you_section")
-    if section:
-        return _load_personal_best().get(section)
-    return None
+_RESULTS_INDEX_CACHE = {"sig": None, "data": {}}
 
 
 def _load_results_index():
     """Load dashboard/results/index.json (latest result per tile, written by
-    launcher/update_results.py after every AC session)."""
+    launcher/update_results.py after every AC session). Cached by file mtime —
+    this is read once per challenge card, so re-parsing it per card was pure
+    waste."""
     p = AC_DOC / "dashboard" / "results" / "index.json"
-    if not p.exists():
-        return {}
     try:
-        return json.loads(p.read_text(encoding='utf-8'))
-    except Exception:
+        sig = p.stat().st_mtime
+    except OSError:
         return {}
+    if _RESULTS_INDEX_CACHE["sig"] == sig:
+        return _RESULTS_INDEX_CACHE["data"]
+    try:
+        data = json.loads(p.read_text(encoding='utf-8'))
+    except Exception:
+        data = {}
+    _RESULTS_INDEX_CACHE.update(sig=sig, data=data)
+    return data
 
 
-def _render_times_block(cfg):
-    bm = cfg.get("benchmarks") or {}
-    your_ms = _challenge_pb_ms(cfg) if bm else None
-    your_str = _fmt_ms(your_ms) if your_ms else None
-    refs = bm.get("refs") or []
-
-    # Latest auto-captured result for this tile (post-AC-exit snapshot).
-    last = _load_results_index().get(cfg.get("id"))
-    last_summary = last.get("summary") if last else None
-    last_ts = last.get("ts") if last else None
-
-    # If neither benchmarks nor a captured last-result exists, render nothing.
-    if not bm and not last_summary:
-        return ""
-
-    rows_html = []
-
-    # Your row first — bold, larger
-    you_lbl = bm.get("you_label", "Your best time") if bm else "Your best time"
-    rows_html.append(
-        '<div class="time-row is-you">'
-        f'<span class="time-lbl">{escape(you_lbl)}</span>'
-        f'<span class="time-val">{escape(your_str) if your_str else "—"}</span>'
-        '<span class="time-diff"></span>'
-        '</div>'
-    )
-
-    # Auto-captured "Last session" / "Last result" row.
-    if last_summary:
-        # Format last_ts (yyyyMMdd-HHmmss) → "DD MMM"
-        ts_label = ""
-        if last_ts and len(last_ts) >= 8:
-            try:
-                dt = datetime.strptime(last_ts[:8], "%Y%m%d")
-                ts_label = dt.strftime("%d %b").upper()
-            except Exception:
-                pass
-
-        finish = last_summary.get("finish")
-        field = last_summary.get("field")
-        best = last_summary.get("best_lap")
-        is_solo = (cfg.get("type") == "HOTLAP") or (field and field <= 1)
-        if is_solo:
-            row_lbl = "Last session"
-            row_val = best or "—"
-            row_diff = ts_label
-        else:
-            # RACE / DUEL: show finish position prominently
-            pos_str = f"P{finish}/{field}" if finish and field else "—"
-            row_lbl = "Last result"
-            row_val = pos_str
-            row_diff = (best or "") + ((" · " + ts_label) if best and ts_label else (ts_label or ""))
-        rows_html.append(
-            '<div class="time-row is-last">'
-            f'<span class="time-lbl">{escape(row_lbl)}</span>'
-            f'<span class="time-val">{escape(row_val)}</span>'
-            f'<span class="time-diff">{escape(row_diff)}</span>'
-            '</div>'
-        )
-
-    # Reference rows with diff vs you
-    for r in refs:
-        ref_str = r.get("time")
-        ref_ms = _parse_time_str(ref_str)
-        diff = _fmt_diff(your_ms, ref_ms) if (your_ms and ref_ms) else ""
-        rows_html.append(
-            '<div class="time-row">'
-            f'<span class="time-lbl">{escape(r.get("label", "REF"))}</span>'
-            f'<span class="time-val">{escape(ref_str or "—")}</span>'
-            f'<span class="time-diff">{escape(diff)}</span>'
-            '</div>'
-        )
-    return (
-        '<div class="card-times">'
-        '<div class="times-head">Lap Times</div>'
-        + "".join(rows_html) +
-        '</div>'
-    )
+# Snapshots are write-once, timestamp-named session files. Parsing all of them
+# (183+ files) was happening once PER hotlap card — 27 hotlap cards on the F1
+# calendar page meant ~5,000 JSON parses and a 15s render. Parse them once and
+# cache by (dir mtime, file count); a new session changes the dir mtime and
+# busts the cache. Returns [(Path, dict), ...] so callers keep using `f.stem`.
+_SNAP_CACHE = {"sig": None, "data": []}
 
 
-def _render_setup_block(cfg):
-    setup = cfg.get("setup")
-    if not setup:
-        return ""
-    if isinstance(setup, str):
-        # Backwards-compat: legacy string form renders as a single Trim row.
-        setup = {"trim": setup}
-    rows = "".join(
-        f'<span class="setup-row-lbl">{lbl}</span>'
-        f'<span class="setup-row-val {cls}">{escape(setup[k])}</span>'
-        for (k, lbl, cls) in _SETUP_ROWS if setup.get(k)
-    )
-    if not rows:
-        return ""
-    title_text = " · ".join(
-        f"{lbl}: {setup[k]}" for (k, lbl, _) in _SETUP_ROWS if setup.get(k)
-    )
-    return (
-        f'<div class="card-setup" title="Car Setup — {escape(title_text)}">'
-        f'<div class="setup-head">Car Setup</div>'
-        f'{rows}'
-        f'</div>'
-    )
+def _all_snapshots():
+    snaps_dir = AC_DOC / "dashboard" / "results" / "snapshots"
+    try:
+        files = sorted(snaps_dir.glob("*.json"))
+        sig = (snaps_dir.stat().st_mtime, len(files))
+    except OSError:
+        return []
+    if _SNAP_CACHE["sig"] == sig:
+        return _SNAP_CACHE["data"]
+    parsed = []
+    for f in files:
+        try:
+            parsed.append((f, json.loads(f.read_text(encoding="utf-8"))))
+        except Exception:
+            continue
+    _SNAP_CACHE.update(sig=sig, data=parsed)
+    return parsed
 
 
 # Tracks → ISO-2 country code, derived from the spec-strip TRACK string.
@@ -5653,69 +6979,6 @@ def _team_logo_svg(slug: str) -> str:
     return ""
 
 
-def _render_card_stats_v2(cfg):
-    """Slim 2-row stats block for v2 cards: YOUR PB on top (gold), best
-    reference below (muted, with diff). Returns empty string if no data."""
-    bm = cfg.get("benchmarks") or {}
-    your_ms = _challenge_pb_ms(cfg) if bm else None
-    your_str = _fmt_ms(your_ms) if your_ms else None
-    refs = bm.get("refs") or []
-
-    # Pick the first ref with a usable time (some refs are notes only).
-    ref = None
-    for r in refs:
-        if r.get("time") and _parse_time_str(r["time"]) is not None:
-            ref = r
-            break
-
-    if not your_str and not ref and not refs:
-        return ""
-
-    rows = []
-    if your_str:
-        rows.append(
-            '<div class="row">'
-            '<span class="you-k">Your best time</span>'
-            f'<span class="you-v">{escape(your_str)}</span>'
-            '<span class="you-d"></span>'
-            '</div>'
-        )
-    elif refs or bm:
-        rows.append('<div class="empty">No lap logged yet · go set one</div>')
-
-    if ref:
-        ref_str = ref["time"]
-        ref_ms = _parse_time_str(ref_str)
-        diff = _fmt_diff(your_ms, ref_ms) if (your_ms and ref_ms) else ""
-        rows.append(
-            '<div class="row">'
-            f'<span class="ref-k">{escape(ref.get("label", "Ref"))}</span>'
-            f'<span class="ref-v">{escape(ref_str)}</span>'
-            f'<span class="ref-d">{escape(diff)}</span>'
-            '</div>'
-        )
-    elif refs and refs[0].get("time"):
-        # Note-only ref (e.g., "no Max ref on 24h layout yet"): show as caption.
-        rows.append(
-            '<div class="empty">'
-            f'{escape(refs[0].get("label", "Ref"))} · {escape(refs[0]["time"])}'
-            '</div>'
-        )
-
-    if not rows:
-        return ""
-    return f'<div class="cv2-stats">{"".join(rows)}</div>'
-
-
-def _build_meta_row(label, value):
-    if not value:
-        return ""
-    return (
-        f'<dt>{escape(label)}</dt>'
-        f'<dd title="{escape(value)}">{escape(value)}</dd>'
-    )
-
-
 def _render_pilot_btn(cfg, lc, cta_label=None):
     """Driver-portrait LAUNCH button. Used in hero CTA + Choose-your-seat cards.
     Visually consistent with .ncard driver row."""
@@ -5772,8 +7035,55 @@ def _render_pilot_btn(cfg, lc, cta_label=None):
     )
 
 
+def _challenge_finish(cfg):
+    """Best recorded finishing position for a race-type challenge, from the
+    results index (latest session per tile id). Returns int or None."""
+    summ = (_load_results_index().get(cfg.get("id")) or {}).get("summary") or {}
+    fin = summ.get("finish")
+    try:
+        return int(fin) if fin else None
+    except (TypeError, ValueError):
+        return None
+
+
 def _render_ncard_times(cfg):
-    """Compact times block for .ncard. Returns '' if no data."""
+    """Unified 'where do I stand' gauge, rendered on EVERY card so the site is
+    consistent: left = your standing, right = the target, with a coloured chip
+    saying where you are. Hotlaps show best lap vs benchmark + gap; races show
+    best finish vs the win. The structure is identical across all card types."""
+    ctype = cfg.get("type")
+
+    # --- RACE: best finish vs the win --------------------------------------- #
+    if ctype == "RACE":
+        fin = _challenge_finish(cfg)
+        if fin:
+            you_val = f'P{fin}'
+            you_style = (
+                'color:#0f8a4d' if fin == 1
+                else 'color:#b8860b' if fin <= 3 else ''
+            )
+        else:
+            you_val = 'Not raced'
+            you_style = 'color:var(--ink-4);font:700 11px/1 var(--body)'
+        you = (
+            '<div class="ncard-time ncard-time-you">'
+            '<span class="ncard-time-lbl">Your best finish</span>'
+            f'<span class="ncard-time-val mono" style="{you_style}">{you_val}</span>'
+            '</div>'
+        )
+        target = (
+            '<div class="ncard-time ncard-time-target">'
+            '<span class="ncard-time-lbl">Target</span>'
+            '<span class="ncard-time-val" '
+            'style="font:900 13px/1.05 var(--display,Impact,sans-serif);'
+            'letter-spacing:0.6px;text-transform:uppercase;color:#ea580c;'
+            'white-space:nowrap;font-stretch:condensed">'
+            + ('Won ✓' if fin == 1 else 'Win the Race!') +
+            '</span></div>'
+        )
+        return f'<div class="ncard-times">{you}{target}</div>'
+
+    # --- TIMED (hotlap / duel / time-trial): best lap vs benchmark ---------- #
     bm = cfg.get("benchmarks") or {}
     your_ms = _challenge_pb_ms(cfg) if bm else None
     refs = bm.get("refs") or []
@@ -5781,57 +7091,50 @@ def _render_ncard_times(cfg):
         (r for r in refs if r.get("time") and _parse_time_str(r["time"]) is not None),
         None,
     )
-    if not your_ms and not target_ref:
-        return ""
 
-    cells = []
     if your_ms:
-        cells.append(
+        you = (
             '<div class="ncard-time ncard-time-you">'
             '<span class="ncard-time-lbl">Your best time</span>'
             f'<span class="ncard-time-val mono">{_fmt_ms(your_ms)}</span>'
             '</div>'
         )
     else:
-        cells.append(
+        you = (
             '<div class="ncard-time ncard-time-you">'
             '<span class="ncard-time-lbl">Your best time</span>'
-            '<span class="ncard-time-val mono" style="color:var(--ink-4)">—</span>'
+            '<span class="ncard-time-val mono" style="color:var(--ink-4);'
+            'font:700 11px/1 var(--body)">Not set</span>'
             '</div>'
         )
-    # Race cards: target is winning, not a lap time. Custom styling so the
-    # text reads punchy and never wraps awkwardly under the time gauge.
-    if cfg.get("type") == "RACE":
-        cells.append(
-            '<div class="ncard-time ncard-time-target">'
-            '<span class="ncard-time-lbl">Target</span>'
-            '<span class="ncard-time-val" '
-            'style="font:900 13px/1.05 var(--display,Impact,sans-serif);'
-            'letter-spacing:0.6px;text-transform:uppercase;color:#ea580c;'
-            'white-space:nowrap;font-stretch:condensed">'
-            'Win the Race!'
-            '</span>'
-            '</div>'
-        )
-    elif target_ref:
+
+    if target_ref:
         ref_ms = _parse_time_str(target_ref["time"])
         diff_html = ""
         if your_ms and ref_ms:
             diff_ms = your_ms - ref_ms
-            diff_cls = _gap_class(diff_ms)
             diff_html = (
-                f'<span class="ncard-time-diff {diff_cls}">{_fmt_gap(diff_ms)}</span>'
+                f'<span class="ncard-time-diff {_gap_class(diff_ms)}">'
+                f'{_fmt_gap(diff_ms)}</span>'
             )
-        cells.append(
+        elif your_ms is None:
+            diff_html = '<span class="ncard-time-diff">— run it —</span>'
+        target = (
             '<div class="ncard-time ncard-time-target">'
             '<span class="ncard-time-lbl">Target</span>'
             '<span class="ncard-time-val mono">'
-            f'{escape(target_ref["time"])}'
-            f'{diff_html}'
-            '</span>'
+            f'{escape(target_ref["time"])}{diff_html}'
+            '</span></div>'
+        )
+    else:
+        target = (
+            '<div class="ncard-time ncard-time-target">'
+            '<span class="ncard-time-lbl">Target</span>'
+            '<span class="ncard-time-val mono" style="color:var(--ink-4);'
+            'font:700 11px/1 var(--body)">—</span>'
             '</div>'
         )
-    return f'<div class="ncard-times">{"".join(cells)}</div>'
+    return f'<div class="ncard-times">{you}{target}</div>'
 
 
 def _render_ncard_drivers(cfg):
@@ -5927,12 +7230,21 @@ def render_card(cfg):
     times_html = _render_ncard_times(cfg)
     drivers_html = _render_ncard_drivers(cfg)
 
+    star_btn = (
+        f'<button type="button" class="ncard-star" data-cfg-id="{escape(cfg["id"])}" '
+        f'aria-pressed="false" title="Add to Active challenges" '
+        f'aria-label="Star {escape(cfg["title"])} as an active challenge">'
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.9 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>'
+        '</button>'
+    )
     return (
         f'<a class="ncard ncard-{type_cls}" href="/challenge/{escape(cfg["id"])}" '
+        f'data-cfg-id="{escape(cfg["id"])}" '
         f'aria-label="Open {escape(cfg["title"])} challenge">'
         '<div class="ncard-hero">'
         f'<span class="ncard-type {type_cls}">{escape(type_label)}</span>'
         f'{flag_chip}'
+        f'{star_btn}'
         f'{_img_block(cfg)}'
         '<div class="ncard-shade"></div>'
         f'<h3 class="ncard-title">{escape(cfg["title"])}</h3>'
@@ -5956,21 +7268,51 @@ def render_foot():
 
 
 def render_nav(active="challenges"):
-    """Top nav strip — sits above the ticker on every page."""
-    items = [
-        ("challenges", "/", "CHALLENGES"),
+    """Top nav strip — sits above the ticker on every page.
+
+    Primary destinations live in the bar; the garage/hardware/results pages
+    are tucked into a top-right avatar dropdown (zero-JS <details> so it works
+    on every page regardless of whether the global JS bundle is loaded)."""
+    main_items = [
+        ("this-week", "/", "THIS WEEK"),
+        ("challenges", "/challenges", "CHALLENGES"),
+        ("f1-2026", "/f1-2026", "F1 · 2026 CALENDAR"),
+        ("nurburgring", "/nurburgring-24h", "EVENT · 24H NÜRBURGRING"),
+        ("lemans", "/event/lemans_2026", "EVENT · LE MANS 24H 2026"),
+    ]
+    menu_items = [
+        ("iracing", "/iracing", "iRACING · RESULTS"),
+        ("moza", "/moza", "WHEEL · MOZA"),
         ("cars", "/cars", "GARAGE · CARS"),
         ("tracks", "/tracks", "GARAGE · TRACKS"),
-        ("moza", "/moza", "WHEEL · MOZA"),
-        ("nurburgring", "/nurburgring-24h", "EVENT · 24H NÜRBURGRING"),
-        ("iracing", "/iracing", "iRACING · RESULTS"),
     ]
     links = "".join(
         f'<a class="nav-link{" is-active" if k == active else ""}" '
         f'href="{href}">{label}</a>'
-        for k, href, label in items
+        for k, href, label in main_items
     )
-    return f'<nav class="topnav">{links}</nav>'
+    menu_active = any(k == active for k, _, _ in menu_items)
+    menu_links = "".join(
+        f'<a class="navav-item{" is-active" if k == active else ""}" '
+        f'href="{href}">{label}</a>'
+        for k, href, label in menu_items
+    )
+    avatar = (
+        f'<details class="navav{" is-active" if menu_active else ""}">'
+        '<summary class="navav-btn" title="Garage menu" aria-label="Garage menu">'
+        '<img class="navav-face" src="/images/pablo_portrait.jpg" alt="Pablo Suzarte">'
+        '<span class="navav-caret" aria-hidden="true">▾</span>'
+        '</summary>'
+        '<div class="navav-pop">'
+        '<div class="navav-head">PABLO SUZARTE</div>'
+        f'{menu_links}'
+        '</div>'
+        '</details>'
+    )
+    return (
+        f'<nav class="topnav">{links}'
+        f'<div class="navav-spacer"></div>{avatar}</nav>'
+    )
 
 
 def _common_head(title):
@@ -5984,7 +7326,7 @@ def _common_head(title):
         '<meta name="theme-color" content="#D40E10">'
         '<link rel="preconnect" href="https://fonts.googleapis.com">'
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-        '<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">'
+        '<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=Big+Shoulders+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">'
         f'<style>{CSS}</style>'
         '</head><body class="is-editorial-site">'
     )
@@ -7716,166 +9058,6 @@ def _series_label(series_id):
     return series_id or "OTHER"
 
 
-def _render_filtered_grid():
-    """Flat-grid layout with filter pills (type / track / brand / series).
-    Cards keep series dividers as subtle group breaks; when filters hide all
-    cards in a group, that group's divider also hides via JS."""
-    from collections import Counter
-
-    cfgs = list(CONFIGS)
-    pinned_ids = set(ONGOING_TILE_IDS)
-
-    def meta(c):
-        return {
-            "type":   (c.get("type") or "OTHER").upper(),
-            "series": (c.get("series") or "OTHER").upper(),
-            "track":  _track_pretty(c) or "OTHER",
-            "brand":  CHASSIS_BRAND.get(c.get("ac_car_id", ""), "").lower(),
-        }
-
-    type_count   = Counter(meta(c)["type"] for c in cfgs)
-    track_count  = Counter(meta(c)["track"] for c in cfgs if meta(c)["track"])
-    brand_count  = Counter(meta(c)["brand"] for c in cfgs if meta(c)["brand"])
-    series_count = Counter(meta(c)["series"] for c in cfgs)
-
-    type_order = ["RACE", "HOTLAP", "DUEL"]
-    type_pills = "".join(
-        f'<button class="cfp" data-fkey="type" data-fval="{t}">{t}'
-        f'<span class="cfp-c">{type_count[t]}</span></button>'
-        for t in type_order if type_count.get(t)
-    )
-    track_pills = "".join(
-        f'<button class="cfp" data-fkey="track" data-fval="{escape(t)}">{escape(t.title())}'
-        f'<span class="cfp-c">{track_count[t]}</span></button>'
-        for t, _ in track_count.most_common()
-    )
-    brand_pills = "".join(
-        f'<button class="cfp" data-fkey="brand" data-fval="{escape(b)}">{escape(b.upper())}'
-        f'<span class="cfp-c">{brand_count[b]}</span></button>'
-        for b, _ in brand_count.most_common()
-    )
-    # Series pills only if multiple series exist
-    series_pills = ""
-    if len(series_count) > 1:
-        series_pills = "".join(
-            f'<button class="cfp" data-fkey="series" data-fval="{escape(s)}">'
-            f'{escape(_series_label(s).split(" · ")[0])}'
-            f'<span class="cfp-c">{series_count[s]}</span></button>'
-            for s, _ in series_count.most_common()
-        )
-
-    # Build groups: render in SERIES order, dividers between
-    today = date.today()
-    groups_html = ""
-    rendered_ids = set()
-    for s in SERIES:
-        sid = s["id"]
-        cards = [c for c in cfgs if c.get("series") == sid]
-        if not cards:
-            continue
-        cells = ""
-        for c in cards:
-            m = meta(c)
-            pin_attr = ' data-pinned="1"' if c["id"] in pinned_ids else ''
-            cells += (
-                f'<div class="cgrid-cell" '
-                f'data-type="{m["type"]}" '
-                f'data-series="{m["series"]}" '
-                f'data-track="{escape(m["track"])}" '
-                f'data-brand="{escape(m["brand"])}"'
-                f'{pin_attr}>'
-                f'{render_card(c)}'
-                '</div>'
-            )
-        rendered_ids.update(c["id"] for c in cards)
-        groups_html += (
-            f'<div class="cgrid-group" data-group="{escape(sid)}">'
-            f'<div class="cgrid-divider">'
-            f'<span class="cgrid-divider-lbl">{escape(s["label"])}</span>'
-            f'<span class="cgrid-divider-c">{len(cards)}</span>'
-            f'</div>'
-            f'<div class="cgrid">{cells}</div>'
-            '</div>'
-        )
-    # Leftovers (configs without a known series)
-    leftovers = [c for c in cfgs if c["id"] not in rendered_ids]
-    if leftovers:
-        cells = ""
-        for c in leftovers:
-            m = meta(c)
-            pin_attr = ' data-pinned="1"' if c["id"] in pinned_ids else ''
-            cells += (
-                f'<div class="cgrid-cell" '
-                f'data-type="{m["type"]}" '
-                f'data-series="{m["series"]}" '
-                f'data-track="{escape(m["track"])}" '
-                f'data-brand="{escape(m["brand"])}"'
-                f'{pin_attr}>'
-                f'{render_card(c)}'
-                '</div>'
-            )
-        groups_html += (
-            '<div class="cgrid-group" data-group="OTHER">'
-            '<div class="cgrid-divider">'
-            '<span class="cgrid-divider-lbl">OTHER</span>'
-            f'<span class="cgrid-divider-c">{len(leftovers)}</span>'
-            '</div>'
-            f'<div class="cgrid">{cells}</div>'
-            '</div>'
-        )
-
-    visible_total = len([c for c in cfgs if c["id"] not in pinned_ids])
-    return (
-        '<section class="cfilter-section">'
-        '<header class="cfilter-head">'
-        f'<h2 class="cfilter-title">All challenges <span class="cfilter-count mono">{len(cfgs)}</span></h2>'
-        '<p class="cfilter-deck">Filter by type, track, brand or series. Active challenges stay pinned at the top.</p>'
-        '</header>'
-        '<div class="cfilter-bars">'
-        '<div class="cfilter-row"><span class="cfilter-lbl">TYPE</span>'
-        f'<button class="cfp is-active" data-fkey="type" data-fval="">ALL</button>{type_pills}</div>'
-        '<div class="cfilter-row"><span class="cfilter-lbl">BRAND</span>'
-        f'<button class="cfp is-active" data-fkey="brand" data-fval="">ALL</button>{brand_pills}</div>'
-        '<div class="cfilter-row"><span class="cfilter-lbl">TRACK</span>'
-        f'<button class="cfp is-active" data-fkey="track" data-fval="">ALL</button>{track_pills}</div>'
-        + (
-            '<div class="cfilter-row"><span class="cfilter-lbl">SERIES</span>'
-            f'<button class="cfp is-active" data-fkey="series" data-fval="">ALL</button>{series_pills}</div>'
-            if series_pills else ""
-        )
-        + '</div>'
-        f'<div class="cfilter-stats">Showing <span id="cfilter-shown" class="mono">{visible_total}</span> of {len(cfgs)} '
-        '<button class="cfilter-reset" type="button">Reset filters</button></div>'
-        f'<div class="cgrid-wrap">{groups_html}</div>'
-        '</section>'
-    )
-
-
-def _render_series_sections():
-    """Group cards by series in SERIES order; trailing un-tagged cards as 'OTHER'."""
-    today = date.today()
-    rendered_ids = set()
-    parts = []
-    for s in SERIES:
-        cards = [c for c in CONFIGS if c.get("series") == s["id"]]
-        if not cards:
-            continue
-        cards_html = "".join(render_card(c) for c in cards)
-        parts.append(
-            f'{render_series_head(s, today)}'
-            f'<main class="grid">{cards_html}</main>'
-        )
-        rendered_ids.update(c["id"] for c in cards)
-    leftovers = [c for c in CONFIGS if c["id"] not in rendered_ids]
-    if leftovers:
-        s = {"label": "OTHER", "deck": "Uncategorised challenges."}
-        parts.append(
-            f'{render_series_head(s, today)}'
-            f'<main class="grid">{"".join(render_card(c) for c in leftovers)}</main>'
-        )
-    return "".join(parts)
-
-
 # Pinned-ongoing-challenge tile IDs — these render in a featured row above
 # the regular series sections on the home page.
 ONGOING_TILE_IDS = [
@@ -7886,22 +9068,24 @@ ONGOING_TILE_IDS = [
 
 
 def _render_ongoing_section():
-    tiles = []
-    for tid in ONGOING_TILE_IDS:
-        cfg = next((c for c in CONFIGS if c["id"] == tid), None)
-        if cfg:
-            tiles.append(cfg)
-    if not tiles:
-        return ""
-    cards_html = "".join(render_card(c) for c in tiles)
+    # The Active-challenges grid is populated client-side from the visitor's
+    # starred set (localStorage, key `activeChallenges`). On first visit —
+    # before anything is starred — it seeds from `data-default-ids` so the
+    # curated ONGOING tiles still show. Star any challenge (the ★ on its card)
+    # to add it here; the grid is filled by JS via /api/active-cards.
+    default_ids = ",".join(
+        tid for tid in ONGOING_TILE_IDS if any(c["id"] == tid for c in CONFIGS)
+    )
     return (
-        '<section class="ongoing-section">'
+        f'<section class="ongoing-section" id="active-section" '
+        f'data-default-ids="{escape(default_ids)}" hidden>'
         '<header class="ongoing-head">'
         '<div class="ongoing-tag">▶ ONGOING</div>'
         '<h2 class="ongoing-title">Active challenges</h2>'
-        '<p class="ongoing-deck">What you\'re actively chasing right now. Pinned to the top until you swap them out.</p>'
+        '<p class="ongoing-deck">The challenges you\'ve starred — tap the ★ on any '
+        'challenge to pin it here. <span class="active-count-wrap">(<span id="active-count">0</span> pinned)</span></p>'
         '</header>'
-        f'<div class="ongoing-grid">{cards_html}</div>'
+        '<div class="ongoing-grid" id="active-grid"></div>'
         '</section>'
     )
 
@@ -7948,8 +9132,18 @@ _EVT_CSS = (
     '.evt-back:hover{color:var(--max)}'
     '.evt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));'
     'gap:20px;max-width:1280px;margin:0 auto;padding:0 24px 60px}'
+    '.evt-grid.grouped{padding-bottom:18px}'
     '.evt-empty{max-width:640px;margin:60px auto;padding:40px 24px;text-align:center;'
     'color:var(--ink-3);font:500 14px/1.5 var(--body)}'
+    # Per-class section header (grouped event pages, e.g. Le Mans Hypercar/LMGT3).
+    '.evt-class-head{max-width:1280px;margin:34px auto 16px;padding:0 24px 10px;'
+    'display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink)}'
+    '.evt-class-label{font:900 27px/1 var(--display);text-transform:uppercase;'
+    'letter-spacing:-.5px;color:var(--ink);font-stretch:condensed}'
+    '.evt-class-kicker{font:700 10px/1.3 var(--body);letter-spacing:1.6px;'
+    'text-transform:uppercase;color:var(--ink-3)}'
+    '.evt-class-count{margin-left:auto;font:700 10px/1 var(--body);letter-spacing:1.2px;'
+    'text-transform:uppercase;color:var(--ink-4)}'
     # Event spotlight — full-width banner ABOVE the tile grid, used to
     # highlight one fan-favourite challenge on the event page.
     '.evt-spotlight{max-width:1280px;margin:24px auto 8px;padding:0 24px}'
@@ -8030,6 +9224,356 @@ def _render_event_hub():
         + cards_html +
         '</div>'
         '</section>'
+    )
+
+
+# -- F1 2026 calendar tab ----------------------------------------------------
+# The whole season in one page: every Grand Prix weekend we've built, in real
+# calendar order, each as a round block with its pole-chase hotlap + race.
+F1_2026_CALENDAR_ORDER = [
+    "australia_2026", "china_2026", "japan_2026", "miami_2026", "montreal_2026",
+    "monaco_2026", "barcelona_2026", "austria_2026", "britain_2026", "belgium_2026",
+    "hungary_2026", "netherlands_2026", "italy_2026", "madrid_2026", "azerbaijan_2026",
+    "singapore_2026", "usa_2026", "mexico_2026", "brazil_2026", "lasvegas_2026",
+    "qatar_2026", "abudhabi_2026",
+]
+
+# Verified 2026 F1 race-Sunday dates. Source: en.wikipedia.org/wiki/
+# 2026_Formula_One_World_Championship (fetched 2026-07-01). Keyed by event_id.
+# Drives the /f1-2026 calendar's past / current-week / upcoming grouping and the
+# "closest event" spotlight at the top of the page. Mirrors weekly_races.F1_2026_DATES.
+F1_2026_RACE_DATES = {
+    "australia_2026": "2026-03-08", "china_2026": "2026-03-15",
+    "japan_2026": "2026-03-29", "miami_2026": "2026-05-03",
+    "montreal_2026": "2026-05-24", "monaco_2026": "2026-06-07",
+    "barcelona_2026": "2026-06-14", "austria_2026": "2026-06-28",
+    "britain_2026": "2026-07-05", "belgium_2026": "2026-07-19",
+    "hungary_2026": "2026-07-26", "netherlands_2026": "2026-08-23",
+    "italy_2026": "2026-09-06", "madrid_2026": "2026-09-13",
+    "azerbaijan_2026": "2026-09-26", "singapore_2026": "2026-10-11",
+    "usa_2026": "2026-10-25", "mexico_2026": "2026-11-01",
+    "brazil_2026": "2026-11-08", "lasvegas_2026": "2026-11-21",
+    "qatar_2026": "2026-11-29", "abudhabi_2026": "2026-12-06",
+}
+
+
+def _f1cal_race_date(event_id):
+    """date of a round's race, or None."""
+    s = F1_2026_RACE_DATES.get(event_id)
+    if not s:
+        return None
+    try:
+        return date.fromisoformat(s)
+    except (ValueError, TypeError):
+        return None
+
+
+def _f1cal_status(event_id, today=None):
+    """Classify a round vs the current ISO week: 'done' | 'current' | 'upcoming'
+    | 'tbd' (no date). 'current' = race falls in today's Mon–Sun week."""
+    rd = _f1cal_race_date(event_id)
+    if rd is None:
+        return "tbd"
+    today = today or date.today()
+    wk_mon = today - timedelta(days=today.weekday())
+    wk_sun = wk_mon + timedelta(days=6)
+    if rd < wk_mon:
+        return "done"
+    if rd <= wk_sun:
+        return "current"
+    return "upcoming"
+
+_F1CAL_CSS = (
+    '<style>'
+    '.f1cal-hero{background:linear-gradient(180deg,#0a0e1f 0%,#15192e 100%);color:#fff;'
+    'padding:48px 24px 40px;border-bottom:3px solid var(--max)}'
+    '.f1cal-hero-inner{max-width:1280px;margin:0 auto}'
+    '.f1cal-kicker{font:800 11px/1 var(--body);letter-spacing:3px;text-transform:uppercase;'
+    'color:var(--max);margin-bottom:12px}'
+    '.f1cal-title{font:900 60px/0.92 var(--display);letter-spacing:-1px;text-transform:uppercase;margin:0 0 14px}'
+    '@media(max-width:700px){.f1cal-title{font-size:38px}}'
+    '.f1cal-deck{font:500 15px/1.55 var(--body);color:rgba(255,255,255,.72);max-width:66ch;margin:0}'
+    # One card per Grand Prix — mirrors the home-page race card: cover photo,
+    # round badge, real pole time + your best, and two actions (pole chase / race).
+    '.f1cal-cal{max-width:1280px;margin:0 auto;padding:30px 24px 70px}'
+    '.f1cal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}'
+    '@media(max-width:700px){.f1cal-grid{grid-template-columns:1fr}}'
+    '.f1c-card{position:relative;border:1px solid var(--rule);background:var(--surface);'
+    'border-radius:8px;overflow:hidden;display:flex;flex-direction:column;'
+    'box-shadow:0 1px 0 var(--rule-hair);transition:transform .12s ease,box-shadow .12s ease}'
+    '.f1c-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.18)}'
+    '.f1c-ph{display:block;height:152px;background-size:cover;background-position:center;position:relative;'
+    'background-color:#0f172a;border-bottom:1px solid var(--rule);text-decoration:none}'
+    '.f1c-ph:after{content:"";position:absolute;inset:0;'
+    'background:linear-gradient(180deg,rgba(11,16,32,.5) 0%,rgba(11,16,32,0) 42%,rgba(11,16,32,.78) 100%)}'
+    '.f1c-enter{position:absolute;left:11px;bottom:10px;z-index:2;font:800 9px/1 var(--body);'
+    'letter-spacing:1.4px;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.45);'
+    'padding:7px 10px;border-radius:4px;opacity:0;transform:translateY(4px);'
+    'transition:opacity .14s ease,transform .14s ease}'
+    '.f1c-card:hover .f1c-enter{opacity:1;transform:translateY(0)}'
+    '.f1c-titlelink{color:inherit;text-decoration:none}'
+    '.f1c-titlelink:hover{color:var(--evt-b)}'
+    '.f1c-round{position:absolute;top:11px;left:11px;z-index:2;font:900 12px/1 var(--display);'
+    'letter-spacing:1px;color:#fff;background:var(--evt-b);padding:6px 9px;border-radius:4px}'
+    '.f1c-date{position:absolute;top:11px;right:11px;z-index:2;font:700 10px/1 var(--body);'
+    'letter-spacing:1.2px;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);'
+    'padding:6px 8px;border-radius:4px}'
+    '.f1c-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}'
+    '.f1c-body h3{font:900 22px/1.02 var(--display);margin:0 0 3px;text-transform:uppercase;'
+    'letter-spacing:-.4px;color:var(--ink);font-stretch:condensed}'
+    '.f1c-loc{font:600 11px/1.3 var(--body);color:var(--ink-3);text-transform:uppercase;'
+    'letter-spacing:.6px;margin-bottom:14px}'
+    '.f1c-times{display:flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;margin-bottom:14px}'
+    '.f1c-times .t{flex:1;padding:9px 11px;border-right:1px solid var(--rule)}'
+    '.f1c-times .t:last-child{border-right:0}'
+    '.f1c-times .tv{font:800 15px/1 var(--mono);color:var(--ink)}'
+    '.f1c-times .tv.pending{font:700 11px/1 var(--body);color:var(--ink-4)}'
+    '.f1c-times .tv.you{color:#0f8a4d}'
+    '.f1c-times .tl{font:700 8px/1 var(--body);letter-spacing:1px;text-transform:uppercase;'
+    'color:var(--ink-4);margin-top:6px}'
+    '.f1c-actions{display:flex;gap:8px;margin-top:auto}'
+    '.f1c-go{flex:1;text-align:center;text-decoration:none;padding:11px 8px;border-radius:5px;'
+    'font:800 11px/1 var(--body);letter-spacing:1.2px;text-transform:uppercase;color:#fff;'
+    'border:1px solid transparent;transition:transform .1s ease,filter .1s ease}'
+    '.f1c-go:hover{transform:translateY(-1px);filter:brightness(1.08)}'
+    '.f1c-go.alt{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}'
+    # --- status: past (done) / current (this week) / upcoming ---
+    '.f1c-stat{position:absolute;top:11px;right:11px;z-index:2;font:800 9px/1 var(--body);'
+    'letter-spacing:1.2px;text-transform:uppercase;color:#fff;padding:6px 8px;border-radius:4px}'
+    '.f1c-stat.done{background:rgba(15,138,77,.92)}'
+    '.f1c-stat.current{background:var(--max)}'
+    '.f1c-stat.upcoming{background:rgba(0,0,0,.55)}'
+    '.f1c-card.is-done{opacity:.72}'
+    '.f1c-card.is-done .f1c-ph:before{content:"✓";position:absolute;inset:0;z-index:3;'
+    'display:flex;align-items:center;justify-content:center;font:900 46px/1 var(--display);'
+    'color:rgba(255,255,255,.9);text-shadow:0 2px 10px rgba(0,0,0,.5)}'
+    '.f1c-card.is-current{border-color:var(--max);box-shadow:0 0 0 2px var(--max),0 10px 26px rgba(0,0,0,.16)}'
+    # --- section headings on the calendar ---
+    '.f1cal-sec{max-width:1280px;margin:0 auto;padding:6px 24px 0}'
+    '.f1cal-sec h2{font:900 13px/1 var(--display);letter-spacing:2px;text-transform:uppercase;'
+    'color:var(--ink-3);margin:26px 0 2px;display:flex;align-items:center;gap:10px}'
+    '.f1cal-sec h2:after{content:"";flex:1;height:1px;background:var(--rule)}'
+    '.f1cal-sec .cnt{font:700 11px/1 var(--body);color:var(--ink-4);letter-spacing:1px}'
+    # --- closest-event spotlight (big hero card at the top) ---
+    '.f1cal-spot-wrap{max-width:1280px;margin:0 auto;padding:26px 24px 6px}'
+    '.f1cal-spot{display:grid;grid-template-columns:1.15fr 1fr;border:2px solid var(--max);'
+    'border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:0 14px 40px rgba(0,0,0,.2)}'
+    '@media(max-width:820px){.f1cal-spot{grid-template-columns:1fr}}'
+    '.f1cal-spot-ph{position:relative;min-height:300px;background-size:cover;background-position:center;'
+    'background-color:#0f172a;text-decoration:none;display:block}'
+    '.f1cal-spot-ph:after{content:"";position:absolute;inset:0;'
+    'background:linear-gradient(180deg,rgba(11,16,32,.35) 0%,rgba(11,16,32,.05) 45%,rgba(11,16,32,.72) 100%)}'
+    '.f1cal-spot-tag{position:absolute;top:16px;left:16px;z-index:2;font:800 11px/1 var(--body);'
+    'letter-spacing:2px;text-transform:uppercase;color:#fff;background:var(--max);padding:8px 12px;border-radius:5px}'
+    '.f1cal-spot-round{position:absolute;top:16px;right:16px;z-index:2;font:900 13px/1 var(--display);'
+    'letter-spacing:1px;color:#fff;background:rgba(0,0,0,.55);padding:7px 10px;border-radius:5px}'
+    '.f1cal-spot-body{padding:26px 28px 24px;display:flex;flex-direction:column}'
+    '.f1cal-spot-kick{font:800 10px/1 var(--body);letter-spacing:2px;text-transform:uppercase;'
+    'color:var(--max);margin-bottom:8px}'
+    '.f1cal-spot-body h2{font:900 40px/0.96 var(--display);text-transform:uppercase;'
+    'letter-spacing:-.6px;margin:0 0 6px;color:var(--ink)}'
+    '@media(max-width:700px){.f1cal-spot-body h2{font-size:30px}}'
+    '.f1cal-spot-loc{font:600 12px/1.3 var(--body);color:var(--ink-3);text-transform:uppercase;'
+    'letter-spacing:.6px;margin-bottom:18px}'
+    '.f1cal-spot-actions{display:flex;gap:10px;margin-top:auto;padding-top:18px}'
+    '.f1cal-spot-actions .f1c-go{padding:13px 10px}'
+    '</style>'
+)
+
+
+def _f1_calendar_events():
+    out = []
+    for eid in F1_2026_CALENDAR_ORDER:
+        evt = next((e for e in EVENTS if e["id"] == eid), None)
+        if evt:
+            out.append(evt)
+    return out
+
+
+def _f1cal_gp_name(evt):
+    """Clean GP name for the card title (strip the 'FORMULA 1 · ' prefix)."""
+    lbl = evt.get("label", "")
+    if "·" in lbl:
+        return lbl.split("·", 1)[1].strip()
+    return lbl
+
+
+def _f1cal_date_label(evt):
+    """Short race-day label for a round: verified date map first, else the
+    F1_2026_RESULTS date string, else ''."""
+    rd = _f1cal_race_date(evt["id"])
+    if rd:
+        return rd.strftime("%b %-d")
+    return (F1_2026_RESULTS.get(evt["id"]) or {}).get("date", "")
+
+
+def _f1cal_status_chip(status, date_lbl):
+    if status == "done":
+        return '<span class="f1c-stat done">Done</span>'
+    if status == "current":
+        return '<span class="f1c-stat current">This week</span>'
+    if status == "upcoming" and date_lbl:
+        return f'<span class="f1c-stat upcoming">{escape(date_lbl)}</span>'
+    return ""
+
+
+def _render_f1cal_card(evt, round_no, status="tbd"):
+    """One card per Grand Prix: cover photo, round badge, a status chip
+    (Done / This week / date), the SHARED best-vs-target gauge, and the two
+    actions (pole-chase hotlap / race). Consolidated with the home + challenge
+    cards via `_render_ncard_times`."""
+    tiles = [c for tid in evt["tiles"] for c in CONFIGS if c["id"] == tid]
+    hot = next((c for c in tiles if c.get("type") == "HOTLAP"), None)
+    race = next((c for c in tiles if c.get("type") == "RACE"), None)
+    accent = evt.get("color_b", "#c8102e")
+    img = evt.get("image", "")
+    ph_style = f"background-image:url('/images/{escape(img)}')" if img else ""
+
+    # The gauge tracks the pole-chase hotlap (best lap vs pole + gap); if a
+    # round only has a race tile it tracks the race (best finish vs the win).
+    times_html = _render_ncard_times(hot or race or {"type": "RACE", "id": evt["id"]})
+
+    btns = ""
+    if hot:
+        btns += (f'<a class="f1c-go alt" href="/challenge/{escape(hot["id"])}">'
+                 'Pole chase</a>')
+    if race:
+        btns += (f'<a class="f1c-go" style="background:{accent}" '
+                 f'href="/challenge/{escape(race["id"])}">Race</a>')
+
+    stat_chip = _f1cal_status_chip(status, _f1cal_date_label(evt))
+    state_cls = f" is-{status}" if status in ("done", "current") else ""
+    evt_url = f'/event/{escape(evt["id"])}'
+    return (
+        f'<div class="f1c-card{state_cls}" style="--evt-b:{accent}">'
+        f'<a class="f1c-ph" href="{evt_url}" style="{ph_style}" '
+        f'aria-label="{escape(_f1cal_gp_name(evt))} event">'
+        f'<span class="f1c-round">R{round_no:02d}</span>{stat_chip}'
+        '<span class="f1c-enter">View event &rarr;</span></a>'
+        '<div class="f1c-body">'
+        f'<h3><a class="f1c-titlelink" href="{evt_url}">'
+        f'{escape(_f1cal_gp_name(evt))}</a></h3>'
+        f'<div class="f1c-loc">{escape(evt.get("kicker", ""))}</div>'
+        f'{times_html}'
+        f'<div class="f1c-actions">{btns}</div>'
+        '</div></div>'
+    )
+
+
+def _render_f1cal_spotlight(evt, round_no, status):
+    """Big hero card for the closest event — pinned to the top of the page.
+    Same gauge + actions as a normal card, just full-width and prominent."""
+    tiles = [c for tid in evt["tiles"] for c in CONFIGS if c["id"] == tid]
+    hot = next((c for c in tiles if c.get("type") == "HOTLAP"), None)
+    race = next((c for c in tiles if c.get("type") == "RACE"), None)
+    accent = evt.get("color_b", "#c8102e")
+    img = evt.get("image", "")
+    ph_style = f"background-image:url('/images/{escape(img)}')" if img else ""
+
+    if status == "current":
+        kick, tag = "Racing this week", "This week"
+    elif status == "upcoming":
+        kick, tag = "Next up", "Next race"
+    else:
+        kick, tag = "Latest round", "Latest"
+    date_lbl = _f1cal_date_label(evt)
+    if date_lbl and status != "done":
+        kick = f"{kick} · {date_lbl}"
+
+    times_html = _render_ncard_times(hot or race or {"type": "RACE", "id": evt["id"]})
+    btns = ""
+    if hot:
+        btns += (f'<a class="f1c-go alt" href="/challenge/{escape(hot["id"])}">'
+                 'Pole chase</a>')
+    if race:
+        btns += (f'<a class="f1c-go" style="background:{accent}" '
+                 f'href="/challenge/{escape(race["id"])}">Race</a>')
+    evt_url = f'/event/{escape(evt["id"])}'
+    return (
+        '<section class="f1cal-spot-wrap"><div class="f1cal-spot" '
+        f'style="--evt-b:{accent}">'
+        f'<a class="f1cal-spot-ph" href="{evt_url}" style="{ph_style}" '
+        f'aria-label="{escape(_f1cal_gp_name(evt))} event">'
+        f'<span class="f1cal-spot-tag">{escape(tag)}</span>'
+        f'<span class="f1cal-spot-round">Round {round_no:02d}</span></a>'
+        '<div class="f1cal-spot-body">'
+        f'<div class="f1cal-spot-kick">{escape(kick)}</div>'
+        f'<h2>{escape(_f1cal_gp_name(evt))}</h2>'
+        f'<div class="f1cal-spot-loc">{escape(evt.get("kicker", ""))}</div>'
+        f'{times_html}'
+        f'<div class="f1cal-spot-actions">{btns}'
+        f'<a class="f1c-go alt" href="{evt_url}">View event &rarr;</a></div>'
+        '</div></div></section>'
+    )
+
+
+def render_f1_calendar_page():
+    events = _f1_calendar_events()
+    today = date.today()
+    # Attach round number + status to every round that has playable tiles.
+    rounds = []
+    round_no = 0
+    for evt in events:
+        tiles = [c for tid in evt["tiles"] for c in CONFIGS if c["id"] == tid]
+        if not tiles:
+            continue
+        round_no += 1
+        rounds.append((evt, round_no, _f1cal_status(evt["id"], today)))
+
+    done = [r for r in rounds if r[2] == "done"]
+    current = [r for r in rounds if r[2] == "current"]
+    upcoming = [r for r in rounds if r[2] in ("upcoming", "tbd")]
+
+    # Closest event = this week's race, else the next one up, else the last run.
+    if current:
+        spot = current[0]
+    elif upcoming:
+        spot = min(upcoming, key=lambda r: _f1cal_race_date(r[0]["id"]) or date.max)
+    elif done:
+        spot = max(done, key=lambda r: _f1cal_race_date(r[0]["id"]) or date.min)
+    else:
+        spot = None
+
+    spotlight = _render_f1cal_spotlight(*spot) if spot else ""
+    # Everything except the spotlit round, kept in the two bottom sections.
+    spot_id = spot[0]["id"] if spot else None
+    up_cards = "".join(_render_f1cal_card(*r) for r in upcoming if r[0]["id"] != spot_id)
+    done_cards = "".join(_render_f1cal_card(*r) for r in done if r[0]["id"] != spot_id)
+
+    up_sec = (
+        '<section class="f1cal-sec"><h2>Upcoming rounds '
+        f'<span class="cnt">{len([r for r in upcoming if r[0]["id"] != spot_id])} to go</span></h2></section>'
+        f'<section class="f1cal-cal"><div class="f1cal-grid">{up_cards}</div></section>'
+    ) if up_cards else ""
+    done_sec = (
+        '<section class="f1cal-sec"><h2>Completed rounds '
+        f'<span class="cnt">{len(done)} done</span></h2></section>'
+        f'<section class="f1cal-cal"><div class="f1cal-grid">{done_cards}</div></section>'
+    ) if done_cards else ""
+
+    hero = (
+        '<section class="f1cal-hero"><div class="f1cal-hero-inner">'
+        '<div class="f1cal-kicker">Formula 1 · 2026 World Championship</div>'
+        '<h1 class="f1cal-title">The 2026 Calendar</h1>'
+        f'<p class="f1cal-deck">All {round_no} rounds in calendar order. The closest race '
+        'sits up top; upcoming rounds and the ones already done are below. Each round pairs '
+        'a pole-chase hotlap with a race in Antonelli\'s Mercedes-AMG W16 — your best sits '
+        'right beside the target on every card.</p>'
+        '</div></section>'
+    )
+    return (
+        f'{_common_head("F1 2026 Calendar · Launch Bay")}'
+        f'{_EVT_CSS}{_F1CAL_CSS}'
+        f'{render_nav("f1-2026")}'
+        f'{render_ticker()}'
+        f'{hero}'
+        f'{spotlight}'
+        f'{up_sec}'
+        f'{done_sec}'
+        f'{render_foot()}'
+        '<div id="toast" class="toast"></div>'
+        f'<script>{JS}</script>'
+        '</body></html>'
     )
 
 
@@ -8555,6 +10099,20 @@ _IRACING_CSS = (
     '.ir-card p{font:400 14px/1.6 var(--body);color:#454a52;margin:0 0 10px}'
     '.ir-card p:last-child{margin-bottom:0}'
     '.ir-card b{color:#16181c}'
+    # --- season tracker additions ---
+    '.ir-series{display:inline-block;font:700 9px/1 var(--body);letter-spacing:.4px;'
+    'text-transform:uppercase;padding:3px 7px;border-radius:4px;background:#eef0f3;color:#5b626b}'
+    'tr.ir-clean td{background:#f1faf4}tr.ir-messy td{background:#fdf2f2}'
+    '.ir-tag{display:inline-block;font:800 9px/1 var(--body);letter-spacing:.5px;'
+    'text-transform:uppercase;padding:3px 7px;border-radius:4px;margin-left:7px}'
+    '.ir-tag-clean{background:#dcf5e6;color:#15803d}.ir-tag-messy{background:#fbe0e0;color:#c0271f}'
+    '.ir-spark{max-width:1180px;margin:30px auto 0;padding:0 28px}'
+    '.ir-spark svg{width:100%;height:auto;display:block;background:#fff;'
+    'border:1px solid #e3e5e9;border-radius:8px;box-shadow:0 1px 2px rgba(16,24,40,.05)}'
+    '.ir-spark-cap{display:flex;justify-content:space-between;align-items:baseline;'
+    'flex-wrap:wrap;gap:8px;margin-bottom:4px}'
+    '.ir-lever-big{font:800 30px/1 var(--body);color:#16181c;margin:0 0 4px}'
+    '.ir-lever-sub{font:600 12px/1.4 var(--body);color:#6b7178}'
     '</style>'
 )
 
@@ -8583,167 +10141,338 @@ _CUP_SVG = (
 )
 
 
+def _load_iracing_s3():
+    """Season 3 race records, written by ingest_iracing.py. Sorted oldest-first."""
+    path = LAUNCHER_DIR / "iracing_s3.json"
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    return sorted(data, key=lambda r: r.get("date") or "")
+
+
+def _ir_date(iso):
+    """'2026-06-16T15:45:00Z' (UTC) -> 'Jun 16 · 17:45' in local time."""
+    try:
+        dt = (datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ")
+              .replace(tzinfo=timezone.utc).astimezone())
+    except Exception:
+        return escape(iso or "")
+    return f"{dt.strftime('%b')} {dt.day} &middot; {dt.strftime('%H:%M')}"
+
+
+def _ir_short_track(t):
+    return escape((t or "").split(" - ")[0])
+
+
+def _ir_ir_delta_cell(old, new):
+    if old is None or new is None:
+        return '<span class="ir-flat">&mdash;</span>'
+    d = new - old
+    if d > 0:
+        return f'<span class="ir-gain">+{d}</span>'
+    if d < 0:
+        return f'<span class="ir-loss">&minus;{abs(d)}</span>'
+    return '<span class="ir-flat">&plusmn;0</span>'
+
+
+def _ir_sr_delta_cell(old_sub, new_sub):
+    if old_sub is None or new_sub is None:
+        return '<span class="ir-flat">&mdash;</span>'
+    d = (new_sub - old_sub) / 100.0
+    if d > 0:
+        return f'<span class="ir-gain">+{d:.2f}</span>'
+    if d < 0:
+        return f'<span class="ir-loss">&minus;{abs(d):.2f}</span>'
+    return '<span class="ir-flat">&plusmn;0</span>'
+
+
+def _ir_inc_tier(inc):
+    """Returns row CSS class by incident count vs the ~5.5/race target."""
+    if inc is None:
+        return ''
+    if inc <= 4:
+        return 'ir-clean'
+    if inc >= 8:
+        return 'ir-messy'
+    return ''
+
+
 def _ir_race_row(r):
-    date, sub, grid, fin, field, sof, inc, pts, drop, winner, sbest = r
+    grid = r.get("start_pos")
+    fin = r.get("finish_pos")
+    inc = r.get("incidents")
     cup = _CUP_SVG if fin == 1 else ''
     pos_cls = 'ir-num ir-pos ir-pos-win' if fin == 1 else 'ir-num ir-pos'
     return (
-        '<tr>'
-        f'<td class="ir-num">{escape(date)}</td>'
+        f'<tr class="{_ir_inc_tier(inc)}">'
+        f'<td class="ir-num">{_ir_date(r.get("date",""))}</td>'
+        f'<td><span class="ir-series">{escape(r.get("series",""))}</span></td>'
+        f'<td>{_ir_short_track(r.get("track",""))}</td>'
         f'<td class="ir-num">P{grid}</td>'
         f'<td class="{pos_cls}">P{fin}{cup}</td>'
         f'<td class="ir-num">{_ir_delta(grid, fin)}</td>'
-        f'<td class="ir-num">{field}</td>'
-        f'<td class="ir-num">{sof}</td>'
         f'<td class="ir-num">{inc}x</td>'
-        f'<td class="ir-num">{pts}</td>'
+        f'<td class="ir-num">{_ir_ir_delta_cell(r.get("old_irating"), r.get("new_irating"))}</td>'
+        f'<td class="ir-num">{_ir_sr_delta_cell(r.get("old_sub"), r.get("new_sub"))}</td>'
+        f'<td class="ir-num">{r.get("sof") or "&mdash;"}</td>'
         '</tr>'
     )
 
 
-def render_iracing_page():
-    """iRacing official results, ingested from Pablo's search_results_official.json
-    export (iRacing /data/results/search_series). Positions are shown +1 because the
-    raw API is 0-based (finish 0 = win); lap times are decoded from ten-thousandths
-    of a second; the lap time on each row is the SESSION best (fastest by anyone in
-    that session), NOT Pablo's own lap — that field is not present in this export.
-    See [[iracing-data-api-json-format]]. cust_id 587563 = Pablo.
-    Source: search_results_official.json - series_id 557, season_id 6093, race_week 11."""
+def _ir_sparkline(races):
+    """Inline SVG of iRating across the season: start point + one per race.
+    Segments and dots are green when iR rose that race, red when it fell."""
+    pts = [races[0].get("old_irating")] + [r.get("new_irating") for r in races]
+    pts = [p for p in pts if p is not None]
+    if len(pts) < 2:
+        return ''
+    W, H = 1000, 240
+    padL, padR, padT, padB = 56, 56, 40, 44
+    n = len(pts)
+    lo, hi = min(pts), max(pts)
+    if hi == lo:
+        hi = lo + 1
+    rng = hi - lo
 
-    # (date UTC, subsession, grid, finish, field, SOF, incidents, champ_pts, drop?, winner, session_best)
-    races = [
-        ("Jun 3 · 19:15", 86239549, 8, 4, 17, 1189, 3, 59, True,  "Salvador Ortelli",       "2:38.831"),
-        ("Jun 4 · 18:15", 86263606, 4, 2, 19, 1215, 12, 71, False, "Gonzalo Martin Iriarte", "2:37.991"),
-        ("Jun 4 · 19:15", 86264814, 6, 4, 17, 1184, 3, 60, True,  "Jorn Zoontjens2",        "2:37.910"),
-        ("Jun 5 · 05:15", 86276430, 8, 7, 14, 1557, 4, 50, True,  "Seungin Park",           "2:36.104"),
-        ("Jun 5 · 06:15", 86277281, 4, 1, 11, 1054, 2, 63, False, "Pablo Suzarte (you)",    "2:39.681"),
-        ("Jun 5 · 07:15", 86278087, 4, 3, 16, 1345, 4, 71, False, "Maximilian Boström",     "2:37.077"),
-    ]
+    def X(i):
+        return padL + (W - padL - padR) * (i / (n - 1))
+
+    def Y(v):
+        return padT + (H - padT - padB) * (1 - (v - lo) / rng)
+
+    parts = []
+    for i, r in enumerate(races):
+        up = (r.get("new_irating", 0) >= r.get("old_irating", 0))
+        col = '#16a34a' if up else '#dc2626'
+        parts.append(
+            f'<line x1="{X(i):.1f}" y1="{Y(pts[i]):.1f}" '
+            f'x2="{X(i+1):.1f}" y2="{Y(pts[i+1]):.1f}" '
+            f'stroke="{col}" stroke-width="3" stroke-linecap="round"/>'
+        )
+    for i, v in enumerate(pts):
+        if i == 0:
+            col = '#9098a0'
+            label = 'start'
+        else:
+            up = races[i-1].get("new_irating", 0) >= races[i-1].get("old_irating", 0)
+            col = '#16a34a' if up else '#dc2626'
+            label = _ir_short_track(races[i-1].get("track", ""))
+        parts.append(f'<circle cx="{X(i):.1f}" cy="{Y(v):.1f}" r="5" fill="{col}"/>')
+        parts.append(
+            f'<text x="{X(i):.1f}" y="{Y(v)-14:.1f}" text-anchor="middle" '
+            f'font-family="monospace" font-size="19" font-weight="700" '
+            f'fill="#3a3e45">{v}</text>'
+        )
+        parts.append(
+            f'<text x="{X(i):.1f}" y="{H-16}" text-anchor="middle" '
+            f'font-family="sans-serif" font-size="15" fill="#8a9099">{label}</text>'
+        )
+    return (
+        '<div class="ir-spark">'
+        '<div class="ir-spark-cap">'
+        '<div class="ir-climb-title">iRating &middot; the season so far</div>'
+        '<div class="ir-climb-sub">'
+        '<span class="ir-gain">green = clean race up</span> &middot; '
+        '<span class="ir-loss">red = messy race down</span></div></div>'
+        f'<svg viewBox="0 0 {W} {H}" role="img" '
+        'aria-label="iRating across the season">'
+        + ''.join(parts) +
+        '</svg></div>'
+    )
+
+
+def _ir_empty_page():
+    return (
+        f'{_common_head("iRacing · Season 3")}'
+        f'{render_nav("iracing")}'
+        f'{render_ticker()}'
+        f'{_IRACING_CSS}'
+        '<div class="ir-wrap">'
+        '<div class="ir-herowrap"><header class="ir-hero">'
+        '<div class="ir-kicker">iRacing · 2026 Season 3</div>'
+        '<h1 class="ir-title">No races logged yet</h1>'
+        '<p class="ir-dek">Drop an <code>eventresult_*.csv</code> in Downloads and run '
+        '<code>python ingest_iracing.py</code> to start the season tracker.</p>'
+        '</header></div></div></body></html>'
+    )
+
+
+def render_iracing_page():
+    """iRacing 2026 Season 3 tracker, driven entirely by launcher/iracing_s3.json
+    (written by ingest_iracing.py from Pablo's eventresult_*.csv exports).
+    cust_id 587563 = Pablo. The CSV is 1-BASED (Fin Pos 4 = P4) — no +1 applied,
+    unlike the 0-based JSON /data API. See [[iracing-data-api-json-format]].
+    Near-term goal: SR 3.00 -> Class C promotion (the achievable, proven lever)."""
+
+    races = _load_iracing_s3()
+    if not races:
+        return _ir_empty_page()
+
+    latest, first = races[-1], races[0]
+    n = len(races)
+    cur_ir = latest.get("new_irating")
+    cur_sub = latest.get("new_sub")
+    cur_sr = (cur_sub or 0) / 100.0
+    season_ir = (cur_ir - first.get("old_irating")) if (cur_ir is not None and first.get("old_irating") is not None) else 0
+    season_sr = ((cur_sub or 0) - (first.get("old_sub") or 0)) / 100.0
+    week = latest.get("week") or "?"
+
+    total_inc = sum((r.get("incidents") or 0) for r in races)
+    inc_per_race = total_inc / n
+    clean = sum(1 for r in races if (r.get("incidents") or 0) <= 4)
+    best_fin = min((r.get("finish_pos") for r in races if r.get("finish_pos")), default=None)
+    podiums = sum(1 for r in races if r.get("finish_pos") and r.get("finish_pos") <= 3)
+    net_pos = sum((r.get("start_pos") - r.get("finish_pos")) for r in races
+                  if r.get("start_pos") is not None and r.get("finish_pos") is not None)
+
+    def _sgn(v, fmt="{:+d}"):
+        cls = 'ir-gain' if v > 0 else ('ir-loss' if v < 0 else 'ir-flat')
+        txt = fmt.format(v).replace("-", "&minus;")
+        return f'<span class="{cls}">{txt}</span>'
+
+    sr_gap = max(0.0, 3.00 - cur_sr)
     stats = [
-        ("iRating", "1,490", '<span class="ir-plus">+64</span> last race · peak ~1,800'),
-        ("Safety Rating", "2.99", "Class D · 0.01 from 3.00"),
-        ("Licence / Div", "D · D8", "road category"),
-        ("Last 2 races", "P1 · P3", '<span class="ir-plus">+138</span> iR · clean'),
-        ("Goal", "A · 3K", "the destination"),
+        ("iRating", f"{cur_ir:,}", f'{_sgn(season_ir)} this season'),
+        ("Safety Rating", f"{cur_sr:.2f}", f'Class D &middot; {sr_gap:.2f} to Class&nbsp;C @ 3.00'),
+        ("Incidents / race", f"{inc_per_race:.1f}", 'the lever &middot; target &le;5.5 (2026 was 7.95)'),
+        ("Clean races", f"{clean} / {n}", '&le;4 incidents'),
+        ("Best finish", f"P{best_fin}" if best_fin else "&mdash;", f'{podiums} podium &middot; {_sgn(net_pos)} net positions'),
     ]
     stats_html = "".join(
         '<div class="ir-stat">'
         f'<div class="ir-stat-k">{escape(k)}</div>'
-        f'<div class="ir-stat-v">{escape(v)}</div>'
+        f'<div class="ir-stat-v">{v}</div>'
         f'<div class="ir-stat-s">{s}</div>'
         '</div>'
         for k, v, s in stats
     )
 
-    # --- the climb bar: 1,000 floor -> 3,000 goal, current 1,352 ---
-    floor_ir, goal_ir, cur_ir = 1000, 3000, 1490
-    span = goal_ir - floor_ir
+    # --- SR promotion bar: 2.00 floor -> 3.00 (Class C) goal ---
+    floor_sr, goal_sr = 2.00, 3.00
+    span = goal_sr - floor_sr
 
     def _p(v):
-        return max(0.0, min(100.0, (v - floor_ir) / span * 100))
+        return max(0.0, min(100.0, (v - floor_sr) / span * 100))
 
-    tick_vals = [1000, 1500, 2000, 2500, 3000]
+    tick_vals = [2.00, 2.25, 2.50, 2.75, 3.00]
     ticks_html = "".join(
         f'<div class="ir-tick" style="left:{_p(t):.1f}%"></div>'
-        f'<div class="ir-tick-lbl" style="left:{_p(t):.1f}%">{t:,}</div>'
+        f'<div class="ir-tick-lbl" style="left:{_p(t):.1f}%">{t:.2f}</div>'
         for t in tick_vals
     )
-    fill = _p(cur_ir)
+    fill = _p(cur_sr)
     bar_html = (
         '<div class="ir-track">'
         '<div class="ir-track-line">'
         f'<div class="ir-track-fill" style="width:{fill:.1f}%"></div></div>'
         f'{ticks_html}'
         f'<div class="ir-marker" style="left:{fill:.1f}%"></div>'
-        f'<div class="ir-marker-lbl" style="left:{fill:.1f}%">1,490 &middot; you</div>'
+        f'<div class="ir-marker-lbl" style="left:{fill:.1f}%">{cur_sr:.2f} &middot; you</div>'
         '</div>'
     )
 
-    # --- slump panel: yearly Sports Car (year, starts, wins, top5%, inc/race) ---
-    yearly = [
-        ("2024", "236", "19", "38.6", "6.49", False),
-        ("2025", "331", "19", "45.3", "5.53", False),
-        ("2026", "19", "0", "36.8", "7.95", True),
-    ]
-    yearly_rows = "".join(
+    # --- the lever: per-race clean/messy contrast, sorted cleanest first ---
+    lever_sorted = sorted(races, key=lambda r: (r.get("incidents") or 0))
+    lever_rows = "".join(
         '<tr>'
-        f'<td>{y}</td><td>{st}</td><td>{w}</td><td>{t5}</td>'
-        f'<td class="{"ir-bad" if bad else ""}">{inc}</td>'
+        f'<td>{_ir_short_track(r.get("track",""))}</td>'
+        f'<td class="{"ir-good" if (r.get("incidents") or 0)<=4 else ("ir-bad" if (r.get("incidents") or 0)>=8 else "")}">{r.get("incidents")}x</td>'
+        f'<td>{_ir_ir_delta_cell(r.get("old_irating"), r.get("new_irating"))}</td>'
+        f'<td>{_ir_sr_delta_cell(r.get("old_sub"), r.get("new_sub"))}</td>'
         '</tr>'
-        for y, st, w, t5, inc, bad in yearly
+        for r in lever_sorted
     )
+
+    best = lever_sorted[0]
+    worst = lever_sorted[-1]
+    best_ir = (best.get("new_irating") or 0) - (best.get("old_irating") or 0)
+    worst_ir = (worst.get("new_irating") or 0) - (worst.get("old_irating") or 0)
+    contrast = ""
+    if (best.get("incidents") or 0) != (worst.get("incidents") or 0):
+        contrast = (
+            f'<p><b>The cleanest vs the messiest, this season:</b> '
+            f'{_ir_short_track(best.get("track",""))} '
+            f'({best.get("incidents")} inc) paid {_sgn(best_ir)} iR; '
+            f'{_ir_short_track(worst.get("track",""))} '
+            f'({worst.get("incidents")} inc) cost {_sgn(worst_ir)} iR. '
+            f'Same car, same driver &mdash; the only variable was incidents.</p>'
+        )
 
     race_rows = "".join(_ir_race_row(r) for r in reversed(races))
 
     return (
-        f'{_common_head("iRacing · Results")}'
+        f'{_common_head("iRacing · Season 3")}'
         f'{render_nav("iracing")}'
         f'{render_ticker()}'
         f'{_IRACING_CSS}'
         '<div class="ir-wrap">'
         '<div class="ir-herowrap">'
         '<header class="ir-hero">'
-        '<div class="ir-kicker">iRacing · Road to Class A</div>'
-        '<h1 class="ir-title">The 3,000 Climb</h1>'
-        '<p class="ir-dek">From 1,490 to Class&nbsp;A &middot; 3,000 iR &mdash; '
-        'one clean rung at a time.</p>'
+        '<div class="ir-kicker">iRacing &middot; 2026 Season&nbsp;3 &middot; '
+        f'Week&nbsp;{escape(str(week))} of 13</div>'
+        '<h1 class="ir-title">Clean Races to Class&nbsp;C</h1>'
+        f'<p class="ir-dek">SR {cur_sr:.2f} &rarr; 3.00 for the Class&nbsp;C promotion &mdash; '
+        'won one clean race at a time. Pace is there; incidents are the lever.</p>'
         '</header>'
         '</div>'
         f'<div class="ir-stats">{stats_html}</div>'
-        # --- the climb (progress toward Class A / 3,000) ---
+        # --- SR promotion bar ---
         '<div class="ir-climb">'
         '<div class="ir-climb-head">'
-        '<div class="ir-climb-title">The climb · 1,490 → 3,000</div>'
-        '<div class="ir-climb-sub">1,510 iR to go · <span class="ir-plus">+138 in 2 races</span></div>'
+        f'<div class="ir-climb-title">Safety Rating &middot; {cur_sr:.2f} &rarr; 3.00</div>'
+        f'<div class="ir-climb-sub">{sr_gap:.2f} to Class&nbsp;C &middot; '
+        f'{_sgn(season_sr, "{:+.2f}")} this season</div>'
         '</div>'
         f'{bar_html}'
         '</div>'
+        # --- iRating sparkline ---
+        f'{_ir_sparkline(races)}'
         # --- races (latest first) ---
         '<section class="ir-sec">'
         '<h2 class="ir-h2">Races · latest first</h2>'
         '<div class="ir-tblwrap"><table class="ir-tbl"><thead><tr>'
-        '<th>Date (UTC)</th><th>Grid</th><th>Finish</th><th>&Delta;</th>'
-        '<th>Field</th><th>SOF</th><th>Inc</th><th>Pts</th>'
+        '<th>Date (local)</th><th>Series</th><th>Track</th><th>Grid</th><th>Finish</th>'
+        '<th>&Delta;</th><th>Inc</th><th>&Delta;iR</th><th>&Delta;SR</th><th>SOF</th>'
         '</tr></thead><tbody>'
         f'{race_rows}'
         '</tbody></table></div>'
         '</section>'
-        # --- why the dip ---
-        '<section class="ir-sec"><h2 class="ir-h2">Why the dip — and the fix</h2></section>'
+        # --- the lever ---
+        '<section class="ir-sec"><h2 class="ir-h2">The lever — clean = up, messy = down</h2></section>'
         '<div class="ir-slump-grid">'
         '<div class="ir-card">'
-        '<h3>Sports Car · by year</h3>'
+        '<h3>Every race · cleanest first</h3>'
         '<table class="ir-mini"><thead><tr>'
-        '<th>Year</th><th>Starts</th><th>Wins</th><th>Top-5 %</th><th>Inc/race</th>'
+        '<th>Track</th><th>Inc</th><th>&Delta;iR</th><th>&Delta;SR</th>'
         '</tr></thead><tbody>'
-        f'{yearly_rows}'
+        f'{lever_rows}'
         '</tbody></table>'
         '</div>'
         '<div class="ir-card">'
         '<h3>The read</h3>'
-        '<p><b>Pace isn&rsquo;t the problem</b> — you won 19 races in both 2024 '
-        'and 2025. At Spa your M2 PB is 2:39.681; the cars you raced Jun 5 ran '
-        '2:37.8–2:40.9. Driving to your own best already puts you on the podium.</p>'
-        '<p><b>Incidents are.</b> 2026 jumped to <b>7.95/race</b> — the highest in '
-        'years — while wins fell to zero and iRating slid from ~1,800 to 1,352. '
-        'Incidents cost positions now and risk the DNFs that gut iRating.</p>'
-        '<p><b>The fix is one habit:</b> get back to ~5.5 incidents/race. SR climbs '
-        'to 3.00, DNFs stop, and the iR rungs above start falling on their own.</p>'
-        '<p><b>Proof, Jun 5:</b> your 2-incident race won from P4 and paid +74 iR; '
-        'the &minus;70/&minus;77/&minus;94 of that same race all went to drivers '
-        'with 10–15 incidents. Clean = up. Messy = down.</p>'
+        f'<p class="ir-lever-big">{inc_per_race:.1f} <span class="ir-lever-sub">incidents / race</span></p>'
+        '<p>Get this to <b>&le;5.5</b> (your clean 2025 level) and SR climbs to 3.00, '
+        'DNFs stop, and iRating follows on its own. 2026 ran 7.95 — the highest in years, '
+        'and exactly when the slump hit.</p>'
+        f'{contrast}'
+        '<p><b>Pace isn&rsquo;t the problem.</b> You won 19 races in both 2024 and 2025. '
+        'The job this season is finishing clean, not finding speed.</p>'
         '</div>'
         '</div>'
         '<div class="ir-notes">'
         '<div class="ir-notes-h">How to read this</div>'
         '<ul>'
-        '<li><b>Positions are shown +1.</b> The iRacing data API is 0-based '
-        '(<code>finish_position 0</code> = the winner), so every grid/finish here '
-        'has +1 applied. Verified from the export itself: a row with raw finish '
-        '<code>1</code> lists a different driver as winner.</li>'
-        '<li><b>Source:</b> <code>search_results_official.json</code> + per-race '
-        '<code>eventresult-*.json</code> files · series_id 557 · season_id 6093 · '
-        'race_week 11.</li>'
+        '<li><b>Positions are 1-based.</b> These come from iRacing&rsquo;s '
+        '<code>eventresult_*.csv</code> export, where <code>Fin Pos 1</code> = the winner. '
+        '(No +1 fix-up — that only applies to the 0-based JSON /data API.)</li>'
+        '<li><b>Source:</b> <code>iracing_s3.json</code>, built by '
+        '<code>ingest_iracing.py</code> from each race&rsquo;s '
+        '<code>eventresult_*.csv</code>. cust_id 587563.</li>'
+        '<li><b>Safety Rating</b> is the license sub-level &divide; 100 '
+        '(e.g. 277 &rarr; 2.77). Class&nbsp;C promotion is at 3.00.</li>'
         '</ul>'
         '</div>'
         '</div>'
@@ -8837,7 +10566,42 @@ def render_event_page(evt):
             spotlight_html = _render_event_spotlight(evt, spot_cfg)
             tiles = [c for c in tiles if c["id"] != spot_id]
 
-    if tiles:
+    groups = evt.get("groups")
+    if tiles and groups:
+        # Render one labelled section per race class. Tiles not listed in any
+        # group fall through to a trailing untagged grid so nothing is dropped.
+        by_id = {c["id"]: c for c in tiles}
+        grouped_ids = set()
+        sections = []
+        for g in groups:
+            g_cfgs = [by_id[t] for t in g["tiles"] if t in by_id]
+            if not g_cfgs:
+                continue
+            grouped_ids.update(c["id"] for c in g_cfgs)
+            cards = "".join(render_card(c) for c in g_cfgs)
+            kicker = (
+                f'<span class="evt-class-kicker">{escape(g["kicker"])}</span>'
+                if g.get("kicker") else ""
+            )
+            n = len(g_cfgs)
+            sections.append(
+                f'<div class="evt-class-head">'
+                f'<span class="evt-class-label">{escape(g["label"])}</span>'
+                f'{kicker}'
+                f'<span class="evt-class-count">{n} car{"s" if n != 1 else ""}</span>'
+                f'</div>'
+                f'<div class="evt-grid grouped">{cards}</div>'
+            )
+        leftovers = [c for c in tiles if c["id"] not in grouped_ids]
+        if leftovers:
+            cards = "".join(render_card(c) for c in leftovers)
+            sections.append(f'<div class="evt-grid">{cards}</div>')
+        body = (
+            f'<a href="/" class="evt-back">← All events</a>'
+            + spotlight_html
+            + "".join(sections)
+        )
+    elif tiles:
         cards_html = "".join(render_card(c) for c in tiles)
         body = (
             f'<a href="/" class="evt-back">← All events</a>'
@@ -8877,6 +10641,223 @@ def render_event_page(evt):
         f'{render_foot()}'
         '<div id="toast" class="toast"></div>'
         f'<script>{JS}</script>'
+        '</body></html>'
+    )
+
+
+_WK_CSS = """
+<style>
+.wk-wrap{max-width:1280px;margin:0 auto;padding:0 24px 90px}
+.wk-hero{padding:34px 0 26px;border-bottom:2px solid var(--ink);margin-bottom:34px;
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:26px;justify-content:space-between;position:relative}
+.wk-hero::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:4px;
+  background:repeating-linear-gradient(90deg,var(--ink) 0,var(--ink) 16px,var(--max) 16px,var(--max) 20px,var(--ink) 20px,var(--ink) 36px,var(--paper) 36px,var(--paper) 40px)}
+.wk-hero-l .wk-kick{font:700 10px/1.2 var(--body);letter-spacing:1.6px;
+  color:var(--ink-3);text-transform:uppercase;margin-bottom:8px}
+.wk-hero-l h1{font:900 clamp(40px,6vw,66px)/0.88 var(--display);
+  margin:0 0 8px;text-transform:uppercase;letter-spacing:-1.2px;color:var(--ink);font-stretch:condensed}
+.wk-hero-l p{color:var(--ink-3);font:500 14px/1.5 var(--body);max-width:48ch;margin:0}
+.wk-meta{display:flex;gap:14px;text-align:center}
+.wk-meta .box{border:2px solid var(--ink);background:#fff;padding:12px 18px;min-width:96px;
+  box-shadow:var(--shadow-card)}
+.wk-meta .v{font:900 30px/1 var(--display);color:var(--ink);font-stretch:condensed}
+.wk-meta .l{font:700 9px/1 var(--body);letter-spacing:1.4px;
+  color:var(--ink-3);text-transform:uppercase;margin-top:7px}
+.wk-meta .wk-cd{color:var(--max)}
+.wk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:880px){.wk-grid{grid-template-columns:1fr}.wk-meta{flex:1}}
+.wk-card{position:relative;border:2px solid var(--ink);background:#fff;display:flex;
+  flex-direction:column;box-shadow:var(--shadow-card);transition:transform .12s,box-shadow .12s}
+.wk-card:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-card-hover)}
+.wk-card .ph{height:148px;background-size:cover;background-position:center;position:relative;
+  border-bottom:2px solid var(--ink);background-color:#0f172a}
+.wk-card .ph:after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,#0f172a00 40%,#0f172a55 100%)}
+.wk-badge{position:absolute;top:11px;left:11px;z-index:2;font:800 10px/1 var(--body);
+  letter-spacing:1.4px;text-transform:uppercase;padding:6px 10px;color:#fff;
+  border:2px solid var(--ink);box-shadow:1px 1px 0 var(--ink)}
+.wk-enter{position:absolute;right:11px;bottom:11px;z-index:2;background:#fff;color:var(--ink);
+  text-decoration:none;font:800 10px/1 var(--body);letter-spacing:1.2px;text-transform:uppercase;
+  padding:7px 10px;border:2px solid var(--ink);box-shadow:1px 1px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+.wk-enter:hover{transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--ink)}
+.wk-titlelink{color:inherit;text-decoration:none}
+.wk-titlelink:hover{text-decoration:underline}
+.wk-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.wk-body h3{font:800 23px/1.02 var(--display);margin:0 0 3px;color:var(--ink);
+  text-transform:uppercase;font-stretch:condensed;letter-spacing:-.3px}
+.wk-loc{font:600 12px/1.3 var(--body);color:var(--ink-3);margin-bottom:15px;
+  text-transform:uppercase;letter-spacing:.6px}
+.wk-spec{display:flex;gap:0;margin-bottom:15px;border:1.5px solid var(--ink);background:var(--paper-2)}
+.wk-spec .s{padding:8px 11px;flex:1;border-right:1.5px solid var(--ink)}
+.wk-spec .s:last-child{border-right:0}
+.wk-spec .s .sv{font:700 13px/1.1 var(--body);color:var(--ink);display:block}
+.wk-spec .s .sl{font:700 8px/1 var(--body);letter-spacing:1px;
+  color:var(--ink-4);text-transform:uppercase;margin-top:5px;display:block}
+.wk-status{margin-top:auto;display:flex;align-items:center;justify-content:space-between;
+  padding:11px 13px;border:2px solid var(--ink);background:var(--paper-2);margin-bottom:13px}
+.wk-status .st{font:800 18px/1 var(--display);color:var(--ink);font-stretch:condensed}
+.wk-status .pts{font:800 12px/1 var(--mono);color:#0f8a4d}
+.wk-status.empty .st{color:var(--ink-4);font-weight:700;font-size:13px;
+  font-family:var(--body);font-stretch:normal;text-transform:uppercase;letter-spacing:.8px}
+.wk-actions{display:flex;gap:8px;margin-top:12px}
+.wk-go{appearance:none;cursor:pointer;flex:1 1 0;min-width:0;padding:13px 10px;border:2px solid var(--ink);
+  font:800 13px/1 var(--body);letter-spacing:1.2px;text-transform:uppercase;
+  color:#fff;box-shadow:1px 1px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+.wk-go.alt{background:#fff;color:var(--ink)}
+.wk-go:hover{transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--ink)}
+.wk-go:active{transform:translate(0,0);box-shadow:0 0 0 var(--ink)}
+.wk-go[disabled]{opacity:.6;cursor:default}
+.wk-hist{margin-top:46px}
+.wk-hist h2{font:700 11px/1 var(--body);letter-spacing:1.8px;
+  color:var(--ink-3);text-transform:uppercase;margin:0 0 16px;
+  padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.wk-hrow{display:flex;align-items:center;gap:18px;padding:12px 16px;border:2px solid var(--ink);
+  margin-bottom:10px;background:#fff;box-shadow:var(--shadow-card)}
+.wk-hrow .wn{font:900 18px/1 var(--display);min-width:62px;color:var(--ink);font-stretch:condensed}
+.wk-hrow .hr{flex:1;display:flex;gap:22px;flex-wrap:wrap;font:600 12px/1 var(--body);
+  color:var(--ink-3);text-transform:uppercase;letter-spacing:.6px}
+.wk-hrow .ht{font:800 15px/1 var(--mono);color:#0f8a4d;min-width:64px;text-align:right}
+.wk-empty{color:var(--ink-4);font:500 14px/1.5 var(--body);padding:18px 0}
+</style>
+"""
+
+
+def _wk_pos(finish):
+    return f"P{finish}" if finish else "—"
+
+
+def _wk_live_tag(race):
+    """Small marker on cards mirroring a real motorsport event running this week."""
+    if not race.get("real"):
+        return ""
+    return (
+        '<div style="display:inline-flex;align-items:center;gap:6px;'
+        'font:800 10px/1 var(--body);letter-spacing:1.2px;text-transform:uppercase;'
+        'color:#b00020;margin:0 0 8px">'
+        '<span style="width:7px;height:7px;border-radius:50%;background:#e10600;'
+        'box-shadow:0 0 0 3px #e1060025"></span>Racing for real this week</div>'
+    )
+
+
+def _render_weekly_card(race, res):
+    accent = race["accent"]
+    track = race["track_id"]
+    layout = race.get("config_track") or ""
+    ph = f"/content/tracks/{escape(track)}/preview?layout={escape(layout)}"
+    if res and res.get("finish"):
+        import weekly_races as weekly
+        pts = weekly.points_for_finish(res["finish"])
+        lap = weekly.fmt_lap(res.get("best_lap_ms"))
+        status = (
+            f'<div class="wk-status"><span class="st">{_wk_pos(res["finish"])}'
+            f' &middot; <span style="color:#ffffff80;font-size:13px">best {escape(lap)}</span>'
+            f'</span><span class="pts">+{pts} pts</span></div>'
+        )
+    else:
+        status = ('<div class="wk-status empty"><span class="st">Not raced yet</span>'
+                  '<span class="pts">&mdash;</span></div>')
+    ev_url = race.get("event_url")
+    enter_pill = (f'<a class="wk-enter" href="{escape(ev_url)}">Enter event &rarr;</a>'
+                  if ev_url else "")
+    title_txt = escape(race["title"])
+    title_html = (f'<a class="wk-titlelink" href="{escape(ev_url)}">{title_txt}</a>'
+                  if ev_url else title_txt)
+    return (
+        f'<div class="wk-card">'
+        f'<div class="ph" style="background-image:url(\'{ph}\')">'
+        f'<span class="wk-badge" style="background:{accent}">{escape(race["slot_label"])}</span>'
+        f'{enter_pill}</div>'
+        f'<div class="wk-body">'
+        f'{_wk_live_tag(race)}'
+        f'<h3>{title_html}</h3>'
+        f'<div class="wk-loc">{escape(race["location"])}</div>'
+        f'<div class="wk-spec">'
+        f'<div class="s"><div class="sv">{escape(race.get("player_display") or race["player_car"])}</div><div class="sl">Your car</div></div>'
+        f'<div class="s"><div class="sv">{race["grid"]} AI</div><div class="sl">Grid</div></div>'
+        f'<div class="s"><div class="sv">{race["laps"]} laps</div><div class="sl">Race</div></div>'
+        f'</div>'
+        f'{status}'
+        f'<div class="wk-actions">'
+        f'<button class="wk-go alt" '
+        f'onclick="launchWeekly(\'{escape(race["slot"])}\',\'hotlap\',this)">Hot lap</button>'
+        f'<button class="wk-go" style="background:{accent}" '
+        f'onclick="launchWeekly(\'{escape(race["slot"])}\',\'race\',this)">Race</button>'
+        f'</div>'
+        f'</div></div>'
+    )
+
+
+def _render_weekly_history(history):
+    if not history:
+        return ('<div class="wk-hist"><h2>Past weeks</h2>'
+                '<div class="wk-empty">No completed weeks yet — race this week to start your record.</div></div>')
+    rows = []
+    for h in history[:12]:
+        parts = []
+        for r in h["races"]:
+            fin = _wk_pos(r.get("finish"))
+            parts.append(f'{escape(r["slot_label"].split(" ")[0].title())} {fin}')
+        rows.append(
+            f'<div class="wk-hrow"><span class="wn">W{h["week"]:02d}</span>'
+            f'<span class="hr">{escape(" · ".join(parts))}</span>'
+            f'<span class="ht">{h["total"]} pts</span></div>'
+        )
+    return f'<div class="wk-hist"><h2>Past weeks</h2>{"".join(rows)}</div>'
+
+
+def render_weekly_page():
+    try:
+        import weekly_races as weekly
+        bundle = weekly.current_week()
+    except Exception as e:  # degrade gracefully — never break the whole server
+        return (
+            f'{_common_head("This Week")}{render_nav("this-week")}{render_ticker()}'
+            f'<div class="wk-wrap"><div class="wk-empty">Weekly races unavailable: '
+            f'{escape(str(e))}</div></div>{render_foot()}</body></html>'
+        )
+    plan = bundle["plan"]
+    cards = "".join(_render_weekly_card(r, bundle["results"].get(r["slot"]))
+                    for r in plan["races"])
+    body = (
+        '<div class="wk-wrap">'
+        '<div class="wk-hero">'
+        '<div class="wk-hero-l">'
+        '<div class="wk-kick">This Week · Pick of the Paddock</div>'
+        f'<h1>Week {plan["week"]}</h1>'
+        '<p>Three races every week, tracking the real motorsport calendar — '
+        'when a Grand Prix or Le Mans is on, you race it that weekend — plus a '
+        'fun wildcard. Beat your best finish before the week resets.</p>'
+        '</div>'
+        '<div class="wk-meta">'
+        f'<div class="box"><div class="v">{bundle["score"]}</div><div class="l">Week pts</div></div>'
+        f'<div class="box"><div class="v wk-cd" id="wkcd" data-end="{escape(plan["end"])}">—</div>'
+        '<div class="l">Resets in</div></div>'
+        '</div></div>'
+        f'<div class="wk-grid">{cards}</div>'
+        f'{_render_weekly_history(bundle["history"])}'
+        '</div>'
+    )
+    js = """
+<script>
+function launchWeekly(slot,mode,btn){var t=btn.textContent;btn.textContent='Launching…';btn.disabled=true;
+ fetch('/launch-weekly?slot='+encodeURIComponent(slot)+'&mode='+encodeURIComponent(mode),{method:'POST'})
+ .then(r=>r.json()).then(d=>{btn.textContent=d.ok?'Launched ✓':'Failed';
+   setTimeout(function(){btn.textContent=t;btn.disabled=false;},2600);})
+ .catch(function(){btn.textContent='Failed';setTimeout(function(){btn.textContent=t;btn.disabled=false;},2600);});}
+(function(){var el=document.getElementById('wkcd');if(!el)return;
+ function tick(){var end=new Date(el.dataset.end).getTime();var s=Math.max(0,Math.floor((end-Date.now())/1000));
+  var d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
+  el.textContent=d+'d '+h+'h '+m+'m';}tick();setInterval(tick,30000);})();
+</script>"""
+    return (
+        f'{_common_head("This Week · Sim Racing")}'
+        f'{_WK_CSS}'
+        f'{render_nav("this-week")}'
+        f'{render_ticker()}'
+        f'{body}'
+        f'{render_foot()}'
+        '<div id="toast" class="toast"></div>'
+        f'{js}'
         '</body></html>'
     )
 
@@ -9305,12 +11286,20 @@ def _gap_class(delta_ms):
     return "is-far"
 
 
+_PB_CACHE = {"sig": None, "data": {}}
+
+
 def _read_personalbest():
-    """Parse Documents/Assetto Corsa/personalbest.ini → {SECTION_KEY: ms}."""
+    """Parse Documents/Assetto Corsa/personalbest.ini → {SECTION_KEY: ms}.
+    Cached by file mtime (read once per card otherwise)."""
     path = AC_DOC / "personalbest.ini"
+    try:
+        sig = path.stat().st_mtime
+    except OSError:
+        return {}
+    if _PB_CACHE["sig"] == sig:
+        return _PB_CACHE["data"]
     out = {}
-    if not path.exists():
-        return out
     section = None
     try:
         for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
@@ -9324,6 +11313,7 @@ def _read_personalbest():
                     pass
     except Exception:
         pass
+    _PB_CACHE.update(sig=sig, data=out)
     return out
 
 
@@ -9429,11 +11419,7 @@ def _load_duel_history(cfg):
     skin_set.discard("")
     car_set.discard("")
     history = {}
-    for f in sorted(snaps_dir.glob("*.json")):
-        try:
-            d = json.loads(f.read_text(encoding="utf-8"))
-        except Exception:
-            continue
+    for f, d in _all_snapshots():
         players = d.get("players") or []
         if not players: continue
         p0 = players[0]
@@ -10253,32 +12239,6 @@ def _render_driver_index_seats(cfg):
     )
 
 
-def _driver_photo_url(driver_name):
-    """Resolve a driver display name to a /images/drivers/<slug>.{jpg,png} URL.
-    Tries '<initial>_<lastname>' first (disambiguates Sven vs Dirk Müller),
-    falls back to '<lastname>'. ASCII-normalizes Müller→muller, Bünnagel→bunnagel.
-    Returns None if no file matches — caller renders initials fallback."""
-    import unicodedata
-    if not driver_name:
-        return None
-    parts = [p for p in driver_name.replace(".", "").split() if p]
-    if not parts:
-        return None
-    def _ascii_lower(s):
-        return unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode("ascii").lower()
-    last = _ascii_lower(parts[-1])
-    candidates = []
-    if len(parts) >= 2 and len(parts[0]) <= 2:
-        candidates.append(f"{_ascii_lower(parts[0])}_{last}")
-    candidates.append(last)
-    for slug in candidates:
-        for ext in ("jpg", "png", "jpeg", "webp"):
-            p = DRIVERS_DIR / f"{slug}.{ext}"
-            if p.exists():
-                return f"/images/drivers/{slug}.{ext}"
-    return None
-
-
 def _render_grid_hotlap_seats(cfg):
     """Custom card grid for the N24 SP9 PRO HOT LAP challenge. One card per CAR
     (each car has a real-world lineup of 2-4 drivers shown as an avatar group).
@@ -11056,71 +13016,6 @@ def _render_grid_hotlap_hero_stats(cfg):
     return f'<div class="cd-hero-stats">{panels}</div>'
 
 
-def _render_driver_perspectives(cfg, history=None):
-    """Two side-by-side perspective panels for dual-driver duels — now with
-    per-skin stats + lap-time sparklines. Returns empty string for cfgs without
-    2+ launchers carrying driver/quote data."""
-    launchers = cfg.get("launchers") or []
-    rich = [lc for lc in launchers if lc.get("driver") and lc.get("quote")]
-    if len(rich) < 2:
-        return ""
-    history = history or {}
-    panels = ""
-    for lc in rich:
-        logo = lc.get("logo", "")
-        accent = lc.get("color", "#fff")
-        portrait = lc.get("portrait")
-        if portrait and (IMAGES_DIR / portrait).exists():
-            portrait_html = (
-                f'<div class="dp-portrait">'
-                f'<img src="/images/{escape(portrait)}" alt="{escape(lc.get("driver", ""))}">'
-                f'</div>'
-            )
-        else:
-            portrait_html = (
-                f'<div class="dp-portrait dp-portrait-fallback">'
-                f'<div class="dp-num-big">#{escape(lc.get("number", ""))}</div>'
-                f'</div>'
-            )
-        runs = history.get(lc.get("skin", ""), [])
-        stats_html = _render_driver_stats(runs)
-        chart_html = _render_lap_sparkline(runs, accent)
-        panels += (
-            f'<article class="dp-panel dp-{escape(logo)}">'
-            f'{portrait_html}'
-            f'<div class="dp-body">'
-            f'<div class="dp-head">'
-            f'<div class="dp-logo">{_team_logo_svg(logo)}</div>'
-            f'<div class="dp-tag">{escape(lc.get("tagline", ""))}</div>'
-            f'</div>'
-            f'<h3 class="dp-driver">{escape(lc.get("driver", ""))} '
-            f'<span class="dp-num-inline">#{escape(lc.get("number", ""))}</span></h3>'
-            f'<div class="dp-team">{escape(lc.get("team", ""))}</div>'
-            f'<p class="dp-quote">"{escape(lc.get("quote", ""))}"</p>'
-            f'{stats_html}'
-            f'<div class="dp-chart-wrap">'
-            f'<div class="dp-chart-lbl">Best-lap progression · finish-pos dots</div>'
-            f'{chart_html}'
-            f'</div>'
-            f'<button class="btn-launch-team dp-cta {escape(logo)}" '
-            f'onclick="launchConfig({escape(json.dumps(cfg["id"]))},'
-            f'{escape(json.dumps(cfg["title"] + " · " + lc.get("label", "LAUNCH")))},'
-            f'{escape(json.dumps(lc.get("cmd", "")))})">'
-            f'{_team_logo_svg(logo)}'
-            f'<span>{escape(lc.get("label", "LAUNCH"))}</span>'
-            f'<span class="team-go">GO ▶</span>'
-            f'</button>'
-            f'</div>'
-            f'</article>'
-        )
-    return (
-        '<section class="cd-section dp-section">'
-        '<h2 class="cd-h2">Choose your driver</h2>'
-        f'<div class="dp-grid">{panels}</div>'
-        '</section>'
-    )
-
-
 _YOUTUBE_ID_RE = re.compile(r'^[A-Za-z0-9_-]{6,32}$')
 
 
@@ -11322,8 +13217,36 @@ def render_challenge_page(cfg):
     if embed_items:
         iframes = []
         for e in embed_items:
-            url = e["url"] if isinstance(e, dict) else e
+            url = e.get("url") if isinstance(e, dict) else e
             label = e.get("label") if isinstance(e, dict) else None
+            # Local self-hosted video (bypasses third-party embed blocks).
+            # Accepts an explicit {"file": "videos/x.mp4"} or a url that is a
+            # local path / ends in a video extension.
+            local = e.get("file") if isinstance(e, dict) else None
+            if not local and url and (
+                url.startswith("/images/")
+                or url.lower().endswith((".mp4", ".webm"))
+            ):
+                local = url
+            if local:
+                src = local if local.startswith("/") else f"/images/{local}"
+                vmime = "video/webm" if src.lower().endswith(".webm") else "video/mp4"
+                label_html = (
+                    f'<div class="cd-embed-label">{escape(label)}</div>' if label else ""
+                )
+                iframes.append(
+                    '<figure class="cd-embed">'
+                    f'{label_html}'
+                    '<div class="cd-embed-frame">'
+                    f'<video controls preload="metadata" playsinline '
+                    f'style="width:100%;height:100%;display:block;background:#000">'
+                    f'<source src="{escape(src)}" type="{vmime}">'
+                    'Your browser cannot play this video.'
+                    '</video>'
+                    '</div>'
+                    '</figure>'
+                )
+                continue
             vid = _youtube_video_id(url)
             if not vid:
                 continue
@@ -11384,6 +13307,13 @@ def render_challenge_page(cfg):
         # actually start the race. Inline hero_launch_html for those tiles.
         # 2+ launcher tiles keep CTAs in the dedicated choose section below.
         hero_cta_html = hero_launch_html if len(cfg.get("launchers") or []) < 2 else ""
+        # Link to the parent event hub (full Spanish GP page, etc.) beside Launch.
+        _evt = _event_for_tile(cfg.get("id"))
+        if _evt:
+            hero_cta_html += (
+                f'<a class="eh-cta-event" href="/event/{escape(_evt["id"])}">'
+                f'View the {escape(_evt.get("label") or "event")} →</a>'
+            )
         # Grid-hotlap hero: single column with twin stat panels (TARGET + CIRCUIT)
         # in one shared shell. The standalone right-rail track card and the
         # editorial italic blurb both clash with that — both are suppressed.
@@ -11407,7 +13337,7 @@ def render_challenge_page(cfg):
             f'<p class="cd-blurb">{escape(hero_blurb)}</p>'
             # Stats integrated INTO the hero as horizontal meta strip
             f'{hero_stats_html}'
-            f'<div class="cd-hero-cta">{hero_cta_html}</div>'
+            f'<div class="cd-hero-cta" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">{hero_cta_html}</div>'
             f'<div class="cd-hero-videos">{videos_html}</div>'
             '</div>'
             f'{right_rail}'
@@ -11566,6 +13496,11 @@ def render_challenge_page(cfg):
         f'{_common_head(title_full)}'
         f'{render_nav("challenges")}'
         f'{render_ticker()}'
+        f'<button type="button" class="ncard-star cd-fstar" data-cfg-id="{escape(cfg["id"])}" '
+        f'aria-pressed="false" title="Add to Active challenges" '
+        f'aria-label="Star this challenge as active">'
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.9 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>'
+        '<span class="cd-fstar-label">Active challenge</span></button>'
         f'<article class="{page_cls}">'
         f'{hero_html}'
         f'{body_html}'
@@ -12171,6 +14106,13 @@ def _render_hotlap_poster_hero(cfg, hero_img, refs):
     kicker = (cfg.get("kicker") or cfg.get("tag", "") or "HOTLAP").upper()
     lede = cfg.get("lede") or cfg.get("hero_blurb") or cfg.get("subtitle", "")
 
+    # Secondary CTA: link to the parent event hub (full Spanish GP page, etc.).
+    evt = _event_for_tile(cfg.get("id"))
+    event_cta_html = (
+        f'<a class="hl-cta-event" href="/event/{escape(evt["id"])}">'
+        f'View the {escape(evt.get("label") or "event")} →</a>'
+    ) if evt else ""
+
     # Circuit + format meta for the CHASE band
     track = _ac_track_meta(cfg.get("ac_track_id"), cfg.get("ac_track_layout"))
     track_meta = ""
@@ -12200,15 +14142,31 @@ def _render_hotlap_poster_hero(cfg, hero_img, refs):
         f'{target_side}'
         '</div>'
         '<div class="hl-cta-strip">'
+        '<div class="hl-cta-row">'
         f'<button class="hl-cta" type="button" '
         f'onclick="launchConfig(&quot;{escape(cfg["id"])}&quot;,'
         f'&quot;{escape(cta_label)}&quot;,&quot;{escape(cmd_js)}&quot;)">'
         f'{escape(cta_label)} →'
         '</button>'
+        f'{event_cta_html}'
+        '</div>'
         '<div class="hl-cta-meta">Ghost on · auto-loads Crew Chief · returns here when AC exits</div>'
         '</div>'
         '</header>'
     )
+
+
+def _event_for_tile(tile_id):
+    """Return the EVENTS entry that owns this challenge tile (via its `tiles`
+    list or `spotlight`), or None — lets a challenge page link to its event hub."""
+    if not tile_id:
+        return None
+    for evt in EVENTS:
+        if tile_id in (evt.get("tiles") or []):
+            return evt
+        if (evt.get("spotlight") or {}).get("tile_id") == tile_id:
+            return evt
+    return None
 
 
 def _render_solo_hotlap_hero(cfg, hero_img, hero_launch_html, refs):
@@ -12343,6 +14301,16 @@ def _render_solo_hotlap_hero(cfg, hero_img, hero_launch_html, refs):
                 '</aside>'
             )
 
+    # Link to the parent event hub (e.g. the full Spanish GP page) when this
+    # challenge belongs to one — shown as a secondary CTA beside Launch.
+    evt = _event_for_tile(cfg.get("id"))
+    event_cta_html = ""
+    if evt:
+        event_cta_html = (
+            f'<a class="eh-cta-event" href="/event/{escape(evt["id"])}">'
+            f'View the {escape(evt.get("label") or "event")} →</a>'
+        )
+
     return (
         '<header class="eh-hero">'
         f'<div class="eh-hero-bg">{hero_img}</div>'
@@ -12355,7 +14323,7 @@ def _render_solo_hotlap_hero(cfg, hero_img, hero_launch_html, refs):
         '<div class="eh-rule"></div>'
         f'<p class="eh-lede">{escape(lede)}</p>'
         f'<div class="eh-data-row">{data_html}</div>'
-        f'<div class="eh-cta">{hero_launch_html}</div>'
+        f'<div class="eh-cta">{hero_launch_html}{event_cta_html}</div>'
         '</div>'
         f'{portrait_html}'
         '</div>'
@@ -12404,12 +14372,12 @@ def _render_car_setup_block(cfg):
         if img_url else '<div class="cs-car-img cs-car-fallback"></div>'
     )
 
-    # Stat lines on car side
+    # Stat lines on car side (label stacked above a bold value — see .cs-stat-*)
     stat_rows = "".join(
         f'<div class="cs-stat-row"><span class="cs-stat-lbl">{escape(k)}</span>'
         f'<span class="cs-stat-val">{escape(str(v))}</span></div>'
         for k, v in [
-            ("BHP",       car.get("bhp")),
+            ("POWER",     car.get("bhp")),
             ("WEIGHT",    car.get("weight")),
             ("TOP SPEED", car.get("topspeed")),
             ("YEAR",      car.get("year")),
@@ -12451,38 +14419,60 @@ def _render_car_setup_block(cfg):
         for k, v in setup_items if v
     )
 
-    # Textual setup hints from CONFIGS — only used as fallback when no .ini
-    # values are available. Trim becomes the card title (no duplicate row).
+    # Hand-written setup notes from CONFIGS. Used as the primary content when no
+    # decoded .ini values exist (the common case — and safer than surfacing raw
+    # RSS setup indices, which don't map cleanly to in-game scales). `chips` is an
+    # optional strip of short, verified facts; priority/key render as prose.
     cfg_setup = cfg.get("setup") or {}
-    cfg_setup_rows = "".join(
-        f'<div class="cs-set-row"><span class="cs-set-lbl">{escape(k.upper())}</span>'
-        f'<span class="cs-set-val">{escape(str(v))}</span></div>'
-        for k, v in [
-            ("Priority", cfg_setup.get("priority")),
-            ("Key",      cfg_setup.get("key")),
-        ] if v
+    chips = cfg_setup.get("chips") or []
+    chips_html = ""
+    if chips:
+        chips_html = (
+            '<div class="cs-chips">'
+            + "".join(
+                f'<span class="cs-chip"><span class="cs-chip-k">{escape(str(c["k"]))}</span>'
+                f'<span class="cs-chip-v">{escape(str(c["v"]))}</span></span>'
+                for c in chips if c.get("k") and c.get("v")
+            )
+            + '</div>'
+        )
+    notes_html = "".join(
+        f'<div class="cs-setup-note"><div class="cs-setup-note-lbl">{escape(lbl)}</div>'
+        f'<div class="cs-setup-note-body">{escape(str(txt))}</div></div>'
+        for lbl, txt in [
+            ("The brief",     cfg_setup.get("priority")),
+            ("How it loads",  cfg_setup.get("key")),
+        ] if txt
     )
 
     setup_card = ""
-    if setup_rows_html or cfg_setup_rows or cfg_setup.get("trim"):
-        # When we have real .ini values, show them; otherwise fall back to
-        # the CONFIGS textual hints so the SETUP card is never empty.
+    if setup_rows_html or chips_html or notes_html or cfg_setup.get("trim"):
+        # Real decoded .ini values win (clean tabular readout); otherwise show the
+        # hand-written brief so the SETUP card is informative, never empty.
         if setup_rows_html:
             title = "Pole-chase trim"
             sub = "Auto-loads on launch · tuned for one flying lap"
-            body_html = setup_rows_html
+            body_html = f'<div class="cs-set-list">{setup_rows_html}</div>'
         else:
-            title = cfg_setup.get("trim") or "Setup notes"
-            sub = ""
-            body_html = cfg_setup_rows
+            title = cfg_setup.get("trim") or "Pole-chase trim"
+            sub = "Auto-loads on launch — no tuning required"
+            body_html = f'{chips_html}{notes_html}'
         setup_card = (
             '<div class="cs-card cs-card-setup">'
             '<div class="cs-card-lbl">SETUP</div>'
             f'<div class="cs-card-h3">{escape(title)}</div>'
-            f'{f"<div class=\"cs-card-sub\">{escape(sub)}</div>" if sub else ""}'
-            f'<div class="cs-set-list">{body_html}</div>'
+            f'<div class="cs-card-sub">{escape(sub)}</div>'
+            f'{body_html}'
             '</div>'
         )
+
+    # Sub line: explicit `ac_car_sub` wins; else brand, plus the AC class only when
+    # it's meaningful (the generic "RACE" class is noise, so drop it).
+    car_sub = cfg.get("ac_car_sub")
+    if not car_sub:
+        brand = cfg.get("ac_car_brand") or car.get("brand", "")
+        cls = (car.get("class") or "").upper()
+        car_sub = f"{brand} · {cls}" if cls and cls != "RACE" else brand
 
     car_card = (
         '<div class="cs-card cs-card-car">'
@@ -12490,7 +14480,7 @@ def _render_car_setup_block(cfg):
         '<div class="cs-car-body">'
         '<div class="cs-card-lbl">CAR</div>'
         f'<h3 class="cs-card-h3">{escape(cfg.get("ac_car_label") or car["name"])}</h3>'
-        f'<div class="cs-card-sub">{escape(cfg.get("ac_car_brand") or car.get("brand", ""))} · {escape((car.get("class") or "").upper())}</div>'
+        f'<div class="cs-card-sub">{escape(car_sub)}</div>'
         f'{livery_html}'
         f'<div class="cs-stat-list">{stat_rows}</div>'
         '</div>'
@@ -12610,6 +14600,27 @@ def _render_track_explained_block(cfg):
     )
 
 
+def _extras_bestlap(snap):
+    """Pull the session bestlap from a snapshot's `extras` block. AC writes this
+    even when the detailed `laps[]` array comes back empty in hotlap mode, so it
+    is the only record of a clean lap from such sessions. Returns ms or None."""
+    for e in snap.get("extras") or []:
+        if e.get("name") == "bestlap" and e.get("time"):
+            return e["time"]
+    return None
+
+
+def _tile_track_keys(cfg):
+    """Accepted snapshot `track` strings for a tile. Always the primary
+    `ac_track_id-ac_track_layout`, plus any `alt_tracks` the tile lists — used
+    when a circuit's track build is swapped (e.g. an FNR mod replaced by a KNS
+    release) so laps set on the old build still count as the same challenge."""
+    keys = {f"{cfg.get('ac_track_id','')}-{cfg.get('ac_track_layout','')}"}
+    keys.update(cfg.get("alt_tracks") or [])
+    keys.discard("-")
+    return keys
+
+
 def _load_hotlap_history_from_snapshots(cfg):
     """Build HOTLAP session history by scanning dashboard/results/snapshots/.
     Matches by car + track (skin-agnostic so a livery swap doesn't hide history).
@@ -12617,19 +14628,15 @@ def _load_hotlap_history_from_snapshots(cfg):
     if cfg.get("type") != "HOTLAP":
         return []
     car   = cfg.get("ac_car_id")
-    track = f"{cfg.get('ac_track_id','')}-{cfg.get('ac_track_layout','')}"
-    if not car or track == "-":
+    track_keys = _tile_track_keys(cfg)
+    if not car or not track_keys:
         return []
     snaps_dir = AC_DOC / "dashboard" / "results" / "snapshots"
     if not snaps_dir.exists():
         return []
     out = []
-    for f in sorted(snaps_dir.glob("*.json")):
-        try:
-            d = json.loads(f.read_text(encoding="utf-8"))
-        except Exception:
-            continue
-        if d.get("track") != track:
+    for f, d in _all_snapshots():
+        if d.get("track") not in track_keys:
             continue
         players = d.get("players") or []
         if not players or players[0].get("car") != car:
@@ -12639,16 +14646,28 @@ def _load_hotlap_history_from_snapshots(cfg):
             continue
         laps = sessions[0].get("laps") or []
         valid = [l for l in laps if l.get("car") == 0 and not l.get("cuts") and l.get("time")]
-        if not valid:
+        if valid:
+            best = min(valid, key=lambda l: l["time"])
+            out.append({
+                "ts":          f.stem,
+                "best_lap_ms": best["time"],
+                "sectors":     best.get("sectors") or [],
+                "lap_count":   len(valid),
+                "skin":        players[0].get("skin", ""),
+            })
             continue
-        best = min(valid, key=lambda l: l["time"])
-        out.append({
-            "ts":          f.stem,
-            "best_lap_ms": best["time"],
-            "sectors":     best.get("sectors") or [],
-            "lap_count":   len(valid),
-            "skin":        players[0].get("skin", ""),
-        })
+        # AC hotlap-mode quirk: some sessions leave laps[] empty but still record
+        # the clean lap in extras.bestlap. Fold it in so the PB still registers
+        # (no per-sector breakdown is available for these rows).
+        ex_ms = _extras_bestlap(d)
+        if ex_ms:
+            out.append({
+                "ts":          f.stem,
+                "best_lap_ms": ex_ms,
+                "sectors":     [],
+                "lap_count":   0,
+                "skin":        players[0].get("skin", ""),
+            })
     return out
 
 
@@ -12660,20 +14679,16 @@ def _load_hotlap_laps_for_tile(cfg):
     if cfg.get("type") != "HOTLAP":
         return []
     car   = cfg.get("ac_car_id")
-    track = f"{cfg.get('ac_track_id','')}-{cfg.get('ac_track_layout','')}"
-    if not car or track == "-":
+    track_keys = _tile_track_keys(cfg)
+    if not car or not track_keys:
         return []
     snaps_dir = AC_DOC / "dashboard" / "results" / "snapshots"
     if not snaps_dir.exists():
         return []
     best_laps = None
     best_min  = None
-    for f in sorted(snaps_dir.glob("*.json")):
-        try:
-            d = json.loads(f.read_text(encoding="utf-8"))
-        except Exception:
-            continue
-        if d.get("track") != track:
+    for f, d in _all_snapshots():
+        if d.get("track") not in track_keys:
             continue
         players = d.get("players") or []
         if not players or players[0].get("car") != car:
@@ -12917,7 +14932,7 @@ def _render_challenge_story(cfg, pb_ms, refs):
         ref_lbl = escape(refs[0]["label"]) if refs else "ref"
         return (
             '<section class="cd-section cd-story">'
-            '<h2 class="cd-h2">Session ladder · the climb</h2>'
+            '<h2 class="cd-h2">Evolution · the climb</h2>'
             '<table class="cd-tbl"><thead><tr>'
             '<th>#</th><th>Date</th><th>PB</th><th>Δ vs prev</th>'
             f'<th>Δ vs {ref_lbl}</th><th>Laps</th><th>Note</th>'
@@ -12964,15 +14979,25 @@ def _render_challenge_story(cfg, pb_ms, refs):
             '</section>'
         )
 
-    # Empty state — when no history exists yet
-    msg = "No telemetry logged for this challenge yet."
-    if cfg.get("type") == "DUEL":
+    # Empty state — when no history exists yet. Keep the SAME section identity as
+    # the populated version so every challenge of a given type reads the same: a
+    # hotlap with no laps is still "the climb", just not started. (Design
+    # consolidation — no page silently swaps to a generic "Logbook" heading.)
+    ctype = cfg.get("type")
+    if ctype == "RACE":
+        sec_title = "Race log"
+        msg = "No races logged for this challenge yet — finish one and the result lands here."
+    elif ctype == "DUEL":
+        sec_title = "Evolution · the climb"
         msg = "1v1 sessions aren't auto-logged yet — drive one and the videos above show the reference."
-    elif cfg.get("series") == "NLS":
+    else:
+        sec_title = "Evolution · the climb"
+        msg = "No laps logged yet — your first flying lap starts the climb."
+    if cfg.get("series") == "NLS":
         msg = "Session telemetry lives in telemetry_archive/ — drive a Mercer/Nord session and the launcher will pick it up next time."
     return (
         '<section class="cd-section cd-story cd-story-empty">'
-        '<h2 class="cd-h2">Logbook</h2>'
+        f'<h2 class="cd-h2">{escape(sec_title)}</h2>'
         f'<p class="cd-empty-msg">{escape(msg)}</p>'
         '<p class="cd-empty-hint">When you click LAUNCH, AC opens with the preset already applied. '
         'Run a session, archive it, and this page will fill in.</p>'
@@ -13083,6 +15108,34 @@ def launch_cmd(cfg_id: str, cmd_name: str = ""):
         return False, str(e)
 
 
+def launch_weekly(slot: str, mode: str = "race"):
+    """Launch a weekly slot. slot in {f1,gt3,wild}; mode in {race,hotlap}.
+
+    race   -> launch_week_{slot}.cmd          (full grid, TYPE=3)
+    hotlap -> launch_week_{slot}_hotlap.cmd   (solo vs the clock, TYPE=4)
+    """
+    if slot not in ("f1", "gt3", "wild"):
+        return False, f"unknown weekly slot: {slot}"
+    if mode not in ("race", "hotlap"):
+        return False, f"unknown weekly mode: {mode}"
+    chosen = (f"launch_week_{slot}.cmd" if mode == "race"
+              else f"launch_week_{slot}_hotlap.cmd")  # whitelisted by construction
+    cmd_path = AC_DOC / chosen
+    if not cmd_path.exists():
+        return False, f"weekly launcher not generated yet: {chosen}"
+    win_path = _to_windows_path(cmd_path)
+    win_dir = _to_windows_path(AC_DOC)
+    ps_cmd = f"Start-Process -FilePath '{win_path}' -WorkingDirectory '{win_dir}'"
+    try:
+        subprocess.Popen(
+            ["powershell.exe", "-NoProfile", "-Command", ps_cmd],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        return True, f"launched weekly {slot.upper()} {mode}"
+    except Exception as e:
+        return False, str(e)
+
+
 def open_dash(rel: str):
     target = (AC_DOC / rel).resolve()
     try:
@@ -13138,6 +15191,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Cache-Control", "no-store")
+        # gzip when the client accepts it — pages carry ~150KB of inline CSS,
+        # which compresses ~8-10x. Skips tiny bodies where it isn't worth it.
+        if "gzip" in self.headers.get("Accept-Encoding", "") and len(data) > 1400:
+            data = gzip.compress(data, 6)
+            self.send_header("Content-Encoding", "gzip")
+            self.send_header("Vary", "Accept-Encoding")
         self.send_header("Content-Length", str(len(data)))
         self._cors()
         self.end_headers()
@@ -13148,14 +15207,68 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", mime)
         self.send_header("Content-Length", str(len(data)))
-        self.send_header("Cache-Control", "no-store, must-revalidate")
+        # Static assets (images, track previews, favicon) were re-downloaded on
+        # every page view (no-store) — the event hub alone pulled ~9MB of photos
+        # each visit. Cache for an hour; a hard refresh picks up regenerated art.
+        self.send_header("Cache-Control", "public, max-age=3600")
         self._cors()
         self.end_headers()
         self.wfile.write(data)
 
+    def _file_ranged(self, path: Path, mime: str):
+        """Serve a file honouring a single HTTP Range request so <video> can
+        seek. Falls back to a normal 200 when no Range header is present."""
+        size = path.stat().st_size
+        range_header = self.headers.get("Range", "")
+        start, end = 0, size - 1
+        is_range = False
+        if range_header.startswith("bytes="):
+            spec = range_header[len("bytes="):].split(",")[0].strip()
+            lo, _, hi = spec.partition("-")
+            try:
+                if lo == "":           # suffix range: bytes=-N (last N bytes)
+                    start = max(0, size - int(hi))
+                else:
+                    start = int(lo)
+                    if hi:
+                        end = min(int(hi), size - 1)
+                if start > end or start >= size:
+                    self.send_response(416)
+                    self.send_header("Content-Range", f"bytes */{size}")
+                    self.end_headers()
+                    return
+                is_range = True
+            except ValueError:
+                is_range = False
+        length = end - start + 1
+        self.send_response(206 if is_range else 200)
+        self.send_header("Content-Type", mime)
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Length", str(length))
+        if is_range:
+            self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        self.send_header("Cache-Control", "no-store, must-revalidate")
+        self._cors()
+        self.end_headers()
+        with path.open("rb") as fh:
+            fh.seek(start)
+            remaining = length
+            while remaining > 0:
+                chunk = fh.read(min(64 * 1024, remaining))
+                if not chunk:
+                    break
+                try:
+                    self.wfile.write(chunk)
+                except (BrokenPipeError, ConnectionResetError):
+                    break
+                remaining -= len(chunk)
+
     def do_GET(self):
         u = urlparse(self.path)
         if u.path in ("/", "/index.html"):
+            self._html(render_weekly_page())
+            return
+        if u.path == "/challenges":
             self._html(render_html())
             return
         if u.path in ("/favicon.svg", "/favicon.ico"):
@@ -13164,6 +15277,25 @@ class Handler(BaseHTTPRequestHandler):
                 self._file(target, "image/svg+xml")
                 return
             self.send_error(404)
+            return
+        if u.path == "/api/active-cards":
+            # Returns rendered <a.ncard> fragments for the requested challenge
+            # ids (?ids=a,b,c). Used by the client-side Active-challenges grid.
+            q = parse_qs(u.query)
+            raw = (q.get("ids") or [""])[0]
+            seen, frag = set(), []
+            for cid in raw.split(","):
+                cid = cid.strip()
+                if not cid or cid in seen:
+                    continue
+                seen.add(cid)
+                cfg = next((c for c in CONFIGS if c["id"] == cid), None)
+                if cfg:
+                    frag.append(render_card(cfg))
+            self._html("".join(frag))
+            return
+        if u.path == "/f1-2026":
+            self._html(render_f1_calendar_page())
             return
         if u.path == "/cars":
             self._html(render_cars_page())
@@ -13271,6 +15403,11 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_error(404)
                 return
             ext = target.suffix.lower()
+            video_mime = {".mp4": "video/mp4", ".webm": "video/webm"}.get(ext)
+            if video_mime:
+                # Video is served with Range support so the player can seek.
+                self._file_ranged(target, video_mime)
+                return
             mime = {
                 ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                 ".png": "image/png", ".webp": "image/webp",
@@ -13300,6 +15437,12 @@ class Handler(BaseHTTPRequestHandler):
             ok, msg = launch_cmd(cfg_id, cmd_name)
             self._json(200, {"ok": ok, "msg": msg})
             return
+        if u.path == "/launch-weekly":
+            slot = (q.get("slot") or [""])[0]
+            mode = (q.get("mode") or ["race"])[0]
+            ok, msg = launch_weekly(slot, mode)
+            self._json(200, {"ok": ok, "msg": msg})
+            return
         if u.path == "/open":
             rel = (q.get("path") or [""])[0]
             ok, msg = open_dash(rel)
@@ -13321,18 +15464,26 @@ def _port_free(port):
 
 
 def _watch_and_reload():
-    """Daemon thread: re-exec the process if launcher_dashboard.py changes."""
-    src = Path(__file__)
-    try:
-        mt = src.stat().st_mtime
-    except Exception:
-        return
+    """Daemon thread: re-exec the process if any launcher .py changes.
+
+    Watches every .py beside this file (e.g. weekly_races.py), not just the main
+    module — editing an imported sibling must also restart so its new code loads.
+    """
+    here = Path(__file__).parent
+
+    def _max_mtime():
+        latest = 0.0
+        for p in here.glob("*.py"):
+            try:
+                latest = max(latest, p.stat().st_mtime)
+            except OSError:
+                continue
+        return latest
+
+    mt = _max_mtime()
     while True:
         time.sleep(1)
-        try:
-            new_mt = src.stat().st_mtime
-        except Exception:
-            continue
+        new_mt = _max_mtime()
         if new_mt > mt + 0.2:
             print("[launch-bay] code changed — restarting server...")
             sys.stdout.flush()
@@ -13355,6 +15506,16 @@ def main():
     print("  Ctrl+C to stop.")
     print("=" * 60)
     threading.Thread(target=_watch_and_reload, daemon=True).start()
+
+    # Pre-warm the weekly engine off the request path so even the first visit to
+    # "/" is instant (the cold pass does slow WSL→Windows disk introspection once).
+    def _warm_weekly():
+        try:
+            import weekly_races as weekly
+            weekly.current_week()
+        except Exception as e:
+            print(f"[launch-bay] weekly pre-warm skipped: {e}")
+    threading.Thread(target=_warm_weekly, daemon=True).start()
     if "--no-browser" not in sys.argv:
         def _open():
             try:

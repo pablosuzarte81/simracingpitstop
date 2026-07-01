@@ -1,0 +1,70 @@
+
+{
+	"track": "fn_barcelona-layout_gp_2026_fnr",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo Suzarte",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "Asi_W16_Antonelli_12"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [23015, 30500, 22487],
+					"time": 76002,
+					"cuts": 0,
+					"tyre": "C6"
+				}, 
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [23136, 30686, 22567],
+					"time": 76389,
+					"cuts": 0,
+					"tyre": "C6"
+				}, 
+				{
+					"lap": 2,
+					"car": 0,
+					"sectors": [23194, 30213, 22894],
+					"time": 76301,
+					"cuts": 0,
+					"tyre": "C6"
+				}, 
+				{
+					"lap": 3,
+					"car": 0,
+					"sectors": [23276, 30244, 22586],
+					"time": 76106,
+					"cuts": 0,
+					"tyre": "C6"
+				}],
+			"lapstotal": [4],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 76002,
+					"lap": 0
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 76002
+		}]
+}

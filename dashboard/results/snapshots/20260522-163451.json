@@ -1,0 +1,70 @@
+
+{
+	"track": "montreal-montreal_f1_2025",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Franco Colapinto",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_Alpine_A525_43"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [30913, 37107, 11371],
+					"time": 79391,
+					"cuts": 0,
+					"tyre": "C6"
+				}, 
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [30340, 36915, 10991],
+					"time": 78246,
+					"cuts": 0,
+					"tyre": "C6"
+				}, 
+				{
+					"lap": 2,
+					"car": 0,
+					"sectors": [30851, 36166, 11012],
+					"time": 78029,
+					"cuts": 0,
+					"tyre": "C6"
+				}, 
+				{
+					"lap": 3,
+					"car": 0,
+					"sectors": [29835, 36225, 10858],
+					"time": 76918,
+					"cuts": 0,
+					"tyre": "C6"
+				}],
+			"lapstotal": [4],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 76918,
+					"lap": 3
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 76918
+		}]
+}

@@ -1,0 +1,54 @@
+
+{
+	"track": "fn_redbullring-austria_f1_2025",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo Suzarte",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "Asi_W16_Antonelli_12"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [17192, 31290, 24775],
+					"time": 73257,
+					"cuts": 0,
+					"tyre": "C4"
+				}, 
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [16501, 30746, 24905],
+					"time": 72152,
+					"cuts": 0,
+					"tyre": "C4"
+				}],
+			"lapstotal": [2],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 72152,
+					"lap": 1
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 72152
+		}]
+}

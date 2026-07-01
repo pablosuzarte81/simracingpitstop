@@ -1,7 +1,7 @@
 @echo off
 REM ===============================================================
 REM  ONE-CLICK: LE MANS HOTLAP · RSS FORMULA 1986 V6 · 1200 BHP F1 TURBO
-REM  - Circuit de la Sarthe · 24h_2025 layout · hotlap mode
+REM  - Circuit de la Sarthe · 24h_2026 layout · hotlap mode
 REM ===============================================================
 setlocal enableextensions
 

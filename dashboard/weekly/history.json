@@ -1,0 +1,70 @@
+[
+  {
+    "year": 2026,
+    "week": 24,
+    "races": [
+      {
+        "slot": "f1",
+        "slot_label": "FORMULA 1 · SPAIN",
+        "title": "Spanish Grand Prix",
+        "location": "Circuit de Barcelona-Catalunya",
+        "finish": 20,
+        "points": 0,
+        "best_lap_ms": null
+      },
+      {
+        "slot": "gt3",
+        "slot_label": "LE MANS 24H",
+        "title": "24 Hours of Le Mans",
+        "location": "Circuit de la Sarthe",
+        "finish": null,
+        "points": 0,
+        "best_lap_ms": null
+      },
+      {
+        "slot": "wild",
+        "slot_label": "DTM & TOURING LEGENDS",
+        "title": "DTM & Touring Legends",
+        "location": "Magione",
+        "finish": null,
+        "points": 0,
+        "best_lap_ms": null
+      }
+    ],
+    "total": 0
+  },
+  {
+    "year": 2026,
+    "week": 19,
+    "races": [
+      {
+        "slot": "f1",
+        "slot_label": "FORMULA 1",
+        "title": "Canadian GP",
+        "location": "Montréal",
+        "finish": 19,
+        "points": 0,
+        "best_lap_ms": null
+      },
+      {
+        "slot": "gt3",
+        "slot_label": "GT3",
+        "title": "GT3 Championship Round",
+        "location": "Brands Hatch",
+        "finish": null,
+        "points": 0,
+        "best_lap_ms": null
+      },
+      {
+        "slot": "wild",
+        "slot_label": "GROUP C / LE MANS LEGENDS",
+        "title": "Group C / Le Mans Legends",
+        "location": "Monza",
+        "finish": null,
+        "points": 0,
+        "best_lap_ms": null
+      }
+    ],
+    "total": 0
+  }
+]

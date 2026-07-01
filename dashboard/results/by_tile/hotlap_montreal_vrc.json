@@ -1,0 +1,33 @@
+{
+  "ts": "20260520-185249",
+  "tile": {
+    "id": "hotlap_montreal_vrc",
+    "type": "HOTLAP",
+    "title": "HOTLAP ANY 2025 F1 DRIVER",
+    "ac_car_id": "vrc_formula_alpha_2025_csp",
+    "ac_car_skin": "e_Red_Bull_RB21_1_Verstappen",
+    "ac_track_id": "montreal",
+    "ac_track_layout": "montreal_f1_2025"
+  },
+  "summary": {
+    "track": "montreal-montreal_f1_2025",
+    "car": "vrc_formula_alpha_2025_csp",
+    "skin": "e_Red_Bull_RB21_1_Verstappen",
+    "player": "Max Verstappen",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "1:18.211",
+    "best_lap_ms": 78211,
+    "sectors": [
+      "0:30.111",
+      "0:37.024",
+      "0:11.076"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "C6"
+  },
+  "snapshot_file": "20260520-185249.json"
+}

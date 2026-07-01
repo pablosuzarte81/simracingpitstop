@@ -4,7 +4,7 @@
     "tile": {
       "id": "hotlap_montreal",
       "type": "HOTLAP",
-      "title": "MONTREAL HOTLAP",
+      "title": "HOTLAP ANY 2026 F1 DRIVER",
       "ac_car_id": "rss_formula_hybrid_2025_alpine",
       "ac_car_skin": "M17_RedBull_RB21_1",
       "ac_track_id": "montreal",
@@ -277,7 +277,7 @@
     "snapshot_file": "20260517-104542.json"
   },
   "hotlap_dacia_logan_n24": {
-    "ts": "20260517-083202",
+    "ts": "20260521-205101",
     "tile": {
       "id": "hotlap_dacia_logan_n24",
       "type": "HOTLAP",
@@ -296,18 +296,18 @@
         "name": "Hotlap",
         "type": 4
       },
-      "best_lap": "12:03.187",
-      "best_lap_ms": 723187,
+      "best_lap": "11:49.889",
+      "best_lap_ms": 709889,
       "sectors": [
-        "4:40.926",
-        "3:23.777",
-        "3:58.484"
+        "4:36.088",
+        "3:19.106",
+        "3:54.695"
       ],
       "finish": null,
       "field": 1,
       "tyre": "SM"
     },
-    "snapshot_file": "20260517-083202.json"
+    "snapshot_file": "20260521-205101.json"
   },
   "hotlap_vettel_rb7_nordschleife": {
     "ts": "20260517-084159",
@@ -404,37 +404,132 @@
     },
     "snapshot_file": "20260517-114541.json"
   },
-  "hotlap_lemans_rss_1986": {
-    "ts": "20260519-203049",
+  "hotlap_montreal_vrc": {
+    "ts": "20260520-185249",
     "tile": {
-      "id": "hotlap_lemans_rss_1986",
+      "id": "hotlap_montreal_vrc",
       "type": "HOTLAP",
-      "title": "RSS FORMULA 1986 V6 \u00b7 LE MANS",
-      "ac_car_id": "rss_formula_1986",
-      "ac_car_skin": "01_formula_yellow_21",
-      "ac_track_id": "sx_lemans",
-      "ac_track_layout": "24h_2025"
+      "title": "HOTLAP ANY 2025 F1 DRIVER",
+      "ac_car_id": "vrc_formula_alpha_2025_csp",
+      "ac_car_skin": "e_Red_Bull_RB21_1_Verstappen",
+      "ac_track_id": "montreal",
+      "ac_track_layout": "montreal_f1_2025"
     },
     "summary": {
-      "track": "sx_lemans-24h_2025",
-      "car": "rss_formula_1986",
-      "skin": "01_formula_yellow_21",
+      "track": "montreal-montreal_f1_2025",
+      "car": "vrc_formula_alpha_2025_csp",
+      "skin": "e_Red_Bull_RB21_1_Verstappen",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "1:18.211",
+      "best_lap_ms": 78211,
+      "sectors": [
+        "0:30.111",
+        "0:37.024",
+        "0:11.076"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "C6"
+    },
+    "snapshot_file": "20260520-185249.json"
+  },
+  "hotlap_monaco_2026": {
+    "ts": "20260531-071842",
+    "tile": {
+      "id": "hotlap_monaco_2026",
+      "type": "HOTLAP",
+      "title": "MONACO 2026 \u00b7 POLE CHASE",
+      "ac_car_id": "rss_formula_hybrid_2025_alpine",
+      "ac_car_skin": "Asi_W16_Antonelli_12",
+      "ac_track_id": "monaco_2020",
+      "ac_track_layout": "monaco_f1_2025"
+    },
+    "summary": {
+      "track": "monaco_2020-monaco_f1_2025",
+      "car": "rss_formula_hybrid_2025_alpine",
+      "skin": "FRX_McLaren_MCL39_4_Norris",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "Hotlap",
+        "type": 4
+      },
+      "best_lap": "1:12.912",
+      "best_lap_ms": 72912,
+      "sectors": [
+        "0:19.263",
+        "0:30.557",
+        "0:23.092"
+      ],
+      "finish": null,
+      "field": 1,
+      "tyre": "C6"
+    },
+    "snapshot_file": "20260531-071842.json"
+  },
+  "race_monaco_2026": {
+    "ts": "20260529-192255",
+    "tile": {
+      "id": "race_monaco_2026",
+      "type": "RACE",
+      "title": "MONACO GP 2026",
+      "ac_car_id": "rss_formula_hybrid_2025_alpine",
+      "ac_car_skin": "M17_RedBull_RB21_1",
+      "ac_track_id": "monaco_2020",
+      "ac_track_layout": "monaco_f1_2025"
+    },
+    "summary": {
+      "track": "monaco_2020-monaco_f1_2025",
+      "car": "rss_formula_hybrid_2025_alpine",
+      "skin": "M17_RedBull_RB21_1",
+      "player": "Max Verstappen",
+      "session": {
+        "name": "",
+        "type": 0
+      },
+      "best_lap": null,
+      "best_lap_ms": null,
+      "sectors": null,
+      "finish": null,
+      "field": 1,
+      "tyre": null
+    },
+    "snapshot_file": "20260529-192255.json"
+  },
+  "hotlap_barcelona_2026": {
+    "ts": "20260614-091945",
+    "tile": {
+      "id": "hotlap_barcelona_2026",
+      "type": "HOTLAP",
+      "title": "SPANISH GP 2026 \u00b7 POLE CHASE",
+      "ac_car_id": "rss_formula_hybrid_2025_alpine",
+      "ac_car_skin": "Asi_W16_Antonelli_12",
+      "ac_track_id": "ks_barcelona",
+      "ac_track_layout": "layout_gp_2026"
+    },
+    "summary": {
+      "track": "ks_barcelona-layout_gp_2026",
+      "car": "rss_formula_hybrid_2025_alpine",
+      "skin": "Asi_W16_Antonelli_12",
       "player": "Pablo Suzarte",
       "session": {
         "name": "Hotlap",
         "type": 4
       },
-      "best_lap": "4:05.069",
-      "best_lap_ms": 245069,
+      "best_lap": "1:16.262",
+      "best_lap_ms": 76262,
       "sectors": [
-        "1:41.990",
-        "1:33.156",
-        "0:49.923"
+        "0:22.919",
+        "0:30.341",
+        "0:23.002"
       ],
       "finish": null,
       "field": 1,
-      "tyre": "M"
+      "tyre": "C6"
     },
-    "snapshot_file": "20260519-203049.json"
+    "snapshot_file": "20260614-091945.json"
   }
 }

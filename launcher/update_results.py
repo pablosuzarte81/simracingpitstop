@@ -77,6 +77,14 @@ def summarize(snap):
     valid = [l for l in me_laps if l.get("cuts", 0) == 0 and l.get("time")]
     best_lap = min(valid, key=lambda l: l["time"]) if valid else None
     sectors = best_lap.get("sectors") if best_lap else None
+    # AC hotlap-mode quirk: laps[] can come back empty while extras.bestlap still
+    # holds the clean lap. Fall back to it so the result still records a best lap.
+    best_ms = best_lap["time"] if best_lap else None
+    if best_ms is None:
+        for e in snap.get("extras") or []:
+            if e.get("name") == "bestlap" and e.get("time"):
+                best_ms = e["time"]
+                break
     finish = None
     rr = sess.get("raceResult") or []
     if rr:
@@ -91,8 +99,8 @@ def summarize(snap):
         "skin":        skin,
         "player":      name,
         "session":     {"name": sess.get("name"), "type": sess.get("type")},
-        "best_lap":    fmt_ms(best_lap["time"]) if best_lap else None,
-        "best_lap_ms": best_lap["time"] if best_lap else None,
+        "best_lap":    fmt_ms(best_ms) if best_ms else None,
+        "best_lap_ms": best_ms,
         "sectors":     [fmt_ms(s) for s in sectors] if sectors else None,
         "finish":      finish,
         "field":       len(players),

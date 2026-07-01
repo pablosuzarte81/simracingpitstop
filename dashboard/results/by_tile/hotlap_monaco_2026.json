@@ -1,0 +1,33 @@
+{
+  "ts": "20260531-071842",
+  "tile": {
+    "id": "hotlap_monaco_2026",
+    "type": "HOTLAP",
+    "title": "MONACO 2026 \u00b7 POLE CHASE",
+    "ac_car_id": "rss_formula_hybrid_2025_alpine",
+    "ac_car_skin": "Asi_W16_Antonelli_12",
+    "ac_track_id": "monaco_2020",
+    "ac_track_layout": "monaco_f1_2025"
+  },
+  "summary": {
+    "track": "monaco_2020-monaco_f1_2025",
+    "car": "rss_formula_hybrid_2025_alpine",
+    "skin": "FRX_McLaren_MCL39_4_Norris",
+    "player": "Max Verstappen",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "1:12.912",
+    "best_lap_ms": 72912,
+    "sectors": [
+      "0:19.263",
+      "0:30.557",
+      "0:23.092"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "C6"
+  },
+  "snapshot_file": "20260531-071842.json"
+}

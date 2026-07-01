@@ -54,3 +54,6 @@ apps/telemetrick/actelemetry/
 # === Plain dump files ===
 *.ld
 *.act
+
+# Oversized lap-guide video (990MB, exceeds GitHub 100MB limit) — keep local only
+launcher/images/videos/barcelona_2026_lap_guide.mp4

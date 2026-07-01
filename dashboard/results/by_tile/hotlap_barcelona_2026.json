@@ -1,0 +1,33 @@
+{
+  "ts": "20260614-091945",
+  "tile": {
+    "id": "hotlap_barcelona_2026",
+    "type": "HOTLAP",
+    "title": "SPANISH GP 2026 \u00b7 POLE CHASE",
+    "ac_car_id": "rss_formula_hybrid_2025_alpine",
+    "ac_car_skin": "Asi_W16_Antonelli_12",
+    "ac_track_id": "ks_barcelona",
+    "ac_track_layout": "layout_gp_2026"
+  },
+  "summary": {
+    "track": "ks_barcelona-layout_gp_2026",
+    "car": "rss_formula_hybrid_2025_alpine",
+    "skin": "Asi_W16_Antonelli_12",
+    "player": "Pablo Suzarte",
+    "session": {
+      "name": "Hotlap",
+      "type": 4
+    },
+    "best_lap": "1:16.262",
+    "best_lap_ms": 76262,
+    "sectors": [
+      "0:22.919",
+      "0:30.341",
+      "0:23.002"
+    ],
+    "finish": null,
+    "field": 1,
+    "tyre": "C6"
+  },
+  "snapshot_file": "20260614-091945.json"
+}

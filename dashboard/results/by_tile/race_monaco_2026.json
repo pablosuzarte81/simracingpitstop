@@ -1,0 +1,29 @@
+{
+  "ts": "20260529-192255",
+  "tile": {
+    "id": "race_monaco_2026",
+    "type": "RACE",
+    "title": "MONACO GP 2026",
+    "ac_car_id": "rss_formula_hybrid_2025_alpine",
+    "ac_car_skin": "M17_RedBull_RB21_1",
+    "ac_track_id": "monaco_2020",
+    "ac_track_layout": "monaco_f1_2025"
+  },
+  "summary": {
+    "track": "monaco_2020-monaco_f1_2025",
+    "car": "rss_formula_hybrid_2025_alpine",
+    "skin": "M17_RedBull_RB21_1",
+    "player": "Max Verstappen",
+    "session": {
+      "name": "",
+      "type": 0
+    },
+    "best_lap": null,
+    "best_lap_ms": null,
+    "sectors": null,
+    "finish": null,
+    "field": 1,
+    "tyre": null
+  },
+  "snapshot_file": "20260529-192255.json"
+}

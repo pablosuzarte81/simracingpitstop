@@ -1,0 +1,33 @@
+
+{
+	"track": "sx_lemans-24h_2026",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "Pablo Suzarte",
+			"car": "rss_mph_protech_p96_v8",
+			"skin": "04_protech_endurance_65"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [],
+			"lapstotal": [0],
+			"bestLaps": []
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		}, 
+		{
+			"name": "bestlap",
+			"time": 0
+		}]
+}

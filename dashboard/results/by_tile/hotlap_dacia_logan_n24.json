@@ -1,5 +1,5 @@
 {
-  "ts": "20260517-083202",
+  "ts": "20260521-205101",
   "tile": {
     "id": "hotlap_dacia_logan_n24",
     "type": "HOTLAP",
@@ -18,16 +18,16 @@
       "name": "Hotlap",
       "type": 4
     },
-    "best_lap": "12:03.187",
-    "best_lap_ms": 723187,
+    "best_lap": "11:49.889",
+    "best_lap_ms": 709889,
     "sectors": [
-      "4:40.926",
-      "3:23.777",
-      "3:58.484"
+      "4:36.088",
+      "3:19.106",
+      "3:54.695"
     ],
     "finish": null,
     "field": 1,
     "tyre": "SM"
   },
-  "snapshot_file": "20260517-083202.json"
+  "snapshot_file": "20260521-205101.json"
 }

@@ -1,0 +1,77 @@
+{
+	"track": "monaco_2020-monaco_f1_2025",
+	"number_of_sessions": 1,
+	"players": [
+		{
+			"name": "pablosu",
+			"car": "rss_formula_hybrid_2025_alpine",
+			"skin": "M17_RedBull_RB21_1"
+		}],
+	"sessions": [
+		{
+			"event": 0,
+			"name": "Hotlap",
+			"type": 4,
+			"lapsCount": 0,
+			"duration": 30,
+			"laps": [
+				{
+					"lap": 0,
+					"car": 0,
+					"sectors": [22742, 37880, 28006],
+					"time": 88628,
+					"cuts": 0,
+					"tyre": "C6"
+				},
+				{
+					"lap": 1,
+					"car": 0,
+					"sectors": [21962, 37536, 26639],
+					"time": 86137,
+					"cuts": 0,
+					"tyre": "C6"
+				},
+				{
+					"lap": 2,
+					"car": 0,
+					"sectors": [20798, 35276, 26373],
+					"time": 82447,
+					"cuts": 0,
+					"tyre": "C6"
+				},
+				{
+					"lap": 3,
+					"car": 0,
+					"sectors": [20791, 34372, 26095],
+					"time": 81258,
+					"cuts": 0,
+					"tyre": "C6"
+				},
+				{
+					"lap": 4,
+					"car": 0,
+					"sectors": [20104, 33466, 24933],
+					"time": 78503,
+					"cuts": 0,
+					"tyre": "C6"
+				}],
+			"lapstotal": [5],
+			"bestLaps": [
+				{
+					"car": 0,
+					"time": 78503,
+					"lap": 4
+				}]
+		}],
+	"extras": [
+		{
+			"name": "special_event",
+			"guid": "",
+			"max": 0,
+			"tier": -1
+		},
+		{
+			"name": "bestlap",
+			"time": 78503
+		}]
+}
